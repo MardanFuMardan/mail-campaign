@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noon Campaign Generator | V17 Final with Unboxing</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           1. THEME VARIABLES
+           ========================================
+        */
+        :root {
+            --bg-deep: #050505;
+            --glass-panel: rgba(20, 20, 20, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --noon-yellow: #feee00;
+            --text-main: #ffffff;
+            --accent-cyan: #00e5ff;
+            --success-green: #00ff88;
+            --alert-red: #ff4d4d;
+        }
+
+        * {
+            box-sizing: border-box;
+            outline: none;
+            scrollbar-width: thin;
+            scrollbar-color: var(--noon-yellow) #222;
+        }
+
+        body {
+            font-family: 'Outfit', 'Cairo', sans-serif;
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(157, 0, 255, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(0, 229, 255, 0.08) 0%, transparent 45%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--noon-yellow); }
+
+        /* ========================================
+           2. LAYOUT GRID
+           ========================================
+        */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 30px;
+            width: 100%;
+            max-width: 1600px;
+            height: 92vh;
+        }
+
+        .panel {
+            background: var(--glass-panel);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            padding: 30px;
+            gap: 25px;
+            z-index: 2;
+        }
+
+        .logo-area {
+            text-align: center;
+            margin-bottom: 10px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .noon-circle {
+            width: 80px; height: 80px;
+            background: var(--noon-yellow);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 36px; font-weight: 900; color: #000;
+            box-shadow: 0 0 40px rgba(254, 238, 0, 0.25);
+        }
+
+        h1 { font-size: 24px; margin: 0; color: #fff; letter-spacing: 1px; font-weight: 800; }
+        
+        .field-group label {
+            display: block; font-size: 13px; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--accent-cyan); margin-bottom: 10px; font-weight: 700;
+        }
+
+        input, select {
+            width: 100%; padding: 18px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            color: #fff; font-family: inherit; font-size: 16px;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--noon-yellow);
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 20px rgba(254, 238, 0, 0.15);
+        }
+
+        .generate-btn {
+            margin-top: auto; width: 100%; padding: 22px;
+            background: linear-gradient(135deg, var(--noon-yellow) 0%, #c5b800 100%);
+            border: none; border-radius: 16px;
+            color: #000; font-size: 18px; font-weight: 900;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.2s; box-shadow: 0 10px 30px rgba(254, 238, 0, 0.2);
+        }
+        .generate-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(254, 238, 0, 0.4); }
+
+        /* --- CONTENT PANEL --- */
+        .content-panel { padding: 0; background: #000; }
+
+        .top-nav {
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex; justify-content: space-between; align-items: center;
+            height: 80px;
+            flex-shrink: 0;
+        }
+
+        .tabs { display: flex; background: #111; padding: 5px; border-radius: 10px; border: 1px solid #333; gap: 5px; }
+        
+        .tab-btn {
+            padding: 8px 20px; background: transparent; border: none;
+            color: #888; cursor: pointer; font-weight: 600; border-radius: 8px;
+            transition: 0.3s; font-size: 14px;
+        }
+        .tab-btn.active { background: #333; color: #fff; }
+
+        .subject-box {
+            padding: 15px 30px;
+            background: rgba(0, 229, 255, 0.05);
+            border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+            color: var(--accent-cyan);
+            font-family: 'Consolas', monospace; font-size: 14px;
+            display: flex; justify-content: space-between; align-items: center;
+            height: 60px;
+            flex-shrink: 0;
+        }
+
+        .copy-icon { cursor: pointer; padding: 5px; border-radius: 5px; transition: 0.2s; }
+        .copy-icon:hover { background: var(--accent-cyan); color: #000; }
+
+        /* Viewport */
+        .viewport {
+            position: relative;
+            flex-grow: 1;
+            overflow: hidden;
+            height: calc(100% - 140px);
+        }
+        
+        .view-content {
+            display: none; height: 100%; overflow-y: auto;
+            position: absolute; width: 100%; top: 0; left: 0;
+            padding-bottom: 100px;
+            animation: fadeIn 0.4s ease-out;
+        }
+        .view-content.active { display: block; }
+
+        .email-preview { background: #fff; color: #333; padding: 50px; min-height: 100%; }
+        .code-preview {
+            background: #0e0e0e; color: #e0e0e0; padding: 40px;
+            font-family: 'Consolas', monospace; white-space: pre-wrap;
+            line-height: 1.7; font-size: 14px;
+        }
+
+        /* Fixed FAB */
+        .fab-container {
+            position: absolute; bottom: 30px; right: 40px;
+            z-index: 100; pointer-events: none; width: 100%;
+            display: flex; justify-content: flex-end;
+        }
+
+        .fab-copy {
+            pointer-events: auto; background: #fff; color: #000; border: none;
+            padding: 15px 30px; border-radius: 50px;
+            font-weight: 800; font-size: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            cursor: pointer; display: flex; align-items: center; gap: 10px;
+            transition: 0.2s; border: 2px solid var(--noon-yellow);
+        }
+        .fab-copy:hover { transform: scale(1.05); background: var(--noon-yellow); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="main-grid">
+        
+        <div class="panel sidebar">
+            <div class="logo-area">
+                <div class="noon-circle">n</div>
+                <h1>CAMPAIGN HUB</h1>
+                <span style="font-size: 12px; color: #888;">V17.0 | UNBOXING RETURNED</span>
+            </div>
+
+            <div class="field-group">
+                <label>📍 Country</label>
+                <select id="country" onchange="updateSubject()">
+                    <option value="Oman">Oman</option>
+                    <option value="Kuwait">Kuwait</option>
+                    <option value="Qatar">Qatar</option>
+                    <option value="Bahrain">Bahrain</option>
+                </select>
+            </div>
+
+            <div class="field-group">
+                <label>👤 Influencer Name</label>
+                <input type="text" id="name" placeholder="Name">
+            </div>
+
+            <div class="field-group">
+                <label>💰 Fee (USD)</label>
+                <input type="number" id="price" placeholder="500">
+            </div>
+
+            <button class="generate-btn" onclick="generateContent()">Generate Brief</button>
+        </div>
+
+        <div class="panel content-panel">
+            <div class="top-nav">
+                <div style="font-weight: 700; color: #fff;">PREVIEW</div>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('email')">Email Body</button>
+                    <button class="tab-btn" onclick="switchTab('eng')">Brief (EN)</button>
+                    <button class="tab-btn" onclick="switchTab('ar')">Brief (AR)</button>
+                </div>
+            </div>
+
+            <div class="subject-box">
+                <div style="display:flex; align-items:center;">
+                    <span style="color:#fff; font-weight:bold; margin-right:10px;">SUBJECT:</span>
+                    <span id="subjectText">Waiting...</span>
+                </div>
+                <div class="copy-icon" onclick="copySubject()" title="Copy Subject">📋</div>
+            </div>
+
+            <div class="viewport">
+                <div id="view-email" class="view-content active">
+                    <div id="render-email" class="email-preview" contenteditable="false">
+                        <div style="text-align:center; padding-top:150px; color:#ccc;">
+                            ⚡ Ready. Click Generate.
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-eng" class="view-content">
+                    <div id="render-eng" class="code-preview"></div>
+                </div>
+
+                <div id="view-ar" class="view-content">
+                    <div id="render-ar" class="code-preview" dir="rtl"></div>
+                </div>
+            </div>
+
+            <div class="fab-container">
+                <button id="btn-email" class="fab-copy" onclick="copyRichText('render-email', this)">
+                    <span>Copy Email Body</span>
+                </button>
+                <button id="btn-eng" class="fab-copy" style="display:none;" onclick="copyText('render-eng', this)">
+                    <span>Copy Brief (EN)</span>
+                </button>
+                <button id="btn-ar" class="fab-copy" style="display:none;" onclick="copyText('render-ar', this)">
+                    <span>نسخ تعليمات الفيديو</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA ---
+        const LOGO_URL = "https://f.nooncdn.com/s/app/com/noon/design-system/logos/noon-logo-ar.svg";
+        const GUIDE_URL = "https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view?usp=sharing";
+        const OFFICIAL_LOGO_DRIVE = "https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS?usp=drive_link";
+        const INSTAGRAM_COLLAB = "https://www.instagram.com/noonmarketingteam/";
+        
+        const HOOKS_EN = `1. Ramadan shopping doesn’t have to be expensive
+2. Why pay more for Ramadan essentials?
+3. Everything you need for Ramadan — in one app
+4. This is where I found the best Ramadan deals
+5. I stopped shopping around when I found this
+6. Ramadan savings you don’t want to miss
+7. If you’re preparing for Ramadan, watch this`;
+
+        const HOOKS_AR = `١. رمضان مش لازم يكلّفك كتير...
+٢. ليه تدفع أكتر على حاجة تقدر توفر فيها؟
+٣. كل احتياجات رمضان في مكان واحد؟
+٤. أوفر أسعار رمضان لقيتها هنا...
+٥. أنا كنت بلف على كذا مكان لحد ما لقيت ده
+٦. رمضان السنة دي أوفر بكتير
+٧. لو بتجهّز لرمضان، الفيديو ده ليك`;
+
+        const TAGS_EN = `#noon #Ramadan #RamadanDeals #RamadanSavings #RamadanShopping #OnlineShopping #SmartShopping #BestDeals #ShopOnline #RamadanEssentials #GCCShopping #ShopWithNoon #NoonApp #RamadanVibes`;
+        const TAGS_AR = `#نون #رمضان #عروض_رمضان #توفير_رمضان #تسوق_أونلاين #احتياجات_رمضان #رمضان_كريم #تجهيزات_رمضان #تسوق_ذكي #توصيل_لحد_البيت #خصومات #توفير #رمضان_مع_نون #نون_رمضان #تسوق_رمضان`;
+
+        function generateContent() {
+            const country = document.getElementById('country').value;
+            const name = document.getElementById('name').value || "Partner";
+            let rawPrice = document.getElementById('price').value || "0";
+            const price = parseInt(rawPrice) + "$";
+            const fullCountryList = "Oman, Kuwait, Qatar, and Bahrain";
+
+            // Subject
+            const subject = `Ramadan Campaign Brief & Video Submission Details – noon GCC | ${country}`;
+            document.getElementById('subjectText').innerText = subject;
+
+            // --- EMAIL BODY ---
+            const emailHTML = `
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; color: #333; line-height: 1.6; font-size: 15px; max-width: 700px; margin: 0 auto; background-color: #ffffff;">
+                <tr>
+                    <td align="center" style="background-color: #feee00; padding: 25px 0;">
+                        <img src="${LOGO_URL}" alt="noon" width="100" style="display: block;">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="padding: 40px 30px;">
+                        
+                        <p style="margin-top: 0;">Hi <strong>${name}</strong>,<br>
+                        Hope you’re having a great week!</p>
+
+                        <p>We’re excited to reach out regarding the <strong>noon Ramadan Savings Campaign</strong> across the GCC (Oman, Kuwait, Qatar, and Bahrain).</p>
+                        
+                        <p>Ramadan is a key season for smart shopping and family essentials. This campaign aims to position noon as the <strong>go-to platform for all Ramadan needs</strong>—offering unbeatable savings and a wide variety of products in one convenient place.</p>
+
+                        <div style="border: 2px dashed #d93025; background-color: #fff5f5; padding: 25px; border-radius: 12px; margin: 30px 0;">
+                            <strong style="color: #d93025; font-size: 16px; text-transform: uppercase; display: block; margin-bottom: 15px;">🚨 Critical Posting Rules</strong>
+                            <ul style="margin: 0; padding-left: 20px; color: #000;">
+                                <li style="margin-bottom: 12px;"><strong>The Logo:</strong> ONLY use this file: <a href="${OFFICIAL_LOGO_DRIVE}" style="font-weight: bold; background-color: #feee00; color: #000; text-decoration: none; padding: 4px 8px; border-radius: 4px;">👉 Official Logo</a></li>
+                                <li style="margin-bottom: 12px;"><strong>Instagram:</strong> Invite Collaborator: <a href="${INSTAGRAM_COLLAB}" style="color: #0095f6; font-weight: bold; text-decoration: none;">@noonmarketingteam</a></li>
+                                <li style="margin-bottom: 12px;"><strong>TikTok:</strong> Provide <strong>Spark Code</strong> immediately.</li>
+                                <li><strong>Captions:</strong> Final captions/tags will be sent after approval. <strong>Do NOT write your own.</strong></li>
+                            </ul>
+                        </div>
+
+                        <div style="padding: 20px; background-color: #f0f7ff; border-left: 6px solid #0055cc; margin-bottom: 35px;">
+                            <strong style="color: #0055cc;">🎥 STEP 1: Watch Before Filming</strong><br>
+                            To ensure approval, watch this "Do's & Don'ts" guide:<br>
+                            <a href="${GUIDE_URL}" style="color: #0055cc; font-weight: bold; text-decoration: underline;">Click Here to Watch the Creative Guide</a>
+                        </div>
+
+                        <strong style="font-size: 18px; display:block; margin-bottom:10px;">📹 Content Focus (90% / 10%)</strong>
+                        <div style="background: #fafafa; padding: 25px; border-radius: 12px; border: 1px solid #eee;">
+                            <p><strong>90% Focus:</strong> Ramadan-related products, Discounts/Savings, Ease of shopping, Variety.</p>
+                            <p><strong>10% Focus:</strong> noon's availability in ${fullCountryList}.</p>
+                            
+                            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 15px 0;">
+                            
+                            <strong>📱 Categories to Feature (Variety + Value):</strong>
+                            <ul style="margin-top: 5px; padding-left: 20px;">
+                                <li>Ramadan food essentials & Groceries.</li>
+                                <li>Kitchen appliances & Home décor.</li>
+                                <li>Personal care, Gifting, Electronics.</li>
+                            </ul>
+                        </div>
+                        <br>
+
+                        <div style="background: #f0fff4; padding: 20px; border-radius: 8px; border: 1px solid #c6f6d5; margin-bottom: 30px;">
+                            <strong style="color: #2f855a;">📦 Unboxing Option (OPTIONAL)</strong>
+                            <p style="margin-top:5px; margin-bottom:10px;">You can place an order <strong>(Max 100 AED)</strong> to unbox on camera.</p>
+                            <ul style="margin: 0; padding-left: 20px;">
+                                <li>Show the unboxing clearly.</li>
+                                <li>Mention products are available on noon.</li>
+                                <li><em>The order amount (up to 100 AED) will be added to your influencer fee.</em></li>
+                            </ul>
+                        </div>
+
+                        <strong style="background: #000; color: #fff; padding: 5px 10px; border-radius:4px;">📂 Deliverables & Submission</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li><strong>Files:</strong> 1 Edited Video + 1 RAW Video.</li>
+                            <li><strong>Method:</strong> Google Drive Link OR WhatsApp "Document".</li>
+                            <li style="color: #d93025; font-weight: bold;">No compressed WhatsApp videos.</li>
+                        </ul>
+                        <br>
+
+                        <strong style="background: #eee; color: #000; padding: 5px 10px; border-radius:4px;">🎨 Visual Requirements</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li style="margin-bottom:5px;"><strong>Fonts:</strong> Text must be BIG and CLEAR.</li>
+                            <li style="margin-bottom:5px;"><strong>Colors:</strong> Highlight in <strong>YELLOW</strong>.</li>
+                            <li><strong>Contrast:</strong> Do NOT use white text on light backgrounds. Make it readable!</li>
+                        </ul>
+                        <br>
+
+                        <div align="center" style="padding: 30px; background-color: #f9f9f9; border-radius: 12px; border: 1px solid #ddd;">
+                            <strong style="font-size: 18px;">📣 Call to Action</strong><br><br>
+                            <em>“Download the noon app now and shop Ramadan deals!”</em><br><br>
+                            Code: <strong style="background-color: #feee00; padding: 5px 15px; font-size: 20px;">"أهلا"</strong><br>
+                            <div style="margin-top: 15px; border: 1px solid #d93025; color: #d93025; padding: 5px 10px; display:inline-block; border-radius:5px; font-weight:bold;">
+                                ⚠️ 15% Instant Discount (NOT Cashback)
+                            </div>
+                        </div>
+                        <br>
+
+                        <div style="background-color: #fafafa; padding: 25px; border-radius: 8px; border: 1px solid #eee;">
+                            <strong style="font-size: 16px;">📅 Timeline & Payment</strong>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li><strong>Deadline:</strong> XX Feb (Live: 02 Feb - 06 Mar).</li>
+                                <li><strong>Approval:</strong> Required before posting.</li>
+                                <li><strong>Fee:</strong> ${price} (Payment: 1-3 months post-campaign).</li>
+                            </ul>
+                            <p style="margin-bottom:0;"><strong>KPI:</strong> 50% Reach (Boost required if not met). Retention: 1 Year.</p>
+                        </div>
+                        <br>
+
+                        <p>Please confirm receipt and your availability.</p>
+                        <p><strong>noon Marketing Team</strong></p>
+                    </td>
+                </tr>
+            </table>`;
+
+            // --- 2. ENGLISH BRIEF ---
+            const engText = `VIDEO CREATION INSTRUCTIONS & GUIDELINES
+(Ramadan Savings Campaign)
+
+1. VIDEO REQUIREMENTS (TECHNICAL)
+- Duration: 30–45 seconds.
+- Quality: High quality, good lighting. NO heavy filters.
+- Audio: Clear voiceover + Trendy Ramadan sounds.
+- Visuals: 
+  * Font must be BIG and CLEAR.
+  * Highlights must be YELLOW.
+  * Ensure high contrast (No white text on white background).
+
+2. CONTENT STRUCTURE
+- 90% Focus: Ramadan Savings, Product Variety, Ease of App.
+- 10% Focus: noon is available in Oman, Kuwait, Qatar, Bahrain.
+- Unboxing (Optional): Max budget 100 AED (added to fee).
+
+3. SCRIPT HOOKS (Choose One)
+${HOOKS_EN}
+
+4. MANDATORY KEY MESSAGES
+- "No Delivery Fees" (Free Delivery).
+- "15% Instant Discount" (Stop saying Cashback).
+- "All Ramadan essentials in one place".
+
+5. CALL TO ACTION (CTA)
+- "Download the noon app now!"
+- Code: "أهلاً".
+
+6. SUBMISSION & RULES
+- Submit: 1 Edited + 1 Raw Video via Drive/Doc.
+- Don't Post: Wait for approval.
+- Captions/Tags: Will be provided by us.
+- Use these Hashtags:
+${TAGS_EN}`;
+
+            // --- 3. ARABIC BRIEF ---
+            const arText = `تعليمات تصوير وإنشاء الفيديو
+(حملة توفير رمضان)
+
+١. المتطلبات التقنية للفيديو
+- المدة: ٣٠-٤٥ ثانية.
+- الجودة: إضاءة ممتازة، صوت واضح، بدون فلاتر ثقيلة.
+- الصوت: موسيقى رمضانية تريند + صوت واضح.
+- الكتابة (هام): الخط لازم يكون كبير وواضح.
+- الألوان: الهايلايت لازم يكون بالأصفر. (ممنوع كتابة أبيض على خلفية فاتحة).
+
+٢. محتوى الفيديو
+- ٩٠٪ تركيز على: منتجات رمضان، التوفير، وتنوع المنتجات.
+- ١٠٪ تركيز على: توفر نون في (عمان، الكويت، قطر، البحرين).
+- فتح الصندوق (اختياري): ميزانية ١٠٠ درهم تضاف للأجر.
+
+٣. جمل افتتاحية مقترحة (Hooks)
+${HOOKS_AR}
+
+٤. رسائل إجبارية (لازم تتقال)
+- "مفيش مصاريف توصيل" (توصيل مجاني).
+- "خصم فوري ١٥٪" (ممنوع تقول كاش باك).
+- "كل احتياجات رمضان في مكان واحد".
+
+٥. الخاتمة (CTA)
+- "حمل تطبيق نون دلوقتي".
+- كود: "أهلاً".
+
+٦. التسليم والشروط
+- المطلوب: فيديو معدل + فيديو خام (Drive/Doc).
+- النشر: ممنوع النشر قبل الموافقة.
+- الكابشن والهاشتاج: احنا هنبعتهولك (متكتبش من عندك).
+- الهاشتاجات المستخدمة:
+${TAGS_AR}`;
+
+            // Render
+            document.getElementById('render-email').innerHTML = emailHTML;
+            document.getElementById('render-eng').innerText = engText;
+            document.getElementById('render-ar').innerText = arText;
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.view-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-' + tabId).classList.add('active');
+            event.target.classList.add('active');
+            
+            // Buttons
+            document.getElementById('btn-email').style.display = tabId === 'email' ? 'flex' : 'none';
+            document.getElementById('btn-eng').style.display = tabId === 'eng' ? 'flex' : 'none';
+            document.getElementById('btn-ar').style.display = tabId === 'ar' ? 'flex' : 'none';
+        }
+
+        function copySubject() {
+            const text = document.getElementById('subjectText').innerText;
+            if(text.includes("Waiting")) return;
+            navigator.clipboard.writeText(text);
+        }
+
+        function copyRichText(id, btn) {
+            const node = document.getElementById(id);
+            const range = document.createRange();
+            range.selectNodeContents(node);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            btn.style.background = "#00ff88";
+            setTimeout(() => btn.style.background = "#fff", 1000);
+        }
+
+        function copyText(id, btn) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            btn.style.background = "#00ff88";
+            setTimeout(() => btn.style.background = "#fff", 1000);
+        }
+    </script>
+</body>
+</html>
