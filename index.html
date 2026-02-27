@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noon Campaign Generator | V24 Final Exact Requirements</title>
+    <title>Noon Eid Campaign Generator</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            overflow: hidden; /* Prevent body scroll, handle in panels */
+            overflow: hidden;
         }
 
         /* LAYOUT GRID */
@@ -149,7 +149,6 @@
             transition: 0.2s;
         }
         .fab-btn:hover { transform: scale(1.05); background: var(--noon-yellow); }
-
     </style>
 </head>
 <body>
@@ -160,16 +159,16 @@
             <div class="logo-header">
                 <div class="logo-circle">n</div>
                 <h1 style="font-size:16px; margin:0; color:#fff; letter-spacing:1px;">CAMPAIGN HUB</h1>
-                <span style="font-size:10px; color:#666;">RAMADAN SAVINGS | GCC</span>
+                <span style="font-size:10px; color:#666;">EID CAMPAIGN | GCC</span>
             </div>
             
             <div class="field-group">
                 <label>📍 Country</label>
                 <select id="country" onchange="updateSubject()">
-                    <option value="Oman">Oman</option>
-                    <option value="Kuwait">Kuwait</option>
                     <option value="Qatar">Qatar</option>
                     <option value="Bahrain">Bahrain</option>
+                    <option value="Oman">Oman</option>
+                    <option value="Kuwait">Kuwait</option>
                 </select>
             </div>
             <div class="field-group">
@@ -177,17 +176,26 @@
                 <input type="text" id="name" placeholder="Enter Name">
             </div>
             <div class="field-group">
-                <label>💰 Fee (USD)</label>
+                <label>💰 Fee (AED)</label>
                 <input type="number" id="price" placeholder="500">
+            </div>
+            <div class="field-group">
+                <label>📅 Video Deadline Date</label>
+                <input type="date" id="deadlineDate">
+            </div>
+            <div class="field-group">
+                <label>🚀 Go Live Date</label>
+                <input type="date" id="liveDate">
             </div>
             <div class="field-group">
                 <label>✍️ Sender Name</label>
                 <input type="text" id="senderName" value="Mahmoud">
             </div>
+
             <button class="gen-button" onclick="generateBrief()">Generate Brief</button>
             
             <div style="margin-top:auto; font-size:10px; color:#444; text-align:center;">
-                v24.0 | Key Messages Updated
+                v25.0 | Eid Campaign V1
             </div>
         </div>
 
@@ -220,13 +228,15 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- ENG VIEW -->
                 <div id="view-eng" class="view-content">
                     <div id="render-eng" class="checklist-render"></div>
                 </div>
+
                 <!-- AR VIEW -->
                 <div id="view-ar" class="view-content">
-                    <div id="render-ar" class="checklist-render" dir="rtl"></div>
+                    <div id="render-ar" class="checklist-render" dir="rtl" style="text-align: right;"></div>
                 </div>
             </div>
 
@@ -241,30 +251,11 @@
     <script>
         // --- CONSTANTS ---
         const LOGO_URL = "https://f.nooncdn.com/s/app/com/noon/design-system/logos/noon-logo-ar.svg";
-        const OFFICIAL_LOGO_DRIVE = "https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS?usp=drive_link";
-        const INSTAGRAM_COLLAB = "https://www.instagram.com/noonmarketingteam/";
         
         // --- TEXT BLOCKS ---
-        const SCRIPT_DIRECTION = `
-1. “رمضان محتاج تجهيزات كتير… والأحلى لما تلاقي كل حاجة في مكان واحد وبأسعار أوفر.”
-2. “noon موفّر كل احتياجات رمضان بعروض وتخفيضات أحسن من أي مكان.”
-3. “والأهم؟ noon بقى موجود عندنا دلوقتي!”`;
-
-        const HOOKS_EN = `1. Ramadan shopping doesn’t have to be expensive
-2. Why pay more for Ramadan essentials?
-3. Everything you need for Ramadan — in one app
-4. This is where I found the best Ramadan deals
-5. I stopped shopping around when I found this
-6. Ramadan savings you don’t want to miss
-7. If you’re preparing for Ramadan, watch this`;
-
-        const HOOKS_AR = `١. رمضان مش لازم يكلّفك كتير...
-٢. ليه تدفع أكتر على حاجة تقدر توفر فيها؟
-٣. كل احتياجات رمضان في مكان واحد؟
-٤. أوفر أسعار رمضان لقيتها هنا...
-٥. أنا كنت بلف على كذا مكان لحد ما لقيت ده
-٦. رمضان السنة دي أوفر بكتير
-٧. لو بتجهّز لرمضان، الفيديو ده ليك`;
+        const SCRIPT_DIRECTION = `1. “العيد قرب، وكل اللي أحتاجه لقيته بمكان واحد! من ملابس العيد للهدايا - كل شي على نون. حمّلوا التطبيق الآن.”
+2. “ليش تلف وتدور وتتعب نفسك قبل العيد؟ تطبيق نون وفّر لنا كل التجهيزات من لبس، ديكور، وضيافة ويوصل للباب.”
+3. “تجهيزات العيد صارت أسهل مع نون! كل شي تحتاجه أنت وعيلتك بضغطة زر وتوصيل سريع.”`;
 
         function generateBrief() {
             // Inputs
@@ -272,11 +263,15 @@
             const name = document.getElementById('name').value || "Partner";
             const sender = document.getElementById('senderName').value || "Mahmoud";
             let rawPrice = document.getElementById('price').value || "0";
-            const price = parseInt(rawPrice) + " USD";
-            const fullCountryList = "Oman, Kuwait, Qatar, and Bahrain";
+            const price = rawPrice + " AED"; // CHANGED TO AED
+            
+            const deadlineInput = document.getElementById('deadlineDate').value;
+            const liveInput = document.getElementById('liveDate').value;
+            const deadlineStr = deadlineInput ? new Date(deadlineInput).toLocaleDateString('en-GB') : "[TBD]";
+            const liveStr = liveInput ? new Date(liveInput).toLocaleDateString('en-GB') : "[TBD]";
 
             // Update Subject
-            const subject = `Ramadan Campaign Brief & Video Submission Details – noon GCC | ${country}`;
+            const subject = `Eid Campaign Collaboration | noon GCC - ${country}`;
             document.getElementById('subjectText').innerText = subject;
 
             // ===========================================
@@ -293,138 +288,87 @@
                     <td align="left" style="padding: 40px 30px;">
                         
                         <p style="margin-top:0;">Hi <strong>${name}</strong>,<br>
-                        Hope you’re doing well.</p>
+                        We hope you’re doing well ✨</p>
 
-                        <p>We’re excited to reach out regarding the <strong>noon Ramadan Savings Campaign</strong> across the GCC (Oman, Kuwait, Qatar, and Bahrain).</p>
+                        <p>We’re excited to reach out regarding the <strong>noon Eid Campaign</strong> across the GCC (Qatar, Bahrain, Oman, and Kuwait).</p>
                         
-                        <p>Ramadan is a key season for smart shopping and family essentials. This campaign aims to position noon as the <strong>go-to platform for all Ramadan needs</strong>—offering unbeatable savings and a wide variety of products in one convenient place.</p>
+                        <p>With Eid Al-Fitr approaching, this campaign aims to position noon as the one-stop destination for all Eid needs—making preparation easier, smarter, and stress-free through one trusted app.</p>
 
-                        <!-- CAMPAIGN OVERVIEW (KEY MESSAGES) -->
+                        <!-- CAMPAIGN OVERVIEW -->
                         <h3 style="border-bottom: 3px solid #feee00; display:inline-block; padding-bottom:5px; margin-top:25px;">🚀 Campaign Key Messages</h3>
                         <div style="background: #fafafa; padding: 15px; border-left: 4px solid #333;">
                             <ul style="margin:0; padding-left:20px;">
-                                <li style="margin-bottom:8px;">noon offers exclusive Ramadan savings better than any other platform.</li>
-                                <li style="margin-bottom:8px;">All Ramadan essentials are available in one app.</li>
-                                <li style="margin-bottom:8px;">noon makes Ramadan shopping easy, fast, and affordable.</li>
-                                <li><strong>noon is now available in Oman, Kuwait, Qatar, and Bahrain.</strong></li>
+                                <li style="margin-bottom:8px;">noon is your one-stop shop for Eid.</li>
+                                <li style="margin-bottom:8px;">The noon app is now available in Qatar, Bahrain, Oman, and Kuwait.</li>
+                                <li style="margin-bottom:8px;">Shop early and avoid last-minute Eid stress with wide product variety.</li>
+                                <li><strong>Delivery Timeline:</strong> Reliable delivery within 3–7 days (Shipped from noon’s main warehouse).</li>
                             </ul>
                         </div>
 
-                        <!-- MANDATORY CORE MESSAGE BOX -->
-                        <div style="background: #e6fffa; padding: 20px; margin: 25px 0; border-radius: 8px; border: 1px solid #b2f5ea;">
-                            <strong style="color:#007f6d; display:block; margin-bottom:10px;">📢 Mandatory Core Message (Video Must Mention This):</strong>
-                            <em>"The biggest platform in the Arab world is now available in our country. All Ramadan categories in one place. Making life easier and helping us save."</em><br><br>
-                            <span style="direction:rtl; display:block; font-weight:bold; color:#333;">"أكبر منصة في الوطن العربي فتحت عندنا. كل كاتيجوريز رمضان في مكان واحد. بتسهل حياتنا وتوفر علينا."</span>
-                        </div>
-
-                        <!-- PRODUCT CATEGORIES -->
-                        <div style="background: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #eee; margin-bottom:30px;">
+                        <!-- CATEGORIES -->
+                        <div style="background: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #eee; margin-top:25px; margin-bottom:30px;">
                             <strong style="color:#333; display:block; margin-bottom:10px;">🛍️ Product Categories to Highlight:</strong>
-                            <p style="margin:0 0 10px 0; font-size:14px; color:#555;">Influencers should clearly showcase <strong>variety + savings</strong> across:</p>
-                            <ul style="margin-top: 5px; padding-left: 20px; display:grid; grid-template-columns: 1fr 1fr; gap:5px;">
-                                <li>Ramadan food essentials</li>
-                                <li>Groceries & household items</li>
-                                <li>Kitchen appliances</li>
-                                <li>Home & décor</li>
-                                <li>Personal care & gifting items</li>
-                                <li>Electronics & daily needs</li>
+                            <p style="margin:0 0 10px 0; font-size:14px; color:#555;">The content should feature one or more of the following:</p>
+                            <ul style="margin-top: 5px; padding-left: 20px; display:grid; grid-template-columns: 1fr; gap:5px;">
+                                <li>👗 <strong>Fashion:</strong> Eid outfits, accessories, family matching looks.</li>
+                                <li>💄 <strong>Beauty:</strong> Eid makeup, perfumes, gift sets, personal care.</li>
+                                <li>🏡 <strong>Home:</strong> Eid décor, hosting essentials, serving items.</li>
+                                <li>🎁 <strong>Gifting:</strong> Perfumes, electronics, toys, Eid bundles.</li>
+                                <li>🌿 <strong>Health & Wellness:</strong> Self-care products, supplements, post-Ramadan essentials.</li>
                             </ul>
                         </div>
-                        
-                        <!-- CONTENT BREAKDOWN (90/10) -->
-                        <div style="margin-bottom: 30px;">
-                            <strong style="display:block; margin-bottom:10px;">📹 Content Breakdown (90/10 Rule):</strong>
-                            <ul style="margin:0; padding-left:20px;">
-                                <li style="margin-bottom:5px;"><strong>90% Focus:</strong> Ramadan products, Savings & discounts, Ease of shopping on noon, Showing categories & deals.</li>
-                                <li><strong>10% Focus:</strong> noon availability in Oman, Kuwait, Qatar, and Bahrain. Mention that users can download the app and shop easily.</li>
+
+                        <!-- CREATIVE DIRECTION -->
+                        <h3 style="border-bottom: 3px solid #feee00; display:inline-block; padding-bottom:5px;">🎨 Creative Direction</h3>
+                        <div style="margin-bottom:20px;">
+                            <ul style="margin-top:5px; padding-left:20px;">
+                                <li>Showcase Eid preparation moments (choosing outfits, wrapping gifts, home prep).</li>
+                                <li>Modern app visuals (floating screen / screen recording).</li>
+                                <li>Browsing the noon app and adding items to cart.</li>
+                                <li>Receiving the order at your doorstep with ease.</li>
                             </ul>
                         </div>
+
+                        <strong>Script Idea (Example):</strong>
+                        <div style="background: #fdfdfd; padding: 15px; border-left: 3px solid #ccc; font-style: italic; margin-bottom: 25px; white-space: pre-wrap; font-size:14px;" dir="rtl">${SCRIPT_DIRECTION}</div>
 
                         <!-- CRITICAL POSTING RULES (RED BOX) -->
                         <div style="border: 2px dashed #d93025; background-color: #fff5f5; padding: 25px; border-radius: 12px; margin: 30px 0;">
-                            <strong style="color: #d93025; font-size: 18px; text-transform: uppercase; display: block; margin-bottom: 15px;">🚨 Critical Posting Rules</strong>
+                            <strong style="color: #d93025; font-size: 18px; text-transform: uppercase; display: block; margin-bottom: 15px;">🚨 Critical Campaign Rules</strong>
                             <ul style="margin: 0; padding-left: 20px; color: #000;">
-                                <li style="margin-bottom: 12px;"><strong>FREE DELIVERY:</strong> You must explicitly mention in the video that there are <strong>NO DELIVERY FEES</strong>.</li>
-                                <li style="margin-bottom: 12px;"><strong>SAVINGS:</strong> Focus on the unbeatable savings and discounts available on the platform.</li>
-                                <li style="margin-bottom: 12px;"><strong>The Logo:</strong> You are <u>NOT</u> allowed to use old logos. You must use ONLY this specific file: <br><a href="${OFFICIAL_LOGO_DRIVE}" style="font-weight: bold; background-color: #feee00; color: #000; text-decoration: none; padding: 5px 10px; border-radius: 4px; display:inline-block; margin-top:5px;">👉 Download Official Logo Here</a></li>
-                                <li style="margin-bottom: 12px;"><strong>Instagram:</strong> You must Invite Collaborator: <a href="${INSTAGRAM_COLLAB}" style="color: #0095f6; font-weight: bold; text-decoration: none;">@noonmarketingteam</a></li>
-                                <li style="margin-bottom: 12px;"><strong>TikTok:</strong> You must provide the <strong>Spark Code</strong> immediately after posting.</li>
-                                <li><strong>Captions & Tags:</strong> Final Caption, Tags, and Hashtags will be provided after approval. <strong>Do NOT write your own.</strong></li>
+                                <li style="margin-bottom: 12px;"><strong>Required Platforms:</strong> You must post on <u>at least 2 of the following 3 platforms:</u> <strong>Instagram Reels, TikTok, and Snapchat.</strong></li>
+                                <li style="margin-bottom: 12px; background: #feee00; padding: 5px; font-weight: bold;"><strong>CRITICAL KPI:</strong> You must achieve views equivalent to 50% of your total followers. If the target is not met, the video must be boosted or reposted.</li>
+                                <li style="margin-bottom: 12px;"><strong>Video Quality:</strong> High-quality video (good/natural lighting & clear visuals). NO heavy filters.</li>
+                                <li style="margin-bottom: 12px;"><strong>Product Availability:</strong> Any product shown must be physically available with you, and you must clearly mention it is available on the noon app.</li>
+                                <li><strong>Hashtags & Tags:</strong> #noonEid #noonApp #noonGCC | Tag: @noon</li>
                             </ul>
                         </div>
 
-                        <!-- MANDATORY DELIVERABLES (BLACK BOX) -->
-                        <div style="background: #000; color: #fff; padding: 15px; border-radius: 8px 8px 0 0; margin-top:30px;">
-                            <strong style="text-transform:uppercase; letter-spacing:1px;">📂 Mandatory Deliverables</strong>
-                        </div>
-                        <div style="border: 1px solid #ccc; border-top:0; padding: 25px; border-radius: 0 0 8px 8px; margin-bottom: 30px;">
-                            <p style="margin-top:0;">You are required to submit <strong>2 Files</strong> for this video:</p>
-                            <ul style="margin-top: 5px; padding-left: 20px;">
-                                <li style="margin-bottom:5px;"><strong>Fully Edited Video:</strong> The final version with music, text, and effects.</li>
-                                <li><strong>RAW Footage:</strong> The original, unedited video file(s) without any text or filters.</li>
-                            </ul>
-                            <div style="margin-top:15px; border-top:1px solid #eee; padding-top:15px;">
-                                <strong>How to Submit (High Quality Only):</strong>
-                                <ul style="margin-top: 5px; padding-left: 20px;">
-                                    <li>Please upload the files to <strong>Google Drive</strong> and share the link.</li>
-                                    <li>OR send via <strong>WhatsApp as a "Document"</strong> (File).</li>
-                                    <li style="color: #d93025; font-weight: bold;">Do NOT send as a normal WhatsApp video to avoid compression.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- CREATIVE GUIDELINES -->
-                        <h3 style="border-bottom: 3px solid #feee00; display:inline-block; padding-bottom:5px;">🎨 Creative Direction</h3>
-                        
-                        <div style="margin-bottom:20px;">
-                            <strong>Content Guidelines:</strong>
-                            <ul style="margin-top:5px; padding-left:20px;">
-                                <li><strong>Tone:</strong> Friendly, Trustworthy, Ramadan family-oriented, Simple & clear.</li>
-                                <li><strong>Focus:</strong> Ramadan savings, product variety, ease of use, app-first awareness.</li>
-                                <li><strong>Video Specs:</strong> 30–45 sec max | High quality | Good lighting | Clear audio | No heavy filters.</li>
+                        <!-- INVOICE SECTION (NEW REQUIREMENT) -->
+                        <div style="background: #e6f7ff; padding: 20px; margin: 25px 0; border-radius: 8px; border: 1px solid #91d5ff;">
+                            <strong style="color:#0050b3; display:block; margin-bottom:10px; font-size: 16px;">💳 Invoicing & Payment Steps</strong>
+                            <p style="margin-top:0; font-size: 14px;">To process your payment seamlessly, please generate your official invoice using our portal:</p>
+                            <a href="https://noon-invoice.vercel.app/" style="display:inline-block; margin-bottom: 10px; font-weight: bold; background-color: #0050b3; color: #fff; text-decoration: none; padding: 8px 15px; border-radius: 4px;">👉 Open noon Invoice Generator</a>
+                            <ul style="margin:0; padding-left: 20px; font-size: 13px; color: #333;">
+                                <li><strong>Important:</strong> noon covers a bank transfer fee of <strong>30 SAR</strong>. This amount is automatically added within the link.</li>
+                                <li>Please only input your agreed base fee (<strong>${price}</strong>) alongside your full details.</li>
+                                <li>Once generated, download the PDF and send it to your point of contact.</li>
                             </ul>
                         </div>
-
-                        <strong>Script Direction (Examples):</strong>
-                        <div style="background: #fdfdfd; padding: 15px; border-left: 3px solid #ccc; font-style: italic; margin-bottom: 15px; white-space: pre-wrap; font-size:14px;">${SCRIPT_DIRECTION}</div>
-
-                        <strong>Hooks (Choose One):</strong>
-                        <div style="background: #fdfdfd; padding: 15px; border-left: 3px solid #ccc; margin-bottom: 25px; white-space: pre-wrap; font-size:14px;">${HOOKS_EN}</div>
 
                         <!-- CTA -->
                         <div align="center" style="padding: 25px; background-color: #f9f9f9; border-radius: 12px; border: 1px solid #ddd; margin-bottom:30px;">
-                            <strong style="font-size: 16px; color:#555;">📣 Call to Action</strong><br>
-                            <h2 style="margin:10px 0 0 0;">“Download the noon app now and shop Ramadan deals!”</h2>
-                        </div>
-
-                        <!-- APPROVAL & KPIs (YELLOW BOX) -->
-                        <div style="background: #fffbea; padding: 25px; border-left: 6px solid #feee00; margin: 30px 0;">
-                            <strong style="color: #d93025; display:block; margin-bottom:10px; font-size:16px;">🛑 Review & Approval Process</strong>
-                            <ul style="margin: 0; padding-left: 20px;">
-                                <li><strong>Do NOT Post</strong> until your draft is approved.</li>
-                                <li>All content must be shared before posting.</li>
-                                <li>Content is subject to edits & feedback.</li>
-                                <li>Posting allowed only after final approval.</li>
-                            </ul>
-                            
-                            <hr style="border:0; border-top:1px solid #eedd00; margin:15px 0;">
-                            
-                            <strong>📈 Critical KPIs:</strong>
-                            <ul style="margin-top: 5px; padding-left: 20px;">
-                                <li><strong>View Target:</strong> Reach <strong>50% of your total followers</strong> in views.</li>
-                                <li><strong>Action:</strong> If target is not met, you must <strong>Boost or Repost</strong> until achieved.</li>
-                                <li><strong>Retention:</strong> Video must remain on profile for <strong>at least 1 Year</strong>.</li>
-                                <li><strong>Usage Rights:</strong> noon reserves the right to use the video on platforms/ads.</li>
-                            </ul>
+                            <strong style="font-size: 16px; color:#555;">📣 Mandatory Call to Action</strong><br>
+                            <p style="margin:10px 0 0 0; font-style: italic;">“Download the noon app now and get ready for Eid!”<br>“Shop all your Eid essentials today at noon!”<br>“Don’t forget to use the discount code (to be shared separately)”</p>
                         </div>
 
                         <!-- TIMELINE -->
                         <div style="background-color: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
-                            <strong style="font-size: 16px;">📅 Timeline & Payment</strong>
+                            <strong style="font-size: 16px;">📅 Submission & Timeline</strong>
                             <ul style="margin-top: 10px; padding-left: 20px;">
-                                <li><strong>Start:</strong> 02 Feb | <strong>End:</strong> 06 Mar.</li>
-                                <li><strong>Fee:</strong> ${price} (Payment: 1-3 months post-posting).</li>
-                                <li><strong>Req:</strong> Valid license required.</li>
+                                <li><strong>Video Deadline:</strong> We need the video by <strong>${deadlineStr}</strong> at the latest.</li>
+                                <li><strong>Go Live Date:</strong> The post will go live on <strong>${liveStr}</strong>.</li>
+                                <li><strong>Campaign Fee:</strong> ${price}</li>
                             </ul>
                         </div>
 
@@ -432,10 +376,11 @@
                         <div style="margin-top: 30px; padding: 20px; border: 2px solid #333; border-radius: 8px; text-align: center; background: #fff;">
                             <span style="font-size: 24px;">🔔</span><br>
                             <strong style="font-size: 16px; display:block; margin-top:10px;">ACTION REQUIRED</strong>
-                            <p style="margin-bottom:0;">Please reply to this email confirming receipt and availability.</p>
+                            <p style="margin-bottom:0;">Please reply to this email confirming receipt and your availability to proceed with the campaign.</p>
                         </div>
 
                         <br><br>
+                        Wishing you a joyful Eid in advance 🌙✨<br><br>
                         <strong>${sender}</strong><br>
                         <span style="color: #666;">noon Marketing Team</span><br>
                         <a href="https://www.noon.com" style="color:#000; text-decoration:none;">www.noon.com</a>
@@ -446,121 +391,91 @@
             // ===========================================
             // 2. ENGLISH BRIEF GENERATION (TEXT)
             // ===========================================
-            const engText = `NOON RAMADAN CAMPAIGN | CONTENT BRIEF & GUIDELINES
+            const engText = `NOON EID CAMPAIGN | VIDEO CREATION BRIEF
 Country: ${country}
+Campaign Fee: ${price}
 
-1. KEY MESSAGES TO DELIVER
-- noon offers exclusive Ramadan savings better than any other platform.
-- All Ramadan essentials are available in one app.
-- noon makes Ramadan shopping easy, fast, and affordable.
-- noon is now available in Oman, Kuwait, Qatar, and Bahrain. (Must Mention!)
+1. VIDEO CREATIVE DIRECTION
+- Focus: Eid preparation moments (choosing outfits, wrapping gifts, home prep).
+- Visuals: Include modern app visuals (floating screen / screen recording).
+- Action: Show browsing the noon app, adding items to the cart, and receiving the order at your doorstep.
+- Tone: Festive, friendly, simple, and clear.
+- Duration: 30–45 seconds maximum.
+- Audio: Use trendy or festive sounds.
 
-2. CONTENT STRUCTURE (90/10 RULE)
-- 90% Focus: Ramadan products, Savings & discounts, Ease of shopping on noon, Showing categories & deals.
-- 10% Focus: noon availability in Oman, Kuwait, Qatar, and Bahrain. Mention that users can download the app and shop easily.
+2. KEY MESSAGES TO DELIVER
+- noon is your one-stop shop for all Eid essentials.
+- The app is now available in Qatar, Bahrain, Oman, and Kuwait.
+- Delivery is fast and reliable (3-7 days).
+- Shop early to avoid last-minute Eid stress.
 
-3. MANDATORY CORE MESSAGE
-"The biggest platform in the Arab world is now available in our country. All Ramadan categories in one place. Making life easier and helping us save."
+3. PRODUCT CATEGORIES (Choose 1 or more)
+- Fashion (Eid outfits, accessories, family looks)
+- Beauty (Makeup, perfumes, personal care)
+- Home (Eid décor, hosting essentials)
+- Gifting (Perfumes, electronics, toys)
+- Health & Wellness
 
-4. PRODUCT CATEGORIES TO HIGHLIGHT
-(Emphasize variety + savings across categories)
-- Ramadan food essentials
-- Groceries & household items
-- Kitchen appliances
-- Home & décor
-- Personal care & gifting items
-- Electronics & daily needs
+4. MANDATORY CALL TO ACTION (CTA)
+Must say: "Download the noon app now and get ready for Eid!" OR "Shop all your Eid essentials today at noon!"
+(Also mention: "Don’t forget to use the discount code" - code shared separately).
 
-5. CRITICAL POSTING RULES (Please Read Carefully)
-- FREE DELIVERY: You must explicitly mention "NO DELIVERY FEES".
-- LOGO: Do NOT use old logos. Use this link ONLY: 
-  ${OFFICIAL_LOGO_DRIVE}
-- INSTAGRAM: Invite Collaborator @noonmarketingteam
-- TIKTOK: Provide Spark Code immediately after posting.
-- CAPTIONS: We will provide the caption, tags, and hashtags. Do not write your own.
+5. SUBMISSION DETAILS
+- Submit 2 versions: 1 Raw Video (no edits) & 1 Fully Edited Video.
+- Send for approval by: ${deadlineStr}
+- Go Live Date: ${liveStr}
+- Any product shown must be physically with you.
 
-6. CREATIVE & TECHNICAL REQUIREMENTS
-- Duration: 30–45 seconds max.
-- Quality: High resolution, Good lighting, Clear audio.
-- Style: No heavy filters. Use trendy/Ramadan-appropriate sounds.
-- Branding: Text should be Black & White. Highlights must be YELLOW.
-- Tone: Friendly, Trustworthy, Ramadan family-oriented, Simple & clear.
-
-7. MANDATORY DELIVERABLES
-- Submit 2 Files via Google Drive or WhatsApp Document (File):
-  1. Fully Edited Video (Music, text, effects).
-  2. RAW Footage (Original, no text/filters).
-*Do not send as normal WhatsApp video to avoid compression.*
-
-8. APPROVAL & KPIs
-- Do NOT post until approved.
-- View Target: 50% of total followers. (Boost/Repost required if not met).
-- Retention: Video must remain for 1 Year.
-- Usage Rights: noon reserves rights to use video in ads.
-
-9. TIMELINE
-- Campaign runs: 02 Feb - 06 Mar.
-
-🔔 ACTION REQUIRED: Please confirm receipt of this brief.`;
+--------------------------------------------------
+🚨 THE 3 STRICT CAMPAIGN RULES (MANDATORY) 🚨
+--------------------------------------------------
+1. PLATFORMS: The video MUST be published on Instagram, TikTok, and Snapchat.
+2. KPI REQUIREMENT: You MUST achieve views equivalent to 50% of your total followers. (If not met, boosting/reposting is required).
+3. VIDEO QUALITY: Video must have excellent, natural lighting and clear visuals. NO heavy filters allowed.`;
 
             // ===========================================
             // 3. ARABIC BRIEF GENERATION (TEXT)
             // ===========================================
-            const arText = `ملف تعليمات حملة نون - رمضان
-الدولة: ${country === 'Oman' ? 'عمان' : country === 'Kuwait' ? 'الكويت' : country === 'Qatar' ? 'قطر' : 'البحرين'}
+            const arText = `ملف تصوير فيديو حملة العيد - نون
+الدولة: ${country === 'Oman' ? 'عُمان' : country === 'Kuwait' ? 'الكويت' : country === 'Qatar' ? 'قطر' : 'البحرين'}
+الميزانية: ${price}
 
-١. الرسائل الأساسية في الفيديو (Key Messages)
-- نون بتقدم توفير وعروض رمضانية حصرية أحسن من أي منصة تانية.
-- كل احتياجات رمضان موجودة في تطبيق واحد.
-- نون بتخلي تسوق رمضان أسهل، أسرع، وأوفر.
-- نون بقت متوفرة في عمان، الكويت، قطر، والبحرين. (لازم تذكر توفر نون في دول الخليج).
+١. التوجيه الإبداعي للفيديو
+- الفكرة: إظهار أجواء تحضيرات العيد (اختيار ملابس، تجهيز هدايا، تحضيرات المنزل).
+- بصرياً: إضافة التطبيق بأسلوب عصري (تسجيل شاشة أو شاشة عائمة).
+- الأكشن: تصفح التطبيق، إضافة المنتجات للسلة، وتصوير استلام الطلب عند باب البيت بسهولة.
+- المدة: ٣٠-٤٥ ثانية كحد أقصى.
+- الصوت: استخدام أصوات ترند أو موسيقى احتفالية تناسب العيد.
 
-٢. هيكل المحتوى (قاعدة ٩٠/١٠)
-- ٩٠٪ تركيز على: منتجات رمضان، التوفير والخصومات، سهولة التسوق على نون، استعراض الأقسام والعروض.
-- ١٠٪ تركيز على: توفر نون في عمان، الكويت، قطر، والبحرين. وذكر إن المستخدمين يقدروا يحملوا التطبيق ويتسوقوا بسهولة.
+٢. الرسائل الأساسية (يجب توضيحها)
+- نون هي وجهتك الشاملة لكل مستلزمات العيد في مكان واحد.
+- التطبيق متوفر الآن في قطر، البحرين، عُمان، والكويت.
+- توصيل موثوق وسريع خلال (٣ إلى ٧ أيام).
+- تشجيع المتابعين على التسوق المبكر لتجنب زحمة وضغط العيد.
 
-٣. الرسالة الجوهرية الإجبارية (Core Message)
-"أكبر منصة في الوطن العربي فتحت عندنا. كل كاتيجوريز رمضان في مكان واحد. بتسهل حياتنا وتوفر علينا."
+٣. الفئات المطلوبة (اختر فئة أو أكثر)
+- الأزياء (ملابس العيد، إطلالات عائلية).
+- الجمال (مكياج، عطور، عناية شخصية).
+- المنزل (ديكورات العيد، أدوات الضيافة).
+- الهدايا (إلكترونيات، ألعاب، عطور).
+- الصحة والعناية.
 
-٤. الأقسام والمنتجات (التركيز على التنوع + التوفير في كل الأقسام)
-- أساسيات ومأكولات رمضان.
-- المقاضي واحتياجات المنزل.
-- أدوات ومستلزمات المطبخ.
-- الديكور ومستلزمات البيت.
-- العناية الشخصية والهدايا.
-- الإلكترونيات والاحتياجات اليومية.
+٤. الدعوة لاتخاذ إجراء (CTA إجباري)
+يجب قول: "حمّلوا تطبيق نون الآن واستعدوا للعيد!" أو "تسوّقوا احتياجات العيد اليوم من نون!"
+(مع التنويه بضرورة استخدام كود الخصم - سيتم إرساله لاحقاً).
 
-٥. قواعد النشر الهامة (ممنوع الغلط فيها)
-- توصيل مجاني: لازم تقول بوضوح "مفيش مصاريف توصيل" (No Delivery Fees).
-- اللوجو: ممنوع استخدام لوجوهات قديمة. حمل اللوجو الرسمي من هنا:
-  ${OFFICIAL_LOGO_DRIVE}
-- انستجرام: لازم تعمل Invite Collaborator لـ @noonmarketingteam
-- تيك توك: لازم تبعت الـ Spark Code فوراً بعد النشر.
-- الكابشن والهاشتاج: احنا هنبعتهولك بعد الموافقة. متكتبش من عندك.
+٥. تسليم الفيديو
+- المطلوب: نسختين (نسخة خام بدون تعديل + نسخة معدلة بالكامل).
+- موعد التسليم للمراجعة: ${deadlineStr}
+- موعد النشر: ${liveStr}
+- ملاحظة: أي منتج يظهر في الفيديو يجب أن يكون متوفراً معك فعلياً وتذكر أنه من نون.
 
-٦. المتطلبات التقنية والإبداعية
-- المدة: ٣٠-٤٥ ثانية.
-- الجودة: تصوير عالي الجودة، إضاءة ممتازة، صوت واضح.
-- الستايل: بدون فلاتر تقيلة. استخدام موسيقى رمضانية تريند.
-- الكتابة: النص أبيض وأسود. أي تظليل (Highlight) لازم يكون أصفر.
-- النبرة (Tone): ودود، موثوق، جو عائلي رمضاني، بسيط وواضح.
-
-٧. التسليمات المطلوبة (إجباري)
-- لازم تسلم ملفين عن طريق جوجل درايف أو واتساب (كـ ملف Document):
-  ١. فيديو معدل بالكامل (موسيقى، كتابة، مؤثرات).
-  ٢. فيديو خام (Raw) بدون أي تعديل أو كتابة.
-*ممنوع تبعت الفيديو واتساب عادي عشان الجودة.*
-
-٨. الموافقة والـ KPIs
-- ممنوع النشر قبل الموافقة النهائية.
-- هدف المشاهدات: الوصول لـ ٥٠٪ من عدد متابعينك. (لازم تعمل Boost أو Repost لو موصلتش للرقم).
-- بقاء الفيديو: الفيديو لازم يفضل على حسابك سنة كاملة (ممنوع المسح أو الأرشفة).
-- حقوق الاستخدام: نون ليها حق استخدام الفيديو في الإعلانات.
-
-٩. المواعيد
-- الحملة مستمرة من ٢ فبراير لـ ٦ مارس.
-
-🔔 مطلوب للتأكيد: برجاء الرد بتأكيد استلام التفاصيل والموافقة.`;
+--------------------------------------------------
+🚨 الشروط الثلاثة الصارمة للحملة (إجبارية) 🚨
+--------------------------------------------------
+١. منصات النشر: يجب نشر الفيديو على المنصات التالية (انستجرام، تيك توك، وسناب شات).
+٢. شرط المشاهدات (KPI): يجب أن تصل مشاهدات الفيديو إلى ٥٠٪ من إجمالي عدد متابعينك (ضروري جداً، وفي حال عدم الوصول يجب عمل إعلان ممول Boost أو إعادة نشر).
+٣. جودة التصوير: يجب أن تكون الإضاءة طبيعية وممتازة، والصورة واضحة جداً (ممنوع استخدام الفلاتر القوية).`;
 
             // Render
             document.getElementById('render-email').innerHTML = emailHTML;
@@ -620,10 +535,10 @@ Country: ${country}
         }
         
         // Ensure Subject updates on load/change
-        function updateSubject() {
+        function updateSubject() { 
              const country = document.getElementById('country').value;
-             if(document.getElementById('subjectText').innerText.includes("Ramadan")) {
-                 document.getElementById('subjectText').innerText = `Ramadan Campaign Brief & Video Submission Details – noon GCC | ${country}`;
+             if(document.getElementById('subjectText').innerText.includes("Eid")) {
+                 document.getElementById('subjectText').innerText = `Eid Campaign Collaboration | noon GCC - ${country}`;
              }
         }
     </script>
