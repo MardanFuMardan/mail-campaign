@@ -3,544 +3,864 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noon Eid Campaign Generator</title>
-    
+    <title>Noon GCC April Campaign 2026 | Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    
     <style>
-        /* ========================================
-           1. CSS VARIABLES & RESET
-           ========================================
-        */
         :root {
             --bg-deep: #050505;
-            --glass-panel: rgba(20, 20, 20, 0.95);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-panel: rgba(15, 15, 15, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.06);
             --noon-yellow: #feee00;
             --text-main: #ffffff;
-            --accent-cyan: #00e5ff;
-            --alert-red: #ff4d4d;
+            --text-muted: #a0a0a0;
+            --accent-light: #ffffff;
         }
-
         * { box-sizing: border-box; outline: none; }
-
+        
+        /* Animated Breathing Background */
+        @keyframes bgGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
         body {
             font-family: 'Outfit', 'Cairo', sans-serif;
-            background-color: var(--bg-deep);
-            background-image: radial-gradient(circle at 50% 0%, rgba(254, 238, 0, 0.08) 0%, transparent 60%);
+            background: linear-gradient(-45deg, #050505, #111111, #1a1a00, #0a0a0a);
+            background-size: 400% 400%;
+            animation: bgGradient 20s ease infinite;
             color: var(--text-main);
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
+            margin: 0; padding: 20px; min-height: 100vh;
+            display: flex; justify-content: center; overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
-        /* LAYOUT GRID */
+        /* Entrance Animation */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(40px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
         .main-grid {
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 20px;
-            width: 100%;
-            max-width: 1600px;
-            height: 95vh;
+            display: grid; grid-template-columns: 380px 1fr;
+            gap: 24px; width: 100%; max-width: 1600px; height: 95vh;
         }
 
         .panel {
-            background: var(--glass-panel);
+            background: var(--glass-panel); 
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border-radius: 20px; display: flex; flex-direction: column;
+            position: relative; overflow: hidden; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            animation: slideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-
-        /* SIDEBAR STYLES */
-        .sidebar { padding: 25px; gap: 15px; z-index: 2; overflow-y: auto; }
         
-        .logo-header { text-align: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; margin-bottom: 5px; }
+        .sidebar { padding: 25px; gap: 12px; z-index: 2; overflow-y: auto; animation-delay: 0.1s; }
+        .content-panel { background: rgba(5,5,5,0.9); animation-delay: 0.25s; }
+
+        .logo-header { text-align: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 16px; margin-bottom: 8px; }
         .logo-circle {
-            width: 50px; height: 50px; background: var(--noon-yellow); border-radius: 50%;
+            width: 52px; height: 52px; background: var(--noon-yellow); border-radius: 50%;
             margin: 0 auto 10px; display: flex; align-items: center; justify-content: center;
             font-size: 24px; font-weight: 900; color: #000;
+            box-shadow: 0 0 20px rgba(254, 238, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .logo-circle:hover { transform: rotate(10deg) scale(1.1); }
+
+        .field-group { margin-bottom: 4px; }
+        .field-group label { 
+            display: block; font-size: 11px; color: var(--text-muted); 
+            margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; 
+            transition: color 0.3s;
         }
         
-        .field-group label { display: block; font-size: 11px; color: var(--accent-cyan); margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        input, select {
-            width: 100%; padding: 12px; background: rgba(0,0,0,0.4);
-            border: 1px solid var(--glass-border); border-radius: 8px;
-            color: #fff; font-family: inherit; font-size: 14px; transition: 0.3s;
+        /* Enhanced Inputs */
+        input, select, textarea {
+            width: 100%; padding: 10px 14px; background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+            color: #fff; font-family: inherit; font-size: 13.5px; 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        input:focus, select:focus { border-color: var(--noon-yellow); background: rgba(0,0,0,0.6); }
+        textarea { resize: vertical; min-height: 58px; line-height: 1.5; }
+        input:hover, select:hover { border-color: rgba(255,255,255,0.2); background: rgba(0,0,0,0.7); }
+        input:focus, select:focus, textarea:focus { 
+            border-color: var(--noon-yellow); 
+            background: rgba(20,20,0,0.6); 
+            box-shadow: 0 0 0 3px rgba(254, 238, 0, 0.1);
+            transform: translateY(-1px);
+        }
+        .field-group:focus-within label { color: var(--accent-light); }
 
+        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        
+        .calc-display {
+            margin-top: 6px; padding: 9px 12px; border-radius: 8px; font-size: 11.5px; display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .calc-fee { background: rgba(254,238,0,0.06); border: 1px solid rgba(254,238,0,0.2); color: var(--noon-yellow); }
+        
+        .divider { border: none; border-top: 1px solid var(--glass-border); margin: 10px 0; }
+        
+        /* Animated Button */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(254,238,0,0.2); }
+            50% { box-shadow: 0 0 25px rgba(254,238,0,0.5); }
+            100% { box-shadow: 0 0 15px rgba(254,238,0,0.2); }
+        }
         .gen-button {
-            margin-top: 10px; width: 100%; padding: 16px;
-            background: linear-gradient(135deg, var(--noon-yellow) 0%, #d4c600 100%);
-            border: none; border-radius: 10px; color: #000; font-weight: 800; font-size: 15px;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
-            transition: 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-top: 10px; width: 100%; padding: 15px;
+            background: linear-gradient(135deg, var(--noon-yellow) 0%, #e6d700 100%);
+            border: none; border-radius: 12px; color: #000; font-weight: 800; font-size: 14.5px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative; overflow: hidden;
+            animation: pulseGlow 3s infinite;
         }
-        .gen-button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(254, 238, 0, 0.2); }
+        .gen-button::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-20deg); transition: 0.5s;
+        }
+        .gen-button:hover { transform: translateY(-3px) scale(1.02); }
+        .gen-button:hover::after { left: 150%; }
 
-        /* CONTENT PANEL STYLES */
-        .content-panel { background: #000; }
-        
         .header-nav {
             padding: 15px 25px; border-bottom: 1px solid var(--glass-border);
             display: flex; justify-content: space-between; align-items: center; height: 70px;
-            background: rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.02);
         }
-        .tabs { display: flex; gap: 8px; }
+        
+        .tabs { display: flex; gap: 10px; background: rgba(0,0,0,0.4); padding: 4px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
         .tab {
-            background: transparent; border: 1px solid #333; color: #888;
-            padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 12px;
-            transition: 0.3s;
+            background: transparent; border: none; color: var(--text-muted);
+            padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 12.5px; 
+            transition: all 0.3s; position: relative;
         }
-        .tab.active { background: #222; color: #fff; border-color: #555; }
+        .tab:hover { color: #fff; }
+        .tab.active { background: #222; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
         .subject-bar {
-            padding: 0 25px; background: rgba(0, 229, 255, 0.05);
-            border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+            padding: 0 25px; background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
             display: flex; justify-content: space-between; align-items: center; height: 50px;
         }
-        .subject-text { font-family: monospace; color: var(--accent-cyan); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80%; }
-
-        /* VIEWPORT */
-        .viewport {
-            position: relative;
-            flex-grow: 1;
-            overflow: hidden;
-        }
-
+        .subject-text { font-family: monospace; color: var(--accent-light); font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80%; }
+        
+        .viewport { position: relative; flex-grow: 1; overflow: hidden; }
         .view-content {
-            display: none;
-            height: 100%;
-            overflow-y: auto;
-            position: absolute; width: 100%; top: 0; left: 0;
-            padding-bottom: 100px;
+            display: none; height: 100%; overflow-y: auto;
+            position: absolute; width: 100%; top: 0; left: 0; padding-bottom: 100px;
+            animation: fadeIn 0.4s ease;
         }
         .view-content.active { display: block; }
-
-        /* RENDER STYLES */
+        
         .email-render { background: #fff; color: #333; padding: 40px; min-height: 100%; }
-        .checklist-render { background: #111; color: #eee; padding: 40px; font-family: 'Courier New', monospace; white-space: pre-wrap; line-height: 1.6; font-size: 14px; }
-
-        /* SCROLLBAR */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #111; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        .checklist-render { background: #111; color: #eee; padding: 40px; font-family: 'Courier New', monospace; white-space: pre-wrap; line-height: 1.7; font-size: 13.5px; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--noon-yellow); }
 
-        /* FAB */
         .fab-wrapper {
-            position: absolute; bottom: 30px; right: 30px;
-            z-index: 100; pointer-events: none; width: 100%;
-            display: flex; justify-content: flex-end;
+            position: absolute; bottom: 30px; right: 30px; z-index: 100;
+            pointer-events: none; width: 100%; display: flex; justify-content: flex-end;
         }
         .fab-btn {
-            pointer-events: auto; background: #fff; color: #000; border: 2px solid var(--noon-yellow);
-            padding: 14px 28px; border-radius: 50px; font-weight: 800; font-size: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer;
-            transition: 0.2s;
+            pointer-events: auto; background: #fff; color: #000; border: none;
+            padding: 14px 28px; border-radius: 50px; font-weight: 800; font-size: 14.5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 0 2px var(--noon-yellow); 
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .fab-btn:hover { transform: scale(1.05); background: var(--noon-yellow); }
+        .fab-btn:hover { 
+            transform: scale(1.05) translateY(-2px); 
+            background: var(--noon-yellow); 
+            box-shadow: 0 15px 40px rgba(254,238,0,0.4), 0 0 0 2px #fff; 
+        }
     </style>
 </head>
 <body>
+<div class="main-grid">
 
-    <div class="main-grid">
-        <!-- SIDEBAR -->
-        <div class="panel sidebar">
-            <div class="logo-header">
-                <div class="logo-circle">n</div>
-                <h1 style="font-size:16px; margin:0; color:#fff; letter-spacing:1px;">CAMPAIGN HUB</h1>
-                <span style="font-size:10px; color:#666;">EID CAMPAIGN | GCC</span>
-            </div>
-            
+    <!-- SIDEBAR -->
+    <div class="panel sidebar">
+        <div class="logo-header">
+            <div class="logo-circle">n</div>
+            <h1 style="font-size:15px;margin:0;color:#fff;letter-spacing:1px;">CAMPAIGN HUB</h1>
+            <span style="font-size:10.5px;color:var(--noon-yellow);font-weight:700;letter-spacing:0.5px;">NOON GCC APRIL 2026</span>
+        </div>
+
+        <div class="field-group">
+            <label>📍 Country</label>
+            <select id="country" onchange="updateSubject()">
+                <option value="Qatar">Qatar</option>
+                <option value="Bahrain">Bahrain</option>
+                <option value="Oman">Oman</option>
+                <option value="Kuwait">Kuwait</option>
+            </select>
+        </div>
+
+        <div class="field-group">
+            <label>👤 Influencer Name</label>
+            <input type="text" id="name" placeholder="Enter Name">
+        </div>
+
+        <div class="field-group">
+            <label>📱 Agreed Platform(s)</label>
+            <input type="text" id="platform" placeholder="e.g. Instagram Reels & TikTok">
+        </div>
+
+        <div class="field-group">
+            <label>👥 Followers Count</label>
+            <input type="number" id="followers" placeholder="e.g. 100000" oninput="calcKPI()">
+        </div>
+
+        <div class="row-2">
             <div class="field-group">
-                <label>📍 Country</label>
-                <select id="country" onchange="updateSubject()">
-                    <option value="Qatar">Qatar</option>
-                    <option value="Bahrain">Bahrain</option>
-                    <option value="Oman">Oman</option>
-                    <option value="Kuwait">Kuwait</option>
-                </select>
+                <label>🎯 KPI Target %</label>
+                <input type="number" id="kpiPercent" value="50" min="1" max="100" oninput="calcKPI()">
             </div>
+            <!-- Target Views is now an editable input -->
             <div class="field-group">
-                <label>👤 Influencer Name</label>
-                <input type="text" id="name" placeholder="Enter Name">
+                <label>👁️ Target Views</label>
+                <input type="number" id="targetViews" placeholder="Auto Calc">
             </div>
+        </div>
+
+        <div class="row-2">
             <div class="field-group">
-                <label>💰 Fee (AED)</label>
-                <input type="number" id="price" placeholder="500">
-            </div>
-            <div class="field-group">
-                <label>📅 Video Deadline Date</label>
-                <input type="date" id="deadlineDate">
+                <label>💰 Agreed Fee (AED)</label>
+                <input type="number" id="price" placeholder="500" oninput="calcFee()">
             </div>
             <div class="field-group">
                 <label>🚀 Go Live Date</label>
                 <input type="date" id="liveDate">
             </div>
-            <div class="field-group">
-                <label>✍️ Sender Name</label>
-                <input type="text" id="senderName" value="Mahmoud">
-            </div>
+        </div>
+        <div class="calc-display calc-fee" id="feeDisplay"></div>
 
-            <button class="gen-button" onclick="generateBrief()">Generate Brief</button>
-            
-            <div style="margin-top:auto; font-size:10px; color:#444; text-align:center;">
-                v25.0 | Eid Campaign V1
-            </div>
+        <div class="field-group">
+            <label>✍️ Sender Name</label>
+            <input type="text" id="senderName" value="Mahmoud">
         </div>
 
-        <!-- CONTENT PANEL -->
-        <div class="panel content-panel">
-            <div class="header-nav">
-                <div style="font-weight:700; font-size:14px; color:#fff;">OUTPUT PREVIEW</div>
-                <div class="tabs">
-                    <button class="tab active" onclick="switchTab('email')">Email Body</button>
-                    <button class="tab" onclick="switchTab('eng')">Brief (EN)</button>
-                    <button class="tab" onclick="switchTab('ar')">Brief (AR)</button>
-                </div>
-            </div>
-
-            <div class="subject-bar">
-                <div style="display:flex; align-items:center; gap:10px; flex:1;">
-                    <span style="color:#fff; font-weight:bold; font-size:12px;">SUBJECT:</span>
-                    <span class="subject-text" id="subjectText">Waiting for generation...</span>
-                </div>
-                <button style="background:none; border:none; color:#fff; cursor:pointer; font-size:16px;" onclick="copySubject()" title="Copy Subject">📋</button>
-            </div>
-
-            <div class="viewport">
-                <!-- EMAIL VIEW -->
-                <div id="view-email" class="view-content active">
-                    <div id="render-email" class="email-render" contenteditable="false">
-                        <div style="text-align:center; padding-top:150px; color:#888;">
-                            <div style="font-size:40px; margin-bottom:10px;">👋</div>
-                            Fill details and click "Generate Brief"
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ENG VIEW -->
-                <div id="view-eng" class="view-content">
-                    <div id="render-eng" class="checklist-render"></div>
-                </div>
-
-                <!-- AR VIEW -->
-                <div id="view-ar" class="view-content">
-                    <div id="render-ar" class="checklist-render" dir="rtl" style="text-align: right;"></div>
-                </div>
-            </div>
-
-            <div class="fab-wrapper">
-                <button id="btn-email" class="fab-btn" onclick="copyRichText('render-email', this)">Copy Email Content</button>
-                <button id="btn-eng" class="fab-btn" style="display:none;" onclick="copyText('render-eng', this)">Copy English Brief</button>
-                <button id="btn-ar" class="fab-btn" style="display:none;" onclick="copyText('render-ar', this)">نسخ البريف العربي</button>
-            </div>
-        </div>
+        <hr class="divider">
+        <button class="gen-button" onclick="generateBrief()">⚡ Generate Brief</button>
+        <div style="margin-top:auto;padding-top:10px;font-size:11px;color:rgba(255,255,255,0.3);text-align:center;font-weight:600;">v26.4 | AI Enhanced Edition</div>
     </div>
 
-    <script>
-        // --- CONSTANTS ---
-        const LOGO_URL = "https://f.nooncdn.com/s/app/com/noon/design-system/logos/noon-logo-ar.svg";
-        
-        // --- TEXT BLOCKS ---
-        const SCRIPT_DIRECTION = `1. “العيد قرب، وكل اللي أحتاجه لقيته بمكان واحد! من ملابس العيد للهدايا - كل شي على نون. حمّلوا التطبيق الآن.”
-2. “ليش تلف وتدور وتتعب نفسك قبل العيد؟ تطبيق نون وفّر لنا كل التجهيزات من لبس، ديكور، وضيافة ويوصل للباب.”
-3. “تجهيزات العيد صارت أسهل مع نون! كل شي تحتاجه أنت وعيلتك بضغطة زر وتوصيل سريع.”`;
+    <!-- CONTENT PANEL -->
+    <div class="panel content-panel">
+        <div class="header-nav">
+            <div style="font-weight:800;font-size:15px;color:#fff;letter-spacing:1px;">OUTPUT PREVIEW</div>
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('email',event)">Email Body</button>
+                <button class="tab" onclick="switchTab('eng',event)">Brief (EN)</button>
+                <button class="tab" onclick="switchTab('ar',event)">Brief (AR)</button>
+            </div>
+        </div>
+        <div class="subject-bar">
+            <div style="display:flex;align-items:center;gap:12px;flex:1;">
+                <span style="color:var(--text-muted);font-weight:bold;font-size:12px;">SUBJECT:</span>
+                <span class="subject-text" id="subjectText">Waiting for generation...</span>
+            </div>
+            <button style="background:none;border:none;color:#fff;cursor:pointer;font-size:18px;transition:0.3s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" onclick="copySubject()" title="Copy Subject">📋</button>
+        </div>
+        <div class="viewport">
+            <div id="view-email" class="view-content active">
+                <div id="render-email" class="email-render" contenteditable="false">
+                    <div style="text-align:center;padding-top:150px;color:#888;">
+                        <div style="font-size:45px;margin-bottom:15px;animation: pulseGlow 2s infinite;">👋</div>
+                        Fill in the details and click "Generate Brief"
+                    </div>
+                </div>
+            </div>
+            <div id="view-eng" class="view-content">
+                <div id="render-eng" class="checklist-render"></div>
+            </div>
+            <div id="view-ar" class="view-content">
+                <div id="render-ar" class="checklist-render" dir="rtl" style="text-align:right;"></div>
+            </div>
+        </div>
+        <div class="fab-wrapper">
+            <button id="btn-email" class="fab-btn" onclick="copyRichText('render-email',this)">Copy Email Content</button>
+            <button id="btn-eng"   class="fab-btn" style="display:none;" onclick="copyText('render-eng',this)">Copy English Brief</button>
+            <button id="btn-ar"    class="fab-btn" style="display:none;" onclick="copyText('render-ar',this)">نسخ البريف العربي</button>
+        </div>
+    </div>
+</div>
 
-        function generateBrief() {
-            // Inputs
-            const country = document.getElementById('country').value;
-            const name = document.getElementById('name').value || "Partner";
-            const sender = document.getElementById('senderName').value || "Mahmoud";
-            let rawPrice = document.getElementById('price').value || "0";
-            const price = rawPrice + " AED"; // CHANGED TO AED
-            
-            const deadlineInput = document.getElementById('deadlineDate').value;
-            const liveInput = document.getElementById('liveDate').value;
-            const deadlineStr = deadlineInput ? new Date(deadlineInput).toLocaleDateString('en-GB') : "[TBD]";
-            const liveStr = liveInput ? new Date(liveInput).toLocaleDateString('en-GB') : "[TBD]";
+<script>
+const LOGO_URL      = "https://f.nooncdn.com/s/app/com/noon/design-system/logos/noon-logo-ar.svg";
+const TRANSFER_FEE  = 30;
+const CAMPAIGN_END  = "May 1, 2026";
+const PAYMENT_DATE  = "June 1, 2026";
+const CAMPAIGN_NAME = "Noon GCC April Campaign 2026";
+// Hardcoded Google Drive URL
+const HARDCODED_LOGO_URL = "https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS";
 
-            // Update Subject
-            const subject = `Eid Campaign Collaboration | noon GCC - ${country}`;
-            document.getElementById('subjectText').innerText = subject;
+function calcFee() {
+    const p = parseFloat(document.getElementById('price').value)||0;
+    const d = document.getElementById('feeDisplay');
+    if (p>0) { d.style.display='block'; d.innerHTML=`💰 ${p} AED + ${TRANSFER_FEE} AED (transfer) = <strong style="color:#fff;">${p+TRANSFER_FEE} AED total</strong>`; }
+    else d.style.display='none';
+}
 
-            // ===========================================
-            // 1. EMAIL GENERATION
-            // ===========================================
-            const emailHTML = `
-            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; color: #333; line-height: 1.6; font-size: 15px; max-width: 720px; margin: 0 auto; background: #fff;">
-                <tr>
-                    <td align="center" style="background-color: #feee00; padding: 25px 0;">
-                        <img src="${LOGO_URL}" alt="noon" width="100" style="display: block;">
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left" style="padding: 40px 30px;">
-                        
-                        <p style="margin-top:0;">Hi <strong>${name}</strong>,<br>
-                        We hope you’re doing well ✨</p>
+function calcKPI() {
+    const f = parseInt(document.getElementById('followers').value)||0;
+    const pct = parseFloat(document.getElementById('kpiPercent').value)||50;
+    const targetInput = document.getElementById('targetViews');
+    if (f > 0) {
+        targetInput.value = Math.round(f * pct / 100);
+    } else {
+        targetInput.value = '';
+    }
+}
 
-                        <p>We’re excited to reach out regarding the <strong>noon Eid Campaign</strong> across the GCC (Qatar, Bahrain, Oman, and Kuwait).</p>
-                        
-                        <p>With Eid Al-Fitr approaching, this campaign aims to position noon as the one-stop destination for all Eid needs—making preparation easier, smarter, and stress-free through one trusted app.</p>
+function generateBrief() {
+    const country   = document.getElementById('country').value;
+    const name      = document.getElementById('name').value || "Partner";
+    const sender    = document.getElementById('senderName').value || "Mahmoud";
+    const platform  = document.getElementById('platform').value || "[Platform(s) to be confirmed]";
+    const rawPrice  = parseFloat(document.getElementById('price').value)||0;
+    const totalFee  = rawPrice + TRANSFER_FEE;
+    const followers = parseInt(document.getElementById('followers').value)||0;
+    const kpiPct    = parseFloat(document.getElementById('kpiPercent').value)||50;
+    
+    // Read from the editable targetViews input
+    const targetV   = parseInt(document.getElementById('targetViews').value) || null;
 
-                        <!-- CAMPAIGN OVERVIEW -->
-                        <h3 style="border-bottom: 3px solid #feee00; display:inline-block; padding-bottom:5px; margin-top:25px;">🚀 Campaign Key Messages</h3>
-                        <div style="background: #fafafa; padding: 15px; border-left: 4px solid #333;">
-                            <ul style="margin:0; padding-left:20px;">
-                                <li style="margin-bottom:8px;">noon is your one-stop shop for Eid.</li>
-                                <li style="margin-bottom:8px;">The noon app is now available in Qatar, Bahrain, Oman, and Kuwait.</li>
-                                <li style="margin-bottom:8px;">Shop early and avoid last-minute Eid stress with wide product variety.</li>
-                                <li><strong>Delivery Timeline:</strong> Reliable delivery within 3–7 days (Shipped from noon’s main warehouse).</li>
-                            </ul>
-                        </div>
+    const liveStr = document.getElementById('liveDate').value
+        ? new Date(document.getElementById('liveDate').value).toLocaleDateString('en-GB') : "[TBD]";
 
-                        <!-- CATEGORIES -->
-                        <div style="background: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #eee; margin-top:25px; margin-bottom:30px;">
-                            <strong style="color:#333; display:block; margin-bottom:10px;">🛍️ Product Categories to Highlight:</strong>
-                            <p style="margin:0 0 10px 0; font-size:14px; color:#555;">The content should feature one or more of the following:</p>
-                            <ul style="margin-top: 5px; padding-left: 20px; display:grid; grid-template-columns: 1fr; gap:5px;">
-                                <li>👗 <strong>Fashion:</strong> Eid outfits, accessories, family matching looks.</li>
-                                <li>💄 <strong>Beauty:</strong> Eid makeup, perfumes, gift sets, personal care.</li>
-                                <li>🏡 <strong>Home:</strong> Eid décor, hosting essentials, serving items.</li>
-                                <li>🎁 <strong>Gifting:</strong> Perfumes, electronics, toys, Eid bundles.</li>
-                                <li>🌿 <strong>Health & Wellness:</strong> Self-care products, supplements, post-Ramadan essentials.</li>
-                            </ul>
-                        </div>
+    const subject = `${CAMPAIGN_NAME} | Collaboration Opportunity – ${country}`;
+    document.getElementById('subjectText').innerText = subject;
 
-                        <!-- CREATIVE DIRECTION -->
-                        <h3 style="border-bottom: 3px solid #feee00; display:inline-block; padding-bottom:5px;">🎨 Creative Direction</h3>
-                        <div style="margin-bottom:20px;">
-                            <ul style="margin-top:5px; padding-left:20px;">
-                                <li>Showcase Eid preparation moments (choosing outfits, wrapping gifts, home prep).</li>
-                                <li>Modern app visuals (floating screen / screen recording).</li>
-                                <li>Browsing the noon app and adding items to cart.</li>
-                                <li>Receiving the order at your doorstep with ease.</li>
-                            </ul>
-                        </div>
+    const kpiLabel = targetV
+        ? `${targetV.toLocaleString()} views (${kpiPct}% of ${followers.toLocaleString()} followers)`
+        : `${kpiPct}% of your total followers`;
 
-                        <strong>Script Idea (Example):</strong>
-                        <div style="background: #fdfdfd; padding: 15px; border-left: 3px solid #ccc; font-style: italic; margin-bottom: 25px; white-space: pre-wrap; font-size:14px;" dir="rtl">${SCRIPT_DIRECTION}</div>
+    const logoRowHTML = `<li><strong>Official Logo:</strong> You are <u>NOT</u> allowed to use old noon logos. Use ONLY the official file: <a href="${HARDCODED_LOGO_URL}" style="color:#0050b3;font-weight:bold;">📥 Download Official Logo Here</a></li>`;
+    const logoRowText = `- Logo: Do NOT use old logos. Download official file: ${HARDCODED_LOGO_URL}`;
 
-                        <!-- CRITICAL POSTING RULES (RED BOX) -->
-                        <div style="border: 2px dashed #d93025; background-color: #fff5f5; padding: 25px; border-radius: 12px; margin: 30px 0;">
-                            <strong style="color: #d93025; font-size: 18px; text-transform: uppercase; display: block; margin-bottom: 15px;">🚨 Critical Campaign Rules</strong>
-                            <ul style="margin: 0; padding-left: 20px; color: #000;">
-                                <li style="margin-bottom: 12px;"><strong>Required Platforms:</strong> You must post on <u>at least 2 of the following 3 platforms:</u> <strong>Instagram Reels, TikTok, and Snapchat.</strong></li>
-                                <li style="margin-bottom: 12px; background: #feee00; padding: 5px; font-weight: bold;"><strong>CRITICAL KPI:</strong> You must achieve views equivalent to 50% of your total followers. If the target is not met, the video must be boosted or reposted.</li>
-                                <li style="margin-bottom: 12px;"><strong>Video Quality:</strong> High-quality video (good/natural lighting & clear visuals). NO heavy filters.</li>
-                                <li style="margin-bottom: 12px;"><strong>Product Availability:</strong> Any product shown must be physically available with you, and you must clearly mention it is available on the noon app.</li>
-                                <li><strong>Hashtags & Tags:</strong> #noonEid #noonApp #noonGCC | Tag: @noon</li>
-                            </ul>
-                        </div>
+    /* ── EMAIL ── */
+    const emailHTML = `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,sans-serif;color:#333;line-height:1.65;font-size:15px;max-width:740px;margin:0 auto;background:#fff;">
+  <tr>
+    <td align="center" style="background:#feee00;padding:22px 0;">
+      <img src="${LOGO_URL}" alt="noon" width="100" style="display:block;margin:0 auto;">
+      <div style="margin-top:8px;font-size:12px;font-weight:700;color:#000;letter-spacing:1.5px;text-transform:uppercase;">${CAMPAIGN_NAME}</div>
+    </td>
+  </tr>
+  <tr><td style="padding:38px 35px;">
 
-                        <!-- INVOICE SECTION (NEW REQUIREMENT) -->
-                        <div style="background: #e6f7ff; padding: 20px; margin: 25px 0; border-radius: 8px; border: 1px solid #91d5ff;">
-                            <strong style="color:#0050b3; display:block; margin-bottom:10px; font-size: 16px;">💳 Invoicing & Payment Steps</strong>
-                            <p style="margin-top:0; font-size: 14px;">To process your payment seamlessly, please generate your official invoice using our portal:</p>
-                            <a href="https://noon-invoice.vercel.app/" style="display:inline-block; margin-bottom: 10px; font-weight: bold; background-color: #0050b3; color: #fff; text-decoration: none; padding: 8px 15px; border-radius: 4px;">👉 Open noon Invoice Generator</a>
-                            <ul style="margin:0; padding-left: 20px; font-size: 13px; color: #333;">
-                                <li><strong>Important:</strong> noon covers a bank transfer fee of <strong>30 SAR</strong>. This amount is automatically added within the link.</li>
-                                <li>Please only input your agreed base fee (<strong>${price}</strong>) alongside your full details.</li>
-                                <li>Once generated, download the PDF and send it to your point of contact.</li>
-                            </ul>
-                        </div>
+    <p style="margin-top:0;">Hi <strong>${name}</strong>,<br>Hope you're doing great! 🌟</p>
+    <p>We're excited to invite you to collaborate on the <strong>${CAMPAIGN_NAME}</strong> — a multi-phase campaign running across the GCC (Qatar, Bahrain, Oman &amp; Kuwait).</p>
+    <p>Please read the full brief below carefully. All video creation details, script guidance, and posting instructions will be sent to you via <strong>WhatsApp</strong> once you confirm your participation by replying to this email.</p>
 
-                        <!-- CTA -->
-                        <div align="center" style="padding: 25px; background-color: #f9f9f9; border-radius: 12px; border: 1px solid #ddd; margin-bottom:30px;">
-                            <strong style="font-size: 16px; color:#555;">📣 Mandatory Call to Action</strong><br>
-                            <p style="margin:10px 0 0 0; font-style: italic;">“Download the noon app now and get ready for Eid!”<br>“Shop all your Eid essentials today at noon!”<br>“Don’t forget to use the discount code (to be shared separately)”</p>
-                        </div>
+    <!-- CAMPAIGN WINDOWS -->
+    <h3 style="border-bottom:3px solid #feee00;display:inline-block;padding-bottom:5px;margin-top:25px;">📅 Campaign Windows &amp; Categories</h3>
+    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:13px;margin-top:10px;">
+      <thead>
+        <tr style="background:#feee00;color:#000;">
+          <th style="padding:10px 12px;text-align:left;">Phase</th>
+          <th style="padding:10px 12px;text-align:left;">Dates</th>
+          <th style="padding:10px 12px;text-align:left;">Categories &amp; Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#fafafa;border-bottom:1px solid #eee;">
+          <td style="padding:10px 12px;font-weight:700;">🛍️ Grand Lifestyle Sale</td>
+          <td style="padding:10px 12px;white-space:nowrap;color:#555;">Apr 12–13</td>
+          <td style="padding:10px 12px;color:#444;">Home, Fashion, W&amp;E, Footwear, Beauty, Fitness<br><span style="font-size:12px;color:#888;">Code <strong>PROMO10</strong> on stories &amp; caption</span></td>
+        </tr>
+        <tr style="background:#fff;border-bottom:1px solid #eee;">
+          <td style="padding:10px 12px;font-weight:700;">🌿 Gap – Light Phase</td>
+          <td style="padding:10px 12px;white-space:nowrap;color:#555;">Apr 14–16</td>
+          <td style="padding:10px 12px;color:#444;">Beauty, Fashion basics, Home essentials, Footwear, Fitness, Coupons/Bundles<br><span style="font-size:12px;color:#888;">Code <strong>PROMO10</strong>. Tease Mega Tech Festival (Apr 17–20) — 10% mention</span></td>
+        </tr>
+        <tr style="background:#fafafa;border-bottom:1px solid #eee;">
+          <td style="padding:10px 12px;font-weight:700;">💻 Mega Tech Festival</td>
+          <td style="padding:10px 12px;white-space:nowrap;color:#555;">Apr 17–20</td>
+          <td style="padding:10px 12px;color:#444;">TVs, Appliances, Laptops, Gaming, Telco<br><span style="font-size:12px;color:#888;">Code <strong>PROMO10</strong> on stories &amp; caption</span></td>
+        </tr>
+        <tr style="background:#fff;border-bottom:1px solid #eee;">
+          <td style="padding:10px 12px;font-weight:700;">🎮 Gap – Light Phase</td>
+          <td style="padding:10px 12px;white-space:nowrap;color:#555;">Apr 21–23</td>
+          <td style="padding:10px 12px;color:#444;">Tech accessories, Gaming accessories, Wearables, Fashion accessories, Baby/Kids, Budget tech<br><span style="font-size:12px;color:#888;">Code <strong>PROMO10</strong>. Tease End of Month Sale — 10% mention</span></td>
+        </tr>
+        <tr style="background:#fafafa;">
+          <td style="padding:10px 12px;font-weight:700;">🎉 End of Month Sale</td>
+          <td style="padding:10px 12px;white-space:nowrap;color:#555;">Apr 24–May 2</td>
+          <td style="padding:10px 12px;color:#444;">Platform-wide — All categories<br><span style="font-size:12px;color:#888;">Code <strong>PROMO10</strong>. Tease 10% about May campaigns</span></td>
+        </tr>
+      </tbody>
+    </table>
 
-                        <!-- TIMELINE -->
-                        <div style="background-color: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
-                            <strong style="font-size: 16px;">📅 Submission & Timeline</strong>
-                            <ul style="margin-top: 10px; padding-left: 20px;">
-                                <li><strong>Video Deadline:</strong> We need the video by <strong>${deadlineStr}</strong> at the latest.</li>
-                                <li><strong>Go Live Date:</strong> The post will go live on <strong>${liveStr}</strong>.</li>
-                                <li><strong>Campaign Fee:</strong> ${price}</li>
-                            </ul>
-                        </div>
+    <!-- KEY MESSAGES -->
+    <h3 style="border-bottom:3px solid #feee00;display:inline-block;padding-bottom:5px;margin-top:28px;">🚀 Key Messages</h3>
+    <div style="background:#fafafa;padding:15px 20px;border-left:4px solid #333;border-radius:0 6px 6px 0;">
+      <ul style="margin:0;padding-left:20px;">
+        <li style="margin-bottom:7px;">noon is your one-stop shop — lifestyle, tech, home &amp; more, all in one app.</li>
+        <li style="margin-bottom:7px;">Available in Qatar, Bahrain, Oman &amp; Kuwait.</li>
+        <li style="margin-bottom:7px;">Use promo code <strong>PROMO10</strong> for an exclusive discount.</li>
+        <li>Fast, reliable delivery — straight to your door.</li>
+      </ul>
+    </div>
 
-                        <!-- ACTION REQUIRED -->
-                        <div style="margin-top: 30px; padding: 20px; border: 2px solid #333; border-radius: 8px; text-align: center; background: #fff;">
-                            <span style="font-size: 24px;">🔔</span><br>
-                            <strong style="font-size: 16px; display:block; margin-top:10px;">ACTION REQUIRED</strong>
-                            <p style="margin-bottom:0;">Please reply to this email confirming receipt and your availability to proceed with the campaign.</p>
-                        </div>
+    <!-- CREATIVE DIRECTION -->
+    <h3 style="border-bottom:3px solid #feee00;display:inline-block;padding-bottom:5px;margin-top:28px;">🎨 Creative Direction</h3>
+    <div style="background:#fafafa;padding:18px 20px;border-radius:8px;border:1px solid #eee;">
+      <strong style="display:block;margin-bottom:10px;">Content Guidelines:</strong>
+      <ul style="margin:0;padding-left:20px;color:#444;">
+        <li style="margin-bottom:7px;"><strong>Tone:</strong> Friendly, trustworthy, family-oriented, simple &amp; clear.</li>
+        <li style="margin-bottom:7px;"><strong>Focus:</strong> Savings, product variety, ease of use, app-first awareness.</li>
+        <li style="margin-bottom:7px;"><strong>Video Specs:</strong> 30–45 sec max | High quality | Good natural lighting | Clear audio | No heavy filters.</li>
+        <li style="margin-bottom:7px;">Showcase real shopping moments: browsing products, unboxing, styling.</li>
+        <li style="margin-bottom:7px;">Include app screen recording or floating screen visuals.</li>
+        <li>Show adding items to cart + receiving delivery at the door.</li>
+      </ul>
+    </div>
 
-                        <br><br>
-                        Wishing you a joyful Eid in advance 🌙✨<br><br>
-                        <strong>${sender}</strong><br>
-                        <span style="color: #666;">noon Marketing Team</span><br>
-                        <a href="https://www.noon.com" style="color:#000; text-decoration:none;">www.noon.com</a>
-                    </td>
-                </tr>
-            </table>`;
+    <!-- FULL BRIEF BOX -->
+    <div style="background:#f5f5f5;border:2px solid #222;border-radius:10px;padding:25px;margin-top:28px;">
+      <strong style="font-size:17px;display:block;margin-bottom:20px;color:#111;text-transform:uppercase;letter-spacing:0.5px;">📋 Full Campaign Brief</strong>
 
-            // ===========================================
-            // 2. ENGLISH BRIEF GENERATION (TEXT)
-            // ===========================================
-            const engText = `NOON EID CAMPAIGN | VIDEO CREATION BRIEF
+      <!-- Review & Approval -->
+      <div style="margin-bottom:22px;">
+        <strong style="color:#111;font-size:14px;display:block;margin-bottom:9px;border-bottom:1px solid #ddd;padding-bottom:6px;">✅ Review &amp; Approval Process</strong>
+        <ul style="margin:0;padding-left:20px;font-size:14px;color:#444;line-height:1.85;">
+          <li><strong>Do NOT post</strong> until your draft is reviewed and approved by our team.</li>
+          <li>All content (video + caption) must be shared with us <strong>before posting</strong>.</li>
+          <li>Content is subject to edits &amp; feedback — please expect <strong>2–3 rounds of revisions</strong> before final approval.</li>
+          <li>Posting is only allowed after receiving <strong>explicit written approval</strong> from your point of contact.</li>
+        </ul>
+      </div>
+
+      <!-- Mandatory Deliverables -->
+      <div style="margin-bottom:22px;">
+        <strong style="color:#111;font-size:14px;display:block;margin-bottom:9px;border-bottom:1px solid #ddd;padding-bottom:6px;">📦 Mandatory Deliverables</strong>
+        <p style="margin:0 0 8px;font-size:14px;color:#444;">You are required to submit <strong>2 files</strong> for this video:</p>
+        <ul style="margin:0;padding-left:20px;font-size:14px;color:#444;line-height:1.85;">
+          <li><strong>Fully Edited Video:</strong> Final version with music, text, and effects.</li>
+          <li><strong>RAW Footage:</strong> Original, unedited file(s) — no text, no filters.</li>
+        </ul>
+        <p style="margin:10px 0 5px;font-size:13px;color:#555;font-weight:700;">How to Submit (High Quality Only):</p>
+        <ul style="margin:0;padding-left:20px;font-size:13px;color:#555;line-height:1.85;">
+          <li>Upload to <strong>Google Drive</strong> and share the link, <strong>OR</strong></li>
+          <li>Send via WhatsApp as a <strong>"Document" (File)</strong> — <u>NOT</u> as a normal video (avoids compression).</li>
+        </ul>
+      </div>
+
+      <!-- Platform -->
+      <div style="margin-bottom:22px;">
+        <strong style="color:#111;font-size:14px;display:block;margin-bottom:9px;border-bottom:1px solid #ddd;padding-bottom:6px;">📱 Agreed Publishing Platform(s)</strong>
+        <p style="margin:0;font-size:14px;color:#444;">As agreed, content will be published on: <strong>${platform}</strong></p>
+      </div>
+
+      <!-- TikTok Spark -->
+      <div style="margin-bottom:22px;">
+        <strong style="color:#111;font-size:14px;display:block;margin-bottom:9px;border-bottom:1px solid #ddd;padding-bottom:6px;">⚡ TikTok Spark Code</strong>
+        <p style="margin:0;font-size:14px;color:#444;">If TikTok is one of your agreed platforms, you must provide the <strong>Spark Code immediately after posting</strong>.</p>
+      </div>
+
+      <!-- Captions & Tags -->
+      <div style="margin-bottom:22px;">
+        <strong style="color:#111;font-size:14px;display:block;margin-bottom:9px;border-bottom:1px solid #ddd;padding-bottom:6px;">✍️ Captions &amp; Tags</strong>
+        <p style="margin:0;font-size:14px;color:#444;">Final caption, tags, and hashtags will be <strong>provided to you after approval</strong>. Please <strong>do NOT write your own</strong> caption or hashtags before receiving them.</p>
+      </div>
+
+      <!-- Logo -->
+      <div style="margin-bottom:22px;">
+        <strong style="color:#111;font-size:14px;display:block;margin-bottom:9px;border-bottom:1px solid #ddd;padding-bottom:6px;">🖼️ Official Logo</strong>
+        <ul style="margin:0;padding-left:20px;font-size:14px;color:#444;line-height:1.85;">${logoRowHTML}</ul>
+      </div>
+
+      <!-- Critical KPIs -->
+      <div style="background:#fff8f8;border:2px solid #d93025;border-radius:8px;padding:20px 22px;">
+        <strong style="color:#d93025;font-size:15px;display:block;margin-bottom:12px;text-transform:uppercase;">🚨 Critical KPIs — All Mandatory</strong>
+        <ul style="margin:0;padding-left:20px;font-size:14px;color:#333;line-height:1.9;">
+          <li style="background:#feee00;padding:5px 9px;border-radius:4px;list-style:none;margin-bottom:10px;font-weight:700;">
+            View Target: Your video must reach <strong>${kpiLabel}</strong>.
+          </li>
+          <li style="margin-bottom:7px;"><strong>Action:</strong> If target not met → <strong>Boost (paid) or Repost</strong> until required views are achieved.</li>
+          <li style="margin-bottom:7px;"><strong>Retention:</strong> Video must remain live &amp; public for a minimum of <strong>1 full year</strong> from posting. No deletion, archiving, or privacy changes allowed.</li>
+          <li><strong>Usage Rights:</strong> noon reserves the right to use the published video on its platforms and paid advertising campaigns.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PAYMENT & TIMELINE -->
+    <div style="background:#fafafa;padding:22px;border-radius:8px;border:1px solid #eee;margin-top:25px;">
+      <strong style="font-size:16px;display:block;margin-bottom:14px;">📅 Timeline &amp; Payment Details</strong>
+      <table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px;border-collapse:collapse;">
+        <tr style="border-bottom:1px solid #eee;"><td style="padding:9px 0;color:#555;width:50%;">Go Live Date</td><td style="padding:9px 0;font-weight:700;">${liveStr}</td></tr>
+        <tr style="border-bottom:1px solid #eee;"><td style="padding:9px 0;color:#555;">Campaign End Date</td><td style="padding:9px 0;font-weight:700;">${CAMPAIGN_END}</td></tr>
+        <tr style="border-bottom:1px solid #eee;"><td style="padding:9px 0;color:#555;">Agreed Fee</td><td style="padding:9px 0;font-weight:700;">${rawPrice} AED</td></tr>
+        <tr style="border-bottom:1px solid #eee;"><td style="padding:9px 0;color:#555;">Bank Transfer Fee (covered by noon)</td><td style="padding:9px 0;font-weight:700;">${TRANSFER_FEE} AED</td></tr>
+        <tr style="background:#feee00;"><td style="padding:11px 9px;font-weight:800;color:#000;">Total Invoice Amount</td><td style="padding:11px 9px;font-weight:800;color:#000;font-size:16px;">${totalFee} AED</td></tr>
+      </table>
+      <p style="margin:14px 0 0;font-size:13px;color:#666;">
+        💡 <strong>Payment Release:</strong> 30 days after campaign end — on or around <strong>${PAYMENT_DATE}</strong>, provided all deliverables are complete and KPI targets are met.
+      </p>
+    </div>
+
+    <!-- HOLD WARNING -->
+    <div style="border:2px solid #d93025;background:#fff5f5;border-radius:8px;padding:18px 20px;margin-top:16px;">
+      <strong style="color:#d93025;display:block;margin-bottom:8px;font-size:15px;">⚠️ Payment Hold Policy</strong>
+      <p style="margin:0;font-size:14px;color:#333;">
+        If, at the payment release date (<strong>${PAYMENT_DATE}</strong>), the required ${kpiLabel} has <strong>not been achieved</strong>,
+        the transfer will be <strong>placed on hold</strong> until the target is reached through boosting or reposting.
+      </p>
+    </div>
+
+    <!-- INVOICE -->
+    <div style="background:#e6f7ff;padding:22px;margin-top:18px;border-radius:8px;border:1px solid #91d5ff;">
+      <strong style="color:#0050b3;display:block;margin-bottom:10px;font-size:16px;">🧾 Invoice / Payment Form</strong>
+      <p style="margin-top:0;font-size:14px;color:#333;">To initiate your payment, complete your official invoice through our portal:</p>
+      <a href="https://noon-invoice.vercel.app/" target="_blank" style="display:inline-block;margin-bottom:14px;font-weight:bold;background:#0050b3;color:#fff;text-decoration:none;padding:10px 18px;border-radius:6px;font-size:14px;">
+        👉 Open noon Invoice Generator
+      </a>
+      <ul style="margin:0;padding-left:20px;font-size:13px;color:#333;line-height:1.9;">
+        <li>Select campaign: <strong>${CAMPAIGN_NAME}</strong></li>
+        <li>Enter your agreed base fee: <strong>${rawPrice} AED</strong> (${TRANSFER_FEE} AED is added automatically)</li>
+        <li>Fill in your full personal &amp; bank details</li>
+        <li>Download the PDF invoice</li>
+        <li><strong>Share the PDF via WhatsApp</strong> with your point of contact</li>
+      </ul>
+    </div>
+
+    <!-- ACTION REQUIRED -->
+    <div style="margin-top:25px;padding:28px 30px;border:3px solid #feee00;border-radius:12px;background:#fffef0;text-align:center;">
+      <span style="font-size:34px;">🔔</span>
+      <strong style="font-size:17px;display:block;margin:10px 0 10px;color:#111;text-transform:uppercase;letter-spacing:0.5px;">Action Required — Please Reply to This Email</strong>
+      <p style="margin:0 auto;font-size:14px;color:#555;max-width:520px;line-height:1.7;">
+        Kindly <strong>reply to this email</strong> confirming that you have received and fully reviewed this brief, and that you agree to proceed with the collaboration.
+        <br><br>
+        Upon receiving your confirmation, we will send you via <strong>WhatsApp</strong>:<br>
+        ✅ Full video creation details &amp; script guidance<br>
+        ✅ Official noon logo file<br>
+        ✅ Final caption, hashtags &amp; promo code<br>
+        ✅ Posting instructions
+      </p>
+    </div>
+
+    <!-- WHATSAPP REMINDER -->
+    <div style="margin-top:16px;padding:15px 20px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:8px;text-align:center;">
+      <p style="margin:0;font-size:13px;color:#2e7d32;">
+        📲 <strong>Note:</strong> All video creation details, script, caption, hashtags, promo codes, and the official logo will be shared via <strong>WhatsApp only</strong> after receiving your email confirmation reply.
+      </p>
+    </div>
+
+    <br><br>
+    Best regards,<br>
+    <strong>${sender}</strong><br>
+    <span style="color:#666;">noon Marketing Team — GCC</span><br>
+    <a href="https://www.noon.com" style="color:#000;text-decoration:none;">www.noon.com</a>
+
+  </td></tr>
+  <tr><td align="center" style="background:#111;padding:14px;color:#777;font-size:11px;">© 2026 noon. All rights reserved. | GCC Operations</td></tr>
+</table>`;
+
+    /* ── ENGLISH BRIEF ── */
+    const engText = `NOON GCC APRIL CAMPAIGN 2026 — INFLUENCER BRIEF
 Country: ${country}
-Campaign Fee: ${price}
+Agreed Fee: ${rawPrice} AED + ${TRANSFER_FEE} AED transfer fee = TOTAL: ${totalFee} AED
+Campaign End: ${CAMPAIGN_END} | Payment Release: ${PAYMENT_DATE}
 
-1. VIDEO CREATIVE DIRECTION
-- Focus: Eid preparation moments (choosing outfits, wrapping gifts, home prep).
-- Visuals: Include modern app visuals (floating screen / screen recording).
-- Action: Show browsing the noon app, adding items to the cart, and receiving the order at your doorstep.
-- Tone: Festive, friendly, simple, and clear.
-- Duration: 30–45 seconds maximum.
-- Audio: Use trendy or festive sounds.
+══════════════════════════════════════════════
+ CAMPAIGN WINDOWS & CATEGORIES
+══════════════════════════════════════════════
+Phase 1 — Grand Lifestyle Sale (Apr 12–13)
+  Home, Fashion, W&E, Footwear, Beauty, Fitness | Code: PROMO10
 
-2. KEY MESSAGES TO DELIVER
-- noon is your one-stop shop for all Eid essentials.
-- The app is now available in Qatar, Bahrain, Oman, and Kuwait.
-- Delivery is fast and reliable (3-7 days).
-- Shop early to avoid last-minute Eid stress.
+Phase 2 — Gap / Light Phase (Apr 14–16)
+  Beauty, Fashion basics, Home essentials, Footwear, Fitness, Coupons/Bundles | Code: PROMO10
+  Tease Mega Tech Festival (Apr 17–20) — 10% mention on stories/caption
 
-3. PRODUCT CATEGORIES (Choose 1 or more)
-- Fashion (Eid outfits, accessories, family looks)
-- Beauty (Makeup, perfumes, personal care)
-- Home (Eid décor, hosting essentials)
-- Gifting (Perfumes, electronics, toys)
-- Health & Wellness
+Phase 3 — Mega Tech Festival (Apr 17–20)
+  TVs, Appliances, Laptops, Gaming, Telco | Code: PROMO10
 
-4. MANDATORY CALL TO ACTION (CTA)
-Must say: "Download the noon app now and get ready for Eid!" OR "Shop all your Eid essentials today at noon!"
-(Also mention: "Don’t forget to use the discount code" - code shared separately).
+Phase 4 — Gap / Light Phase (Apr 21–23)
+  Tech accessories, Gaming accessories, Wearables, Fashion accessories, Baby/Kids, Budget tech | Code: PROMO10
+  Tease End of Month Sale — 10% mention
 
-5. SUBMISSION DETAILS
-- Submit 2 versions: 1 Raw Video (no edits) & 1 Fully Edited Video.
-- Send for approval by: ${deadlineStr}
-- Go Live Date: ${liveStr}
-- Any product shown must be physically with you.
+Phase 5 — End of Month Sale (Apr 24–May 2)
+  Platform-wide — ALL categories | Code: PROMO10 | Tease 10% about May campaigns
 
---------------------------------------------------
-🚨 THE 3 STRICT CAMPAIGN RULES (MANDATORY) 🚨
---------------------------------------------------
-1. PLATFORMS: The video MUST be published on Instagram, TikTok, and Snapchat.
-2. KPI REQUIREMENT: You MUST achieve views equivalent to 50% of your total followers. (If not met, boosting/reposting is required).
-3. VIDEO QUALITY: Video must have excellent, natural lighting and clear visuals. NO heavy filters allowed.`;
+══════════════════════════════════════════════
+ KEY MESSAGES
+══════════════════════════════════════════════
+- noon = one-stop shop, from lifestyle to tech, all in one app.
+- Available in Qatar, Bahrain, Oman & Kuwait.
+- Promo code PROMO10 gives an exclusive discount.
+- Fast, reliable delivery to your door.
 
-            // ===========================================
-            // 3. ARABIC BRIEF GENERATION (TEXT)
-            // ===========================================
-            const arText = `ملف تصوير فيديو حملة العيد - نون
-الدولة: ${country === 'Oman' ? 'عُمان' : country === 'Kuwait' ? 'الكويت' : country === 'Qatar' ? 'قطر' : 'البحرين'}
-الميزانية: ${price}
+══════════════════════════════════════════════
+ CREATIVE DIRECTION — CONTENT GUIDELINES
+══════════════════════════════════════════════
+- Tone: Friendly, trustworthy, family-oriented, simple & clear.
+- Focus: Savings, product variety, ease of use, app-first awareness.
+- Video Specs: 30–45 sec max | High quality | Good natural lighting | Clear audio | No heavy filters.
+- Showcase real shopping moments: browsing, unboxing, styling.
+- Include app screen recording or floating screen visuals.
+- Show adding items to cart + receiving delivery at the door.
 
-١. التوجيه الإبداعي للفيديو
-- الفكرة: إظهار أجواء تحضيرات العيد (اختيار ملابس، تجهيز هدايا، تحضيرات المنزل).
-- بصرياً: إضافة التطبيق بأسلوب عصري (تسجيل شاشة أو شاشة عائمة).
-- الأكشن: تصفح التطبيق، إضافة المنتجات للسلة، وتصوير استلام الطلب عند باب البيت بسهولة.
-- المدة: ٣٠-٤٥ ثانية كحد أقصى.
-- الصوت: استخدام أصوات ترند أو موسيقى احتفالية تناسب العيد.
+══════════════════════════════════════════════
+ REVIEW & APPROVAL PROCESS
+══════════════════════════════════════════════
+- Do NOT post until your draft is approved.
+- All content (video + caption) must be shared before posting.
+- Expect 2–3 rounds of revisions before final approval.
+- Posting allowed ONLY after explicit written approval from your contact.
 
-٢. الرسائل الأساسية (يجب توضيحها)
-- نون هي وجهتك الشاملة لكل مستلزمات العيد في مكان واحد.
-- التطبيق متوفر الآن في قطر، البحرين، عُمان، والكويت.
-- توصيل موثوق وسريع خلال (٣ إلى ٧ أيام).
-- تشجيع المتابعين على التسوق المبكر لتجنب زحمة وضغط العيد.
+══════════════════════════════════════════════
+ MANDATORY DELIVERABLES
+══════════════════════════════════════════════
+Submit 2 files:
+  1. Fully Edited Video (with music, text, effects)
+  2. RAW Footage (no filters, no text, unedited)
 
-٣. الفئات المطلوبة (اختر فئة أو أكثر)
-- الأزياء (ملابس العيد، إطلالات عائلية).
-- الجمال (مكياج، عطور، عناية شخصية).
-- المنزل (ديكورات العيد، أدوات الضيافة).
-- الهدايا (إلكترونيات، ألعاب، عطور).
-- الصحة والعناية.
+How to Submit (High Quality Only):
+  - Upload to Google Drive and share the link, OR
+  - Send via WhatsApp as a "Document" (File) — NOT as a normal video
 
-٤. الدعوة لاتخاذ إجراء (CTA إجباري)
-يجب قول: "حمّلوا تطبيق نون الآن واستعدوا للعيد!" أو "تسوّقوا احتياجات العيد اليوم من نون!"
-(مع التنويه بضرورة استخدام كود الخصم - سيتم إرساله لاحقاً).
+══════════════════════════════════════════════
+ PLATFORM & POSTING DETAILS
+══════════════════════════════════════════════
+- Agreed Platform(s): ${platform}
+- TikTok: If applicable, provide the Spark Code immediately after posting.
+- Captions & Tags: Will be provided AFTER approval. Do NOT write your own.
+${logoRowText}
 
-٥. تسليم الفيديو
-- المطلوب: نسختين (نسخة خام بدون تعديل + نسخة معدلة بالكامل).
-- موعد التسليم للمراجعة: ${deadlineStr}
-- موعد النشر: ${liveStr}
-- ملاحظة: أي منتج يظهر في الفيديو يجب أن يكون متوفراً معك فعلياً وتذكر أنه من نون.
+══════════════════════════════════════════════
+🚨 CRITICAL KPIs — ALL MANDATORY 🚨
+══════════════════════════════════════════════
+1. View Target: ${kpiLabel}
+   → If not met: Boost (paid) or Repost until target is achieved.
 
---------------------------------------------------
-🚨 الشروط الثلاثة الصارمة للحملة (إجبارية) 🚨
---------------------------------------------------
-١. منصات النشر: يجب نشر الفيديو على المنصات التالية (انستجرام، تيك توك، وسناب شات).
-٢. شرط المشاهدات (KPI): يجب أن تصل مشاهدات الفيديو إلى ٥٠٪ من إجمالي عدد متابعينك (ضروري جداً، وفي حال عدم الوصول يجب عمل إعلان ممول Boost أو إعادة نشر).
-٣. جودة التصوير: يجب أن تكون الإضاءة طبيعية وممتازة، والصورة واضحة جداً (ممنوع استخدام الفلاتر القوية).`;
+2. Retention: Video must stay live & public for a MINIMUM of 1 full year from posting.
+   → No deletion, archiving, or privacy changes.
 
-            // Render
-            document.getElementById('render-email').innerHTML = emailHTML;
-            document.getElementById('render-eng').innerText = engText;
-            document.getElementById('render-ar').innerText = arText;
-        }
+3. Usage Rights: noon reserves the right to use the video on its platforms and paid ads.
 
-        // --- UTILITIES ---
-        function switchTab(tabId) {
-            document.querySelectorAll('.view-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-            document.getElementById('view-' + tabId).classList.add('active');
-            event.target.classList.add('active');
-            
-            document.getElementById('btn-email').style.display = tabId === 'email' ? 'flex' : 'none';
-            document.getElementById('btn-eng').style.display = tabId === 'eng' ? 'flex' : 'none';
-            document.getElementById('btn-ar').style.display = tabId === 'ar' ? 'flex' : 'none';
-        }
+══════════════════════════════════════════════
+ PAYMENT & HOLD POLICY
+══════════════════════════════════════════════
+- Campaign end: ${CAMPAIGN_END}
+- Payment release: ${PAYMENT_DATE} (30 days after campaign end)
+- Invoice total: ${totalFee} AED (${rawPrice} AED + ${TRANSFER_FEE} AED transfer fee)
+- HOLD: If view target not met by ${PAYMENT_DATE} → payment ON HOLD until target reached.
 
-        function copySubject() {
-            const text = document.getElementById('subjectText').innerText;
-            if(text.includes("Waiting")) return;
-            navigator.clipboard.writeText(text);
-            alert("Subject Copied!");
-        }
+══════════════════════════════════════════════
+ INVOICE INSTRUCTIONS
+══════════════════════════════════════════════
+1. Open: https://noon-invoice.vercel.app/
+2. Select campaign: ${CAMPAIGN_NAME}
+3. Enter base fee: ${rawPrice} AED (${TRANSFER_FEE} AED added automatically)
+4. Fill in personal & bank details
+5. Download PDF and share via WhatsApp with your contact.
 
-        function copyRichText(id, btn) {
-            const node = document.getElementById(id);
-            const range = document.createRange();
-            range.selectNodeContents(node);
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(range);
-            document.execCommand('copy');
-            const originalText = btn.innerText;
-            btn.innerText = "COPIED! ✅";
-            btn.style.background = "#00ff88";
-            btn.style.borderColor = "#00ff88";
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = "#fff";
-                btn.style.borderColor = "#feee00";
-            }, 1500);
-        }
+══════════════════════════════════════════════
+ NEXT STEPS
+══════════════════════════════════════════════
+Reply to the email confirming receipt and agreement.
+All video creation details, script, caption, hashtags, promo code & logo
+will be sent via WhatsApp after your email confirmation.`;
 
-        function copyText(id, btn) {
-            const text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text);
-            const originalText = btn.innerText;
-            btn.innerText = "COPIED! ✅";
-            btn.style.background = "#00ff88";
-            btn.style.borderColor = "#00ff88";
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = "#fff";
-                btn.style.borderColor = "#feee00";
-            }, 1500);
-        }
-        
-        // Ensure Subject updates on load/change
-        function updateSubject() { 
-             const country = document.getElementById('country').value;
-             if(document.getElementById('subjectText').innerText.includes("Eid")) {
-                 document.getElementById('subjectText').innerText = `Eid Campaign Collaboration | noon GCC - ${country}`;
-             }
-        }
-    </script>
+    /* ── ARABIC BRIEF ── */
+    const countryAr = {Qatar:'قطر',Bahrain:'البحرين',Oman:'عُمان',Kuwait:'الكويت'}[country]||country;
+    const kpiLabelAr = targetV
+        ? `${targetV.toLocaleString()} مشاهدة (${kpiPct}% من ${followers.toLocaleString()} متابع)`
+        : `${kpiPct}% من إجمالي متابعينك`;
+
+    const arText = `ملف التعاون | حملة نون GCC أبريل 2026
+الدولة: ${countryAr}
+المبلغ المتفق: ${rawPrice} AED + ${TRANSFER_FEE} AED رسوم تحويل = الإجمالي: ${totalFee} AED
+نهاية الحملة: ${CAMPAIGN_END} | موعد التحويل: ${PAYMENT_DATE}
+
+══════════════════════════════════════════
+ نوافذ الحملة والفئات
+══════════════════════════════════════════
+المرحلة الأولى — Grand Lifestyle Sale (١٢–١٣ أبريل)
+  المنزل، الأزياء، الإلكترونيات، الأحذية، الجمال، اللياقة | كود: PROMO10
+
+المرحلة الثانية — فترة انتقالية (١٤–١٦ أبريل)
+  الجمال، أساسيات الأزياء والمنزل والأحذية، اللياقة، الكوبونات | كود: PROMO10
+  تلميح 10% عن Mega Tech Festival (١٧–٢٠ أبريل)
+
+المرحلة الثالثة — Mega Tech Festival (١٧–٢٠ أبريل)
+  التلفزيونات، الأجهزة، اللابتوبات، الجيمنج، الاتصالات | كود: PROMO10
+
+المرحلة الرابعة — فترة انتقالية (٢١–٢٣ أبريل)
+  إكسسوارات تقنية وجيمنج، ساعات ذكية، إكسسوارات أزياء، أطفال، تقنية اقتصادية | كود: PROMO10
+  تلميح 10% عن End of Month Sale
+
+المرحلة الخامسة — End of Month Sale (٢٤ أبريل–٢ مايو)
+  كل الأقسام | كود: PROMO10 | تلميح 10% عن حملات مايو
+
+══════════════════════════════════════════
+ الرسائل الأساسية
+══════════════════════════════════════════
+- نون وجهتك الشاملة، من الأزياء للتقنية، كل شي في تطبيق واحد.
+- متوفر في قطر، البحرين، عُمان، والكويت.
+- كود PROMO10 يمنح جمهورك خصماً حصرياً.
+- توصيل سريع وموثوق لباب البيت.
+
+══════════════════════════════════════════
+ التوجيه الإبداعي — إرشادات المحتوى
+══════════════════════════════════════════
+- الأسلوب: ودود، موثوق، عائلي، بسيط وواضح.
+- التركيز: التوفير، تنوع المنتجات، سهولة الاستخدام، التوعية بالتطبيق.
+- مواصفات الفيديو: ٣٠–٤٥ ثانية كحد أقصى | جودة عالية | إضاءة طبيعية | صوت واضح | ممنوع الفلاتر.
+- أظهر لحظات تسوق حقيقية: تصفح، فتح طرود، تنسيق إطلالات.
+- استخدم تسجيل الشاشة أو الشاشة العائمة للتطبيق.
+- أظهر إضافة منتجات للسلة + استلام الطلب عند الباب.
+
+══════════════════════════════════════════
+ عملية المراجعة والموافقة
+══════════════════════════════════════════
+- لا تنشر قبل الحصول على موافقة على مسودتك.
+- يجب مشاركة كل المحتوى (فيديو + كابشن) قبل النشر.
+- توقع ٢–٣ جولات تعديل قبل الموافقة النهائية.
+- النشر مسموح فقط بعد موافقة خطية صريحة من مسؤول التواصل.
+
+══════════════════════════════════════════
+ المطلوب تسليمه (إجباري)
+══════════════════════════════════════════
+ملفان مطلوبان:
+  ١. فيديو معدل بالكامل (موسيقى، نصوص، مؤثرات)
+  ٢. فيديو خام (بدون تعديل، بدون فلاتر أو نصوص)
+
+طريقة التسليم (جودة عالية فقط):
+  - رفع على Google Drive ومشاركة الرابط، أو
+  - إرسال عبر الواتساب كـ "مستند" (ملف) — وليس كفيديو عادي
+
+══════════════════════════════════════════
+ المنصة وتفاصيل النشر
+══════════════════════════════════════════
+- المنصة/المنصات المتفق عليها: ${platform}
+- TikTok: إذا كانت من المنصات المتفق عليها، أرسل Spark Code فوراً بعد النشر.
+- الكابشن والهاشتاق: ستصلك بعد الموافقة. لا تكتب كابشن أو هاشتاق خاص بك.
+${logoRowText}
+
+══════════════════════════════════════════
+🚨 KPIs الإجبارية — الثلاثة شروط 🚨
+══════════════════════════════════════════
+١. تارجت المشاهدات: ${kpiLabelAr}
+   → إذا لم يتحقق: Boost (ممول) أو إعادة نشر حتى الوصول للهدف.
+
+٢. مدة بقاء الفيديو: يجب أن يبقى الفيديو ظاهراً وعاماً لمدة سنة كاملة من النشر.
+   → ممنوع الحذف، الأرشفة، أو تغيير الخصوصية.
+
+٣. حقوق الاستخدام: نون تحتفظ بحق استخدام الفيديو على منصاتها وفي الإعلانات المدفوعة.
+
+══════════════════════════════════════════
+ تفاصيل الدفع وسياسة التجميد
+══════════════════════════════════════════
+- نهاية الحملة: ${CAMPAIGN_END}
+- موعد التحويل: ${PAYMENT_DATE} (٣٠ يوماً بعد انتهاء الحملة)
+- إجمالي الفاتورة: ${totalFee} AED (${rawPrice} + ${TRANSFER_FEE} AED رسوم تحويل)
+- تجميد: لو التارجت مش واصل بحلول ${PAYMENT_DATE} → التحويل on hold لحد ما يوصل.
+
+══════════════════════════════════════════
+ تعليمات الفاتورة
+══════════════════════════════════════════
+١. افتح: https://noon-invoice.vercel.app/
+٢. اختر: ${CAMPAIGN_NAME}
+٣. أدخل مبلغك الأساسي: ${rawPrice} AED (الـ ${TRANSFER_FEE} AED تُضاف تلقائياً)
+٤. أكمل بياناتك الشخصية والبنكية
+٥. حمّل PDF الفاتورة وأرسله عبر الواتساب لمسؤول التواصل.
+
+══════════════════════════════════════════
+ الخطوة التالية
+══════════════════════════════════════════
+رد على الإيميل لتأكيد استلامك وموافقتك.
+كل تفاصيل الفيديو، السكريبت، الكابشن، الهاشتاق، الكود، والشعار
+ستصلك عبر الواتساب فور تأكيدك بالرد على هذا الإيميل.`;
+
+    document.getElementById('render-email').innerHTML = emailHTML;
+    document.getElementById('render-eng').innerText   = engText;
+    document.getElementById('render-ar').innerText    = arText;
+}
+
+function switchTab(id, e) {
+    document.querySelectorAll('.view-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('view-'+id).classList.add('active');
+    if (e && e.target) e.target.classList.add('active');
+    ['email','eng','ar'].forEach(t => {
+        document.getElementById('btn-'+t).style.display = t===id ? 'flex' : 'none';
+    });
+}
+
+/* FIX FOR COPYING TEXT: 
+   Using a temporary textarea fallback ensures the exact text formatting is copied, 
+   bypassing browser permission issues in iframes.
+*/
+function copyText(id, btn) {
+    const textToCopy = document.getElementById(id).innerText;
+    const tempTextArea = document.createElement("textarea");
+    tempTextArea.value = textToCopy;
+    document.body.appendChild(tempTextArea);
+    tempTextArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempTextArea);
+    
+    flash(btn, btn.innerText);
+}
+
+function copySubject() {
+    const t = document.getElementById('subjectText').innerText;
+    if (t.includes("Waiting")) return;
+    
+    const tempTextArea = document.createElement("textarea");
+    tempTextArea.value = t;
+    document.body.appendChild(tempTextArea);
+    tempTextArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempTextArea);
+    
+    alert("Subject Copied Successfully!");
+}
+
+function copyRichText(id, btn) {
+    const node = document.getElementById(id);
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    flash(btn, btn.innerText);
+}
+
+function flash(btn, orig) {
+    btn.innerText = "COPIED! ✅";
+    btn.style.background = "#00ff88"; 
+    btn.style.color = "#000";
+    btn.style.borderColor = "#00ff88";
+    btn.style.boxShadow = "0 10px 30px rgba(0,255,136,0.5)";
+    setTimeout(() => { 
+        btn.innerText=orig; 
+        btn.style.background="#fff"; 
+        btn.style.color="#000";
+        btn.style.borderColor="var(--noon-yellow)"; 
+        btn.style.boxShadow="0 10px 30px rgba(0,0,0,0.5), 0 0 0 2px var(--noon-yellow)";
+    }, 2000);
+}
+
+function updateSubject() {
+    const c = document.getElementById('country').value;
+    const t = document.getElementById('subjectText').innerText;
+    if (t.includes("2026")) document.getElementById('subjectText').innerText = `${CAMPAIGN_NAME} | Collaboration Opportunity – ${c}`;
+}
+</script>
 </body>
 </html>
