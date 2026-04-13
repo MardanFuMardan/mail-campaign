@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منشئ بريف حملة نون - أبريل 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #374151; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #4B5563; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #6B7280; }
+        
+        .brief-ltr { direction: ltr; text-align: left; font-family: Arial, sans-serif; }
+        .brief-rtl { direction: rtl; text-align: right; font-family: Arial, sans-serif; }
+        
+        /* تنسيق الفواصل لتبدو كخطوط أنيقة عند النسخ */
+        .divider {
+            border-top: 2px dashed #d1d5db;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-900 text-gray-100 p-4 md:p-8 font-sans">
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- القسم الأيمن: حقول الإدخال -->
+        <div class="lg:col-span-4 bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700 h-fit max-h-screen overflow-y-auto custom-scrollbar">
+            <h1 class="text-2xl font-bold text-yellow-400 mb-6 sticky top-0 bg-gray-800 pb-2 z-10 border-b border-gray-700">إعدادات البريف (Brief) 📝</h1>
+            
+            <p class="text-sm text-gray-400 mb-4">تم تبسيط الإعدادات للتركيز على محتوى الفيديو فقط بناءً على التحديثات الأخيرة.</p>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">المرحلة المخصصة (Assigned Phase)</label>
+                    <select id="selectedPhase" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 direction-ltr text-left" dir="ltr">
+                        <option value="1">Grand Lifestyle Sale (12-13 Apr)</option>
+                        <option value="2">Gap – Light Phase (14-16 Apr)</option>
+                        <option value="3">Mega Tech Festival (17-20 Apr)</option>
+                        <option value="4">Gap – Light Phase (21-23 Apr)</option>
+                        <option value="5">End of Month Sale (24 Apr - 2 May)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">منصة النشر (Platform)</label>
+                    <input type="text" id="platform" placeholder="مثال: TikTok & Instagram Reels" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-yellow-400 text-left" dir="ltr">
+                </div>
+            </div>
+        </div>
+
+        <!-- القسم الأيسر: عرض البريف النهائي -->
+        <div class="lg:col-span-8 flex flex-col gap-4">
+            
+            <!-- أزرار تبديل اللغة -->
+            <div class="flex justify-between items-center bg-gray-800 p-3 rounded-lg border border-gray-700 w-full">
+                <div class="flex gap-2">
+                    <button onclick="setLanguage('en')" id="btn-en" class="px-6 py-2 rounded-md font-bold transition-colors bg-yellow-500 text-gray-900">English</button>
+                    <button onclick="setLanguage('ar')" id="btn-ar" class="px-6 py-2 rounded-md font-bold transition-colors text-gray-300 hover:bg-gray-700">عربي</button>
+                </div>
+                <button onclick="copyContent('brief-body-output')" class="bg-gray-200 hover:bg-white text-gray-900 font-bold py-2 px-6 rounded transition-colors flex items-center shadow-md">
+                    📋 نسخ البريف
+                </button>
+            </div>
+            
+            <p id="copySuccessMsg" class="text-green-400 text-sm shrink-0 hidden text-center">تم النسخ بنجاح! يمكنك لصقه في الإيميل أو الواتساب ✅</p>
+
+            <!-- مربع البريف -->
+            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-300 flex flex-col h-[calc(100vh-10rem)] overflow-y-auto custom-scrollbar">
+                <!-- هنا سيتم حقن الكود المولد من الجافاسكريبت -->
+                <div id="brief-body-output" class="text-gray-900 text-base leading-normal brief-ltr" dir="ltr">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLanguage = 'en';
+
+        // بيانات المراحل
+        const phasesData = {
+            '1': {
+                en: { title: 'Grand Lifestyle Sale', date: 'Apr 12–13', categories: 'Home, Fashion, W&E, Footwear, Beauty, Fitness', notes: 'Code: PROMO10' },
+                ar: { title: 'التخفيضات الكبرى لأسلوب الحياة', date: '12 - 13 أبريل', categories: 'المنزل، الأزياء، الساعات والإكسسوارات، الأحذية، الجمال، اللياقة', notes: 'كود الخصم: PROMO10' }
+            },
+            '2': {
+                en: { title: 'Gap / Light Phase', date: 'Apr 14–16', categories: 'Beauty, Fashion basics, Home essentials, Footwear, Fitness, Coupons/Bundles', notes: 'Code: PROMO10' },
+                ar: { title: 'فترة انتقالية (عروض خفيفة)', date: '14 - 16 أبريل', categories: 'الجمال، أساسيات الأزياء، مستلزمات المنزل، الأحذية، اللياقة، الكوبونات/الباقات', notes: 'كود الخصم: PROMO10' }
+            },
+            '3': {
+                en: { title: 'Mega Tech Festival', date: 'Apr 17–20', categories: 'TVs, Appliances, Laptops, Gaming, Telco', notes: 'Code: PROMO10' },
+                ar: { title: 'مهرجان التقنية الأكبر', date: '17 - 20 أبريل', categories: 'التلفزيونات، الأجهزة المنزلية، اللابتوب، الألعاب، الإلكترونيات', notes: 'كود الخصم: PROMO10' }
+            },
+            '4': {
+                en: { title: 'Gap / Light Phase', date: 'Apr 21–23', categories: 'Tech accessories, Gaming accessories, Wearables, Fashion accessories, Baby/Kids, Budget tech', notes: 'Code: PROMO10' },
+                ar: { title: 'فترة انتقالية (عروض خفيفة)', date: '21 - 23 أبريل', categories: 'إكسسوارات التقنية، إكسسوارات الألعاب، الأجهزة القابلة للارتداء، إكسسوارات الأزياء، الأطفال والرضع، التقنية الاقتصادية', notes: 'كود الخصم: PROMO10' }
+            },
+            '5': {
+                en: { title: 'End of Month Sale', date: 'Apr 24–May 2', categories: 'Platform-wide — ALL categories', notes: 'Code: PROMO10' },
+                ar: { title: 'تخفيضات نهاية الشهر', date: '24 أبريل – 2 مايو', categories: 'جميع الفئات على منصة نون', notes: 'كود الخصم: PROMO10' }
+            }
+        };
+
+        const inputIds = ['selectedPhase', 'platform'];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedData();
+            inputIds.forEach(id => {
+                document.getElementById(id).addEventListener('input', renderBrief);
+            });
+            renderBrief();
+        });
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            
+            if(lang === 'en') {
+                document.getElementById('btn-en').className = "px-6 py-2 rounded-md font-bold transition-colors bg-yellow-500 text-gray-900";
+                document.getElementById('btn-ar').className = "px-6 py-2 rounded-md font-bold transition-colors text-gray-300 hover:bg-gray-700";
+                
+                const bodyOutput = document.getElementById('brief-body-output');
+                bodyOutput.className = "text-gray-900 text-base leading-normal brief-ltr";
+                bodyOutput.setAttribute('dir', 'ltr');
+            } else {
+                document.getElementById('btn-ar').className = "px-6 py-2 rounded-md font-bold transition-colors bg-yellow-500 text-gray-900";
+                document.getElementById('btn-en').className = "px-6 py-2 rounded-md font-bold transition-colors text-gray-300 hover:bg-gray-700";
+                
+                const bodyOutput = document.getElementById('brief-body-output');
+                bodyOutput.className = "text-gray-900 text-base leading-normal brief-rtl"; 
+                bodyOutput.setAttribute('dir', 'rtl');
+            }
+            
+            renderBrief();
+        }
+
+        function renderBrief() {
+            const data = {};
+            inputIds.forEach(id => { data[id] = document.getElementById(id).value; });
+            localStorage.setItem('noonBriefDataV5', JSON.stringify(data));
+
+            const l = currentLanguage;
+            
+            // تهيئة المتغيرات
+            const platform = data.platform || (l === 'en' ? '[Platform to be confirmed]' : '[المنصة المتفق عليها]');
+            const phaseKey = data.selectedPhase || '1';
+            const p = phasesData[phaseKey][l];
+
+            let htmlContent = "";
+
+            if (l === 'en') {
+                htmlContent = `
+<div style="font-size: 16px; font-weight: bold; color: #000; margin-bottom: 10px;">
+    NOON GCC APRIL CAMPAIGN 2026 - INFLUENCER BRIEF
+</div>
+
+<strong style="color: #eab308; font-size: 14px;">🎯 CAMPAIGN WINDOW & CATEGORIES</strong><br><br>
+<div style="background-color: #f9fafb; padding: 12px; border-left: 4px solid #000;">
+    <strong>Phase: ${p.title} (${p.date})</strong><br>
+    <strong>Categories:</strong> ${p.categories}<br>
+    <strong>Notes:</strong> ${p.notes}
+</div>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">🎟️ DISCOUNT CODE</strong><br><br>
+Use code: <strong style="font-size: 16px;">PROMO10</strong><br><br>
+<ul style="margin:0; padding-left:20px; padding-right:0;">
+    <li style="margin-bottom:7px;">Qatar: 10% off orders above 100 QAR (max 100 QAR)</li>
+    <li style="margin-bottom:7px;">Kuwait: 10% off orders above 10 KWD (max 10 KWD)</li>
+    <li style="margin-bottom:7px;">Bahrain: 10% off orders above 10 BHD (max 10 BHD)</li>
+    <li>Oman: 10% off orders above 10 OMR (max 10 OMR)</li>
+</ul><br>
+<strong style="color: #dc2626;">🚨 Please mention the code clearly (spoken + written).</strong>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">🎬 STEP 1: WATCH BEFORE FILMING</strong><br><br>
+To ensure the video gets approved from the first draft, you must watch this short "Do's & Don'ts" guide regarding the video style:<br>
+👉 <a href="https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view" style="color: #2563eb; text-decoration: underline; font-weight: bold;">Click Here to Watch the Creative Guide</a><br><br>
+Use these links for inspiration on the Hologram/Floating style and transitions:<br>
+• <strong>Creative Style:</strong> <a href="https://www.instagram.com/reels/DQhD4XZkg2g/" style="color: #2563eb; text-decoration: underline;">Ref 1</a> | <a href="https://www.instagram.com/reels/DGvD_kBSg4c/" style="color: #2563eb; text-decoration: underline;">Ref 2</a> | <a href="https://www.instagram.com/reels/DBD5_1UhZVt/" style="color: #2563eb; text-decoration: underline;">Ref 3</a><br>
+• <strong>Transitions:</strong> <a href="https://www.instagram.com/reel/C_nqjInSq4K/" style="color: #2563eb; text-decoration: underline;">Ref 4</a> | <a href="https://www.instagram.com/reels/DRKmDMYEnAG/" style="color: #2563eb; text-decoration: underline;">Ref 5</a>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">🎨 CREATIVE DIRECTION & CONTENT GUIDELINES</strong><br><br>
+<ul style="margin:0; padding-left:20px; padding-right:0;">
+    <li style="margin-bottom:7px;"><strong>Tone:</strong> Friendly, trustworthy, family-oriented, simple & clear.</li>
+    <li style="margin-bottom:7px;"><strong>Focus:</strong> Savings, product variety, ease of use, app-first awareness.</li>
+    <li style="margin-bottom:7px;"><strong>Video Specs:</strong> 30–45 sec max | High quality | Good natural lighting | Clear audio | No heavy filters.</li>
+    <li style="margin-bottom:7px;">Showcase <strong>real shopping moments:</strong> browsing the assigned category section and its banner while talking about the products, styling.</li>
+    <li style="margin-bottom:7px;"><strong>Include app screen recording</strong> or floating screen visuals.</li>
+    <li style="margin-bottom:7px;">Show adding items to cart.</li>
+    <li><strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">Important:</strong> The word <strong>"noon"</strong> must ALWAYS be written in lowercase everywhere.</li>
+</ul>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">📢 KEY MESSAGES</strong><br><br>
+<ul style="margin:0; padding-left:20px; padding-right:0;">
+    <li style="margin-bottom:7px;">noon is your one-stop shop, lifestyle, tech, home &amp; more, all in one app.</li>
+    <li style="margin-bottom:7px;">Available in Qatar, Bahrain, Oman &amp; Kuwait.</li>
+    <li style="margin-bottom:7px;">Use promo code <strong>PROMO10</strong> for an exclusive discount.</li>
+    <li style="margin-bottom:7px;">Download the <strong>noon app</strong> now to enjoy a seamless shopping experience and exclusive deals!</li>
+    <li>Fast, reliable delivery, straight to your door.</li>
+</ul><br>
+
+<div style="background-color: #fee2e2; padding: 12px; border-left: 4px solid #dc2626; color: #991b1b; border-radius: 6px;">
+    <strong>⚠️ STRICT WARNING:</strong> All mandatory requirements mentioned above (app screen recording, promo code mention, Call To Action) <strong>MUST</strong> be strictly followed and included in your video. Failure to do so will result in rejected drafts and mandatory reshoots.
+</div>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">⏳ REVIEW & APPROVAL PROCESS</strong><br><br>
+<ul style="margin:0; padding-left:20px; padding-right:0;">
+    <li style="margin-bottom:7px;"><strong>Do NOT post</strong> until your draft is approved.</li>
+    <li style="margin-bottom:7px;">All content (video + caption) must be shared before posting.</li>
+    <li style="margin-bottom:7px;">Expect 2–3 rounds of revisions before final approval.</li>
+    <li>Posting allowed ONLY after <strong>explicit written approval</strong> from your contact.</li>
+</ul>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">📦 MANDATORY DELIVERABLES</strong><br><br>
+Submit 2 files:<br>
+<ol style="margin-top:8px; padding-left:20px; padding-right:0;">
+    <li style="margin-bottom:7px;"><strong>Fully Edited Video</strong> (with music, text, effects)</li>
+    <li style="margin-bottom:12px;"><strong>RAW Footage</strong> (no filters, no text, unedited)</li>
+</ol>
+<strong>How to Submit (High Quality Only):</strong><br>
+Upload to Google Drive and share the link, <strong>OR</strong> Send via WhatsApp as a "Document" (File), NOT as a normal video.
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">📱 PLATFORM & POSTING DETAILS</strong><br><br>
+<ul style="margin:0; padding-left:20px; padding-right:0;">
+    <li style="margin-bottom:7px;"><strong>Agreed Platform(s):</strong> ${platform}</li>
+    <li style="margin-bottom:7px;"><strong>TikTok:</strong> If applicable, provide the Spark Code immediately after posting.</li>
+    <li style="margin-bottom:7px;"><strong>Captions & Tags:</strong> Will be provided AFTER approval. Do NOT write your own.</li>
+    <li><strong>Logo:</strong> Use ONLY the official logo. <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">The logo must appear for ONLY 5 seconds and then disappear</strong> (do not keep it on screen for the whole video). Download official file: <a href="https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS" style="color: #2563eb; text-decoration: underline;">Google Drive Link</a></li>
+</ul>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">🧾 INVOICE INSTRUCTIONS</strong><br><br>
+<ol style="margin:0; padding-left:20px; padding-right:0;">
+    <li style="margin-bottom:7px;">Open: <a href="https://noon-invoice.vercel.app/" style="color: #2563eb; text-decoration: underline;">https://noon-invoice.vercel.app/</a></li>
+    <li style="margin-bottom:7px;">Select campaign: <strong>Noon GCC April Campaign 2026</strong></li>
+    <li style="margin-bottom:7px;">Enter your agreed base fee (30 AED transfer fee will be added automatically).</li>
+    <li style="margin-bottom:7px;">Fill in personal & bank details.</li>
+    <li>Download PDF and share via WhatsApp with your contact.</li>
+</ol>
+`;
+            } else {
+                htmlContent = `
+<div style="font-size: 16px; font-weight: bold; color: #000; margin-bottom: 10px;">
+    حملة نون لدول الخليج أبريل 2026 - الدليل الإرشادي (Brief)
+</div>
+
+<strong style="color: #eab308; font-size: 14px;">🎯 فترة الحملة والفئات المخصصة</strong><br><br>
+<div style="background-color: #f9fafb; padding: 12px; border-right: 4px solid #000;">
+    <strong>المرحلة: ${p.title} (${p.date})</strong><br>
+    <strong>الفئات:</strong> ${p.categories}<br>
+    <strong>ملاحظات:</strong> ${p.notes}
+</div>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">🎟️ كود الخصم</strong><br><br>
+استخدم الكود: <strong style="font-size: 16px;">PROMO10</strong><br><br>
+<ul style="margin:0; padding-right:20px; padding-left:0;">
+    <li style="margin-bottom:7px;">قطر: خصم 10% للطلبات فوق 100 ريال قطري (بحد أقصى 100 ريال)</li>
+    <li style="margin-bottom:7px;">الكويت: خصم 10% للطلبات فوق 10 دينار كويتي (بحد أقصى 10 دينار)</li>
+    <li style="margin-bottom:7px;">البحرين: خصم 10% للطلبات فوق 10 دينار بحريني (بحد أقصى 10 دينار)</li>
+    <li>عُمان: خصم 10% للطلبات فوق 10 ريال عماني (بحد أقصى 10 ريال)</li>
+</ul><br>
+<strong style="color: #dc2626;">🚨 يُرجى ذكر الكود بوضوح (نطقاً وكتابةً).</strong>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">🎬 الخطوة 1: شاهد قبل التصوير</strong><br><br>
+لضمان الموافقة على الفيديو من المسودة الأولى، يجب عليك مشاهدة هذا الدليل القصير "ما يجب فعله وما يجب تجنبه" بخصوص أسلوب الفيديو:<br>
+👉 <a href="https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view" style="color: #2563eb; text-decoration: underline; font-weight: bold;">اضغط هنا لمشاهدة الدليل الإبداعي</a><br><br>
+استخدم هذه الروابط للإلهام حول أسلوب الهولوجرام/العناصر العائمة (Floating) والانتقالات:<br>
+• <strong>الأسلوب الإبداعي:</strong> <a href="https://www.instagram.com/reels/DQhD4XZkg2g/" style="color: #2563eb; text-decoration: underline;">مرجع 1</a> | <a href="https://www.instagram.com/reels/DGvD_kBSg4c/" style="color: #2563eb; text-decoration: underline;">مرجع 2</a> | <a href="https://www.instagram.com/reels/DBD5_1UhZVt/" style="color: #2563eb; text-decoration: underline;">مرجع 3</a><br>
+• <strong>الانتقالات (Transitions):</strong> <a href="https://www.instagram.com/reel/C_nqjInSq4K/" style="color: #2563eb; text-decoration: underline;">مرجع 4</a> | <a href="https://www.instagram.com/reels/DRKmDMYEnAG/" style="color: #2563eb; text-decoration: underline;">مرجع 5</a>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">🎨 التوجيه الإبداعي وإرشادات المحتوى</strong><br><br>
+<ul style="margin:0; padding-right:20px; padding-left:0;">
+    <li style="margin-bottom:7px;"><strong>نبرة الصوت:</strong> ودودة، موثوقة، عائلية، بسيطة وواضحة.</li>
+    <li style="margin-bottom:7px;"><strong>التركيز على:</strong> التوفير، تنوع المنتجات، سهولة الاستخدام، والطلب من التطبيق.</li>
+    <li style="margin-bottom:7px;"><strong>مواصفات الفيديو:</strong> 30–45 ثانية كحد أقصى | جودة عالية | إضاءة طبيعية جيدة | صوت واضح | <strong>بدون فلاتر قوية</strong>.</li>
+    <li style="margin-bottom:7px;">إظهار <strong>لحظات تسوق حقيقية:</strong> تصفح القسم والبانر المخصص لك والحديث عن المنتجات أثناء التصوير، أو تنسيق المنتجات.</li>
+    <li style="margin-bottom:7px;"><strong>يجب تضمين تسجيل لشاشة التطبيق (Screen Recording)</strong>.</li>
+    <li style="margin-bottom:7px;">إظهار إضافة المنتجات للسلة.</li>
+    <li><strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">هام جداً:</strong> كلمة <strong>"noon"</strong> يجب أن تُكتب دائماً بحروف صغيرة (lowercase) في أي مكان.</li>
+</ul>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">📢 الرسائل الأساسية</strong><br><br>
+<ul style="margin:0; padding-right:20px; padding-left:0;">
+    <li style="margin-bottom:7px;">نون هو وجهتك الأولى لكل احتياجاتك، أزياء، تقنية، منزل وأكثر، في تطبيق واحد.</li>
+    <li style="margin-bottom:7px;">متوفر في قطر، البحرين، عُمان، والكويت.</li>
+    <li style="margin-bottom:7px;">استخدم كود الخصم <strong>PROMO10</strong> للحصول على خصم حصري.</li>
+    <li style="margin-bottom:7px;">حمّل <strong>تطبيق نون</strong> الآن واستمتع بتجربة تسوق سلسة وعروض حصرية!</li>
+    <li>توصيل سريع وموثوق، مباشرة حتى باب بيتك.</li>
+</ul><br>
+
+<div style="background-color: #fee2e2; padding: 12px; border-right: 4px solid #dc2626; color: #991b1b; border-radius: 6px;">
+    <strong>⚠️ تحذير هام:</strong> جميع المتطلبات الإلزامية المذكورة أعلاه (مثل: تسجيل شاشة التطبيق، ذكر كود الخصم، دعوة المشاهدين للتطبيق) <strong>يجب</strong> الالتزام بها حرفياً وتضمينها في الفيديو. عدم الالتزام سيؤدي إلى رفض المسودة وطلب إعادة التصوير (Reshoot) بالكامل.
+</div>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">⏳ إجراءات المراجعة والموافقة</strong><br><br>
+<ul style="margin:0; padding-right:20px; padding-left:0;">
+    <li style="margin-bottom:7px;"><strong>لا تقم بالنشر أبداً</strong> قبل الموافقة على مسودة الفيديو (Draft).</li>
+    <li style="margin-bottom:7px;">يجب مشاركة المحتوى بالكامل (الفيديو + النص المكتوب Caption) قبل النشر.</li>
+    <li style="margin-bottom:7px;">يُرجى توقع وجود 2-3 جولات من التعديلات قبل الموافقة النهائية.</li>
+    <li>يُسمح بالنشر <strong>فقط بعد الحصول على موافقة كتابية صريحة</strong> من فريقنا.</li>
+</ul>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">📦 المخرجات الإلزامية (Deliverables)</strong><br><br>
+يجب تسليم ملفين (2):<br>
+<ol style="margin-top:8px; padding-right:20px; padding-left:0;">
+    <li style="margin-bottom:7px;"><strong>الفيديو النهائي المعدل</strong> (شامل الموسيقى، النصوص، والمؤثرات).</li>
+    <li style="margin-bottom:12px;"><strong>الفيديو الخام (RAW Footage)</strong> (بدون فلاتر، بدون نصوص، غير معدل).</li>
+</ol>
+<strong>طريقة التسليم (جودة عالية فقط):</strong><br>
+الرفع على Google Drive ومشاركة الرابط، <strong>أو</strong> الإرسال عبر الواتساب كـ "مستند/Document"، (ليس كفيديو عادي لتجنب ضغط الجودة).
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">📱 تفاصيل النشر والمنصات</strong><br><br>
+<ul style="margin:0; padding-right:20px; padding-left:0;">
+    <li style="margin-bottom:7px;"><strong>منصة النشر المتفق عليها:</strong> ${platform}</li>
+    <li style="margin-bottom:7px;"><strong>تيك توك:</strong> في حال النشر على تيك توك، يجب تزويدنا بكود (Spark Code) فوراً بعد النشر.</li>
+    <li style="margin-bottom:7px;"><strong>النص والهاشتاجات (Caption):</strong> سيتم تزويدك بها بعد الموافقة. الرجاء عدم كتابة نص من عندك.</li>
+    <li><strong>اللوجو:</strong> استخدم النسخة الرسمية فقط. <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">يجب أن يظهر اللوجو في الفيديو لمدة 5 ثوانٍ فقط ثم يختفي</strong> (لا تتركه طوال الفيديو). قم بتحميل الشعار الرسمي من هنا: <a href="https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS" style="color: #2563eb; text-decoration: underline;">رابط جوجل درايف</a></li>
+</ul>
+
+<div class="divider"></div>
+<strong style="color: #eab308; font-size: 14px;">🧾 تعليمات رفع الفاتورة</strong><br><br>
+<ol style="margin:0; padding-right:20px; padding-left:0;">
+    <li style="margin-bottom:7px;">افتح الرابط: <a href="https://noon-invoice.vercel.app/" style="color: #2563eb; text-decoration: underline;">https://noon-invoice.vercel.app/</a></li>
+    <li style="margin-bottom:7px;">اختر الحملة: <strong>Noon GCC April Campaign 2026</strong></li>
+    <li style="margin-bottom:7px;">أدخل المبلغ الأساسي المتفق عليه (سيتم إضافة 30 درهم رسوم تحويل تلقائياً).</li>
+    <li style="margin-bottom:7px;">قم بتعبئة بياناتك الشخصية والبنكية.</li>
+    <li>حمّل الفاتورة كملف PDF وأرسلها عبر الواتساب للشخص المسؤول عنك.</li>
+</ol>
+`;
+            }
+
+            document.getElementById('brief-body-output').innerHTML = htmlContent;
+        }
+
+        function loadSavedData() {
+            const saved = localStorage.getItem('noonBriefDataV5');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    inputIds.forEach(id => {
+                        if (parsed[id]) document.getElementById(id).value = parsed[id];
+                    });
+                } catch (e) { console.error(e); }
+            }
+        }
+
+        function copyContent(elementId) {
+            const el = document.getElementById(elementId);
+            
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(el);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            
+            try {
+                document.execCommand('copy');
+                const successMsg = document.getElementById('copySuccessMsg');
+                if (successMsg) {
+                    successMsg.classList.remove('hidden');
+                    setTimeout(() => successMsg.classList.add('hidden'), 3000);
+                }
+            } catch (err) {
+                alert('حدث خطأ أثناء النسخ');
+            }
+            
+            selection.removeAllRanges();
+        }
+    </script>
+</body>
+</html>
