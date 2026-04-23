@@ -22,7 +22,6 @@
     </style>
 </head>
 <body class="min-h-screen bg-gray-900 text-gray-100 p-4 md:p-8 font-sans">
-
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         <!-- القسم الأيمن: حقول الإدخال -->
@@ -81,24 +80,24 @@
         // بيانات المراحل
         const phasesData = {
             '1': {
-                en: { title: 'Grand Lifestyle Sale', date: 'Apr 12–13', categories: 'Home, Fashion, W&E, Footwear, Beauty, Fitness', notes: 'Code: PROMO10' },
-                ar: { title: 'التخفيضات الكبرى لأسلوب الحياة', date: '12 - 13 أبريل', categories: 'المنزل، الأزياء، الساعات والإكسسوارات، الأحذية، الجمال، اللياقة', notes: 'كود الخصم: PROMO10' }
+                en: { title: 'Grand Lifestyle Sale', date: 'Apr 12–13', categories: 'Home, Fashion, W&E, Footwear, Beauty, Fitness', notes: 'Code: SHOP' },
+                ar: { title: 'التخفيضات الكبرى لأسلوب الحياة', date: '12 - 13 أبريل', categories: 'المنزل، الأزياء، الساعات والإكسسوارات، الأحذية، الجمال، اللياقة', notes: 'كود الخصم: SHOP أو تسوق' }
             },
             '2': {
-                en: { title: 'Gap / Light Phase', date: 'Apr 14–16', categories: 'Beauty, Fashion basics, Home essentials, Footwear, Fitness, Coupons/Bundles', notes: 'Code: PROMO10' },
-                ar: { title: 'فترة انتقالية (عروض خفيفة)', date: '14 - 16 أبريل', categories: 'الجمال، أساسيات الأزياء، مستلزمات المنزل، الأحذية، اللياقة، الكوبونات/الباقات', notes: 'كود الخصم: PROMO10' }
+                en: { title: 'Gap / Light Phase', date: 'Apr 14–16', categories: 'Beauty, Fashion basics, Home essentials, Footwear, Fitness, Coupons/Bundles', notes: 'Code: SHOP' },
+                ar: { title: 'فترة انتقالية (عروض خفيفة)', date: '14 - 16 أبريل', categories: 'الجمال، أساسيات الأزياء، مستلزمات المنزل، الأحذية، اللياقة، الكوبونات/الباقات', notes: 'كود الخصم: SHOP أو تسوق' }
             },
             '3': {
-                en: { title: 'Mega Tech Festival', date: 'Apr 17–20', categories: 'TVs, Appliances, Laptops, Gaming, Telco', notes: 'Code: PROMO10' },
-                ar: { title: 'مهرجان التقنية الأكبر', date: '17 - 20 أبريل', categories: 'التلفزيونات، الأجهزة المنزلية، اللابتوب، الألعاب، الإلكترونيات', notes: 'كود الخصم: PROMO10' }
+                en: { title: 'Mega Tech Festival', date: 'Apr 17–20', categories: 'TVs, Appliances, Laptops, Gaming, Telco', notes: 'Code: SHOP' },
+                ar: { title: 'مهرجان التقنية الأكبر', date: '17 - 20 أبريل', categories: 'التلفزيونات، الأجهزة المنزلية، اللابتوب، الألعاب، الإلكترونيات', notes: 'كود الخصم: SHOP أو تسوق' }
             },
             '4': {
-                en: { title: 'Gap / Light Phase', date: 'Apr 21–23', categories: 'Tech accessories, Gaming accessories, Wearables, Fashion accessories, Baby/Kids, Budget tech', notes: 'Code: PROMO10' },
-                ar: { title: 'فترة انتقالية (عروض خفيفة)', date: '21 - 23 أبريل', categories: 'إكسسوارات التقنية، إكسسوارات الألعاب، الأجهزة القابلة للارتداء، إكسسوارات الأزياء، الأطفال والرضع، التقنية الاقتصادية', notes: 'كود الخصم: PROMO10' }
+                en: { title: 'Gap / Light Phase', date: 'Apr 21–23', categories: 'Tech accessories, Gaming accessories, Wearables, Fashion accessories, Baby/Kids, Budget tech', notes: 'Code: SHOP' },
+                ar: { title: 'فترة انتقالية (عروض خفيفة)', date: '21 - 23 أبريل', categories: 'إكسسوارات التقنية، إكسسوارات الألعاب، الأجهزة القابلة للارتداء، إكسسوارات الأزياء، الأطفال والرضع، التقنية الاقتصادية', notes: 'كود الخصم: SHOP أو تسوق' }
             },
             '5': {
-                en: { title: 'End of Month Sale', date: 'Apr 24–May 2', categories: 'Platform-wide — ALL categories', notes: 'Code: PROMO10' },
-                ar: { title: 'تخفيضات نهاية الشهر', date: '24 أبريل – 2 مايو', categories: 'جميع الفئات على منصة نون', notes: 'كود الخصم: PROMO10' }
+                en: { title: 'End of Month Sale', date: 'Apr 24–May 2', categories: 'Platform-wide — ALL categories', notes: 'Code: SHOP' },
+                ar: { title: 'تخفيضات نهاية الشهر', date: '24 أبريل – 2 مايو', categories: 'جميع الفئات على منصة نون', notes: 'كود الخصم: SHOP أو تسوق' }
             }
         };
 
@@ -149,8 +148,7 @@
             let htmlContent = "";
 
             if (l === 'en') {
-                htmlContent = `
-<div style="font-size: 16px; font-weight: bold; color: #000; margin-bottom: 10px;">
+                htmlContent = `<div style="font-size: 16px; font-weight: bold; color: #000; margin-bottom: 10px;">
     NOON GCC APRIL CAMPAIGN 2026 - INFLUENCER BRIEF
 </div>
 
@@ -163,12 +161,12 @@
 
 <div class="divider"></div>
 <strong style="color: #eab308; font-size: 14px;">🎟️ DISCOUNT CODE</strong><br><br>
-Use code: <strong style="font-size: 16px;">PROMO10</strong><br><br>
+Use code: <strong style="font-size: 16px;">SHOP</strong><br><br>
 <ul style="margin:0; padding-left:20px; padding-right:0;">
-    <li style="margin-bottom:7px;">Qatar: 10% off orders above 100 QAR (max 100 QAR)</li>
-    <li style="margin-bottom:7px;">Kuwait: 10% off orders above 10 KWD (max 10 KWD)</li>
-    <li style="margin-bottom:7px;">Bahrain: 10% off orders above 10 BHD (max 10 BHD)</li>
-    <li>Oman: 10% off orders above 10 OMR (max 10 OMR)</li>
+    <li style="margin-bottom:7px;">Qatar (QAR): 30 off 500 | 75 off 900 | 100 off 1200 | 150 off 1500</li>
+    <li style="margin-bottom:7px;">Kuwait (KWD): 2.5 off 40 | 6 off 75 | 8 off 100 | 12 off 125</li>
+    <li style="margin-bottom:7px;">Bahrain (BHD): 3 off 50 | 8 off 90 | 10 off 120 | 15 off 150</li>
+    <li>Oman (OMR): 3 off 50 | 8 off 90 | 10 off 120 | 15 off 150</li>
 </ul><br>
 <strong style="color: #dc2626;">🚨 Please mention the code clearly (spoken + written).</strong>
 
@@ -205,11 +203,10 @@ Please use the following links as a reference for the required text/translation 
 <ul style="margin:0; padding-left:20px; padding-right:0;">
     <li style="margin-bottom:7px;">noon is your one-stop shop, lifestyle, tech, home &amp; more, all in one app.</li>
     <li style="margin-bottom:7px;">Available in Qatar, Bahrain, Oman &amp; Kuwait.</li>
-    <li style="margin-bottom:7px;">Use promo code <strong>PROMO10</strong> for an exclusive discount.</li>
+    <li style="margin-bottom:7px;">Use promo code <strong>SHOP</strong> for an exclusive discount.</li>
     <li style="margin-bottom:7px;">Download the <strong>noon app</strong> now to enjoy a seamless shopping experience and exclusive deals!</li>
     <li>Fast, reliable delivery, straight to your door.</li>
 </ul><br>
-
 <div style="background-color: #fee2e2; padding: 12px; border-left: 4px solid #dc2626; color: #991b1b; border-radius: 6px;">
     <strong>⚠️ STRICT WARNING:</strong> All mandatory requirements mentioned above (app screen recording, promo code mention, Call To Action) <strong>MUST</strong> be strictly followed and included in your video. Failure to do so will result in rejected drafts and mandatory reshoots.
 </div>
@@ -250,11 +247,9 @@ Upload to Google Drive and share the link, <strong>OR</strong> Send via WhatsApp
     <li style="margin-bottom:7px;">Enter your agreed base fee (30 AED transfer fee will be added automatically).</li>
     <li style="margin-bottom:7px;">Fill in personal & bank details.</li>
     <li>Download PDF and share via WhatsApp with your contact.</li>
-</ol>
-`;
+</ol>`;
             } else {
-                htmlContent = `
-<div style="font-size: 16px; font-weight: bold; color: #000; margin-bottom: 10px;">
+                htmlContent = `<div style="font-size: 16px; font-weight: bold; color: #000; margin-bottom: 10px;">
     حملة نون لدول الخليج أبريل 2026 - الدليل الإرشادي (Brief)
 </div>
 
@@ -267,12 +262,12 @@ Upload to Google Drive and share the link, <strong>OR</strong> Send via WhatsApp
 
 <div class="divider"></div>
 <strong style="color: #eab308; font-size: 14px;">🎟️ كود الخصم</strong><br><br>
-استخدم الكود: <strong style="font-size: 16px;">PROMO10</strong><br><br>
+استخدم الكود: <strong style="font-size: 16px;">SHOP أو تسوق</strong><br><br>
 <ul style="margin:0; padding-right:20px; padding-left:0;">
-    <li style="margin-bottom:7px;">قطر: خصم 10% للطلبات فوق 100 ريال قطري (بحد أقصى 100 ريال)</li>
-    <li style="margin-bottom:7px;">الكويت: خصم 10% للطلبات فوق 10 دينار كويتي (بحد أقصى 10 دينار)</li>
-    <li style="margin-bottom:7px;">البحرين: خصم 10% للطلبات فوق 10 دينار بحريني (بحد أقصى 10 دينار)</li>
-    <li>عُمان: خصم 10% للطلبات فوق 10 ريال عماني (بحد أقصى 10 ريال)</li>
+    <li style="margin-bottom:7px;">قطر (ريال): خصم 30 للطلبات فوق 500 | خصم 75 للطلبات فوق 900 | خصم 100 للطلبات فوق 1200 | خصم 150 للطلبات فوق 1500</li>
+    <li style="margin-bottom:7px;">الكويت (دينار): خصم 2.5 للطلبات فوق 40 | خصم 6 للطلبات فوق 75 | خصم 8 للطلبات فوق 100 | خصم 12 للطلبات فوق 125</li>
+    <li style="margin-bottom:7px;">البحرين (دينار): خصم 3 للطلبات فوق 50 | خصم 8 للطلبات فوق 90 | خصم 10 للطلبات فوق 120 | خصم 15 للطلبات فوق 150</li>
+    <li>عُمان (ريال): خصم 3 للطلبات فوق 50 | خصم 8 للطلبات فوق 90 | خصم 10 للطلبات فوق 120 | خصم 15 للطلبات فوق 150</li>
 </ul><br>
 <strong style="color: #dc2626;">🚨 يُرجى ذكر الكود بوضوح (نطقاً وكتابةً).</strong>
 
@@ -306,11 +301,10 @@ Upload to Google Drive and share the link, <strong>OR</strong> Send via WhatsApp
 <ul style="margin:0; padding-right:20px; padding-left:0;">
     <li style="margin-bottom:7px;">نون هو وجهتك الأولى لكل احتياجاتك، أزياء، تقنية، منزل وأكثر، في تطبيق واحد.</li>
     <li style="margin-bottom:7px;">متوفر في قطر، البحرين، عُمان، والكويت.</li>
-    <li style="margin-bottom:7px;">استخدم كود الخصم <strong>PROMO10</strong> للحصول على خصم حصري.</li>
+    <li style="margin-bottom:7px;">استخدم كود الخصم <strong>SHOP أو تسوق</strong> للحصول على خصم حصري.</li>
     <li style="margin-bottom:7px;">حمّل <strong>تطبيق نون</strong> الآن واستمتع بتجربة تسوق سلسة وعروض حصرية!</li>
     <li>توصيل سريع وموثوق، مباشرة حتى باب بيتك.</li>
 </ul><br>
-
 <div style="background-color: #fee2e2; padding: 12px; border-right: 4px solid #dc2626; color: #991b1b; border-radius: 6px;">
     <strong>⚠️ تحذير هام:</strong> جميع المتطلبات الإلزامية المذكورة أعلاه (مثل: تسجيل شاشة التطبيق، ذكر كود الخصم، دعوة المشاهدين للتطبيق) <strong>يجب</strong> الالتزام بها حرفياً وتضمينها في الفيديو. عدم الالتزام سيؤدي إلى رفض المسودة وطلب إعادة التصوير (Reshoot) بالكامل.
 </div>
@@ -351,8 +345,7 @@ Upload to Google Drive and share the link, <strong>OR</strong> Send via WhatsApp
     <li style="margin-bottom:7px;">أدخل المبلغ الأساسي المتفق عليه (سيتم إضافة 30 درهم رسوم تحويل تلقائياً).</li>
     <li style="margin-bottom:7px;">قم بتعبئة بياناتك الشخصية والبنكية.</li>
     <li>حمّل الفاتورة كملف PDF وأرسلها عبر الواتساب للشخص المسؤول عنك.</li>
-</ol>
-`;
+</ol>`;
             }
 
             document.getElementById('brief-body-output').innerHTML = htmlContent;
