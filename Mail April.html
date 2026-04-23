@@ -17,7 +17,6 @@
     </style>
 </head>
 <body class="min-h-screen bg-gray-900 text-gray-100 p-4 md:p-8 font-sans">
-
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         <!-- القسم الأيمن: حقول الإدخال -->
@@ -128,27 +127,27 @@
             '06': { en: 'June', ar: 'يونيو' }
         };
 
-        // بيانات المراحل باللغتين (تم إزالة الأرقام منها)
+        // بيانات المراحل باللغتين 
         const phasesData = {
             '1': {
-                en: { title: 'Grand Lifestyle Sale', date: '📅 12 – 13 April', categories: 'Home, Fashion, W&E, Footwear, Beauty, Fitness', notes: 'Mention code PROMO10 on stories & caption.' },
-                ar: { title: 'التخفيضات الكبرى لأسلوب الحياة', date: '📅 12 – 13 أبريل', categories: 'المنزل، الأزياء، الساعات والإكسسوارات، الأحذية، الجمال، اللياقة', notes: 'اذكر كود PROMO10 في الاستوري والوصف.' }
+                en: { title: 'Grand Lifestyle Sale', date: '📅 12 – 13 April', categories: 'Home, Fashion, W&E, Footwear, Beauty, Fitness', notes: 'Mention code SHOP on stories & caption.' },
+                ar: { title: 'التخفيضات الكبرى لأسلوب الحياة', date: '📅 12 – 13 أبريل', categories: 'المنزل، الأزياء، الساعات والإكسسوارات، الأحذية، الجمال، اللياقة', notes: 'اذكر كود SHOP أو تسوق في الاستوري والوصف.' }
             },
             '2': {
-                en: { title: 'Gap – Light Phase', date: '📅 14 – 16 April', categories: 'Beauty, Fashion basics, Home essentials, Footwear, Fitness, Coupons/Bundles', notes: 'Mention code PROMO10. Tease Mega Tech Festival (Apr 17–20) — 10% mention.' },
-                ar: { title: 'مرحلة خفيفة (تخليل)', date: '📅 14 – 16 أبريل', categories: 'الجمال، أساسيات الأزياء، مستلزمات المنزل، الأحذية، اللياقة، الكوبونات/الباقات', notes: 'اذكر كود PROMO10. مهّد لمهرجان التقنية الأكبر (17-20 أبريل) بنسبة 10%.' }
+                en: { title: 'Gap – Light Phase', date: '📅 14 – 16 April', categories: 'Beauty, Fashion basics, Home essentials, Footwear, Fitness, Coupons/Bundles', notes: 'Mention code SHOP. Tease Mega Tech Festival (Apr 17–20).' },
+                ar: { title: 'مرحلة خفيفة (تخليل)', date: '📅 14 – 16 أبريل', categories: 'الجمال، أساسيات الأزياء، مستلزمات المنزل، الأحذية، اللياقة، الكوبونات/الباقات', notes: 'اذكر كود SHOP أو تسوق. مهّد لمهرجان التقنية الأكبر (17-20 أبريل).' }
             },
             '3': {
-                en: { title: 'Mega Tech Festival', date: '📅 17 – 20 April', categories: 'TVs, Appliances, Laptops, Gaming, Telco', notes: 'Mention code PROMO10 on stories & caption.' },
-                ar: { title: 'مهرجان التقنية الأكبر', date: '📅 17 – 20 أبريل', categories: 'التلفزيونات، الأجهزة المنزلية، اللابتوب، الألعاب، الإلكترونيات', notes: 'اذكر كود PROMO10 في الاستوري والوصف.' }
+                en: { title: 'Mega Tech Festival', date: '📅 17 – 20 April', categories: 'TVs, Appliances, Laptops, Gaming, Telco', notes: 'Mention code SHOP on stories & caption.' },
+                ar: { title: 'مهرجان التقنية الأكبر', date: '📅 17 – 20 أبريل', categories: 'التلفزيونات، الأجهزة المنزلية، اللابتوب، الألعاب، الإلكترونيات', notes: 'اذكر كود SHOP أو تسوق في الاستوري والوصف.' }
             },
             '4': {
-                en: { title: 'Gap – Light Phase', date: '📅 21 – 23 April', categories: 'Tech accessories, Gaming accessories, Wearables, Fashion accessories, Baby/Kids, Budget tech', notes: 'Mention code PROMO10. Tease End of Month Sale — 10% mention.' },
-                ar: { title: 'مرحلة خفيفة (تخليل)', date: '📅 21 – 23 أبريل', categories: 'إكسسوارات التقنية، إكسسوارات الألعاب، الأجهزة القابلة للارتداء، إكسسوارات الأزياء، الأطفال والرضع، التقنية الاقتصادية', notes: 'اذكر كود PROMO10. مهّد لتخفيضات نهاية الشهر بنسبة 10%.' }
+                en: { title: 'Gap – Light Phase', date: '📅 21 – 23 April', categories: 'Tech accessories, Gaming accessories, Wearables, Fashion accessories, Baby/Kids, Budget tech', notes: 'Mention code SHOP. Tease End of Month Sale.' },
+                ar: { title: 'مرحلة خفيفة (تخليل)', date: '📅 21 – 23 أبريل', categories: 'إكسسوارات التقنية، إكسسوارات الألعاب، الأجهزة القابلة للارتداء، إكسسوارات الأزياء، الأطفال والرضع، التقنية الاقتصادية', notes: 'اذكر كود SHOP أو تسوق. مهّد لتخفيضات نهاية الشهر.' }
             },
             '5': {
-                en: { title: 'End of Month Sale', date: '📅 24 April – 2 May', categories: 'Platform-wide — All categories', notes: 'Mention code PROMO10. Tease 10% about May campaigns.' },
-                ar: { title: 'تخفيضات نهاية الشهر', date: '📅 24 أبريل – 2 مايو', categories: 'جميع الفئات على منصة نون', notes: 'اذكر كود PROMO10. مهّد لحملات شهر مايو بنسبة 10%.' }
+                en: { title: 'End of Month Sale', date: '📅 24 April – 2 May', categories: 'Platform-wide — All categories', notes: 'Mention code SHOP. Tease about May campaigns.' },
+                ar: { title: 'تخفيضات نهاية الشهر', date: '📅 24 أبريل – 2 مايو', categories: 'جميع الفئات على منصة نون', notes: 'اذكر كود SHOP أو تسوق. مهّد لحملات شهر مايو.' }
             }
         };
 
@@ -230,191 +229,39 @@
             let htmlContent = "";
 
             if (l === 'en') {
-                htmlContent = `Hi <strong>${infName}</strong>,<br><br>
-We hope you’re doing well ✨<br>
-We’re excited to reach out regarding the noon April Campaign across the GCC (Qatar, Bahrain, Oman, and Kuwait).<br>
-This campaign aims to drive app downloads, increase category exploration, and boost purchases through engaging influencer-led content that highlights noon as a go-to destination for everyday needs.<br><br>
-
-<strong>Campaign Overview</strong><br>
-Throughout April, noon will spotlight different product categories across multiple phases, each supported by dedicated in-app banners that users can explore directly.<br>
-Influencers will create content aligned with each phase, encouraging audiences to discover featured categories and shop directly through the app.<br><br>
-
-<strong>Campaign Objectives</strong><br>
-• Drive noon app downloads<br>
-• Encourage users to explore categories via in-app banners<br>
-• Increase sales across featured categories<br>
-• Promote the discount code PROMO10<br><br>
-
-<strong>Assigned Campaign Phase</strong><br>
-<div style="background-color: #f9fafb; padding: 16px; margin: 8px 0; border-left: 4px solid #eab308; border-radius: 8px;">
-<strong>${p.title}</strong><br>
-${p.date}<br>
-<strong>Categories:</strong> ${p.categories}<br>
-<strong>Notes:</strong> ${p.notes}
-</div><br>
-
-<strong>Discount Code</strong><br>
-Use code: <strong>PROMO10</strong><br>
-Qatar: 10% off orders above 100 QAR (max 100 QAR)<br>
-Kuwait: 10% off orders above 10 KWD (max 10 KWD)<br>
-Bahrain: 10% off orders above 10 BHD (max 10 BHD)<br>
-Oman: 10% off orders above 10 OMR (max 10 OMR)<br>
-<span style="font-style: italic;">Please mention the code clearly (spoken + written).</span><br><br>
-
-<strong>Key Campaign Messages</strong><br>
-• Shop directly through the noon app<br>
-• Explore categories via the in-app banner<br>
-• Exclusive deals available only on the app<br>
-• Download the app to access all offers<br>
-• Don’t forget to use the discount code<br><br>
-
-<strong>Content Guidelines</strong><br>
-Content should:<br>
-• Feature products from the assigned category<br>
-• Integrate products naturally into your lifestyle<br>
-• Highlight real usage (not overly sales-driven)<br>
-• Showcase the noon app and category banner<br><br>
-
-<strong>Creative Direction</strong><br>
-• “My top picks from this category”<br>
-• “Best deals I found on noon”<br>
-• Unboxing / demo / product testing<br>
-• Daily routine using products from the category<br>
-• Hidden gems on the app<br>
-• Before & after transformations<br><br>
-
-<strong>Mandatory Requirements</strong><br>
-• Show the noon app clearly<br>
-• Include screen recording or banner visibility<br>
-• Clear Call To Action: Download the app / Click on the banner / Explore the category<br><br>
-
-<strong>Video Requirements</strong><br>
-• Duration: 30–45 seconds<br>
-• Platforms: Instagram Reels & TikTok<br>
-• High-quality video (good lighting & clear visuals)<br>
-• No heavy filters<br>
-• Trendy or festive sounds<br><br>
-
-<strong>Deliverables</strong><br>
-Reels / TikTok video aligned with assigned phase and category<br><br>
-
-<strong>Submission & Timeline</strong><br>
-We need the video by <strong>${subDate}</strong> at the latest as the post will go live on <strong>${liveDate}</strong>.<br>
-Final approval is required before posting<br><br>
-
-<strong>Payment Details</strong><br>
-Campaign fee: <strong>${feeAmt}</strong><br>
-The payment will be transferred to your bank account within 30 days after the campaign ends, starting from 2 May.<br>
-Please fill in the following links with your bank account details, complete the required invoice, and reply to the email with it:<br>
-Form Link : <a href="https://docs.google.com/forms/d/e/1FAIpQLScoTjUr51CW-jR53OHdLvec0THAq0IUI7KnSdvo0axJjni44w/viewform?usp=dialog" style="color: #2563eb; text-decoration: underline;">https://docs.google.com/forms/d/e/1FAIpQLScoTjUr51CW-jR53OHdLvec0THAq0IUI7KnSdvo0axJjni44w/viewform?usp=dialog</a><br>
-Invoice Link: <a href="https://noon-invoice.vercel.app/" style="color: #2563eb; text-decoration: underline;">https://noon-invoice.vercel.app/</a><br><br>
-
-<strong>Notes</strong><br>
-• KPI: Achieve views equivalent to 50% of your total followers<br>
-• If the target is not met, the video should be boosted or reposted<br>
-• The video must remain live for at least one year<br>
-• noon reserves the right to use the video across its platforms<br><br>
-
-<strong>Next Steps</strong><br>
-Please confirm your availability and interest in participating in this campaign.<br>
-If you have any questions, feel free to reach out. We'd love to see your creative take on this campaign!<br><br>
-
-Best regards,<br>
-<strong>${sender}</strong><br>
-noon Marketing Team`;
+                htmlContent = `Hi <strong>${infName}</strong>,<br><br>We hope you’re doing well ✨<br>We’re excited to reach out regarding the noon April Campaign across the GCC (Qatar, Bahrain, Oman, and Kuwait).<br>This campaign aims to drive app downloads, increase category exploration, and boost purchases through engaging influencer-led content that highlights noon as a go-to destination for everyday needs.<br><br>
+<strong>Campaign Overview</strong><br>Throughout April, noon will spotlight different product categories across multiple phases, each supported by dedicated in-app banners that users can explore directly.<br>Influencers will create content aligned with each phase, encouraging audiences to discover featured categories and shop directly through the app.<br><br>
+<strong>Campaign Objectives</strong><br>• Drive noon app downloads<br>• Encourage users to explore categories via in-app banners<br>• Increase sales across featured categories<br>• Promote the discount code SHOP<br><br>
+<strong>Assigned Campaign Phase</strong><br><div style="background-color: #f9fafb; padding: 16px; margin: 8px 0; border-left: 4px solid #eab308; border-radius: 8px;"><strong>${p.title}</strong><br>${p.date}<br><strong>Categories:</strong> ${p.categories}<br><strong>Notes:</strong> ${p.notes}</div><br>
+<strong>Discount Code</strong><br>Use code: <strong>SHOP</strong><br>Qatar (QAR): 30 off 500 | 75 off 900 | 100 off 1200 | 150 off 1500<br>Kuwait (KWD): 2.5 off 40 | 6 off 75 | 8 off 100 | 12 off 125<br>Bahrain (BHD): 3 off 50 | 8 off 90 | 10 off 120 | 15 off 150<br>Oman (OMR): 3 off 50 | 8 off 90 | 10 off 120 | 15 off 150<br><span style="font-style: italic;">Please mention the code clearly (spoken + written).</span><br><br>
+<strong>Key Campaign Messages</strong><br>• Shop directly through the noon app<br>• Explore categories via the in-app banner<br>• Exclusive deals available only on the app<br>• Download the app to access all offers<br>• Don’t forget to use the discount code<br><br>
+<strong>Content Guidelines</strong><br>Content should:<br>• Feature products from the assigned category<br>• Integrate products naturally into your lifestyle<br>• Highlight real usage (not overly sales-driven)<br>• Showcase the noon app and category banner<br><br>
+<strong>Creative Direction</strong><br>• “My top picks from this category”<br>• “Best deals I found on noon”<br>• Unboxing / demo / product testing<br>• Daily routine using products from the category<br>• Hidden gems on the app<br>• Before & after transformations<br><br>
+<strong>Mandatory Requirements</strong><br>• Show the noon app clearly<br>• Include screen recording or banner visibility<br>• Clear Call To Action: Download the app / Click on the banner / Explore the category<br><br>
+<strong>Video Requirements</strong><br>• Duration: 30–45 seconds<br>• Platforms: Instagram Reels & TikTok<br>• High-quality video (good lighting & clear visuals)<br>• No heavy filters<br>• Trendy or festive sounds<br><br>
+<strong>Deliverables</strong><br>Reels / TikTok video aligned with assigned phase and category<br><br>
+<strong>Submission & Timeline</strong><br>We need the video by <strong>${subDate}</strong> at the latest as the post will go live on <strong>${liveDate}</strong>.<br>Final approval is required before posting<br><br>
+<strong>Payment Details</strong><br>Campaign fee: <strong>${feeAmt}</strong><br>The payment will be transferred to your bank account within 30 days after the campaign ends, starting from 2 May.<br>Please fill in the following links with your bank account details, complete the required invoice, and reply to the email with it:<br>Form Link : <a href="https://docs.google.com/forms/d/e/1FAIpQLScoTjUr51CW-jR53OHdLvec0THAq0IUI7KnSdvo0axJjni44w/viewform?usp=dialog" style="color: #2563eb; text-decoration: underline;">https://docs.google.com/forms/d/e/1FAIpQLScoTjUr51CW-jR53OHdLvec0THAq0IUI7KnSdvo0axJjni44w/viewform?usp=dialog</a><br>Invoice Link: <a href="https://noon-invoice.vercel.app/" style="color: #2563eb; text-decoration: underline;">https://noon-invoice.vercel.app/</a><br><br>
+<strong>Notes</strong><br>• KPI: Achieve views equivalent to 50% of your total followers<br>• If the target is not met, the video should be boosted or reposted<br>• The video must remain live for at least one year<br>• noon reserves the right to use the video across its platforms<br><br>
+<strong>Next Steps</strong><br>Please confirm your availability and interest in participating in this campaign.<br>If you have any questions, feel free to reach out. We'd love to see your creative take on this campaign!<br><br>
+Best regards,<br><strong>${sender}</strong><br>noon Marketing Team`;
             } else {
-                htmlContent = `مرحباً <strong>${infName}</strong>،<br><br>
-نأمل أن تكون بخير ✨<br>
-يسعدنا التواصل معك بخصوص حملة نون لشهر أبريل في دول الخليج (قطر، البحرين، عُمان، والكويت).<br>
-تهدف هذه الحملة إلى زيادة تنزيلات التطبيق، وتشجيع استكشاف الفئات المختلفة، وزيادة المبيعات من خلال محتوى جذاب يقدمه المؤثرون لإبراز "نون" كوجهة أساسية للاحتياجات اليومية.<br><br>
-
-<strong>نظرة عامة على الحملة</strong><br>
-طوال شهر أبريل، ستسلط نون الضوء على فئات منتجات مختلفة عبر عدة مراحل، كل منها مدعوم بلافتات (Banners) مخصصة داخل التطبيق.<br>
-سيقوم المؤثرون بإنشاء محتوى يتماشى مع كل مرحلة، لتشجيع الجمهور على اكتشاف الفئات والتسوق مباشرة عبر التطبيق.<br><br>
-
-<strong>أهداف الحملة</strong><br>
-• زيادة تنزيلات تطبيق نون<br>
-• تشجيع المستخدمين على استكشاف الفئات عبر اللافتات<br>
-• زيادة المبيعات في الفئات المميزة<br>
-• الترويج لكود الخصم PROMO10<br><br>
-
-<strong>مرحلة الحملة المخصصة لك</strong><br>
-<div style="background-color: #f9fafb; padding: 16px; margin: 8px 0; border-right: 4px solid #eab308; border-radius: 8px;">
-<strong>${p.title}</strong><br>
-${p.date}<br>
-<strong>الفئات:</strong> ${p.categories}<br>
-<strong>ملاحظات:</strong> ${p.notes}
-</div><br>
-
-<strong>كود الخصم</strong><br>
-استخدم الكود: <strong>PROMO10</strong><br>
-قطر: خصم 10% للطلبات فوق 100 ريال قطري (بحد أقصى 100 ريال)<br>
-الكويت: خصم 10% للطلبات فوق 10 دينار كويتي (بحد أقصى 10 دينار)<br>
-البحرين: خصم 10% للطلبات فوق 10 دينار بحريني (بحد أقصى 10 دينار)<br>
-عُمان: خصم 10% للطلبات فوق 10 ريال عماني (بحد أقصى 10 ريال)<br>
-<span style="font-style: italic;">يُرجى ذكر الكود بوضوح (نطقاً وكتابةً).</span><br><br>
-
-<strong>الرسائل الأساسية للحملة</strong><br>
-• تسوق مباشرة عبر تطبيق نون<br>
-• استكشف الفئات عبر اللافتة داخل التطبيق<br>
-• صفقات حصرية متاحة فقط على التطبيق<br>
-• حمّل التطبيق للوصول إلى جميع العروض<br>
-• لا تنسَ استخدام كود الخصم<br><br>
-
-<strong>إرشادات المحتوى</strong><br>
-يجب أن يتضمن المحتوى:<br>
-• عرض منتجات من الفئة المخصصة لك<br>
-• دمج المنتجات بشكل طبيعي في روتين حياتك<br>
-• تسليط الضوء على الاستخدام الفعلي (تجنب الأسلوب البيعي المباشر)<br>
-• عرض تطبيق نون ولافتة الفئة بوضوح<br><br>
-
-<strong>التوجيه الإبداعي</strong><br>
-• "أفضل اختياراتي من هذه الفئة"<br>
-• "أفضل الصفقات التي وجدتها على نون"<br>
-• فتح الصندوق / تجربة / اختبار المنتج<br>
-• الروتين اليومي باستخدام منتجات من الفئة<br>
-• المنتجات المميزة والمخفية على التطبيق<br>
-• تحولات قبل وبعد (Before & after)<br><br>
-
-<strong>المتطلبات الإلزامية</strong><br>
-• إظهار تطبيق نون بوضوح<br>
-• تضمين تسجيل للشاشة أو إظهار اللافتة (banner)<br>
-• دعوة واضحة لاتخاذ إجراء: حمّل التطبيق / اضغط على اللافتة / استكشف الفئة<br><br>
-
-<strong>متطلبات الفيديو</strong><br>
-• المدة: 30–45 ثانية<br>
-• المنصات: إنستجرام ريلز وتيك توك<br>
-• فيديو عالي الجودة (إضاءة جيدة ورؤية واضحة)<br>
-• بدون فلاتر قوية<br>
-• استخدام مقاطع صوتية رائجة أو احتفالية<br><br>
-
-<strong>المخرجات المطلوبة (Deliverables)</strong><br>
-فيديو ريلز / تيك توك يتماشى مع المرحلة والفئة المخصصة.<br><br>
-
-<strong>التسليم والجدول الزمني</strong><br>
-نحتاج إلى استلام الفيديو بحلول <strong>${subDate}</strong> كحد أقصى، حيث سيتم النشر في <strong>${liveDate}</strong>.<br>
-الموافقة النهائية مطلوبة قبل النشر.<br><br>
-
-<strong>تفاصيل الدفع</strong><br>
-قيمة الحملة: <strong>${feeAmt}</strong><br>
-سيتم تحويل المبلغ إلى حسابك البنكي خلال 30 يومًا من انتهاء الحملة، بدءًا من 2 مايو.<br>
-يُرجى تعبئة الروابط التالية ببيانات حسابك البنكي، واستكمال الفاتورة المطلوبة، والرد على هذا الإيميل بها:<br>
-رابط النموذج : <a href="https://docs.google.com/forms/d/e/1FAIpQLScoTjUr51CW-jR53OHdLvec0THAq0IUI7KnSdvo0axJjni44w/viewform?usp=dialog" style="color: #2563eb; text-decoration: underline;">https://docs.google.com/forms/d/e/1FAIpQLScoTjUr51CW-jR53OHdLvec0THAq0IUI7KnSdvo0axJjni44w/viewform?usp=dialog</a><br>
-رابط الفاتورة: <a href="https://noon-invoice.vercel.app/" style="color: #2563eb; text-decoration: underline;">https://noon-invoice.vercel.app/</a><br><br>
-
-<strong>ملاحظات هامة</strong><br>
-• مؤشر الأداء (KPI): تحقيق مشاهدات تعادل 50% من إجمالي عدد متابعيك.<br>
-• في حال عدم تحقيق الهدف، يجب تمويل الفيديو (Boost) أو إعادة نشره.<br>
-• يجب أن يظل الفيديو متاحًا للعامة لمدة عام واحد على الأقل.<br>
-• تحتفظ نون بالحق في استخدام الفيديو عبر منصاتها المختلفة.<br><br>
-
-<strong>الخطوات التالية</strong><br>
-يُرجى تأكيد مدى توفرك واهتمامك بالمشاركة في هذه الحملة.<br>
-إذا كان لديك أي أسئلة، لا تتردد في التواصل معنا. نحن متحمسون لرؤية إبداعك!<br><br>
-
-مع خالص التحيات،<br>
-<strong>${sender}</strong><br>
-فريق تسويق نون`;
+                htmlContent = `مرحباً <strong>${infName}</strong>،<br><br>نأمل أن تكون بخير ✨<br>يسعدنا التواصل معك بخصوص حملة نون لشهر أبريل في دول الخليج (قطر، البحرين، عُمان، والكويت).<br>تهدف هذه الحملة إلى زيادة تنزيلات التطبيق، وتشجيع استكشاف الفئات المختلفة، وزيادة المبيعات من خلال محتوى جذاب يقدمه المؤثرون لإبراز "نون" كوجهة أساسية للاحتياجات اليومية.<br><br>
+<strong>نظرة عامة على الحملة</strong><br>طوال شهر أبريل، ستسلط نون الضوء على فئات منتجات مختلفة عبر عدة مراحل، كل منها مدعوم بلافتات (Banners) مخصصة داخل التطبيق.<br>سيقوم المؤثرون بإنشاء محتوى يتماشى مع كل مرحلة، لتشجيع الجمهور على اكتشاف الفئات والتسوق مباشرة عبر التطبيق.<br><br>
+<strong>أهداف الحملة</strong><br>• زيادة تنزيلات تطبيق نون<br>• تشجيع المستخدمين على استكشاف الفئات عبر اللافتات<br>• زيادة المبيعات في الفئات المميزة<br>• الترويج لكود الخصم SHOP أو تسوق<br><br>
+<strong>مرحلة الحملة المخصصة لك</strong><br><div style="background-color: #f9fafb; padding: 16px; margin: 8px 0; border-right: 4px solid #eab308; border-radius: 8px;"><strong>${p.title}</strong><br>${p.date}<br><strong>الفئات:</strong> ${p.categories}<br><strong>ملاحظات:</strong> ${p.notes}</div><br>
+<strong>كود الخصم</strong><br>استخدم الكود: <strong>SHOP أو تسوق</strong><br>قطر (ريال): خصم 30 للطلبات فوق 500 | خصم 75 للطلبات فوق 900 | خصم 100 للطلبات فوق 1200 | خصم 150 للطلبات فوق 1500<br>الكويت (دينار): خصم 2.5 للطلبات فوق 40 | خصم 6 للطلبات فوق 75 | خصم 8 للطلبات فوق 100 | خصم 12 للطلبات فوق 125<br>البحرين (دينار): خصم 3 للطلبات فوق 50 | خصم 8 للطلبات فوق 90 | خصم 10 للطلبات فوق 120 | خصم 15 للطلبات فوق 150<br>عُمان (ريال): خصم 3 للطلبات فوق 50 | خصم 8 للطلبات فوق 90 | خصم 10 للطلبات فوق 120 | خصم 15 للطلبات فوق 150<br><span style="font-style: italic;">يُرجى ذكر الكود بوضوح (نطقاً وكتابةً).</span><br><br>
+<strong>الرسائل الأساسية للحملة</strong><br>• تسوق مباشرة عبر تطبيق نون<br>• استكشف الفئات عبر اللافتة داخل التطبيق<br>• صفقات حصرية متاحة فقط على التطبيق<br>• حمّل التطبيق للوصول إلى جميع العروض<br>• لا تنسَ استخدام كود الخصم<br><br>
+<strong>إرشادات المحتوى</strong><br>يجب أن يتضمن المحتوى:<br>• عرض منتجات من الفئة المخصصة لك<br>• دمج المنتجات بشكل طبيعي في روتين حياتك<br>• تسليط الضوء على الاستخدام الفعلي (تجنب الأسلوب البيعي المباشر)<br>• عرض تطبيق نون ولافتة الفئة بوضوح<br><br>
+<strong>التوجيه الإبداعي</strong><br>• "أفضل اختياراتي من هذه الفئة"<br>• "أفضل الصفقات التي وجدتها على نون"<br>• فتح الصندوق / تجربة / اختبار المنتج<br>• الروتين اليومي باستخدام منتجات من الفئة<br>• المنتجات المميزة والمخفية على التطبيق<br>• تحولات قبل وبعد (Before & after)<br><br>
+<strong>المتطلبات الإلزامية</strong><br>• إظهار تطبيق نون بوضوح<br>• تضمين تسجيل للشاشة أو إظهار اللافتة (banner)<br>• دعوة واضحة لاتخاذ إجراء: حمّل التطبيق / اضغط على اللافتة / استكشف الفئة<br><br>
+<strong>متطلبات الفيديو</strong><br>• المدة: 30–45 ثانية<br>• المنصات: إنستجرام ريلز وتيك توك<br>• فيديو عالي الجودة (إضاءة جيدة ورؤية واضحة)<br>• بدون فلاتر قوية<br>• استخدام مقاطع صوتية رائجة أو احتفالية<br><br>
+<strong>المخرجات المطلوبة (Deliverables)</strong><br>فيديو ريلز / تيك توك يتماشى مع المرحلة والفئة المخصصة.<br><br>
+<strong>التسليم والجدول الزمني</strong><br>نحتاج إلى استلام الفيديو بحلول <strong>${subDate}</strong> كحد أقصى، حيث سيتم النشر في <strong>${liveDate}</strong>.<br>الموافقة النهائية مطلوبة قبل النشر.<br><br>
+<strong>تفاصيل الدفع</strong><br>قيمة الحملة: <strong>${feeAmt}</strong><br>سيتم تحويل المبلغ إلى حسابك البنكي خلال 30 يومًا من انتهاء الحملة، بدءًا من 2 مايو.<br>يُرجى تعبئة الروابط التالية ببيانات حسابك البنكي، واستكمال الفاتورة المطلوبة، والرد على هذا الإيميل بها:<br>رابط النموذج : <a href="https://docs.google.com/forms/d/e/1FAIpQLScoTjUr51CW-jR53OHdLvec0THAq0IUI7KnSdvo0axJjni44w/viewform?usp=dialog" style="color: #2563eb; text-decoration: underline;">https://docs.google.com/forms/d/e/1FAIpQLScoTjUr51CW-jR53OHdLvec0THAq0IUI7KnSdvo0axJjni44w/viewform?usp=dialog</a><br>رابط الفاتورة: <a href="https://noon-invoice.vercel.app/" style="color: #2563eb; text-decoration: underline;">https://noon-invoice.vercel.app/</a><br><br>
+<strong>ملاحظات هامة</strong><br>• مؤشر الأداء (KPI): تحقيق مشاهدات تعادل 50% من إجمالي عدد متابعيك.<br>• في حال عدم تحقيق الهدف، يجب تمويل الفيديو (Boost) أو إعادة نشره.<br>• يجب أن يظل الفيديو متاحًا للعامة لمدة عام واحد على الأقل.<br>• تحتفظ نون بالحق في استخدام الفيديو عبر منصاتها المختلفة.<br><br>
+<strong>الخطوات التالية</strong><br>يُرجى تأكيد مدى توفرك واهتمامك بالمشاركة في هذه الحملة.<br>إذا كان لديك أي أسئلة، لا تتردد في التواصل معنا. نحن متحمسون لرؤية إبداعك!<br><br>
+مع خالص التحيات،<br><strong>${sender}</strong><br>فريق تسويق نون`;
             }
 
             document.getElementById('email-body-output').innerHTML = htmlContent;
