@@ -62,8 +62,21 @@
 
                     <!-- حقل 2 -->
                     <div class="group relative">
-                        <label class="block text-sm font-bold text-gray-400 mb-2 text-right transition-colors duration-300 group-focus-within:text-primary">كود الخصم المخصص (Discount Code)</label>
-                        <input type="text" id="discountCode" placeholder="مثال: AHMED10" class="w-full bg-main border border-borderline rounded-xl px-4 py-3 text-white font-mono tracking-wider placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner" dir="ltr">
+                        <label class="block text-sm font-bold text-gray-400 mb-2 text-right transition-colors duration-300 group-focus-within:text-primary">كود الخصم والدولة (Discount Code & Country)</label>
+                        <div class="flex gap-3" dir="ltr">
+                            <input type="text" id="discountCode" placeholder="Code: AHMED10" class="w-1/2 bg-main border border-borderline rounded-xl px-4 py-3 text-white font-mono tracking-wider placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner">
+                            <div class="relative w-1/2">
+                                <select id="targetCountry" class="w-full bg-main border border-borderline rounded-xl px-4 py-3 text-white appearance-none transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner cursor-pointer">
+                                    <option value="qatar" selected>Qatar</option>
+                                    <option value="kuwait">Kuwait</option>
+                                    <option value="bahrain">Bahrain</option>
+                                    <option value="oman">Oman</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- حقل 3 -->
@@ -189,7 +202,14 @@
             }
         };
 
-        const inputIds = ['influencerName', 'discountCode', 'selectedPhase', 'submissionDay', 'submissionMonth', 'goLiveDay', 'goLiveMonth', 'fee', 'senderName'];
+        const discountTerms = {
+            'qatar': { en: '15% off orders above 100 QAR (max 100 QAR)', ar: 'خصم 15% للطلبات فوق 100 ريال قطري (بحد أقصى 100 ريال)' },
+            'kuwait': { en: '15% off orders above 10 KWD (max 10 KWD)', ar: 'خصم 15% للطلبات فوق 10 دينار كويتي (بحد أقصى 10 دينار)' },
+            'bahrain': { en: '15% off orders above 10 BHD (max 10 BHD)', ar: 'خصم 15% للطلبات فوق 10 دينار بحريني (بحد أقصى 10 دينار)' },
+            'oman': { en: '15% off orders above 10 OMR (max 10 OMR)', ar: 'خصم 15% للطلبات فوق 10 ريال عماني (بحد أقصى 10 ريال)' }
+        };
+
+        const inputIds = ['influencerName', 'discountCode', 'targetCountry', 'selectedPhase', 'submissionDay', 'submissionMonth', 'goLiveDay', 'goLiveMonth', 'fee', 'senderName'];
 
         document.addEventListener('DOMContentLoaded', () => {
             loadSavedData();
@@ -232,6 +252,8 @@
             const l = currentLanguage;
             const infName = data.influencerName || (l === 'en' ? '[Name]' : '[الاسم]');
             const code = data.discountCode || '[YOUR_CODE]';
+            const countryKey = data.targetCountry || 'qatar';
+            const discountOffer = discountTerms[countryKey][l];
             const sender = data.senderName || (l === 'en' ? '[Sender Name]' : '[اسم المرسل]');
             
             const subDay = data.submissionDay ? data.submissionDay.trim() : '';
@@ -274,6 +296,7 @@ ${p.date}<br>
 
 <strong>Discount Code Mandate</strong><br>
 Your code: <strong>${code}</strong><br>
+Offer Details: <strong>${discountOffer}</strong><br>
 Your influencer-specific discount code must appear in every content format: spoken or on-screen in video, written as subtitle, and in Stories with a CTA.<br><br>
 
 <strong>Content Guidelines</strong><br>
@@ -341,6 +364,7 @@ ${p.date}<br>
 
 <strong>كود الخصم الإلزامي</strong><br>
 الكود الخاص بك: <strong>${code}</strong><br>
+تفاصيل العرض: <strong>${discountOffer}</strong><br>
 يجب أن يظهر رمز الخصم الخاص بك في كل تنسيق محتوى: منطوقاً أو مكتوباً على الشاشة في الفيديو، وفي الستوري مع دعوة لاتخاذ إجراء.<br><br>
 
 <strong>إرشادات المحتوى</strong><br>
