@@ -74,8 +74,21 @@
 
                     <!-- حقل 3 -->
                     <div class="group relative">
-                        <label class="block text-sm font-bold text-gray-400 mb-2 text-right transition-colors duration-300 group-focus-within:text-primary">كود الخصم (Discount Code)</label>
-                        <input type="text" id="discountCode" placeholder="مثال: AHMED10" class="w-full bg-main border border-borderline rounded-xl px-4 py-3 text-white font-mono tracking-wider placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner" dir="ltr">
+                        <label class="block text-sm font-bold text-gray-400 mb-2 text-right transition-colors duration-300 group-focus-within:text-primary">كود الخصم والدولة (Discount Code & Country)</label>
+                        <div class="flex gap-3" dir="ltr">
+                            <input type="text" id="discountCode" placeholder="Code: AHMED10" class="w-1/2 bg-main border border-borderline rounded-xl px-4 py-3 text-white font-mono tracking-wider placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner">
+                            <div class="relative w-1/2">
+                                <select id="targetCountry" class="w-full bg-main border border-borderline rounded-xl px-4 py-3 text-white appearance-none transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner cursor-pointer">
+                                    <option value="qatar" selected>Qatar</option>
+                                    <option value="kuwait">Kuwait</option>
+                                    <option value="bahrain">Bahrain</option>
+                                    <option value="oman">Oman</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,7 +138,14 @@
             }
         };
 
-        const inputIds = ['selectedPhase', 'platform', 'discountCode'];
+        const discountTerms = {
+            'qatar': { en: '15% off orders above 100 QAR (max 100 QAR)', ar: 'خصم 15% للطلبات فوق 100 ريال قطري (بحد أقصى 100 ريال)' },
+            'kuwait': { en: '15% off orders above 10 KWD (max 10 KWD)', ar: 'خصم 15% للطلبات فوق 10 دينار كويتي (بحد أقصى 10 دينار)' },
+            'bahrain': { en: '15% off orders above 10 BHD (max 10 BHD)', ar: 'خصم 15% للطلبات فوق 10 دينار بحريني (بحد أقصى 10 دينار)' },
+            'oman': { en: '15% off orders above 10 OMR (max 10 OMR)', ar: 'خصم 15% للطلبات فوق 10 ريال عماني (بحد أقصى 10 ريال)' }
+        };
+
+        const inputIds = ['selectedPhase', 'platform', 'discountCode', 'targetCountry'];
 
         document.addEventListener('DOMContentLoaded', () => {
             loadSavedData();
@@ -163,6 +183,8 @@
             const l = currentLanguage;
             const platform = data.platform || (l === 'en' ? '[Platform]' : '[المنصة]');
             const code = data.discountCode || '[YOUR_CODE]';
+            const countryKey = data.targetCountry || 'qatar';
+            const discountOffer = discountTerms[countryKey][l];
             const p = phasesData[data.selectedPhase || '1'][l];
 
             let htmlContent = "";
@@ -185,7 +207,8 @@
 
 <div class="divider"></div>
 <strong style="color: #eab308; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase;">🏆 THE GOLDEN RULE — DISCOUNT CODE MANDATE</strong><br><br>
-Your Code: <strong style="font-size: 20px; color: #dc2626; background-color: #fef2f2; padding: 4px 8px; border-radius: 4px;">${code}</strong><br><br>
+Your Code: <strong style="font-size: 20px; color: #dc2626; background-color: #fef2f2; padding: 4px 8px; border-radius: 4px;">${code}</strong><br>
+Offer Details: <strong style="color: #0f172a;">${discountOffer}</strong><br><br>
 Your influencer-specific discount code <strong>MUST</strong> appear in every content format:<br>
 <ul style="margin:8px 0 0 0; padding-left:24px; color: #334155;">
     <li style="margin-bottom:6px;">Spoken in the video.</li>
@@ -271,7 +294,8 @@ To ensure the video gets approved from the first draft, you must watch this "Do'
 
 <div class="divider"></div>
 <strong style="color: #eab308; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase;">🏆 القاعدة الذهبية — إلزامية كود الخصم</strong><br><br>
-الكود الخاص بك: <strong style="font-size: 20px; color: #dc2626; background-color: #fef2f2; padding: 4px 8px; border-radius: 4px;">${code}</strong><br><br>
+الكود الخاص بك: <strong style="font-size: 20px; color: #dc2626; background-color: #fef2f2; padding: 4px 8px; border-radius: 4px;">${code}</strong><br>
+تفاصيل العرض: <strong style="color: #0f172a;">${discountOffer}</strong><br><br>
 <strong>يجب</strong> أن يظهر كود الخصم الخاص بك في كل تنسيق محتوى كالتالي:<br>
 <ul style="margin:8px 0 0 0; padding-right:24px; color: #334155;">
     <li style="margin-bottom:6px;">منطوقاً ومسموعاً في الفيديو.</li>
