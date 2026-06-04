@@ -74,15 +74,15 @@
 
                     <!-- حقل 3 -->
                     <div class="group relative">
-                        <label class="block text-sm font-bold text-gray-400 mb-2 text-right transition-colors duration-300 group-focus-within:text-primary">كود الخصم والدولة (Discount Code & Country)</label>
-                        <div class="flex gap-3" dir="ltr">
-                            <input type="text" id="discountCode" placeholder="Code: AHMED10" class="w-1/2 bg-main border border-borderline rounded-xl px-4 py-3 text-white font-mono tracking-wider placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner">
+                        <label class="block text-sm font-bold text-gray-400 mb-2 text-right transition-colors duration-300 group-focus-within:text-primary">كود الخصم والدولة</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="discountCode" placeholder="الافتراضي: PROMO15" class="w-1/2 bg-main border border-borderline rounded-xl px-4 py-3 text-white font-mono tracking-wider placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner" dir="ltr">
                             <div class="relative w-1/2">
-                                <select id="targetCountry" class="w-full bg-main border border-borderline rounded-xl px-4 py-3 text-white appearance-none transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner cursor-pointer">
-                                    <option value="qatar" selected>Qatar</option>
-                                    <option value="kuwait">Kuwait</option>
-                                    <option value="bahrain">Bahrain</option>
-                                    <option value="oman">Oman</option>
+                                <select id="country" class="w-full bg-main border border-borderline rounded-xl px-4 py-3 text-white appearance-none transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner cursor-pointer" dir="ltr">
+                                    <option value="QA">Qatar (QA)</option>
+                                    <option value="KW">Kuwait (KW)</option>
+                                    <option value="BH">Bahrain (BH)</option>
+                                    <option value="OM">Oman (OM)</option>
                                 </select>
                                 <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
                                     <svg class="w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -123,6 +123,13 @@
     <script>
         let currentLanguage = 'en';
 
+        const countryDiscounts = {
+            'QA': { en: 'Qatar: 15% off orders above 100 QAR (max 100 QAR)', ar: 'قطر: خصم 15% للطلبات فوق 100 ريال قطري (بحد أقصى 100 ريال)' },
+            'KW': { en: 'Kuwait: 15% off orders above 10 KWD (max 10 KWD)', ar: 'الكويت: خصم 15% للطلبات فوق 10 دينار كويتي (بحد أقصى 10 دينار)' },
+            'BH': { en: 'Bahrain: 15% off orders above 10 BHD (max 10 BHD)', ar: 'البحرين: خصم 15% للطلبات فوق 10 دينار بحريني (بحد أقصى 10 دينار)' },
+            'OM': { en: 'Oman: 15% off orders above 10 OMR (max 10 OMR)', ar: 'عُمان: خصم 15% للطلبات فوق 10 ريال عماني (بحد أقصى 10 ريال)' }
+        };
+
         const phasesData = {
             '1': {
                 en: { title: 'Grand Lifestyle Reset', date: 'June 5–8', categories: 'Home, Fashion, Watches & Eyewear, Footwear, Beauty, Yoga & Pilates', action: 'Show the lifestyle banner; encourage app exploration (screen recording)' },
@@ -138,14 +145,7 @@
             }
         };
 
-        const discountTerms = {
-            'qatar': { en: '15% off orders above 100 QAR (max 100 QAR)', ar: 'خصم 15% للطلبات فوق 100 ريال قطري (بحد أقصى 100 ريال)' },
-            'kuwait': { en: '15% off orders above 10 KWD (max 10 KWD)', ar: 'خصم 15% للطلبات فوق 10 دينار كويتي (بحد أقصى 10 دينار)' },
-            'bahrain': { en: '15% off orders above 10 BHD (max 10 BHD)', ar: 'خصم 15% للطلبات فوق 10 دينار بحريني (بحد أقصى 10 دينار)' },
-            'oman': { en: '15% off orders above 10 OMR (max 10 OMR)', ar: 'خصم 15% للطلبات فوق 10 ريال عماني (بحد أقصى 10 ريال)' }
-        };
-
-        const inputIds = ['selectedPhase', 'platform', 'discountCode', 'targetCountry'];
+        const inputIds = ['selectedPhase', 'platform', 'discountCode', 'country'];
 
         document.addEventListener('DOMContentLoaded', () => {
             loadSavedData();
@@ -182,10 +182,11 @@
 
             const l = currentLanguage;
             const platform = data.platform || (l === 'en' ? '[Platform]' : '[المنصة]');
-            const code = data.discountCode || '[YOUR_CODE]';
-            const countryKey = data.targetCountry || 'qatar';
-            const discountOffer = discountTerms[countryKey][l];
+            const code = data.discountCode || 'PROMO15';
             const p = phasesData[data.selectedPhase || '1'][l];
+            
+            const countryVal = data.country || 'QA';
+            const discountText = countryDiscounts[countryVal][l];
 
             let htmlContent = "";
 
@@ -207,15 +208,23 @@
 
 <div class="divider"></div>
 <strong style="color: #eab308; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase;">🏆 THE GOLDEN RULE — DISCOUNT CODE MANDATE</strong><br><br>
-Your Code: <strong style="font-size: 20px; color: #dc2626; background-color: #fef2f2; padding: 4px 8px; border-radius: 4px;">${code}</strong><br>
-Offer Details: <strong style="color: #0f172a;">${discountOffer}</strong><br><br>
-Your influencer-specific discount code <strong>MUST</strong> appear in every content format:<br>
-<ul style="margin:8px 0 0 0; padding-left:24px; color: #334155;">
-    <li style="margin-bottom:6px;">Spoken in the video.</li>
-    <li style="margin-bottom:6px;">Written on-screen as text/subtitle.</li>
-    <li>In Stories with a clear Call To Action (CTA).</li>
-</ul><br>
-<em style="color: #64748b; font-size: 14px;">Examples: "Use my code for extra savings" | "Don't forget my discount code on the noon app."</em>
+
+<div style="background-color: #fef2f2; border-left: 4px solid #ef4444; padding: 16px; border-radius: 8px; margin: 12px 0;">
+    <div style="font-size: 14px; color: #7f1d1d; margin-bottom: 4px; font-weight: bold; text-transform: uppercase;">Your Unique Code</div>
+    <div style="font-size: 24px; font-weight: bold; color: #dc2626; letter-spacing: 2px; margin-bottom: 8px; background-color: #fee2e2; display: inline-block; padding: 4px 12px; border-radius: 4px;">${code}</div>
+    <div style="margin-top: 4px; color: #991b1b; font-size: 15px;">
+        <strong>Offer Details:</strong> ${discountText}
+    </div>
+</div>
+<div style="color: #334155; margin-top: 12px;">
+    The discount code <strong>MUST</strong> appear in every content format:<br>
+    <ul style="margin:8px 0 0 0; padding-left:24px;">
+        <li style="margin-bottom:6px;">Spoken in the video.</li>
+        <li style="margin-bottom:6px;">Written on-screen as text/subtitle.</li>
+        <li>In Stories with a clear Call To Action (CTA).</li>
+    </ul><br>
+    <em style="color: #64748b; font-size: 14px;">Examples: "Use my code for extra savings" | "Don't forget my discount code on the noon app."</em>
+</div>
 
 <div class="divider"></div>
 <strong style="color: #eab308; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase;">🎨 CREATIVE DIRECTION & CONTENT GUIDELINES</strong><br><br>
@@ -294,15 +303,23 @@ To ensure the video gets approved from the first draft, you must watch this "Do'
 
 <div class="divider"></div>
 <strong style="color: #eab308; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase;">🏆 القاعدة الذهبية — إلزامية كود الخصم</strong><br><br>
-الكود الخاص بك: <strong style="font-size: 20px; color: #dc2626; background-color: #fef2f2; padding: 4px 8px; border-radius: 4px;">${code}</strong><br>
-تفاصيل العرض: <strong style="color: #0f172a;">${discountOffer}</strong><br><br>
-<strong>يجب</strong> أن يظهر كود الخصم الخاص بك في كل تنسيق محتوى كالتالي:<br>
-<ul style="margin:8px 0 0 0; padding-right:24px; color: #334155;">
-    <li style="margin-bottom:6px;">منطوقاً ومسموعاً في الفيديو.</li>
-    <li style="margin-bottom:6px;">مكتوباً على الشاشة كنص أو ترجمة.</li>
-    <li>في الستوري مع دعوة واضحة للمشاهدين (CTA).</li>
-</ul><br>
-<em style="color: #64748b; font-size: 14px;">أمثلة: "استخدم رمزي لتوفير إضافي" | "لا تنسَ كود الخصم الخاص بي على تطبيق نون."</em>
+
+<div style="background-color: #fef2f2; border-right: 4px solid #ef4444; padding: 16px; border-radius: 8px; margin: 12px 0;">
+    <div style="font-size: 14px; color: #7f1d1d; margin-bottom: 4px; font-weight: bold;">الكود الخاص بك</div>
+    <div style="font-size: 24px; font-weight: bold; color: #dc2626; letter-spacing: 2px; margin-bottom: 8px; background-color: #fee2e2; display: inline-block; padding: 4px 12px; border-radius: 4px;">${code}</div>
+    <div style="margin-top: 4px; color: #991b1b; font-size: 15px;">
+        <strong>تفاصيل العرض:</strong> ${discountText}
+    </div>
+</div>
+<div style="color: #334155; margin-top: 12px;">
+    <strong>يجب</strong> أن يظهر كود الخصم في كل تنسيق محتوى كالتالي:<br>
+    <ul style="margin:8px 0 0 0; padding-right:24px;">
+        <li style="margin-bottom:6px;">منطوقاً ومسموعاً في الفيديو.</li>
+        <li style="margin-bottom:6px;">مكتوباً على الشاشة كنص أو ترجمة.</li>
+        <li>في الستوري مع دعوة واضحة للمشاهدين (CTA).</li>
+    </ul><br>
+    <em style="color: #64748b; font-size: 14px;">أمثلة: "استخدم رمزي لتوفير إضافي" | "لا تنسَ كود الخصم الخاص بي على تطبيق نون."</em>
+</div>
 
 <div class="divider"></div>
 <strong style="color: #eab308; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase;">🎨 التوجيه الإبداعي وإرشادات المحتوى</strong><br><br>
