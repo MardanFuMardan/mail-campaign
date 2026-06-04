@@ -62,15 +62,15 @@
 
                     <!-- حقل 2 -->
                     <div class="group relative">
-                        <label class="block text-sm font-bold text-gray-400 mb-2 text-right transition-colors duration-300 group-focus-within:text-primary">كود الخصم والدولة (Discount Code & Country)</label>
-                        <div class="flex gap-3" dir="ltr">
-                            <input type="text" id="discountCode" placeholder="Code: AHMED10" class="w-1/2 bg-main border border-borderline rounded-xl px-4 py-3 text-white font-mono tracking-wider placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner">
+                        <label class="block text-sm font-bold text-gray-400 mb-2 text-right transition-colors duration-300 group-focus-within:text-primary">كود الخصم والدولة</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="discountCode" placeholder="الافتراضي: PROMO15" class="w-1/2 bg-main border border-borderline rounded-xl px-4 py-3 text-white font-mono tracking-wider placeholder-gray-600 transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner" dir="ltr">
                             <div class="relative w-1/2">
-                                <select id="targetCountry" class="w-full bg-main border border-borderline rounded-xl px-4 py-3 text-white appearance-none transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner cursor-pointer">
-                                    <option value="qatar" selected>Qatar</option>
-                                    <option value="kuwait">Kuwait</option>
-                                    <option value="bahrain">Bahrain</option>
-                                    <option value="oman">Oman</option>
+                                <select id="country" class="w-full bg-main border border-borderline rounded-xl px-4 py-3 text-white appearance-none transition-all duration-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-gray-500 text-left shadow-inner cursor-pointer" dir="ltr">
+                                    <option value="QA">Qatar (QA)</option>
+                                    <option value="KW">Kuwait (KW)</option>
+                                    <option value="BH">Bahrain (BH)</option>
+                                    <option value="OM">Oman (OM)</option>
                                 </select>
                                 <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
                                     <svg class="w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -187,6 +187,13 @@
         let currentLanguage = 'en';
         const monthsData = { '06': { en: 'June', ar: 'يونيو' }, '07': { en: 'July', ar: 'يوليو' } };
 
+        const countryDiscounts = {
+            'QA': { en: 'Qatar: 15% off orders above 100 QAR (max 100 QAR)', ar: 'قطر: خصم 15% للطلبات فوق 100 ريال قطري (بحد أقصى 100 ريال)' },
+            'KW': { en: 'Kuwait: 15% off orders above 10 KWD (max 10 KWD)', ar: 'الكويت: خصم 15% للطلبات فوق 10 دينار كويتي (بحد أقصى 10 دينار)' },
+            'BH': { en: 'Bahrain: 15% off orders above 10 BHD (max 10 BHD)', ar: 'البحرين: خصم 15% للطلبات فوق 10 دينار بحريني (بحد أقصى 10 دينار)' },
+            'OM': { en: 'Oman: 15% off orders above 10 OMR (max 10 OMR)', ar: 'عُمان: خصم 15% للطلبات فوق 10 ريال عماني (بحد أقصى 10 ريال)' }
+        };
+
         const phasesData = {
             '1': {
                 en: { title: 'Grand Lifestyle Reset', date: 'June 5–8', categories: 'Home, Fashion, Watches & Eyewear, Footwear, Beauty, Yoga & Pilates', action: 'Show the lifestyle banner; encourage app exploration (screen recording)' },
@@ -202,14 +209,7 @@
             }
         };
 
-        const discountTerms = {
-            'qatar': { en: '15% off orders above 100 QAR (max 100 QAR)', ar: 'خصم 15% للطلبات فوق 100 ريال قطري (بحد أقصى 100 ريال)' },
-            'kuwait': { en: '15% off orders above 10 KWD (max 10 KWD)', ar: 'خصم 15% للطلبات فوق 10 دينار كويتي (بحد أقصى 10 دينار)' },
-            'bahrain': { en: '15% off orders above 10 BHD (max 10 BHD)', ar: 'خصم 15% للطلبات فوق 10 دينار بحريني (بحد أقصى 10 دينار)' },
-            'oman': { en: '15% off orders above 10 OMR (max 10 OMR)', ar: 'خصم 15% للطلبات فوق 10 ريال عماني (بحد أقصى 10 ريال)' }
-        };
-
-        const inputIds = ['influencerName', 'discountCode', 'targetCountry', 'selectedPhase', 'submissionDay', 'submissionMonth', 'goLiveDay', 'goLiveMonth', 'fee', 'senderName'];
+        const inputIds = ['influencerName', 'discountCode', 'country', 'selectedPhase', 'submissionDay', 'submissionMonth', 'goLiveDay', 'goLiveMonth', 'fee', 'senderName'];
 
         document.addEventListener('DOMContentLoaded', () => {
             loadSavedData();
@@ -251,9 +251,7 @@
 
             const l = currentLanguage;
             const infName = data.influencerName || (l === 'en' ? '[Name]' : '[الاسم]');
-            const code = data.discountCode || '[YOUR_CODE]';
-            const countryKey = data.targetCountry || 'qatar';
-            const discountOffer = discountTerms[countryKey][l];
+            const code = data.discountCode || 'PROMO15';
             const sender = data.senderName || (l === 'en' ? '[Sender Name]' : '[اسم المرسل]');
             
             const subDay = data.submissionDay ? data.submissionDay.trim() : '';
@@ -269,6 +267,9 @@
 
             const phaseKey = data.selectedPhase || '1';
             const p = phasesData[phaseKey][l];
+            
+            const countryVal = data.country || 'QA';
+            const discountText = countryDiscounts[countryVal][l];
 
             document.getElementById('subject-actual-text').innerText = l === 'en' ? "noon GCC June Campaign" : "حملة نون لدول الخليج - شهر يونيو";
 
@@ -294,10 +295,16 @@ ${p.date}<br>
 <strong>Key Action:</strong> ${p.action}
 </div><br>
 
-<strong>Discount Code Mandate</strong><br>
-Your code: <strong>${code}</strong><br>
-Offer Details: <strong>${discountOffer}</strong><br>
-Your influencer-specific discount code must appear in every content format: spoken or on-screen in video, written as subtitle, and in Stories with a CTA.<br><br>
+<div style="background-color: #fef2f2; border-left: 4px solid #ef4444; padding: 16px; border-radius: 8px; margin: 16px 0;">
+    <div style="font-size: 14px; color: #7f1d1d; margin-bottom: 4px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Discount Code Mandate</div>
+    <div style="font-size: 22px; font-weight: bold; color: #dc2626; letter-spacing: 1px; margin-bottom: 8px; background-color: #fee2e2; display: inline-block; padding: 4px 12px; border-radius: 4px;">${code}</div>
+    <div style="margin-top: 4px; color: #991b1b; font-size: 15px;">
+        <strong>Offer Details:</strong> ${discountText}
+    </div>
+    <div style="margin-top: 10px; font-size: 13px; color: #b91c1c; border-top: 1px solid #fca5a5; padding-top: 10px;">
+        <em>The discount code must appear in every content format: spoken or on-screen in video, written as subtitle, and in Stories with a CTA.</em>
+    </div>
+</div><br>
 
 <strong>Content Guidelines</strong><br>
 • <strong>Style:</strong> Fast-paced, trend-driven, strong hook in first 3 seconds.<br>
@@ -362,10 +369,16 @@ ${p.date}<br>
 <strong>الإجراء المطلوب:</strong> ${p.action}
 </div><br>
 
-<strong>كود الخصم الإلزامي</strong><br>
-الكود الخاص بك: <strong>${code}</strong><br>
-تفاصيل العرض: <strong>${discountOffer}</strong><br>
-يجب أن يظهر رمز الخصم الخاص بك في كل تنسيق محتوى: منطوقاً أو مكتوباً على الشاشة في الفيديو، وفي الستوري مع دعوة لاتخاذ إجراء.<br><br>
+<div style="background-color: #fef2f2; border-right: 4px solid #ef4444; padding: 16px; border-radius: 8px; margin: 16px 0;">
+    <div style="font-size: 14px; color: #7f1d1d; margin-bottom: 4px; font-weight: bold;">كود الخصم الإلزامي</div>
+    <div style="font-size: 22px; font-weight: bold; color: #dc2626; letter-spacing: 1px; margin-bottom: 8px; background-color: #fee2e2; display: inline-block; padding: 4px 12px; border-radius: 4px;">${code}</div>
+    <div style="margin-top: 4px; color: #991b1b; font-size: 15px;">
+        <strong>تفاصيل العرض:</strong> ${discountText}
+    </div>
+    <div style="margin-top: 10px; font-size: 13px; color: #b91c1c; border-top: 1px solid #fca5a5; padding-top: 10px;">
+        <em>يجب أن يظهر كود الخصم في كل تنسيق محتوى: منطوقاً أو مكتوباً على الشاشة في الفيديو، وفي الستوري مع دعوة لاتخاذ إجراء.</em>
+    </div>
+</div><br>
 
 <strong>إرشادات المحتوى</strong><br>
 • <strong>الأسلوب:</strong> سريع الإيقاع، مواكب للتريند، وخطّاف قوي (Hook) في أول 3 ثوانٍ.<br>
