@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منشئ إيميل حملة نون - يوليو</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Tajawal', 'Inter', 'sans-serif'], },
+                    colors: { 
+                        bgBase: '#09090b',      /* True Black / Zinc-950 */
+                        cardBase: '#18181b',    /* Zinc-900 */
+                        borderSoft: '#27272a',  /* Zinc-800 */
+                        accent: '#38bdf8',      /* Sky Blue */
+                        accentHover: '#0284c7'  /* Darker Sky Blue */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #09090b; color: #e4e4e7; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #52525b; }
+        
+        .email-ltr { direction: ltr; text-align: left; font-family: 'Inter', sans-serif; }
+        .email-rtl { direction: rtl; text-align: right; font-family: 'Tajawal', sans-serif; }
+        
+        .modern-input {
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: #09090b;
+        }
+        .modern-input:focus-within {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 1px #38bdf8;
+        }
+        
+        .modern-btn {
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .modern-btn:active {
+            transform: scale(0.97);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 font-sans selection:bg-accent selection:text-white">
+
+    <div class="max-w-[1400px] mx-auto">
+        <header class="mb-10 flex items-center justify-between fade-in" style="animation-delay: 0.1s;">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight text-white flex items-center gap-3">
+                    إيميل حملة يوليو <span class="text-accent">☀️</span>
+                </h1>
+                <p class="text-zinc-400 mt-1 text-sm font-medium">أداة توليد إيميلات المؤثرين بتصميم عصري.</p>
+            </div>
+            <div class="hidden md:flex items-center gap-2 text-xs font-semibold text-zinc-300 bg-cardBase px-3 py-1.5 rounded-md border border-borderSoft">
+                <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                جاهز للعمل
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <div class="lg:col-span-4 fade-in" style="animation-delay: 0.2s;">
+                <div class="bg-cardBase border border-borderSoft rounded-2xl p-6 h-fit max-h-[85vh] overflow-y-auto custom-scrollbar shadow-2xl relative overflow-hidden">
+                    
+                    <!-- Decorative top line -->
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-orange-400"></div>
+
+                    <div class="space-y-5 mt-2">
+                        <!-- Input 1 -->
+                        <div class="group relative modern-input rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors group-focus-within:text-accent">اسم المؤثر (Influencer Name)</label>
+                            <input type="text" id="influencerName" placeholder="e.g. Ahmed" class="w-full bg-transparent border-none px-3 pb-2 text-white placeholder-zinc-700 focus:outline-none focus:ring-0 text-left text-sm" dir="ltr">
+                        </div>
+
+                        <!-- Input 2 -->
+                        <div class="group relative modern-input rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors group-focus-within:text-accent">كود الخصم والدولة</label>
+                            <div class="flex gap-2 px-1 pb-1">
+                                <input type="text" id="discountCode" placeholder="PROMO15" class="w-1/2 bg-[#121214] border border-borderSoft rounded-lg px-3 py-2 text-white font-mono text-sm placeholder-zinc-700 focus:outline-none focus:border-accent text-left transition-colors" dir="ltr">
+                                <div class="relative w-1/2">
+                                    <select id="country" class="w-full bg-[#121214] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm appearance-none focus:outline-none focus:border-accent cursor-pointer transition-colors" dir="ltr">
+                                        <option value="QA">Qatar (QA)</option>
+                                        <option value="KW">Kuwait (KW)</option>
+                                        <option value="BH">Bahrain (BH)</option>
+                                        <option value="OM">Oman (OM)</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                        <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input 3 -->
+                        <div class="group relative modern-input rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors group-focus-within:text-accent">المرحلة (Phase)</label>
+                            <div class="relative px-1 pb-1">
+                                <select id="selectedPhase" class="w-full bg-[#121214] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm appearance-none focus:outline-none focus:border-accent cursor-pointer transition-colors" dir="ltr">
+                                    <option value="1">1. Grand Lifestyle Sale (Jul 10-13)</option>
+                                    <option value="2">2. Mega Tech Festival (Jul 17-20)</option>
+                                    <option value="3">3. End of Month Sale (Jul 24-Aug 2)</option>
+                                    <option value="4">4. Salalah Khareef Festival (Oman)</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                    <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input 4 -->
+                        <div class="group relative modern-input rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors group-focus-within:text-accent">تاريخ التسليم (Submission)</label>
+                            <div class="flex gap-2 px-1 pb-1" dir="ltr">
+                                <input type="number" id="submissionDay" placeholder="Day (5)" min="1" max="31" class="w-1/3 bg-[#121214] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm text-center placeholder-zinc-700 focus:outline-none focus:border-accent transition-colors">
+                                <div class="relative w-2/3">
+                                    <select id="submissionMonth" class="w-full bg-[#121214] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm appearance-none focus:outline-none focus:border-accent cursor-pointer transition-colors">
+                                        <option value="07" selected>July</option>
+                                        <option value="08">August</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                        <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input 5 -->
+                        <div class="group relative modern-input rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors group-focus-within:text-accent">تاريخ النشر (Go Live)</label>
+                            <div class="flex gap-2 px-1 pb-1" dir="ltr">
+                                <input type="number" id="goLiveDay" placeholder="Day (7)" min="1" max="31" class="w-1/3 bg-[#121214] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm text-center placeholder-zinc-700 focus:outline-none focus:border-accent transition-colors">
+                                <div class="relative w-2/3">
+                                    <select id="goLiveMonth" class="w-full bg-[#121214] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm appearance-none focus:outline-none focus:border-accent cursor-pointer transition-colors">
+                                        <option value="07" selected>July</option>
+                                        <option value="08">August</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                        <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input 6 -->
+                        <div class="group relative modern-input rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors group-focus-within:text-accent">قيمة الحملة (Fee)</label>
+                            <div class="relative px-1 pb-1" dir="ltr">
+                                <input type="text" id="fee" placeholder="e.g. 500" class="w-full bg-[#121214] border border-borderSoft rounded-lg pr-12 pl-3 py-2 text-white text-sm placeholder-zinc-700 focus:outline-none focus:border-accent transition-colors">
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-600 text-xs font-bold pointer-events-none">AED</span>
+                            </div>
+                        </div>
+
+                        <!-- Input 7 -->
+                        <div class="group relative modern-input rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors group-focus-within:text-accent">اسم المرسل (Sender Name)</label>
+                            <input type="text" id="senderName" placeholder="e.g. Mahmoud" class="w-full bg-transparent border-none px-3 pb-2 text-white placeholder-zinc-700 focus:outline-none focus:ring-0 text-left text-sm" dir="ltr">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 flex flex-col gap-5 fade-in" style="animation-delay: 0.3s;">
+                
+                <!-- Action Bar -->
+                <div class="flex justify-between items-center bg-cardBase p-2 rounded-xl border border-borderSoft shadow-sm">
+                    <div class="flex gap-1 bg-bgBase p-1 rounded-lg border border-borderSoft">
+                        <button onclick="setLanguage('en')" id="btn-en" class="modern-btn px-5 py-1.5 rounded-md text-xs font-bold bg-white text-black shadow-sm">English</button>
+                        <button onclick="setLanguage('ar')" id="btn-ar" class="modern-btn px-5 py-1.5 rounded-md text-xs font-bold text-zinc-400 hover:text-white">العربية</button>
+                    </div>
+                    
+                    <button onclick="copyContent('email-body-output', 'copyBodyMsg')" class="modern-btn relative flex items-center gap-2 bg-accent hover:bg-accentHover text-white font-semibold py-2 px-5 rounded-lg text-sm shadow-md">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                        نسخ الإيميل
+                        <span id="copyBodyMsg" class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] py-1 px-2 rounded opacity-0 transition-opacity pointer-events-none whitespace-nowrap font-bold shadow-lg">تم النسخ! ✓</span>
+                    </button>
+                </div>
+
+                <!-- Subject Box -->
+                <div class="bg-cardBase p-4 rounded-xl border border-borderSoft shadow-sm flex items-center justify-between group">
+                    <div class="flex-1 flex items-center gap-4">
+                        <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest bg-bgBase px-2 py-1 rounded border border-borderSoft">Subject</span>
+                        <div id="subject-actual-text" class="text-sm font-semibold text-zinc-200 email-ltr" dir="ltr">noon GCC July Campaign</div>
+                    </div>
+                    <button onclick="copySubject(event)" class="modern-btn text-zinc-500 hover:text-white p-2 rounded-md hover:bg-borderSoft transition-colors" title="نسخ العنوان">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Email Body Preview -->
+                <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl flex flex-col h-[58vh] relative">
+                    <div id="email-body-output" class="text-zinc-900 overflow-y-auto custom-scrollbar text-[14px] leading-[1.6] flex-1 email-ltr" dir="ltr" style="font-family: Arial, sans-serif;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLanguage = 'en';
+        const monthsData = { '07': { en: 'July', ar: 'يوليو' }, '08': { en: 'August', ar: 'أغسطس' } };
+
+        const countryDiscounts = {
+            'QA': { en: 'Qatar: 15% off orders above 100 QAR (max 100 QAR)', ar: 'قطر: خصم 15% للطلبات فوق 100 ريال قطري (بحد أقصى 100 ريال)' },
+            'KW': { en: 'Kuwait: 15% off orders above 10 KWD (max 10 KWD)', ar: 'الكويت: خصم 15% للطلبات فوق 10 دينار كويتي (بحد أقصى 10 دينار)' },
+            'BH': { en: 'Bahrain: 15% off orders above 10 BHD (max 10 BHD)', ar: 'البحرين: خصم 15% للطلبات فوق 10 دينار بحريني (بحد أقصى 10 دينار)' },
+            'OM': { en: 'Oman: 15% off orders above 10 OMR (max 10 OMR)', ar: 'عُمان: خصم 15% للطلبات فوق 10 ريال عماني (بحد أقصى 10 ريال)' }
+        };
+
+        const phasesData = {
+            '1': {
+                en: { title: 'Grand Lifestyle Sale', date: 'July 10 – 13', categories: 'Home, Fashion, Watches & Eyewear, Footwear, Beauty, Yoga & Pilates', action: 'Show the campaign banner inside the app (screen recording)' },
+                ar: { title: 'تخفيضات أسلوب الحياة', date: '10 - 13 يوليو', categories: 'المنزل، الأزياء، الساعات والنظارات، الأحذية، الجمال، منتجات اليوغا والبيلاتس', action: 'إظهار لافتة الحملة داخل التطبيق (تسجيل الشاشة)' }
+            },
+            '2': {
+                en: { title: 'Mega Tech Festival', date: 'July 17 – 20', categories: 'TV & Appliances, Laptops, Gaming, Telco', action: 'Show the Mega Tech Festival banner inside the app' },
+                ar: { title: 'مهرجان التقنية الأكبر', date: '17 - 20 يوليو', categories: 'التلفزيونات والأجهزة المنزلية، اللابتوبات، الألعاب، الاتصالات', action: 'إظهار لافتة مهرجان التقنية داخل التطبيق' }
+            },
+            '3': {
+                en: { title: 'End of Month Sale (BDS)', date: 'July 24 – Aug 2', categories: 'Platform-wide sale (All Categories)', action: 'Highlight end-of-month / pay-day deals via the in-app sale banner' },
+                ar: { title: 'تخفيضات نهاية الشهر', date: '24 يوليو - 2 أغسطس', categories: 'تخفيضات على مستوى المنصة (جميع الفئات)', action: 'إبراز عروض التوفير ونهاية الشهر عبر اللافتة داخل التطبيق' }
+            },
+            '4': {
+                en: { title: 'Salalah Khareef Festival 2026', date: 'July – September', categories: 'Outdoor Sports', action: 'Showcase outdoor sports gear, active apparel, or equipment perfect for the Khareef season' },
+                ar: { title: 'مهرجان خريف صلالة 2026', date: 'يوليو - سبتمبر', categories: 'الرياضات الخارجية (Outdoor Sports)', action: 'عرض معدات الرياضات الخارجية والملابس والمعدات المثالية لموسم الخريف' }
+            }
+        };
+
+        const inputIds = ['influencerName', 'discountCode', 'country', 'selectedPhase', 'submissionDay', 'submissionMonth', 'goLiveDay', 'goLiveMonth', 'fee', 'senderName'];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedData();
+            inputIds.forEach(id => {
+                document.getElementById(id).addEventListener('input', renderEmail);
+            });
+            renderEmail();
+        });
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            const btnEn = document.getElementById('btn-en');
+            const btnAr = document.getElementById('btn-ar');
+            const subjectActual = document.getElementById('subject-actual-text');
+            const bodyOutput = document.getElementById('email-body-output');
+            
+            const activeClass = "modern-btn px-5 py-1.5 rounded-md text-xs font-bold bg-white text-black shadow-sm";
+            const inactiveClass = "modern-btn px-5 py-1.5 rounded-md text-xs font-bold text-zinc-400 hover:text-white";
+            
+            if(lang === 'en') {
+                btnEn.className = activeClass;
+                btnAr.className = inactiveClass;
+                subjectActual.className = "text-sm font-semibold text-zinc-200 email-ltr";
+                subjectActual.setAttribute('dir', 'ltr');
+                bodyOutput.className = "text-zinc-900 overflow-y-auto custom-scrollbar text-[14px] leading-[1.6] flex-1 email-ltr";
+                bodyOutput.setAttribute('dir', 'ltr');
+            } else {
+                btnAr.className = activeClass;
+                btnEn.className = inactiveClass;
+                subjectActual.className = "text-sm font-semibold text-zinc-200 email-rtl";
+                subjectActual.setAttribute('dir', 'rtl');
+                bodyOutput.className = "text-zinc-900 overflow-y-auto custom-scrollbar text-[14px] leading-[1.6] flex-1 email-rtl"; 
+                bodyOutput.setAttribute('dir', 'rtl');
+            }
+            renderEmail();
+        }
+
+        function renderEmail() {
+            const data = {};
+            inputIds.forEach(id => { data[id] = document.getElementById(id).value; });
+            localStorage.setItem('noonEmailJulyUI_V2', JSON.stringify(data));
+
+            const l = currentLanguage;
+            const infName = data.influencerName || (l === 'en' ? '[Name]' : '[الاسم]');
+            const codeInput = data.discountCode ? data.discountCode.trim() : '';
+            const code = codeInput || 'PROMO15';
+            const sender = data.senderName || (l === 'en' ? '[Sender Name]' : '[اسم المرسل]');
+            
+            const subDay = data.submissionDay ? data.submissionDay.trim() : '';
+            const subMonthName = monthsData[data.submissionMonth || '07'][l];
+            const subDate = subDay ? `${subDay} ${subMonthName}` : (l === 'en' ? '[Submission Date]' : '[تاريخ التسليم]');
+
+            const liveDay = data.goLiveDay ? data.goLiveDay.trim() : '';
+            const liveMonthName = monthsData[data.goLiveMonth || '07'][l];
+            const liveDate = liveDay ? `${liveDay} ${liveMonthName}` : (l === 'en' ? '[Go Live Date]' : '[تاريخ النشر]');
+            
+            const rawFee = data.fee ? data.fee.replace(/AED|درهم/ig, '').trim() : '';
+            const feeAmt = rawFee ? rawFee + ' AED' : (l === 'en' ? '[Fee] AED' : '[المبلغ] AED');
+
+            const phaseKey = data.selectedPhase || '1';
+            const p = phasesData[phaseKey][l];
+            
+            const countryVal = data.country || 'QA';
+            const discountText = countryDiscounts[countryVal][l];
+
+            document.getElementById('subject-actual-text').innerText = l === 'en' ? "noon GCC July Campaign" : "حملة نون لدول الخليج - شهر يوليو";
+
+            let htmlContent = "";
+
+            if (l === 'en') {
+                htmlContent = `Hi <strong>${infName}</strong>,<br><br>
+We hope you’re doing well ✨<br><br>
+We’re excited to collaborate with you on the noon GCC July Campaign across Qatar, Bahrain, Oman, and Kuwait.<br><br>
+This campaign aims to drive noon app installs, category exploration, and purchases across GCC markets through influencer-generated content. You will promote specific product categories based on scheduled campaign periods, driving traffic via dedicated in-app banners.<br><br>
+
+<strong>Campaign Objectives</strong><br>
+• Increase noon app downloads<br>
+• Drive traffic to category pages via banners<br>
+• Generate sales across selected categories<br>
+• Promote your discount code across all content formats<br><br>
+
+<strong>Assigned Campaign Phase</strong><br>
+<div style="background-color: #f8fafc; padding: 14px; margin: 12px 0; border-left: 3px solid #38bdf8; border-radius: 6px;">
+<strong>${p.title}</strong><br>
+${p.date}<br>
+<strong>Categories:</strong> ${p.categories}<br>
+<strong>Key Action:</strong> ${p.action}
+</div><br>
+
+<div style="background-color: #fff7ed; border-left: 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 16px 0;">
+    <div style="font-size: 13px; color: #c2410c; margin-bottom: 4px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Discount Code Mandate</div>
+    <div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">${code}</div>
+    <div style="margin-top: 4px; color: #9a3412; font-size: 14px;">
+        <strong>Offer Details:</strong> ${discountText}
+    </div>
+    <div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;">
+        <em>The discount code must appear in every content format: spoken or on-screen in video, written as subtitle, and in Stories with a CTA.</em>
+    </div>
+</div><br>
+
+<strong>Content Guidelines</strong><br>
+• <strong>Style:</strong> Fast-paced, trend-driven, strong hook in first 3 seconds.<br>
+• <strong>Focus:</strong> Lifestyle integration over hard selling.<br>
+• <strong>Must show:</strong> noon app, campaign banner, clear product visibility, Subtitles.<br><br>
+
+<strong>Deliverables</strong><br>
+• Instagram Reels (Primary Format) / TikTok Videos<br>
+• Stories supporting each Reel<br><br>
+
+<strong>Submission & Timeline</strong><br>
+We need the video by <strong>${subDate}</strong> at the latest, as the post will go live on <strong>${liveDate}</strong>.<br>
+Final approval is required before posting.<br><br>
+
+<div style="background-color: #f8fafc; padding: 12px; border-left: 3px solid #64748b; border-radius: 6px; margin: 16px 0;">
+<strong>🔗 Full Campaign Brief:</strong><br>
+Please read the full detailed brief carefully before filming to understand all guidelines and messaging:<br>
+👉 <a href="https://docs.google.com/document/d/1A-c9uJ6_jBReXSrZW2G33TcIqaKTk89SXQW4HLn6XPQ/mobilebasic?" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">Click Here for the Campaign Brief</a>
+</div><br>
+
+<strong>Payment Details</strong><br>
+Campaign fee: <strong>${feeAmt}</strong><br><br>
+The payment will be transferred to your bank account within 30 days after the campaign ends.<br><br>
+
+<div style="background-color: #f0fdf4; padding: 12px; border-left: 3px solid #22c55e; border-radius: 6px; margin: 16px 0;">
+<strong>🧾 Invoice Submission:</strong><br>
+Please generate your invoice using the link below and reply to this email with the attached PDF.<br>
+🔗 <a href="https://noon-invoice.vercel.app/" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">noon Invoice App</a>
+</div><br>
+
+<strong>Next Steps</strong><br>
+Please confirm your availability and interest in participating in this campaign.<br><br>
+If you have any questions, feel free to reach out, we’d love to see your creative take on this campaign.<br><br>
+
+Best regards,<br>
+<strong>${sender}</strong><br>
+noon Marketing Team`;
+            } else {
+                htmlContent = `مرحباً <strong>${infName}</strong>،<br><br>
+نأمل أن تكون بخير ✨<br><br>
+يسعدنا التعاون معك في حملة نون لشهر يوليو في دول الخليج (قطر، البحرين، عُمان، والكويت).<br><br>
+تهدف هذه الحملة إلى زيادة عمليات تثبيت تطبيق نون، واستكشاف الفئات، والمشتريات من خلال صانعي المحتوى. ستقوم بالترويج لفئات منتجات محددة بناءً على فترة الحملة المجدولة لك، وتوجيه الزيارات عبر لافتات (Banners) مخصصة داخل التطبيق.<br><br>
+
+<strong>أهداف الحملة</strong><br>
+• زيادة تنزيلات تطبيق نون<br>
+• توجيه الزيارات إلى صفحات الفئات عبر اللافتات (Banners)<br>
+• توليد المبيعات عبر الفئات المحددة<br>
+• الترويج لرمز الخصم عبر جميع تنسيقات المحتوى<br><br>
+
+<strong>مرحلة الحملة المخصصة لك</strong><br>
+<div style="background-color: #f8fafc; padding: 14px; margin: 12px 0; border-right: 3px solid #38bdf8; border-radius: 6px;">
+<strong>${p.title}</strong><br>
+${p.date}<br>
+<strong>الفئات:</strong> ${p.categories}<br>
+<strong>الإجراء المطلوب:</strong> ${p.action}
+</div><br>
+
+<div style="background-color: #fff7ed; border-right: 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 16px 0;">
+    <div style="font-size: 13px; color: #c2410c; margin-bottom: 4px; font-weight: bold;">كود الخصم الإلزامي</div>
+    <div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">${code}</div>
+    <div style="margin-top: 4px; color: #9a3412; font-size: 14px;">
+        <strong>تفاصيل العرض:</strong> ${discountText}
+    </div>
+    <div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;">
+        <em>يجب أن يظهر كود الخصم في كل تنسيق محتوى: منطوقاً أو مكتوباً على الشاشة في الفيديو، وفي الستوري مع دعوة لاتخاذ إجراء.</em>
+    </div>
+</div><br>
+
+<strong>إرشادات المحتوى</strong><br>
+• <strong>الأسلوب:</strong> سريع الإيقاع، مواكب للتريند، وخطّاف قوي (Hook) في أول 3 ثوانٍ.<br>
+• <strong>التركيز:</strong> دمج نمط الحياة بدلاً من البيع المباشر.<br>
+• <strong>يجب إظهار:</strong> تطبيق نون، لافتة الحملة، وضوح المنتج، والترجمة (Subtitles).<br><br>
+
+<strong>المخرجات المطلوبة (Deliverables)</strong><br>
+• ريلز إنستغرام (التنسيق الأساسي) / فيديوهات تيك توك<br>
+• ستوري داعمة لكل ريل<br><br>
+
+<strong>التسليم والجدول الزمني</strong><br>
+نحتاج إلى استلام الفيديو بحلول <strong>${subDate}</strong> كحد أقصى، حيث سيتم النشر في <strong>${liveDate}</strong>.<br>
+الموافقة النهائية مطلوبة قبل النشر.<br><br>
+
+<div style="background-color: #f8fafc; padding: 12px; border-right: 3px solid #64748b; border-radius: 6px; margin: 16px 0;">
+<strong>🔗 الدليل الإرشادي الشامل (Brief):</strong><br>
+يُرجى قراءة الملف التالي بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:<br>
+👉 <a href="https://docs.google.com/document/d/1A-c9uJ6_jBReXSrZW2G33TcIqaKTk89SXQW4HLn6XPQ/mobilebasic?" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">اضغط هنا للوصول للبريف الإرشادي</a>
+</div><br>
+
+<strong>تفاصيل الدفع</strong><br>
+قيمة الحملة: <strong>${feeAmt}</strong><br><br>
+سيتم تحويل المبلغ إلى حسابك البنكي خلال 30 يومًا من انتهاء الحملة.<br><br>
+
+<div style="background-color: #f0fdf4; padding: 12px; border-right: 3px solid #22c55e; border-radius: 6px; margin: 16px 0;">
+<strong>🧾 الفاتورة المطلوبة:</strong><br>
+يُرجى إنشاء الفاتورة الخاصة بك عبر الرابط أدناه، والرد على هذا الإيميل بملف الـ PDF المرفق.<br>
+🔗 <a href="https://noon-invoice.vercel.app/" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">تطبيق فواتير نون (Invoice App)</a>
+</div><br>
+
+<strong>الخطوات التالية</strong><br>
+يُرجى تأكيد مدى توفرك واهتمامك بالمشاركة في هذه الحملة.<br><br>
+إذا كان لديك أي أسئلة، لا تتردد في التواصل معنا، نحن متحمسون لرؤية إبداعك في هذه الحملة.<br><br>
+
+مع خالص التحيات،<br>
+<strong>${sender}</strong><br>
+فريق تسويق نون`;
+            }
+            document.getElementById('email-body-output').innerHTML = htmlContent;
+        }
+
+        function loadSavedData() {
+            const saved = localStorage.getItem('noonEmailJulyUI_V2');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    inputIds.forEach(id => { if (parsed[id]) document.getElementById(id).value = parsed[id]; });
+                } catch (e) {}
+            }
+        }
+
+        function copySubject(event) {
+            const textToCopy = document.getElementById('subject-actual-text').innerText;
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try { document.execCommand('copy'); } catch (err) {}
+            document.body.removeChild(textArea);
+            
+            const btn = event.currentTarget;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = `<svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+            setTimeout(() => btn.innerHTML = originalHTML, 2000);
+        }
+
+        function copyContent(elementId, msgId) {
+            const el = document.getElementById(elementId);
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(el);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                const successMsg = document.getElementById(msgId);
+                if (successMsg) {
+                    successMsg.style.opacity = '1';
+                    successMsg.style.transform = 'translate(-50%, -8px)';
+                    setTimeout(() => {
+                        successMsg.style.opacity = '0';
+                        successMsg.style.transform = 'translate(-50%, 0)';
+                    }, 2000);
+                }
+            } catch (err) {}
+            selection.removeAllRanges();
+        }
+    </script>
+</body>
+</html>
