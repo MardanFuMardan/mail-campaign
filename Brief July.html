@@ -95,7 +95,7 @@
                         <!-- Field 2 -->
                         <div class="group relative modern-input rounded-xl border border-borderSoft p-1">
                             <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors group-focus-within:text-accent">منصة النشر (Platform)</label>
-                            <input type="text" id="platform" placeholder="e.g. TikTok & Instagram Reels" class="w-full bg-transparent border-none px-3 pb-2 text-white placeholder-zinc-700 focus:outline-none focus:ring-0 text-left text-sm" dir="ltr">
+                            <input type="text" id="platform" value="Instagram Reels" placeholder="e.g. TikTok & Instagram Reels" class="w-full bg-transparent border-none px-3 pb-2 text-white placeholder-zinc-700 focus:outline-none focus:ring-0 text-left text-sm" dir="ltr">
                         </div>
 
                         <!-- Field 3 -->
@@ -244,62 +244,64 @@
 </div>
 
 <div class="divider"></div>
-<strong style="color: #ea580c; font-size: 13px; text-transform: uppercase;">🏆 THE GOLDEN RULE — DISCOUNT CODE MANDATE</strong><br><br>
-
-<div style="background-color: #fff7ed; border-left: 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 12px 0;">
-    <div style="font-size: 12px; color: #9a3412; margin-bottom: 4px; font-weight: bold; text-transform: uppercase;">Your Unique Code</div>
-    <div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">${code}</div>
-    <div style="margin-top: 2px; color: #9a3412; font-size: 13px;">
-        <strong>Offer Details:</strong> ${discountText}
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🏆 THE GOLDEN RULE — DISCOUNT CODE MANDATE</strong><br><br>
+<div style="background-color: #fff7ed; padding: 12px; border-left: 3px solid #fb923c; border-radius: 6px; margin-bottom: 12px;">
+    <div style="font-size: 14px; color: #c2410c; margin-bottom: 4px; font-weight: bold; text-transform: uppercase;">Your Unique Code</div>
+    <div style="font-size: 20px; font-weight: bold; color: #ea580c; letter-spacing: 2px; margin-bottom: 8px; display: inline-block;">${code}</div>
+    <div style="color: #9a3412; font-size: 14px;">
+        <strong>Offer Details:</strong><br>${discountText}
     </div>
 </div>
-<div style="color: #3f3f46; margin-top: 10px; font-size: 13px;">
-    The discount code must appear in every content format:<br>
-    <ul style="margin:6px 0 0 0; padding-left:20px;">
-        <li style="margin-bottom:4px;">Video (spoken and/or on-screen text).</li>
-        <li style="margin-bottom:4px;">Caption (clearly written).</li>
-        <li>Stories (with CTA).</li>
-    </ul><br>
-    <em style="color: #71717a; font-size: 12px;">Examples: “Use my code for extra savings.” | “Don’t forget to use my discount code on the noon app.”</em>
+<div style="color: #3f3f46; margin-top: 8px; font-size: 13px;">
+    The discount code <strong>MUST</strong> appear in every content format:<br>
+    <ul style="margin:4px 0 0 0; padding-left:20px;">
+        <li style="margin-bottom:2px;">Spoken in the video.</li>
+        <li style="margin-bottom:2px;">Written on-screen as text/subtitle.</li>
+        <li>In Stories with a clear Call To Action (CTA).</li>
+    </ul>
+    <br><em>Examples: "Use my code for extra savings" | "Don't forget my discount code on the noon app."</em>
 </div>
 
 <div class="divider"></div>
-<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎨 CONTENT DIRECTION & GUIDELINES</strong><br><br>
-<strong style="color: #000; font-size: 13px;">Content Style:</strong>
-<ul style="margin:6px 0 12px 0; padding-left:20px; color: #3f3f46; font-size: 13px;">
-    <li style="margin-bottom:4px;">Fast-paced and engaging.</li>
-    <li style="margin-bottom:4px;">Trend-driven where possible.</li>
-    <li style="margin-bottom:4px;">Strong hook within the first 3 seconds.</li>
-    <li style="margin-bottom:4px;">Clear product visibility.</li>
-    <li style="margin-bottom:4px;">Lifestyle integration over hard selling.</li>
-</ul>
-
-<strong style="color: #000; font-size: 13px;">Key Messaging:</strong>
-<ul style="margin:6px 0 12px 0; padding-left:20px; color: #3f3f46; font-size: 13px;">
-    <li style="margin-bottom:4px;">Shop directly through the noon app.</li>
-    <li style="margin-bottom:4px;">Exclusive deals available inside the app.</li>
-    <li style="margin-bottom:4px;">Download the app to access offers.</li>
-    <li style="margin-bottom:4px;">Use my discount code for extra savings.</li>
-    ${phaseKey === '4' ? `<li style="margin-bottom:4px; color: #047857; font-weight: bold;">${p.msg}</li>` : ''}
-</ul>
-
-<strong style="color: #000; font-size: 13px;">Suggested Angles:</strong>
-<ul style="margin:6px 0 0 0; padding-left:20px; color: #3f3f46; font-size: 13px;">
-    <li style="margin-bottom:4px;">${phaseKey === '4' ? 'Day in my life using these products (e.g., Outdoor exploration for Khareef Festival)' : p.msg}</li>
-    <li style="margin-bottom:4px;">Unboxing / Try-On / Demo.</li>
-    <li style="margin-bottom:4px;">Hidden gems inside the app.</li>
-    <li>Before vs After.</li>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎨 CREATIVE DIRECTION & CONTENT GUIDELINES</strong><br><br>
+<ul style="margin:0; padding-left:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>Tone:</strong> Fast-paced, trend-driven, strong hook in the first 3 seconds.</li>
+    <li style="margin-bottom:4px;"><strong>Focus:</strong> Lifestyle integration over hard selling.</li>
+    <li style="margin-bottom:4px;"><strong>Mandatory Visuals:</strong> The noon app, campaign banner, clear product visibility, and Subtitles.</li>
+    <li style="margin-bottom:4px;"><strong>Angles:</strong> ${phaseKey === '4' ? 'Day in my life using these products (e.g., Outdoor exploration for Khareef Festival), Shopping hauls for summer and outdoor activities' : 'Must-have picks from this category, Best deals I found on noon, Unboxing / Try-On / Demo, Day in my life, Hidden gems inside the app, Shopping hauls for summer activities'}.</li>
+    <li><strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">Important:</strong> The word <strong>"noon"</strong> must ALWAYS be written in lowercase everywhere.</li>
 </ul>
 
 <div class="divider"></div>
-<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📌 TAGS & HASHTAGS</strong><br><br>
-<div style="background-color: #f4f4f5; border-left: 3px solid #a1a1aa; padding: 12px; color: #3f3f46; font-size: 13px; border-radius: 6px;">
-    <strong>Mandatory Tag & Collab Account:</strong><br>
-    Please send a brand collaboration invite to the specific regional noon account:<br>
-    <strong style="color: #0284c7; font-size: 14px;">${countryTag}</strong><br><br>
-    <strong>Hashtags:</strong><br>
-    #noon #noonGCC #GrandLifestyleSale #MegaTechFestival #EndOfMonthSale
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🔤 TYPOGRAPHY & SUBTITLES</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    A bold, layered text style for bilingual reels (English and Arabic) with warm tones and strong typographic contrast is required.<br><br>
+    <strong style="color: #000;">Recommended Font Pairings:</strong><br>
+    • <strong>English:</strong> Cairo, Elegant, or Rubik.<br>
+    • <strong>Arabic:</strong> BLK القاهرة, BLK الإسكندرية, or BLK تجول.
 </div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎬 WATCH BEFORE FILMING</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    To ensure the video gets approved from the first draft, you must watch this "Do's & Don'ts" guide:<br>
+    👉 <a href="https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view" style="color: #0284c7; text-decoration: none; border-bottom: 1px solid #7dd3fc;">Click Here to Watch the Creative Guide</a>
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📌 HASHTAGS & TAGS</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    • <strong>Tag:</strong> ${countryTag}<br>
+    • <strong>Hashtags:</strong> #noon #noonGCC #GrandLifestyleSale #MegaTechFestival #EndOfMonthSale
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">⏳ REVIEW & APPROVAL PROCESS</strong><br><br>
+<ul style="margin:0; padding-left:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>Do NOT post</strong> until your draft is approved.</li>
+    <li style="margin-bottom:4px;">All content (video + caption) must be shared before posting.</li>
+    <li>Posting allowed ONLY after <strong>explicit written approval</strong> from your contact.</li>
+</ul>
 
 <div class="divider"></div>
 <strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📦 MANDATORY DELIVERABLES</strong><br><br>
@@ -307,7 +309,19 @@
     • Instagram Reels (Primary Format) / TikTok Videos<br>
     • Stories supporting each Reel
 </div><br>
-<strong style="color: #000; font-size: 13px;">Agreed Platform(s):</strong> <span style="color: #3f3f46; font-size: 13px;">${platform}</span>
+<strong style="color: #000; font-size: 13px;">Submit 2 files for the video:</strong><br>
+<ol style="margin-top:4px; padding-left:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>Fully Edited Video</strong> (with music, text, effects)</li>
+    <li style="margin-bottom:4px;"><strong>RAW Footage</strong> (no filters, no text, unedited)</li>
+</ol>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📱 PLATFORM & POSTING DETAILS</strong><br><br>
+<ul style="margin:0; padding-left:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>Agreed Platform(s):</strong> ${platform}</li>
+    <li style="margin-bottom:4px;"><strong>TikTok:</strong> If applicable, provide the Spark Code immediately after posting.</li>
+    <li><strong>Logo:</strong> Use ONLY the official logo. <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">The logo must appear for ONLY 5 seconds and then disappear</strong>. Download: <a href="https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS" style="color: #0284c7; text-decoration: none; border-bottom: 1px solid #7dd3fc;">Google Drive Link</a></li>
+</ul>
 `;
             } else {
                 htmlContent = `
@@ -327,62 +341,64 @@
 </div>
 
 <div class="divider"></div>
-<strong style="color: #ea580c; font-size: 13px; text-transform: uppercase;">🏆 القاعدة الذهبية — إلزامية كود الخصم</strong><br><br>
-
-<div style="background-color: #fff7ed; border-right: 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 12px 0;">
-    <div style="font-size: 12px; color: #9a3412; margin-bottom: 4px; font-weight: bold;">الكود الخاص بك</div>
-    <div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">${code}</div>
-    <div style="margin-top: 2px; color: #9a3412; font-size: 13px;">
-        <strong>تفاصيل العرض:</strong> ${discountText}
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🏆 القاعدة الذهبية — إلزامية كود الخصم</strong><br><br>
+<div style="background-color: #fff7ed; padding: 12px; border-right: 3px solid #fb923c; border-radius: 6px; margin-bottom: 12px;">
+    <div style="font-size: 14px; color: #c2410c; margin-bottom: 4px; font-weight: bold;">الكود الخاص بك</div>
+    <div style="font-size: 20px; font-weight: bold; color: #ea580c; letter-spacing: 2px; margin-bottom: 8px; display: inline-block;">${code}</div>
+    <div style="color: #9a3412; font-size: 14px;">
+        <strong>تفاصيل العرض:</strong><br>${discountText}
     </div>
 </div>
-<div style="color: #3f3f46; margin-top: 10px; font-size: 13px;">
-    يجب أن يظهر كود الخصم بوضوح وباستمرار في كل تنسيق محتوى كالتالي:<br>
-    <ul style="margin:6px 0 0 0; padding-right:20px;">
-        <li style="margin-bottom:4px;">في الفيديو (منطوقاً أو كنص على الشاشة).</li>
-        <li style="margin-bottom:4px;">في الوصف/الكابشن (مكتوب بوضوح).</li>
-        <li>في الستوري (مع دعوة لاتخاذ إجراء CTA).</li>
-    </ul><br>
-    <em style="color: #71717a; font-size: 12px;">أمثلة: "استخدم رمزي لتوفير إضافي" | "لا تنسَ استخدام كود الخصم الخاص بي على تطبيق نون."</em>
+<div style="color: #3f3f46; margin-top: 8px; font-size: 13px;">
+    <strong>يجب</strong> أن يظهر كود الخصم في كل تنسيق محتوى كالتالي:<br>
+    <ul style="margin:4px 0 0 0; padding-right:20px;">
+        <li style="margin-bottom:2px;">منطوقاً ومسموعاً في الفيديو.</li>
+        <li style="margin-bottom:2px;">مكتوباً على الشاشة كنص أو ترجمة.</li>
+        <li>في الستوري مع دعوة واضحة للمشاهدين (CTA).</li>
+    </ul>
+    <br><em>أمثلة: "استخدم رمزي لتوفير إضافي" | "لا تنسَ كود الخصم الخاص بي على تطبيق نون."</em>
 </div>
 
 <div class="divider"></div>
-<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎨 التوجيه الإبداعي والمحتوى</strong><br><br>
-<strong style="color: #000; font-size: 13px;">أسلوب المحتوى:</strong>
-<ul style="margin:6px 0 12px 0; padding-right:20px; color: #3f3f46; font-size: 13px;">
-    <li style="margin-bottom:4px;">سريع الإيقاع وتفاعلي.</li>
-    <li style="margin-bottom:4px;">مواكب للتريند قدر الإمكان.</li>
-    <li style="margin-bottom:4px;">خطّاف قوي (Hook) في أول 3 ثوانٍ.</li>
-    <li style="margin-bottom:4px;">إظهار المنتج بوضوح.</li>
-    <li style="margin-bottom:4px;">دمج المنتج في نمط الحياة بدلاً من البيع المباشر المبالغ فيه.</li>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎨 التوجيه الإبداعي وإرشادات المحتوى</strong><br><br>
+<ul style="margin:0; padding-right:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>الأسلوب:</strong> سريع الإيقاع، مواكب للتريند، وخطّاف قوي (Hook) في أول 3 ثوانٍ.</li>
+    <li style="margin-bottom:4px;"><strong>التركيز:</strong> دمج نمط الحياة بدلاً من البيع المباشر.</li>
+    <li style="margin-bottom:4px;"><strong>عناصر إلزامية:</strong> إظهار تطبيق نون، لافتة الحملة، إبراز المنتج بوضوح، والترجمة (Subtitles).</li>
+    <li style="margin-bottom:4px;"><strong>الزوايا المقترحة:</strong> ${phaseKey === '4' ? 'يوم في حياتي باستخدام المنتجات (مثل: استكشاف خارجي لمهرجان الخريف)، مشتريات صيفية وأساسيات' : 'مختارات لا غنى عنها، أفضل صفقات وجدتها، فتح صندوق / تجربة، يوم في حياتي، جواهر خفية، مشتريات صيفية'}.</li>
+    <li><strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">هام جداً:</strong> كلمة <strong>"noon"</strong> يجب أن تُكتب دائماً بحروف صغيرة (lowercase) في أي مكان.</li>
 </ul>
 
-<strong style="color: #000; font-size: 13px;">الرسائل الأساسية:</strong>
-<ul style="margin:6px 0 12px 0; padding-right:20px; color: #3f3f46; font-size: 13px;">
-    <li style="margin-bottom:4px;">تسوق مباشرة عبر تطبيق نون.</li>
-    <li style="margin-bottom:4px;">عروض حصرية متاحة داخل التطبيق فقط.</li>
-    <li style="margin-bottom:4px;">حمّل التطبيق للوصول إلى العروض.</li>
-    <li style="margin-bottom:4px;">استخدم كود الخصم لتوفير إضافي.</li>
-    ${phaseKey === '4' ? `<li style="margin-bottom:4px; color: #047857; font-weight: bold;">${p.msg}</li>` : ''}
-</ul>
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🔤 الخطوط والترجمة (Typography)</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    يُطلب استخدام أسلوب نصي جريء ومتعدد الطبقات للريلز ثنائية اللغة (الإنجليزية والعربية) مع تباين طباعي قوي.<br><br>
+    <strong style="color: #000;">أزواج الخطوط الموصى بها للدمج:</strong><br>
+    • <strong>للغة الإنجليزية:</strong> Cairo, Elegant, أو Rubik.<br>
+    • <strong>للغة العربية:</strong> BLK القاهرة, BLK الإسكندرية, أو BLK تجول.
+</div>
 
-<strong style="color: #000; font-size: 13px;">الزوايا المقترحة للمحتوى:</strong>
-<ul style="margin:6px 0 0 0; padding-right:20px; color: #3f3f46; font-size: 13px;">
-    <li style="margin-bottom:4px;">${phaseKey === '4' ? 'يوم في حياتي باستخدام هذه المنتجات (مثل: استكشاف الطبيعة لمهرجان خريف صلالة)' : p.msg}</li>
-    <li style="margin-bottom:4px;">فتح الصندوق / تجربة المنتج / عرض توضيحي.</li>
-    <li style="margin-bottom:4px;">المنتجات المخفية والمميزة داخل التطبيق.</li>
-    <li>مقارنة قبل وبعد.</li>
-</ul>
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎬 شاهد قبل التصوير</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    لضمان الموافقة على الفيديو من المسودة الأولى، يجب عليك مشاهدة دليل "المسموح والممنوع" بخصوص أسلوب الفيديو:<br>
+    👉 <a href="https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view" style="color: #0284c7; text-decoration: none; border-bottom: 1px solid #7dd3fc;">اضغط هنا لمشاهدة الدليل الإبداعي</a>
+</div>
 
 <div class="divider"></div>
 <strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📌 التاغ والهاشتاقات</strong><br><br>
-<div style="background-color: #f4f4f5; border-right: 3px solid #a1a1aa; padding: 12px; color: #3f3f46; font-size: 13px; border-radius: 6px;">
-    <strong>التاغ الإلزامي وحساب الكولاب:</strong><br>
-    يُرجى إرسال دعوة تعاون (Collab) إلى الحساب الإقليمي لنون المخصص لبلدك:<br>
-    <strong style="color: #0284c7; font-size: 14px;">${countryTag}</strong><br><br>
-    <strong>الهاشتاقات:</strong><br>
-    #noon #noonGCC #GrandLifestyleSale #MegaTechFestival #EndOfMonthSale
+<div style="color: #3f3f46; font-size: 13px;">
+    • <strong>التاغ:</strong> ${countryTag}<br>
+    • <strong>الهاشتاقات:</strong> #noon #noonGCC #GrandLifestyleSale #MegaTechFestival #EndOfMonthSale
 </div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">⏳ إجراءات المراجعة والموافقة</strong><br><br>
+<ul style="margin:0; padding-right:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>لا تقم بالنشر أبداً</strong> قبل الموافقة على مسودة الفيديو (Draft).</li>
+    <li style="margin-bottom:4px;">يجب مشاركة المحتوى بالكامل (الفيديو والنص) قبل النشر.</li>
+    <li>يُسمح بالنشر <strong>فقط بعد الحصول على موافقة كتابية صريحة</strong> من فريقنا.</li>
+</ul>
 
 <div class="divider"></div>
 <strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📦 المخرجات الإلزامية (Deliverables)</strong><br><br>
@@ -390,7 +406,19 @@
     • ريلز إنستغرام (التنسيق الأساسي) / فيديوهات تيك توك<br>
     • ستوري داعمة لكل ريل
 </div><br>
-<strong style="color: #000; font-size: 13px;">المنصة المتفق عليها:</strong> <span style="color: #3f3f46; font-size: 13px;">${platform}</span>
+<strong style="color: #000; font-size: 13px;">يجب تسليم ملفين (2) للفيديو:</strong><br>
+<ol style="margin-top:4px; padding-right:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>الفيديو النهائي المعدل</strong> (شامل الموسيقى والنصوص).</li>
+    <li style="margin-bottom:4px;"><strong>الفيديو الخام (RAW Footage)</strong> (بدون فلاتر، بدون نصوص).</li>
+</ol>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📱 تفاصيل النشر والمنصات</strong><br><br>
+<ul style="margin:0; padding-right:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>المنصة المتفق عليها:</strong> ${platform}</li>
+    <li style="margin-bottom:4px;"><strong>تيك توك:</strong> في حال النشر على تيك توك، يجب تزويدنا بكود (Spark Code) فوراً بعد النشر.</li>
+    <li><strong>اللوجو:</strong> استخدم الشعار الرسمي فقط. <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">يجب أن يظهر اللوجو لمدة 5 ثوانٍ فقط ثم يختفي</strong>. حمل الشعار: <a href="https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS" style="color: #0284c7; text-decoration: none; border-bottom: 1px solid #7dd3fc;">رابط جوجل درايف</a></li>
+</ul>
 `;
             }
             document.getElementById('brief-body-output').innerHTML = htmlContent;
