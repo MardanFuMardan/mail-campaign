@@ -169,6 +169,12 @@
                             </div>
                         </div>
 
+                        <!-- Input KPI (New) -->
+                        <div class="group relative modern-input rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors group-focus-within:text-accent">هدف المشاهدات (KPI - اختياري)</label>
+                            <input type="text" id="kpiTarget" placeholder="e.g. 100K (يترك فارغاً للنسبة الافتراضية)" class="w-full bg-transparent border-none px-3 pb-2 text-white placeholder-zinc-700 focus:outline-none focus:ring-0 text-left text-sm" dir="ltr">
+                        </div>
+
                         <!-- Input 7 -->
                         <div class="group relative modern-input rounded-xl border border-borderSoft p-1">
                             <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors group-focus-within:text-accent">اسم المرسل (Sender Name)</label>
@@ -244,7 +250,7 @@
             }
         };
 
-        const inputIds = ['influencerName', 'discountCode', 'country', 'selectedPhase', 'submissionDay', 'submissionMonth', 'goLiveDay', 'goLiveMonth', 'fee', 'senderName'];
+        const inputIds = ['influencerName', 'discountCode', 'country', 'selectedPhase', 'submissionDay', 'submissionMonth', 'goLiveDay', 'goLiveMonth', 'fee', 'kpiTarget', 'senderName'];
 
         document.addEventListener('DOMContentLoaded', () => {
             loadSavedData();
@@ -304,6 +310,10 @@
             const rawFee = data.fee ? data.fee.replace(/AED|درهم/ig, '').trim() : '';
             const feeAmt = rawFee ? rawFee + ' AED' : (l === 'en' ? '[Fee] AED' : '[المبلغ] AED');
 
+            const kpiVal = data.kpiTarget ? data.kpiTarget.trim() : '';
+            const kpiTextEn = kpiVal ? `Achieve <strong>${kpiVal} Views</strong>.` : `Achieve views equivalent to 50% of your total followers.`;
+            const kpiTextAr = kpiVal ? `تحقيق <strong>${kpiVal} مشاهدة</strong>.` : `تحقيق مشاهدات تعادل 50% من إجمالي عدد متابعيك.`;
+
             const phaseKey = data.selectedPhase || '1';
             const p = phasesData[phaseKey][l];
             
@@ -338,7 +348,7 @@ ${p.date}<br>
     <div style="font-size: 13px; color: #c2410c; margin-bottom: 4px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Discount Code Mandate</div>
     <div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">${code}</div>
     <div style="margin-top: 4px; color: #9a3412; font-size: 14px;">
-        <strong>Offer Details:</strong> ${discountText}
+        <strong>Offer Details:</strong><br>${discountText}
     </div>
     <div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;">
         <em>The discount code must appear in every content format: spoken or on-screen in video, written as subtitle, and in Stories with a CTA.</em>
@@ -374,6 +384,12 @@ Please generate your invoice using the link below and reply to this email with t
 🔗 <a href="https://noon-invoice.vercel.app/" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">noon Invoice App</a>
 </div><br>
 
+<strong>Notes & KPIs</strong><br>
+• <strong>KPI:</strong> ${kpiTextEn}<br>
+• If the target is not met, the video may need boosting or reposting.<br>
+• The content must remain live for at least one year.<br>
+• noon reserves the right to use the content across its marketing platforms.<br><br>
+
 <strong>Next Steps</strong><br>
 Please confirm your availability and interest in participating in this campaign.<br><br>
 If you have any questions, feel free to reach out, we’d love to see your creative take on this campaign.<br><br>
@@ -405,7 +421,7 @@ ${p.date}<br>
     <div style="font-size: 13px; color: #c2410c; margin-bottom: 4px; font-weight: bold;">كود الخصم الإلزامي</div>
     <div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">${code}</div>
     <div style="margin-top: 4px; color: #9a3412; font-size: 14px;">
-        <strong>تفاصيل العرض:</strong> ${discountText}
+        <strong>تفاصيل العرض:</strong><br>${discountText}
     </div>
     <div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;">
         <em>يجب أن يظهر كود الخصم في كل تنسيق محتوى: منطوقاً أو مكتوباً على الشاشة في الفيديو، وفي الستوري مع دعوة لاتخاذ إجراء.</em>
@@ -440,6 +456,12 @@ ${p.date}<br>
 يُرجى إنشاء الفاتورة الخاصة بك عبر الرابط أدناه، والرد على هذا الإيميل بملف الـ PDF المرفق.<br>
 🔗 <a href="https://noon-invoice.vercel.app/" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">تطبيق فواتير نون (Invoice App)</a>
 </div><br>
+
+<strong>ملاحظات هامة ومؤشرات الأداء (KPIs)</strong><br>
+• <strong>الهدف (KPI):</strong> ${kpiTextAr}<br>
+• في حال عدم تحقيق الهدف، قد يحتاج الفيديو إلى التمويل (Boost) أو إعادة النشر.<br>
+• يجب أن يظل المحتوى متاحًا لمدة عام واحد على الأقل.<br>
+• تحتفظ نون بالحق في استخدام المحتوى عبر منصاتها التسويقية.<br><br>
 
 <strong>الخطوات التالية</strong><br>
 يُرجى تأكيد مدى توفرك واهتمامك بالمشاركة في هذه الحملة.<br><br>
