@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منشئ إيميل حملة نون - أغسطس</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Tajawal', 'Inter', 'sans-serif'], },
+                    colors: { 
+                        bgBase: '#09090b',      /* True Black */
+                        cardBase: '#18181b',    /* Zinc 900 */
+                        borderSoft: '#27272a',  /* Zinc 800 */
+                        noonYellow: '#facc15',  /* Yellow 400 */
+                        noonHover: '#eab308'    /* Yellow 500 */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #09090b; color: #e4e4e7; -webkit-font-smoothing: antialiased; }
+        
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #facc15; }
+        
+        /* Directions */
+        .email-ltr { direction: ltr; text-align: left; font-family: 'Inter', Arial, sans-serif; }
+        .email-rtl { direction: rtl; text-align: right; font-family: 'Tajawal', Arial, sans-serif; }
+        
+        /* UI Micro-interactions */
+        .hover-scale { transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease; }
+        .hover-scale:hover { transform: scale(1.015); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
+        .hover-scale:active { transform: scale(0.98); }
+        
+        .input-focus { transition: all 0.3s ease; background-color: #121214; }
+        .input-focus:focus-within { box-shadow: 0 0 0 1px #facc15; border-color: #facc15; background-color: #09090b;}
+        .input-focus:focus-within label { color: #facc15; }
+        
+        .glass-panel { 
+            background: rgba(24, 24, 27, 0.7); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px); 
+            border: 1px solid rgba(39, 39, 42, 1); 
+        }
+
+        /* Staggered Animations */
+        .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 font-sans selection:bg-noonYellow selection:text-black">
+
+    <div class="max-w-[1400px] mx-auto">
+        <header class="mb-10 flex items-center justify-between animate-fade-in">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight text-white flex items-center gap-3">
+                    إيميل حملة أغسطس <span class="text-noonYellow">🎒</span>
+                </h1>
+                <p class="text-zinc-400 mt-1 text-sm font-medium">أداة توليد إيميلات المؤثرين بتصميم عصري (August Campaign).</p>
+            </div>
+            <div class="hidden md:flex items-center gap-2 text-xs font-semibold text-zinc-300 bg-cardBase px-3 py-1.5 rounded-md border border-borderSoft hover-scale cursor-default">
+                <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                جاهز للعمل
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <div class="lg:col-span-4 animate-fade-in delay-100">
+                <div class="glass-panel rounded-2xl p-6 h-fit max-h-[85vh] overflow-y-auto custom-scrollbar relative overflow-hidden shadow-2xl hover-scale">
+                    
+                    <!-- Decorative top line -->
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-noonYellow to-orange-500"></div>
+
+                    <div class="space-y-5 mt-2">
+                        <!-- Input 1 -->
+                        <div class="group relative input-focus rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors">اسم المؤثر (Influencer Name)</label>
+                            <input type="text" id="influencerName" placeholder="e.g. Ahmed" class="w-full bg-transparent border-none px-3 pb-2 text-white placeholder-zinc-700 focus:outline-none focus:ring-0 text-left text-sm" dir="ltr">
+                        </div>
+
+                        <!-- Input 2 -->
+                        <div class="group relative input-focus rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors">الدولة وكود الخصم</label>
+                            <div class="flex gap-2 px-1 pb-1">
+                                <div class="relative w-1/2">
+                                    <select id="country" class="w-full bg-[#18181b] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm appearance-none focus:outline-none focus:border-noonYellow cursor-pointer transition-colors" dir="ltr">
+                                        <option value="QA">Qatar (QA)</option>
+                                        <option value="KW">Kuwait (KW)</option>
+                                        <option value="BH">Bahrain (BH)</option>
+                                        <option value="OM">Oman (OM)</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                        <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </div>
+                                </div>
+                                <input type="text" id="discountCode" placeholder="PROMO15 (Default)" class="w-1/2 bg-[#18181b] border border-borderSoft rounded-lg px-3 py-2 text-white font-mono text-sm placeholder-zinc-700 focus:outline-none focus:border-noonYellow text-left transition-colors" dir="ltr">
+                            </div>
+                        </div>
+
+                        <!-- Input 3 -->
+                        <div class="group relative input-focus rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors">المرحلة (Phase)</label>
+                            <div class="relative px-1 pb-1">
+                                <select id="selectedPhase" class="w-full bg-[#18181b] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm appearance-none focus:outline-none focus:border-noonYellow cursor-pointer transition-colors" dir="ltr">
+                                    <option value="1">1. Grand Lifestyle Reset (Aug 7-10)</option>
+                                    <option value="2">2. Beauty Campaign (Aug 6-9)</option>
+                                    <option value="3">3. Mega Tech Festival (Aug 10-13)</option>
+                                    <option value="4">4. Health & Nutrition (Aug 13-16)</option>
+                                    <option value="5">5. Fashion Campaign (Aug 20-23)</option>
+                                    <option value="6">6. Back To School Sale (Aug 14-31)</option>
+                                    <option value="7">7. Salalah Khareef Festival (Oman)</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                    <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input 4 -->
+                        <div class="group relative input-focus rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors">تاريخ التسليم (Submission)</label>
+                            <div class="flex gap-2 px-1 pb-1" dir="ltr">
+                                <input type="number" id="submissionDay" placeholder="Day (e.g. 5)" min="1" max="31" class="w-1/3 bg-[#18181b] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm text-center placeholder-zinc-700 focus:outline-none focus:border-noonYellow transition-colors">
+                                <div class="relative w-2/3">
+                                    <select id="submissionMonth" class="w-full bg-[#18181b] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm appearance-none focus:outline-none focus:border-noonYellow cursor-pointer transition-colors">
+                                        <option value="08" selected>August</option>
+                                        <option value="09">September</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                        <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input 5 -->
+                        <div class="group relative input-focus rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors">تاريخ النشر (Go Live)</label>
+                            <div class="flex gap-2 px-1 pb-1" dir="ltr">
+                                <input type="number" id="goLiveDay" placeholder="Day (e.g. 7)" min="1" max="31" class="w-1/3 bg-[#18181b] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm text-center placeholder-zinc-700 focus:outline-none focus:border-noonYellow transition-colors">
+                                <div class="relative w-2/3">
+                                    <select id="goLiveMonth" class="w-full bg-[#18181b] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm appearance-none focus:outline-none focus:border-noonYellow cursor-pointer transition-colors">
+                                        <option value="08" selected>August</option>
+                                        <option value="09">September</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                        <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input 6 -->
+                        <div class="group relative input-focus rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors">قيمة الحملة (Fee)</label>
+                            <div class="relative px-1 pb-1" dir="ltr">
+                                <input type="text" id="fee" placeholder="e.g. 500" class="w-full bg-[#18181b] border border-borderSoft rounded-lg pr-12 pl-3 py-2 text-white text-sm placeholder-zinc-700 focus:outline-none focus:border-noonYellow transition-colors">
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-600 text-xs font-bold pointer-events-none">AED</span>
+                            </div>
+                        </div>
+
+                        <!-- Input KPI -->
+                        <div class="group relative input-focus rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors">هدف المشاهدات (KPI - اختياري)</label>
+                            <input type="text" id="kpiTarget" placeholder="e.g. 100K (يترك فارغاً للنسبة الافتراضية)" class="w-full bg-transparent border-none px-3 pb-2 text-white placeholder-zinc-700 focus:outline-none focus:ring-0 text-left text-sm" dir="ltr">
+                        </div>
+
+                        <!-- Input 7 -->
+                        <div class="group relative input-focus rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors">اسم المرسل (Sender Name)</label>
+                            <input type="text" id="senderName" placeholder="e.g. Mahmoud" class="w-full bg-transparent border-none px-3 pb-2 text-white placeholder-zinc-700 focus:outline-none focus:ring-0 text-left text-sm" dir="ltr">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 flex flex-col gap-5 animate-fade-in delay-200">
+                
+                <!-- Action Bar -->
+                <div class="flex justify-between items-center glass-panel p-2 rounded-xl border border-borderSoft shadow-sm hover-scale">
+                    <div class="flex gap-1 bg-bgBase p-1 rounded-lg border border-borderSoft">
+                        <button onclick="setLanguage('en')" id="btn-en" class="px-5 py-1.5 rounded-md text-xs font-bold bg-white text-black shadow-sm transition-all duration-200">English</button>
+                        <button onclick="setLanguage('ar')" id="btn-ar" class="px-5 py-1.5 rounded-md text-xs font-bold text-zinc-400 hover:text-white transition-all duration-200">العربية</button>
+                    </div>
+                    
+                    <button onclick="copyContent('email-body-output', 'copyBodyMsg')" class="relative flex items-center gap-2 bg-noonYellow hover:bg-noonHover text-black font-semibold py-2 px-5 rounded-lg text-sm shadow-md transition-all duration-200 hover:scale-105 active:scale-95">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                        نسخ الإيميل
+                        <span id="copyBodyMsg" class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] py-1 px-2 rounded opacity-0 transition-opacity pointer-events-none whitespace-nowrap font-bold shadow-lg">تم النسخ! ✓</span>
+                    </button>
+                </div>
+
+                <!-- Subject Box -->
+                <div class="glass-panel p-4 rounded-xl border border-borderSoft shadow-sm flex items-center justify-between group hover-scale">
+                    <div class="flex-1 flex items-center gap-4">
+                        <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest bg-bgBase px-2 py-1 rounded border border-borderSoft">Subject</span>
+                        <div id="subject-actual-text" class="text-sm font-semibold text-zinc-200 email-ltr" dir="ltr">noon GCC August Campaign</div>
+                    </div>
+                    <button onclick="copySubject(event)" class="text-zinc-500 hover:text-noonYellow p-2 rounded-md hover:bg-borderSoft transition-colors" title="نسخ العنوان">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Email Body Preview -->
+                <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl flex flex-col h-[58vh] relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-yellow-300 to-yellow-500"></div>
+                    <div id="email-body-output" class="text-zinc-900 overflow-y-auto custom-scrollbar text-[14px] leading-[1.6] flex-1 email-ltr" dir="ltr">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLanguage = 'en';
+        const monthsData = { '08': { en: 'August', ar: 'أغسطس' }, '09': { en: 'September', ar: 'سبتمبر' } };
+
+        const countryDiscounts = {
+            'QA': { en: '<strong>New Users:</strong> 15% off up to 75 QAR<br><strong>Returning Users:</strong> 5% off up to 25 QAR', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 75 ريال قطري<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 25 ريال قطري' },
+            'KW': { en: '<strong>New Users:</strong> 15% off up to 7 KWD<br><strong>Returning Users:</strong> 5% off up to 2 KWD', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7 دينار كويتي<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2 دينار كويتي' },
+            'BH': { en: '<strong>New Users:</strong> 15% off up to 7.5 BHD<br><strong>Returning Users:</strong> 5% off up to 2.5 BHD', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 دينار بحريني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 دينار بحريني' },
+            'OM': { en: '<strong>New Users:</strong> 15% off up to 7.5 OMR<br><strong>Returning Users:</strong> 5% off up to 2.5 OMR', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 ريال عماني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 ريال عماني' }
+        };
+
+        const phasesData = {
+            '1': {
+                en: { title: 'Grand Lifestyle Reset', date: 'August 7 – August 10', categories: 'Home, Fashion, Lifestyle, & Daily Essentials' },
+                ar: { title: 'انطلاقة أسلوب الحياة', date: '7 - 10 أغسطس', categories: 'المنزل، الأزياء، أسلوب الحياة، والأساسيات اليومية' }
+            },
+            '2': {
+                en: { title: 'Beauty Campaign', date: 'August 6 – August 9', categories: 'Skincare, Makeup, Haircare, Fragrances, & Personal Care' },
+                ar: { title: 'حملة الجمال', date: '6 - 9 أغسطس', categories: 'العناية بالبشرة، المكياج، العناية بالشعر، العطور، والعناية الشخصية' }
+            },
+            '3': {
+                en: { title: 'Mega Tech Festival', date: 'August 10 – August 13', categories: 'Electronics, Laptops, TV & Appliances, Gaming, Telco & Gadgets' },
+                ar: { title: 'مهرجان التقنية الأكبر', date: '10 - 13 أغسطس', categories: 'الإلكترونيات، اللابتوبات، التلفزيونات والأجهزة المنزلية، الألعاب، الاتصالات' }
+            },
+            '4': {
+                en: { title: 'Health & Nutrition Campaign', date: 'August 13 – August 16', categories: 'Supplements, Fitness Accessories, Healthy Snacks, & Wellness' },
+                ar: { title: 'حملة الصحة والتغذية', date: '13 - 16 أغسطس', categories: 'المكملات الغذائية، إكسسوارات اللياقة البدنية، الوجبات الخفيفة الصحية، والعناية بالصحة' }
+            },
+            '5': {
+                en: { title: 'Fashion Campaign', date: 'August 20 – August 23', categories: 'Apparel, Footwear, Watches & Eyewear, Bags & Accessories' },
+                ar: { title: 'حملة الأزياء', date: '20 - 23 أغسطس', categories: 'الملابس، الأحذية، الساعات والنظارات، الحقائب والإكسسوارات' }
+            },
+            '6': {
+                en: { title: 'Back To School Sale', date: 'August 14 – August 31', categories: 'Stationery, Backpacks, Laptops & Tablets, School Supplies, Kids\' Fashion' },
+                ar: { title: 'عروض العودة للمدارس', date: '14 - 31 أغسطس', categories: 'القرطاسية، حقائب الظهر، اللابتوبات والأجهزة اللوحية، المستلزمات المدرسية، أزياء الأطفال' }
+            },
+            '7': {
+                en: { title: 'Salalah Khareef Festival 2026', date: 'July – September (Ongoing)', categories: 'Outdoor Sports & Active Apparel' },
+                ar: { title: 'مهرجان خريف صلالة 2026', date: 'يوليو - سبتمبر', categories: 'الرياضات الخارجية والملابس الرياضية' }
+            }
+        };
+
+        const inputIds = ['influencerName', 'discountCode', 'country', 'selectedPhase', 'submissionDay', 'submissionMonth', 'goLiveDay', 'goLiveMonth', 'fee', 'kpiTarget', 'senderName'];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedData();
+            inputIds.forEach(id => {
+                document.getElementById(id).addEventListener('input', renderEmail);
+            });
+            renderEmail();
+        });
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            const btnEn = document.getElementById('btn-en');
+            const btnAr = document.getElementById('btn-ar');
+            const subjectActual = document.getElementById('subject-actual-text');
+            const bodyOutput = document.getElementById('email-body-output');
+            
+            const activeClass = "px-5 py-1.5 rounded-md text-xs font-bold bg-white text-black shadow-sm transition-all duration-200";
+            const inactiveClass = "px-5 py-1.5 rounded-md text-xs font-bold text-zinc-400 hover:text-white transition-all duration-200";
+            
+            if(lang === 'en') {
+                btnEn.className = activeClass;
+                btnAr.className = inactiveClass;
+                subjectActual.className = "text-sm font-semibold text-zinc-200 email-ltr";
+                subjectActual.setAttribute('dir', 'ltr');
+                bodyOutput.className = "text-zinc-900 overflow-y-auto custom-scrollbar text-[14px] leading-[1.6] flex-1 email-ltr";
+                bodyOutput.setAttribute('dir', 'ltr');
+            } else {
+                btnAr.className = activeClass;
+                btnEn.className = inactiveClass;
+                subjectActual.className = "text-sm font-semibold text-zinc-200 email-rtl";
+                subjectActual.setAttribute('dir', 'rtl');
+                bodyOutput.className = "text-zinc-900 overflow-y-auto custom-scrollbar text-[14px] leading-[1.6] flex-1 email-rtl"; 
+                bodyOutput.setAttribute('dir', 'rtl');
+            }
+            renderEmail();
+        }
+
+        function renderEmail() {
+            const data = {};
+            inputIds.forEach(id => { data[id] = document.getElementById(id).value; });
+            localStorage.setItem('noonEmailAugustUI', JSON.stringify(data));
+
+            const l = currentLanguage;
+            const infName = data.influencerName || (l === 'en' ? '[Name]' : '[الاسم]');
+            const codeInput = data.discountCode ? data.discountCode.trim() : '';
+            const code = codeInput || 'PROMO15';
+            const sender = data.senderName || (l === 'en' ? '[Sender Name]' : '[اسم المرسل]');
+            
+            const subDay = data.submissionDay ? data.submissionDay.trim() : '';
+            const subMonthName = monthsData[data.submissionMonth || '08'][l];
+            const subDate = subDay ? `${subDay} ${subMonthName}` : (l === 'en' ? '[Submission Date]' : '[تاريخ التسليم]');
+
+            const liveDay = data.goLiveDay ? data.goLiveDay.trim() : '';
+            const liveMonthName = monthsData[data.goLiveMonth || '08'][l];
+            const liveDate = liveDay ? `${liveDay} ${liveMonthName}` : (l === 'en' ? '[Go Live Date]' : '[تاريخ النشر]');
+            
+            const rawFee = data.fee ? data.fee.replace(/AED|درهم/ig, '').trim() : '';
+            const feeAmt = rawFee ? rawFee + ' AED' : (l === 'en' ? '[Fee] AED' : '[المبلغ] AED');
+
+            const kpiVal = data.kpiTarget ? data.kpiTarget.trim() : '';
+            const kpiTextEn = kpiVal ? `Achieve <strong>${kpiVal} Views</strong>.` : `Achieve views equivalent to 50% of your total followers.`;
+            const kpiTextAr = kpiVal ? `تحقيق <strong>${kpiVal} مشاهدة</strong>.` : `تحقيق مشاهدات تعادل 50% من إجمالي عدد متابعيك.`;
+
+            const phaseKey = data.selectedPhase || '1';
+            const p = phasesData[phaseKey][l];
+            
+            const countryVal = data.country || 'QA';
+            const discountText = countryDiscounts[countryVal][l];
+
+            document.getElementById('subject-actual-text').innerText = l === 'en' ? "noon GCC August Campaign" : "حملة نون لدول الخليج - شهر أغسطس";
+
+            let htmlContent = "";
+
+            if (l === 'en') {
+                htmlContent = `Hi <strong>${infName}</strong>,<br><br>
+We hope you’re doing well ✨<br><br>
+We’re excited to collaborate with you on the noon GCC August Campaign across Qatar, Bahrain, Oman, and Kuwait.<br><br>
+This campaign aims to drive noon app installs, category exploration, and purchases across GCC markets through influencer-generated content. You will promote specific product categories based on scheduled campaign periods, driving traffic via dedicated in-app banners.<br><br>
+
+<strong>Campaign Objectives</strong><br>
+• Increase noon app downloads<br>
+• Drive traffic to category pages via dedicated in-app banners<br>
+• Generate sales across selected August promotional campaigns<br>
+• Promote your discount code across all content formats<br><br>
+
+<strong>Assigned Campaign Phase</strong><br>
+<div style="background-color: #f8fafc; padding: 14px; margin: 12px 0; border-left: 3px solid #eab308; border-radius: 6px;">
+<strong>${p.title}</strong><br>
+${p.date}<br>
+<strong>Categories:</strong> ${p.categories}
+</div><br>
+
+<strong>Content Guidelines & Mandatory Elements</strong><br>
+• <strong>Key Messaging:</strong> Shop directly through the noon app, download the app for exclusive deals, and use the discount code.<br>
+• <strong>Style:</strong> Fast-paced, trend-driven, strong hook in first 3 seconds.<br>
+• <strong>Focus:</strong> Lifestyle integration over hard selling.<br>
+• <strong>Must clearly show/mention:</strong><br>
+&nbsp;&nbsp;1. The noon app screen/interface<br>
+&nbsp;&nbsp;2. The specific campaign banner<br>
+&nbsp;&nbsp;3. Clear product visibility<br>
+&nbsp;&nbsp;4. Clear CTA (Download app, click banner, use code)<br><br>
+
+<strong>Deliverables</strong><br>
+• Reels / Short Videos (Primary Format)<br>
+• Stories supporting each video<br><br>
+
+<strong>Submission & Timeline</strong><br>
+We need the video by <strong>${subDate}</strong> at the latest, as the post will go live on <strong>${liveDate}</strong>.<br>
+Final approval is required before posting.<br><br>
+
+<div style="background-color: #f8fafc; padding: 12px; border-left: 3px solid #64748b; border-radius: 6px; margin: 16px 0;">
+<strong>🔗 Full Campaign Brief:</strong><br>
+Please read the full detailed brief carefully before filming to understand all guidelines and messaging:<br>
+👉 <a href="https://drive.google.com/file/d/1c0lFfQJ7_Nt1tP0NqLebCh3uBK39OWCB/view?usp=drive_link" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">Click Here for the August Campaign Brief</a>
+</div><br>
+
+<strong>Payment Details</strong><br>
+Campaign fee: <strong>${feeAmt}</strong><br><br>
+The payment will be transferred to your bank account within 30 days after the campaign ends.<br><br>
+
+<div style="background-color: #f0fdf4; padding: 12px; border-left: 3px solid #22c55e; border-radius: 6px; margin: 16px 0;">
+<strong>🧾 Invoice Submission:</strong><br>
+Please generate your invoice using the link below and reply to this email with the attached PDF.<br>
+🔗 <a href="https://noon-invoice.vercel.app/" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">noon Invoice App</a>
+</div><br>
+
+<strong>Notes & KPIs</strong><br>
+• <strong>KPI:</strong> ${kpiTextEn}<br>
+• If the target is not met, the video may need boosting or reposting.<br>
+• The content must remain live for at least one year.<br>
+• noon reserves the right to use the content across its marketing platforms.<br><br>
+
+<strong>Next Steps</strong><br>
+Please confirm your availability and interest in participating in this campaign.<br><br>
+If you have any questions, feel free to reach out, we’d love to see your creative take on this campaign.<br><br>
+
+Best regards,<br>
+<strong>${sender}</strong><br>
+noon Marketing Team`;
+            } else {
+                htmlContent = `مرحباً <strong>${infName}</strong>،<br><br>
+نأمل أن تكون بخير ✨<br><br>
+يسعدنا التعاون معك في حملة نون لشهر أغسطس في دول الخليج (قطر، البحرين، عُمان، والكويت).<br><br>
+تهدف هذه الحملة إلى زيادة عمليات تثبيت تطبيق نون، واستكشاف الفئات، والمشتريات من خلال صانعي المحتوى. ستقوم بالترويج لفئات منتجات محددة بناءً على فترة الحملة المجدولة لك، وتوجيه الزيارات عبر لافتات (Banners) مخصصة داخل التطبيق.<br><br>
+
+<strong>أهداف الحملة</strong><br>
+• زيادة تنزيلات تطبيق نون<br>
+• توجيه الزيارات إلى صفحات الفئات عبر اللافتات المخصصة داخل التطبيق<br>
+• توليد المبيعات عبر الحملات الترويجية المحددة لشهر أغسطس<br>
+• الترويج لرمز الخصم الخاص بك عبر جميع تنسيقات المحتوى<br><br>
+
+<strong>مرحلة الحملة المخصصة لك</strong><br>
+<div style="background-color: #f8fafc; padding: 14px; margin: 12px 0; border-right: 3px solid #eab308; border-radius: 6px;">
+<strong>${p.title}</strong><br>
+${p.date}<br>
+<strong>الفئات:</strong> ${p.categories}
+</div><br>
+
+<div style="background-color: #fff7ed; border-right: 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 16px 0;">
+    <div style="font-size: 13px; color: #c2410c; margin-bottom: 4px; font-weight: bold;">كود الخصم الإلزامي</div>
+    <div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">${code}</div>
+    <div style="margin-top: 4px; color: #9a3412; font-size: 14px;">
+        <strong>تفاصيل العرض:</strong><br>${discountText}
+    </div>
+    <div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;">
+        <em>يجب أن يظهر كود الخصم في كل تنسيق محتوى: منطوقاً أو مكتوباً على الشاشة في الفيديو، وفي بداية أو منتصف النص المكتوب (Caption)، وفي الستوري مع رابط مباشر/دعوة لاتخاذ إجراء.</em>
+    </div>
+</div><br>
+
+<strong>إرشادات المحتوى والعناصر الإلزامية</strong><br>
+• <strong>الرسائل الأساسية:</strong> التسوق عبر التطبيق، تحميل التطبيق للعروض الحصرية، واستخدام كود الخصم.<br>
+• <strong>الأسلوب:</strong> سريع الإيقاع، مواكب للتريند، وخطّاف قوي (Hook) في أول 3 ثوانٍ.<br>
+• <strong>التركيز:</strong> دمج نمط الحياة بدلاً من البيع المباشر.<br>
+• <strong>يجب إظهار/ذكر التالي بوضوح:</strong><br>
+&nbsp;&nbsp;1. شاشة/واجهة تطبيق نون<br>
+&nbsp;&nbsp;2. لافتة (Banner) الحملة المخصصة<br>
+&nbsp;&nbsp;3. وضوح المنتج المعروض<br>
+&nbsp;&nbsp;4. دعوة واضحة للمشاهدين (تحميل التطبيق، الضغط على البانر، استخدام الكود)<br><br>
+
+<strong>المخرجات المطلوبة (Deliverables)</strong><br>
+• ريلز / فيديوهات قصيرة (التنسيق الأساسي)<br>
+• ستوري داعمة لكل فيديو<br><br>
+
+<strong>التسليم والجدول الزمني</strong><br>
+نحتاج إلى استلام الفيديو بحلول <strong>${subDate}</strong> كحد أقصى، حيث سيتم النشر في <strong>${liveDate}</strong>.<br>
+الموافقة النهائية مطلوبة قبل النشر.<br><br>
+
+<div style="background-color: #f8fafc; padding: 12px; border-right: 3px solid #64748b; border-radius: 6px; margin: 16px 0;">
+<strong>🔗 الدليل الإرشادي الشامل (Brief):</strong><br>
+يُرجى قراءة الملف التالي (باللغة الإنجليزية) بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:<br>
+👉 <a href="https://drive.google.com/file/d/1c0lFfQJ7_Nt1tP0NqLebCh3uBK39OWCB/view?usp=drive_link" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">Click Here for the August Campaign Brief</a>
+</div><br>
+
+<strong>تفاصيل الدفع</strong><br>
+قيمة الحملة: <strong>${feeAmt}</strong><br><br>
+سيتم تحويل المبلغ إلى حسابك البنكي خلال 30 يومًا من انتهاء الحملة.<br><br>
+
+<div style="background-color: #f0fdf4; padding: 12px; border-right: 3px solid #22c55e; border-radius: 6px; margin: 16px 0;">
+<strong>🧾 الفاتورة المطلوبة:</strong><br>
+يُرجى إنشاء الفاتورة الخاصة بك عبر الرابط أدناه، والرد على هذا الإيميل بملف الـ PDF المرفق.<br>
+🔗 <a href="https://noon-invoice.vercel.app/" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">تطبيق فواتير نون (Invoice App)</a>
+</div><br>
+
+<strong>ملاحظات هامة ومؤشرات الأداء (KPIs)</strong><br>
+• <strong>الهدف (KPI):</strong> ${kpiTextAr}<br>
+• في حال عدم تحقيق الهدف، قد يحتاج الفيديو إلى التمويل (Boost) أو إعادة النشر.<br>
+• يجب أن يظل المحتوى متاحًا لمدة عام واحد على الأقل.<br>
+• تحتفظ نون بالحق في استخدام المحتوى عبر منصاتها التسويقية.<br><br>
+
+<strong>الخطوات التالية</strong><br>
+يُرجى تأكيد مدى توفرك واهتمامك بالمشاركة في هذه الحملة.<br><br>
+إذا كان لديك أي أسئلة، لا تتردد في التواصل معنا، نحن متحمسون لرؤية إبداعك في هذه الحملة.<br><br>
+
+مع خالص التحيات،<br>
+<strong>${sender}</strong><br>
+فريق تسويق نون`;
+            }
+            document.getElementById('email-body-output').innerHTML = htmlContent;
+        }
+
+        function loadSavedData() {
+            const saved = localStorage.getItem('noonEmailAugustUI');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    inputIds.forEach(id => { if (parsed[id]) document.getElementById(id).value = parsed[id]; });
+                } catch (e) {}
+            }
+        }
+
+        function copySubject(event) {
+            const textToCopy = document.getElementById('subject-actual-text').innerText;
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try { document.execCommand('copy'); } catch (err) {}
+            document.body.removeChild(textArea);
+            
+            const btn = event.currentTarget;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = `<svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+            setTimeout(() => btn.innerHTML = originalHTML, 2000);
+        }
+
+        function copyContent(elementId, msgId) {
+            const el = document.getElementById(elementId);
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(el);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                const successMsg = document.getElementById(msgId);
+                if (successMsg) {
+                    successMsg.style.opacity = '1';
+                    successMsg.style.transform = 'translate(-50%, -8px)';
+                    setTimeout(() => {
+                        successMsg.style.opacity = '0';
+                        successMsg.style.transform = 'translate(-50%, 0)';
+                    }, 2000);
+                }
+            } catch (err) {}
+            selection.removeAllRanges();
+        }
+    </script>
+</body>
+</html>
