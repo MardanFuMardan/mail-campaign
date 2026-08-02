@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منشئ بريف حملة نون - أغسطس</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Tajawal', 'Inter', 'sans-serif'], },
+                    colors: { 
+                        bgBase: '#09090b',      
+                        cardBase: '#18181b',    
+                        borderSoft: '#27272a',  
+                        noonYellow: '#facc15',  
+                        noonHover: '#eab308'    
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #09090b; color: #e4e4e7; -webkit-font-smoothing: antialiased; }
+        
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #facc15; }
+        
+        /* Directions */
+        .brief-ltr { direction: ltr; text-align: left; font-family: Arial, sans-serif; }
+        .brief-rtl { direction: rtl; text-align: right; font-family: Arial, sans-serif; }
+        .divider { border-top: 1px dashed #cbd5e1; margin: 18px 0; }
+        
+        /* UI Micro-interactions */
+        .hover-scale { transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease; }
+        .hover-scale:hover { transform: scale(1.015); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
+        .hover-scale:active { transform: scale(0.98); }
+        
+        .input-focus { transition: all 0.3s ease; background-color: #121214; }
+        .input-focus:focus-within { box-shadow: 0 0 0 1px #facc15; border-color: #facc15; background-color: #09090b; }
+        .input-focus:focus-within label { color: #facc15; }
+        
+        .glass-panel { 
+            background: rgba(24, 24, 27, 0.7); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px); 
+            border: 1px solid rgba(39, 39, 42, 1); 
+        }
+
+        /* Staggered Animations */
+        .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 font-sans selection:bg-noonYellow selection:text-black">
+
+    <div class="max-w-[1400px] mx-auto">
+        <header class="mb-10 flex items-center justify-between animate-fade-in">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight text-white flex items-center gap-3">
+                    إعدادات البريف (August) <span class="text-noonYellow">📝</span>
+                </h1>
+                <p class="text-zinc-400 mt-1 text-sm font-medium">نظام التاغات التلقائي وتوليد الأدلة الإرشادية للحملة الجديدة.</p>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <div class="lg:col-span-4 animate-fade-in delay-100">
+                <div class="glass-panel rounded-2xl p-6 h-fit max-h-[85vh] overflow-y-auto custom-scrollbar relative overflow-hidden shadow-2xl hover-scale">
+                    
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 to-amber-600"></div>
+
+                    <div class="space-y-5 mt-2">
+                        <!-- Field 1 -->
+                        <div class="group relative input-focus rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors">المرحلة المخصصة (Phase)</label>
+                            <div class="relative px-1 pb-1">
+                                <select id="selectedPhase" class="w-full bg-[#18181b] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm appearance-none focus:outline-none focus:border-noonYellow cursor-pointer transition-colors" dir="ltr">
+                                    <option value="1">1. Grand Lifestyle Reset (Aug 7-10)</option>
+                                    <option value="2">2. Beauty Campaign (Aug 6-9)</option>
+                                    <option value="3">3. Mega Tech Festival (Aug 10-13)</option>
+                                    <option value="4">4. Health & Nutrition (Aug 13-16)</option>
+                                    <option value="5">5. Fashion Campaign (Aug 20-23)</option>
+                                    <option value="6">6. Back To School Sale (Aug 14-31)</option>
+                                    <option value="7">7. Salalah Khareef Festival (Oman)</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                    <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Field 2 -->
+                        <div class="group relative input-focus rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors">منصة النشر (Platform)</label>
+                            <input type="text" id="platform" value="Instagram Reels" placeholder="e.g. TikTok & Instagram Reels" class="w-full bg-transparent border-none px-3 pb-2 text-white placeholder-zinc-700 focus:outline-none focus:ring-0 text-left text-sm" dir="ltr">
+                        </div>
+
+                        <!-- Field 3 -->
+                        <div class="group relative input-focus rounded-xl border border-borderSoft p-1">
+                            <label class="block text-[11px] font-bold text-zinc-500 mb-1 px-3 pt-2 text-right transition-colors">الدولة وكود الخصم (للتاغ التلقائي)</label>
+                            <div class="flex gap-2 px-1 pb-1">
+                                <div class="relative w-1/2">
+                                    <select id="country" class="w-full bg-[#18181b] border border-borderSoft rounded-lg px-3 py-2 text-white text-sm appearance-none focus:outline-none focus:border-noonYellow cursor-pointer transition-colors" dir="ltr">
+                                        <option value="QA">Qatar (QA)</option>
+                                        <option value="KW">Kuwait (KW)</option>
+                                        <option value="BH">Bahrain (BH)</option>
+                                        <option value="OM">Oman (OM)</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                        <svg class="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </div>
+                                </div>
+                                <input type="text" id="discountCode" placeholder="PROMO15" class="w-1/2 bg-[#18181b] border border-borderSoft rounded-lg px-3 py-2 text-white font-mono text-sm placeholder-zinc-700 focus:outline-none focus:border-noonYellow text-left transition-colors" dir="ltr">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 flex flex-col gap-5 animate-fade-in delay-200">
+                
+                <!-- Action Bar -->
+                <div class="flex justify-between items-center glass-panel p-2 rounded-xl border border-borderSoft shadow-sm hover-scale">
+                    <div class="flex gap-1 bg-bgBase p-1 rounded-lg border border-borderSoft">
+                        <button onclick="setLanguage('en')" id="btn-en" class="px-5 py-1.5 rounded-md text-xs font-bold bg-white text-black shadow-sm transition-all duration-200">English</button>
+                        <button onclick="setLanguage('ar')" id="btn-ar" class="px-5 py-1.5 rounded-md text-xs font-bold text-zinc-400 hover:text-white transition-all duration-200">العربية</button>
+                    </div>
+                    
+                    <button onclick="copyContent('brief-body-output', 'copySuccessMsg')" class="relative flex items-center gap-2 bg-noonYellow hover:bg-noonHover text-black font-semibold py-2 px-5 rounded-lg text-sm shadow-md transition-all duration-200 hover:scale-105 active:scale-95">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        نسخ البريف
+                        <span id="copySuccessMsg" class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] py-1 px-2 rounded opacity-0 transition-opacity pointer-events-none whitespace-nowrap font-bold shadow-lg">تم النسخ! ✓</span>
+                    </button>
+                </div>
+                
+                <!-- Output Box -->
+                <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl flex flex-col h-[70vh] relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-yellow-300 to-yellow-500"></div>
+                    <div id="brief-body-output" class="text-zinc-900 overflow-y-auto custom-scrollbar text-[14px] leading-[1.6] flex-1 brief-ltr" dir="ltr">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLanguage = 'en';
+
+        const countryDiscounts = {
+            'QA': { en: '<strong>New Users:</strong> 15% off up to 75 QAR<br><strong>Returning Users:</strong> 5% off up to 25 QAR', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 75 ريال قطري<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 25 ريال قطري', tag: '@noon_Qar' },
+            'KW': { en: '<strong>New Users:</strong> 15% off up to 7 KWD<br><strong>Returning Users:</strong> 5% off up to 2 KWD', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7 دينار كويتي<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2 دينار كويتي', tag: '@noon_kuwt' },
+            'BH': { en: '<strong>New Users:</strong> 15% off up to 7.5 BHD<br><strong>Returning Users:</strong> 5% off up to 2.5 BHD', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 دينار بحريني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 دينار بحريني', tag: '@noon_bahr' },
+            'OM': { en: '<strong>New Users:</strong> 15% off up to 7.5 OMR<br><strong>Returning Users:</strong> 5% off up to 2.5 OMR', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 ريال عماني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 ريال عماني', tag: '@noon_Omn' }
+        };
+
+        const phasesData = {
+            '1': {
+                en: { title: 'Grand Lifestyle Reset', date: 'August 7 – 10', categories: 'Home, Fashion, Lifestyle, & Daily Essentials', action: 'Download the noon app<br>• Show the Grand Lifestyle Reset campaign banner inside the app (screen recording)<br>• Highlight products from the featured categories<br>• Encourage users to explore the category through the banner', msg: 'Must-have picks from this category, Daily routine using these products' },
+                ar: { title: 'انطلاقة أسلوب الحياة', date: '7 - 10 أغسطس', categories: 'المنزل، الأزياء، أسلوب الحياة، والأساسيات اليومية', action: 'تحميل تطبيق نون<br>• إظهار لافتة الحملة داخل التطبيق (تسجيل الشاشة)<br>• إبراز المنتجات من الفئات المحددة<br>• تشجيع المستخدمين على استكشاف الفئة عبر اللافتة', msg: 'مختارات لا غنى عنها من هذه الفئة، روتيني اليومي باستخدام هذه المنتجات' }
+            },
+            '2': {
+                en: { title: 'Beauty Campaign', date: 'August 6 – 9', categories: 'Skincare, Makeup, Haircare, Fragrances, & Personal Care', action: 'Show the Beauty Campaign banner inside the app<br>• Showcase trending beauty, skincare, and routine products<br>• Direct users to browse beauty deals through the app banner', msg: 'Must-have picks from this category, Daily routine using these products' },
+                ar: { title: 'حملة الجمال', date: '6 - 9 أغسطس', categories: 'العناية بالبشرة، المكياج، العناية بالشعر، العطور، والعناية الشخصية', action: 'إظهار لافتة حملة الجمال داخل التطبيق<br>• عرض منتجات الجمال والعناية بالبشرة الرائجة والروتين اليومي<br>• توجيه المستخدمين لتصفح عروض الجمال عبر لافتة التطبيق', msg: 'مختارات لا غنى عنها من هذه الفئة، روتيني اليومي باستخدام هذه المنتجات' }
+            },
+            '3': {
+                en: { title: 'Mega Tech Festival', date: 'August 10 – 13', categories: 'Electronics, Laptops, TV & Appliances, Gaming, Telco & Gadgets', action: 'Show the Mega Tech Festival banner inside the app<br>• Showcase products from tech & electronics categories<br>• Direct users to browse tech deals through the app banner', msg: 'Best deals I found on noon, Unboxing / Try-On / Demo' },
+                ar: { title: 'مهرجان التقنية الأكبر', date: '10 - 13 أغسطس', categories: 'الإلكترونيات، اللابتوبات، التلفزيونات والأجهزة المنزلية، الألعاب، الاتصالات', action: 'إظهار لافتة مهرجان التقنية داخل التطبيق<br>• عرض المنتجات من فئات التقنية والإلكترونيات<br>• توجيه المستخدمين لتصفح عروض التقنية عبر لافتة التطبيق', msg: 'أفضل العروض التي وجدتها على نون، فتح صندوق / استعراض' }
+            },
+            '4': {
+                en: { title: 'Health & Nutrition Campaign', date: 'August 13 – 16', categories: 'Supplements, Fitness Accessories, Healthy Snacks, & Wellness', action: 'Show the Health & Nutrition campaign banner inside the app<br>• Highlight health, wellness, and workout essentials<br>• Direct users to discover nutrition offers via the dedicated app banner', msg: 'Must-have picks from this category, Daily routine using these products' },
+                ar: { title: 'حملة الصحة والتغذية', date: '13 - 16 أغسطس', categories: 'المكملات الغذائية، إكسسوارات اللياقة البدنية، الوجبات الخفيفة الصحية، والعناية بالصحة', action: 'إظهار لافتة حملة الصحة والتغذية داخل التطبيق<br>• إبراز أساسيات الصحة والعافية والتمارين الرياضية<br>• توجيه المستخدمين لاكتشاف عروض التغذية عبر اللافتة', msg: 'مختارات لا غنى عنها من هذه الفئة، روتيني اليومي' }
+            },
+            '5': {
+                en: { title: 'Fashion Campaign', date: 'August 20 – 23', categories: 'Apparel, Footwear, Watches & Eyewear, Bags & Accessories', action: 'Show the Fashion Campaign banner inside the app<br>• Showcase try-on hauls, style guides, or trending fashion items<br>• Direct users to explore fashion deals through the app banner', msg: 'Unboxing / Try-On / Demo, Shopping hauls for August deals' },
+                ar: { title: 'حملة الأزياء', date: '20 - 23 أغسطس', categories: 'الملابس، الأحذية، الساعات والنظارات، الحقائب والإكسسوارات', action: 'إظهار لافتة حملة الأزياء داخل التطبيق<br>• عرض مشتريات الأزياء (Try-on Haul) وأدلة الأناقة<br>• توجيه المستخدمين لاستكشاف عروض الأزياء عبر اللافتة', msg: 'تجربة ملابس / استعراض، مشتريات عروض أغسطس' }
+            },
+            '6': {
+                en: { title: 'Back To School Sale', date: 'August 14 – 31', categories: 'Stationery, Backpacks, Laptops & Tablets, School Supplies, Kids\' Fashion', action: 'Highlight essential items needed for the upcoming school year<br>• Direct users to the Back To School Sale section via the in-app banner', msg: 'Back-to-school essentials / Prep with me, Shopping hauls for August deals' },
+                ar: { title: 'عروض العودة للمدارس', date: '14 - 31 أغسطس', categories: 'القرطاسية، حقائب الظهر، اللابتوبات والأجهزة اللوحية، المستلزمات المدرسية، أزياء الأطفال', action: 'إبراز العناصر الأساسية اللازمة للعام الدراسي القادم<br>• توجيه المستخدمين إلى قسم العودة للمدارس عبر اللافتة', msg: 'أساسيات العودة للمدارس / استعدوا معي، مشتريات عروض أغسطس' }
+            },
+            '7': {
+                en: { title: 'Salalah Khareef Festival 2026', date: 'July – September', categories: 'Outdoor Sports & Active Apparel', action: 'Show the Salalah Khareef Festival banner inside the app<br>• Showcase outdoor sports gear, active apparel, or outdoor equipment perfect for the Khareef season<br>• Target the Omani market and travelers heading to Salalah<br>• Direct users to discover outdoor sports deals via the specialized app banner', msg: 'Celebrate the Salalah Khareef season with noon Oman<br>• Get ready for your outdoor adventures and mountain activities directly through the app<br>• Click the banner to check out all specialized outdoor sports gear<br>• Use my discount code for extra savings on your festival shopping in Oman' },
+                ar: { title: 'مهرجان خريف صلالة 2026', date: 'يوليو - سبتمبر', categories: 'الرياضات الخارجية والملابس الرياضية', action: 'إظهار لافتة مهرجان خريف صلالة داخل التطبيق<br>• عرض معدات الرياضات الخارجية والملابس المثالية لموسم الخريف<br>• استهداف السوق العماني والمسافرين المتجهين إلى صلالة<br>• توجيه المستخدمين لاكتشاف عروض الرياضات الخارجية عبر اللافتة المخصصة', msg: 'احتفل بموسم خريف صلالة مع نون عُمان<br>• استعد لمغامراتك الخارجية والأنشطة الجبلية مباشرة عبر التطبيق<br>• اضغط على اللافتة للاطلاع على كافة معدات الرياضات الخارجية<br>• استخدم كود الخصم لتوفير إضافي لتسوقك للمهرجان في عُمان' }
+            }
+        };
+
+        const inputIds = ['selectedPhase', 'platform', 'discountCode', 'country'];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedData();
+            inputIds.forEach(id => {
+                document.getElementById(id).addEventListener('input', renderBrief);
+            });
+            renderBrief();
+        });
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            const btnEn = document.getElementById('btn-en');
+            const btnAr = document.getElementById('btn-ar');
+            const bodyOutput = document.getElementById('brief-body-output');
+
+            const activeClass = "px-5 py-1.5 rounded-md text-xs font-bold bg-white text-black shadow-sm transition-all duration-200";
+            const inactiveClass = "px-5 py-1.5 rounded-md text-xs font-bold text-zinc-400 hover:text-white transition-all duration-200";
+
+            if(lang === 'en') {
+                btnEn.className = activeClass;
+                btnAr.className = inactiveClass;
+                bodyOutput.className = "text-zinc-900 overflow-y-auto custom-scrollbar text-[14px] leading-[1.6] flex-1 brief-ltr";
+                bodyOutput.setAttribute('dir', 'ltr');
+            } else {
+                btnAr.className = activeClass;
+                btnEn.className = inactiveClass;
+                bodyOutput.className = "text-zinc-900 overflow-y-auto custom-scrollbar text-[14px] leading-[1.6] flex-1 brief-rtl"; 
+                bodyOutput.setAttribute('dir', 'rtl');
+            }
+            renderBrief();
+        }
+
+        function renderBrief() {
+            const data = {};
+            inputIds.forEach(id => { data[id] = document.getElementById(id).value; });
+            localStorage.setItem('noonBriefAugustUI', JSON.stringify(data));
+
+            const l = currentLanguage;
+            const platform = data.platform || (l === 'en' ? '[Platform]' : '[المنصة]');
+            const codeInput = data.discountCode ? data.discountCode.trim() : '';
+            const code = codeInput || 'PROMO15';
+            
+            const phaseKey = data.selectedPhase || '1';
+            const p = phasesData[phaseKey][l];
+            
+            const countryVal = data.country || 'QA';
+            const discountText = countryDiscounts[countryVal][l];
+            const countryTag = countryDiscounts[countryVal].tag;
+
+            let htmlContent = "";
+
+            if (l === 'en') {
+                htmlContent = `
+<div style="font-size: 15px; font-weight: 800; color: #000; margin-bottom: 2px;">
+    NOON GCC AUGUST CAMPAIGN 2026
+</div>
+<div style="font-size: 12px; font-weight: 600; color: #71717a; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">
+    Influencer Brief
+</div>
+
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎯 CAMPAIGN WINDOW & CATEGORIES</strong><br><br>
+<div style="background-color: #f0f9ff; padding: 12px; border-left: 3px solid #38bdf8; border-radius: 6px; margin-bottom: 12px;">
+    <strong style="color: #0c4a6e; font-size: 14px;">Phase: ${p.title} (${p.date})</strong><br><br>
+    <strong style="color: #0369a1;">Categories:</strong> <span style="color: #000;">${p.categories}</span><br><br>
+    <strong style="color: #0369a1;">Content Requirements:</strong><br>
+    <div style="color: #000; margin-top: 4px;">• ${p.action}</div>
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🏆 THE GOLDEN RULE — DISCOUNT CODE MANDATE</strong><br><br>
+<div style="background-color: #fff7ed; padding: 12px; border-left: 3px solid #fb923c; border-radius: 6px; margin-bottom: 12px;">
+    <div style="font-size: 14px; color: #c2410c; margin-bottom: 4px; font-weight: bold; text-transform: uppercase;">Discount Code</div>
+    <div style="font-size: 20px; font-weight: bold; color: #ea580c; letter-spacing: 2px; margin-bottom: 8px; display: inline-block;">${code}</div>
+    <div style="color: #9a3412; font-size: 14px;">
+        <strong>Offer Details:</strong><br>${discountText}
+    </div>
+</div>
+<div style="color: #3f3f46; margin-top: 8px; font-size: 13px;">
+    The discount code <strong>MUST</strong> appear in every content format:<br>
+    <ul style="margin:4px 0 0 0; padding-left:20px;">
+        <li style="margin-bottom:2px;">Spoken and/or on-screen text in the video.</li>
+        <li style="margin-bottom:2px;">Clearly written at the top or middle of the caption.</li>
+        <li>In Stories with a link sticker/CTA.</li>
+    </ul>
+    <br><em>Examples: "Use code ${code} for extra savings" | "Don't forget to use the discount code ${code} on the noon app." | "Check the app for full offer details."</em>
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎨 CREATIVE DIRECTION & CONTENT GUIDELINES</strong><br><br>
+<ul style="margin:0; padding-left:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>Key Messaging:</strong> Shop directly through the noon app | Exclusive deals available inside the app | Download the app to access offers | Use my discount code for extra savings.</li>
+    <li style="margin-bottom:4px;"><strong>Tone:</strong> Fast-paced, trend-driven, strong hook in the first 3 seconds.</li>
+    <li style="margin-bottom:4px;"><strong>Focus:</strong> Lifestyle integration over hard selling.</li>
+    <li style="margin-bottom:4px;"><strong>Suggested Angles:</strong> ${p.msg}.</li>
+    <li><strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">Important:</strong> The word <strong>"noon"</strong> must ALWAYS be written in lowercase everywhere.</li>
+</ul>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">✅ MANDATORY ELEMENTS IN CONTENT</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px; margin-bottom: 8px;">Influencers must clearly show or mention:</div>
+<ol style="margin:0; padding-left:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;">The noon app screen/interface.</li>
+    <li style="margin-bottom:4px;">The specific campaign banner.</li>
+    <li style="margin-bottom:4px;">Clear product visibility.</li>
+    <li>Clear CTA: Download the app / Click the banner / Explore the category / Use my discount code.</li>
+</ol>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🔤 TYPOGRAPHY & SUBTITLES</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    A bold, layered text style for bilingual reels (English and Arabic) with warm tones and strong typographic contrast is required.<br><br>
+    <strong style="color: #000;">Recommended Font Pairings:</strong><br>
+    • <strong>English:</strong> Cairo, Elegant, or Rubik.<br>
+    • <strong>Arabic:</strong> BLK القاهرة, BLK الإسكندرية, or BLK تجول.
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎬 WATCH BEFORE FILMING</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    To ensure the video gets approved from the first draft, you must watch this "Do's & Don'ts" guide:<br>
+    👉 <a href="https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view" style="color: #0284c7; text-decoration: none; border-bottom: 1px solid #7dd3fc;">Click Here to Watch the Creative Guide</a>
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📌 HASHTAGS & TAGS</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    • <strong>Tag & Collab:</strong> ${countryTag}<br>
+    • <strong>Hashtags:</strong> #noon #noonGCC #GrandLifestyleReset #MegaTechFestival #BackToSchool #noonBeauty #noonFashion
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">⏳ REVIEW & APPROVAL PROCESS</strong><br><br>
+<ul style="margin:0; padding-left:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>Do NOT post</strong> until your draft is approved.</li>
+    <li style="margin-bottom:4px;">All content (video + caption) must be shared before posting.</li>
+    <li>Posting allowed ONLY after <strong>explicit written approval</strong> from your contact.</li>
+</ul>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📦 MANDATORY DELIVERABLES</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    • Reels / Short Videos (Primary Format)<br>
+    • Stories supporting each Reel
+</div><br>
+<strong style="color: #000; font-size: 13px;">Submit 2 files for the video:</strong><br>
+<ol style="margin-top:4px; padding-left:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>Fully Edited Video</strong> (with music, text, effects)</li>
+    <li style="margin-bottom:4px;"><strong>RAW Footage</strong> (no filters, no text, unedited)</li>
+</ol>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📱 PLATFORM & POSTING DETAILS</strong><br><br>
+<ul style="margin:0; padding-left:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>Agreed Platform(s):</strong> ${platform}</li>
+    <li style="margin-bottom:4px;"><strong>TikTok:</strong> If applicable, provide the Spark Code immediately after posting.</li>
+    <li><strong>Logo:</strong> Use ONLY the official logo. <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">The logo must appear for ONLY 5 seconds and then disappear</strong>. Download: <a href="https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS" style="color: #0284c7; text-decoration: none; border-bottom: 1px solid #7dd3fc;">Google Drive Link</a></li>
+</ul>
+`;
+            } else {
+                htmlContent = `
+<div style="font-size: 15px; font-weight: 800; color: #000; margin-bottom: 2px;">
+    حملة نون لدول الخليج أغسطس 2026
+</div>
+<div style="font-size: 12px; font-weight: 600; color: #71717a; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">
+    الدليل الإرشادي (Brief)
+</div>
+
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎯 فترة الحملة والفئات المخصصة</strong><br><br>
+<div style="background-color: #f0f9ff; padding: 12px; border-right: 3px solid #38bdf8; border-radius: 6px; margin-bottom: 12px;">
+    <strong style="color: #0c4a6e; font-size: 14px;">المرحلة: ${p.title} (${p.date})</strong><br><br>
+    <strong style="color: #0369a1;">الفئات:</strong> <span style="color: #000;">${p.categories}</span><br><br>
+    <strong style="color: #0369a1;">المتطلبات الإلزامية:</strong><br>
+    <div style="color: #000; margin-top: 4px;">• ${p.action}</div>
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🏆 القاعدة الذهبية — إلزامية كود الخصم</strong><br><br>
+<div style="background-color: #fff7ed; padding: 12px; border-right: 3px solid #fb923c; border-radius: 6px; margin-bottom: 12px;">
+    <div style="font-size: 14px; color: #c2410c; margin-bottom: 4px; font-weight: bold;">كود الخصم الإلزامي</div>
+    <div style="font-size: 20px; font-weight: bold; color: #ea580c; letter-spacing: 2px; margin-bottom: 8px; display: inline-block;">${code}</div>
+    <div style="color: #9a3412; font-size: 14px;">
+        <strong>تفاصيل العرض:</strong><br>${discountText}
+    </div>
+</div>
+<div style="color: #3f3f46; margin-top: 8px; font-size: 13px;">
+    <strong>يجب</strong> أن يظهر كود الخصم في كل تنسيق محتوى كالتالي:<br>
+    <ul style="margin:4px 0 0 0; padding-right:20px;">
+        <li style="margin-bottom:2px;">منطوقاً و/أو مكتوباً على الشاشة في الفيديو.</li>
+        <li style="margin-bottom:2px;">مكتوباً بوضوح في بداية أو منتصف النص (Caption).</li>
+        <li>في الستوري مع رابط مباشر (Link sticker) ودعوة للمشاهدين (CTA).</li>
+    </ul>
+    <br><em>أمثلة: "استخدم كود ${code} لتوفير إضافي" | "لا تنسَ كود الخصم ${code} على تطبيق نون." | "تصفح التطبيق لمعرفة تفاصيل العرض بالكامل."</em>
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎨 التوجيه الإبداعي وإرشادات المحتوى</strong><br><br>
+<ul style="margin:0; padding-right:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>الرسائل الأساسية:</strong> تسوق مباشرة عبر تطبيق نون | عروض حصرية داخل التطبيق | حمّل التطبيق للوصول للعروض | استخدم كود الخصم لتوفير إضافي.</li>
+    <li style="margin-bottom:4px;"><strong>الأسلوب:</strong> سريع الإيقاع، مواكب للتريند، وخطّاف قوي (Hook) في أول 3 ثوانٍ.</li>
+    <li style="margin-bottom:4px;"><strong>التركيز:</strong> دمج نمط الحياة بدلاً من البيع المباشر.</li>
+    <li style="margin-bottom:4px;"><strong>الزوايا المقترحة:</strong> ${p.msg}.</li>
+    <li><strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">هام جداً:</strong> كلمة <strong>"noon"</strong> يجب أن تُكتب دائماً بحروف صغيرة (lowercase) في أي مكان.</li>
+</ul>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">✅ عناصر إلزامية في المحتوى</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px; margin-bottom: 8px;">يجب على المؤثر أن يُظهر أو يذكر بوضوح:</div>
+<ol style="margin:0; padding-right:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;">شاشة / واجهة تطبيق نون.</li>
+    <li style="margin-bottom:4px;">لافتة (Banner) الحملة المخصصة.</li>
+    <li style="margin-bottom:4px;">وضوح المنتجات المعروضة.</li>
+    <li>دعوة واضحة (CTA): حمّل التطبيق / اضغط على البانر / تصفح الفئة / استخدم كود الخصم.</li>
+</ol>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🔤 الخطوط والترجمة (Typography)</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    يُطلب استخدام أسلوب نصي جريء ومتعدد الطبقات للريلز ثنائية اللغة (الإنجليزية والعربية) مع تباين طباعي قوي.<br><br>
+    <strong style="color: #000;">أزواج الخطوط الموصى بها للدمج:</strong><br>
+    • <strong>للغة الإنجليزية:</strong> Cairo, Elegant, أو Rubik.<br>
+    • <strong>للغة العربية:</strong> BLK القاهرة, BLK الإسكندرية, أو BLK تجول.
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">🎬 شاهد قبل التصوير</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    لضمان الموافقة على الفيديو من المسودة الأولى، يجب عليك مشاهدة دليل "المسموح والممنوع" بخصوص أسلوب الفيديو:<br>
+    👉 <a href="https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view" style="color: #0284c7; text-decoration: none; border-bottom: 1px solid #7dd3fc;">اضغط هنا لمشاهدة الدليل الإبداعي</a>
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📌 التاغ والهاشتاقات</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    • <strong>التاغ ودعوة التعاون:</strong> ${countryTag}<br>
+    • <strong>الهاشتاقات:</strong> #noon #noonGCC #GrandLifestyleReset #MegaTechFestival #BackToSchool #noonBeauty #noonFashion
+</div>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">⏳ إجراءات المراجعة والموافقة</strong><br><br>
+<ul style="margin:0; padding-right:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>لا تقم بالنشر أبداً</strong> قبل الموافقة على مسودة الفيديو (Draft).</li>
+    <li style="margin-bottom:4px;">يجب مشاركة المحتوى بالكامل (الفيديو والنص) قبل النشر.</li>
+    <li>يُسمح بالنشر <strong>فقط بعد الحصول على موافقة كتابية صريحة</strong> من فريقنا.</li>
+</ul>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📦 المخرجات الإلزامية (Deliverables)</strong><br><br>
+<div style="color: #3f3f46; font-size: 13px;">
+    • ريلز / فيديوهات قصيرة (التنسيق الأساسي)<br>
+    • ستوري داعمة لكل فيديو
+</div><br>
+<strong style="color: #000; font-size: 13px;">يجب تسليم ملفين (2) للفيديو:</strong><br>
+<ol style="margin-top:4px; padding-right:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>الفيديو النهائي المعدل</strong> (شامل الموسيقى والنصوص).</li>
+    <li style="margin-bottom:4px;"><strong>الفيديو الخام (RAW Footage)</strong> (بدون فلاتر، بدون نصوص).</li>
+</ol>
+
+<div class="divider"></div>
+<strong style="color: #0284c7; font-size: 13px; text-transform: uppercase;">📱 تفاصيل النشر والمنصات</strong><br><br>
+<ul style="margin:0; padding-right:20px; color: #3f3f46; font-size: 13px;">
+    <li style="margin-bottom:4px;"><strong>المنصة المتفق عليها:</strong> ${platform}</li>
+    <li style="margin-bottom:4px;"><strong>تيك توك:</strong> في حال النشر على تيك توك، يجب تزويدنا بكود (Spark Code) فوراً بعد النشر.</li>
+    <li><strong>اللوجو:</strong> استخدم الشعار الرسمي فقط. <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">يجب أن يظهر اللوجو لمدة 5 ثوانٍ فقط ثم يختفي</strong>. حمل الشعار: <a href="https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS" style="color: #0284c7; text-decoration: none; border-bottom: 1px solid #7dd3fc;">رابط جوجل درايف</a></li>
+</ul>
+`;
+            }
+            document.getElementById('brief-body-output').innerHTML = htmlContent;
+        }
+
+        function loadSavedData() {
+            const saved = localStorage.getItem('noonBriefAugustUI');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    inputIds.forEach(id => { if (parsed[id]) document.getElementById(id).value = parsed[id]; });
+                } catch (e) {}
+            }
+        }
+
+        function copyContent(elementId, msgId) {
+            const el = document.getElementById(elementId);
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(el);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                const successMsg = document.getElementById(msgId);
+                if (successMsg) {
+                    successMsg.style.opacity = '1';
+                    successMsg.style.transform = 'translate(-50%, -8px)';
+                    setTimeout(() => {
+                        successMsg.style.opacity = '0';
+                        successMsg.style.transform = 'translate(-50%, 0)';
+                    }, 2000);
+                }
+            } catch (err) {}
+            selection.removeAllRanges();
+        }
+    </script>
+</body>
+</html>
