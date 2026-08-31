@@ -679,6 +679,8 @@ function openEditor(id) {
 }
 function closeEditor() { $('editorModal').classList.remove('show'); }
 
+function newCampaignId() { return 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+
 function saveCampaign() {
   try {
     var discounts = JSON.parse($('ed_discounts').value || '{}');
@@ -686,7 +688,7 @@ function saveCampaign() {
     if (!$('ed_nameEn').value.trim()) throw new Error('اسم الحملة بالإنجليزية مطلوب');
     if (!phases.length) throw new Error('لازم مرحلة واحدة على الأقل');
     var obj = {
-      id: editingId || 'c' + Date.now(),
+      id: editingId || newCampaignId(),
       nameEn: $('ed_nameEn').value.trim(),
       nameAr: $('ed_nameAr').value.trim() || $('ed_nameEn').value.trim(),
       monthEn: $('ed_monthEn').value.trim() || 'Month',
@@ -721,7 +723,7 @@ function duplicateCampaign(id) {
   var c = CAMPAIGNS.filter(function (x) { return x.id === id; })[0];
   if (!c) return;
   var copy = JSON.parse(JSON.stringify(c));
-  copy.id = 'c' + Date.now();
+  copy.id = newCampaignId();
   copy.nameEn = copy.nameEn + ' (COPY)';
   CAMPAIGNS.push(copy);
   saveCampaigns(CAMPAIGNS);
