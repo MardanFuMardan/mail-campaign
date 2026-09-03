@@ -302,10 +302,10 @@ function seedCampaigns() {
     portalUrl: 'https://noon-invoice.vercel.app/',
     hashtags: '#noon #noonGCC #noonBeauty',
     countryDiscounts: {
-      'QA': { en: '<strong>Flat 20% OFF</strong> on first order for new customers with code FIRST20', ar: '<strong>خصم 20% فلات</strong> على الطلب الأول للعملاء الجدد بكود FIRST20', tag: '@noon_Qar' },
-      'KW': { en: '<strong>Flat 20% OFF</strong> on first order for new customers with code FIRST20', ar: '<strong>خصم 20% فلات</strong> على الطلب الأول للعملاء الجدد بكود FIRST20', tag: '@noon_kuwt' },
-      'BH': { en: '<strong>PROMO15</strong> — exclusive extra savings on your order', ar: '<strong>PROMO15</strong> — كود خصم حصري لتوفير إضافي على طلبك', tag: '@noon_bahr' },
-      'OM': { en: '<strong>PROMO15</strong> — exclusive extra savings on your order', ar: '<strong>PROMO15</strong> — كود خصم حصري لتوفير إضافي على طلبك', tag: '@noon_Omn' }
+      'QA': { en: '<strong>Use code (FIRST20)</strong> for flat 20% off your first order on the noon app! (new customers)', ar: '<strong>استخدم كود (FIRST20)</strong> واحصل على خصم 20% على طلبك الأول من تطبيق نون! (للعملاء الجدد)', tag: '@noon_Qar' },
+      'KW': { en: '<strong>Use code (FIRST20)</strong> for flat 20% off your first order on the noon app! (new customers)', ar: '<strong>استخدم كود (FIRST20)</strong> واحصل على خصم 20% على طلبك الأول من تطبيق نون! (للعملاء الجدد)', tag: '@noon_kuwt' },
+      'BH': { en: '<strong>Use code (PROMO15)</strong> for extra savings on your order!', ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!', tag: '@noon_bahr' },
+      'OM': { en: '<strong>Use code (PROMO15)</strong> for extra savings on your order!', ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!', tag: '@noon_Omn' }
     },
     phases: [
       { en: { title: 'Grand Lifestyle Reset (Primary)', date: 'September 7', categories: 'Home, Fashion, Lifestyle, & Daily Essentials', action: 'Download the noon app • Show the Grand Lifestyle Reset campaign banner inside the app (screen recording) • Showcase provided SKUs alongside highlighted products from featured categories • Encourage users to explore the category through the banner • Promote the market-specific promo code', msg: 'September must-have picks featuring provided SKUs' },
@@ -530,17 +530,18 @@ function currentCampaignHidden() {
 }
 
 /* ---------- التوليد ---------- */
-function sepDefaultCode(country) {
-  return (country === 'QA' || country === 'KW') ? 'FIRST20' : 'PROMO15';
+function defaultCodeFor(country, c) {
+  var m = c.countryDiscounts && c.countryDiscounts[country];
+  if (m) { var x = (m.en || '').match(/code \(?([A-Z0-9]{3,20})\)?/); if (x) return x[1]; }
+  return c.promoCode || 'PROMO15';
 }
-
 function getInputs() {
   var c = currentCampaign();
   var country = $('country').value;
   return {
     name: $('infName').value.trim(),
     country: country,
-    code: ($('discountCode').value.trim() || (c.id === 'sep2026' ? sepDefaultCode(country) : (c.promoCode || 'PROMO15'))),
+    code: ($('discountCode').value.trim() || defaultCodeFor(country, c)),
     phaseIx: parseInt($('selectedPhase').value || '0', 10),
     platform: $('platform').value.trim(),
     subDay: $('subDay').value.trim(),
@@ -559,10 +560,10 @@ function dateStr(day, monthKey, l) {
 }
 
 function onCountryChange() {
+  var c = currentCampaign();
   var cur = $('discountCode').value.trim();
-  if (currentCampaign().id === 'sep2026' && (!cur || cur === 'FIRST20' || cur === 'PROMO15')) {
-    $('discountCode').value = sepDefaultCode($('country').value);
-  }
+  var def = defaultCodeFor($('country').value, c);
+  if (!cur || cur === def || cur === 'FIRST20' || cur === 'PROMO15' || cur === 'PROMO10') $('discountCode').value = def;
   render();
 }
 
