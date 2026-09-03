@@ -78,6 +78,9 @@
     .camp-item .nm { flex: 1; font-weight: 800; font-size: 13.5px; }
     .camp-item .nm small { display: block; color: var(--muted); font-weight: 600; font-size: 11px; margin-top: 2px; }
     .badge { font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 99px; background: rgba(52,211,153,.1); color: var(--ok); border: 1px solid rgba(52,211,153,.3); }
+    .badge.off { background: rgba(148,163,184,.1); color: #cbd5e1; border-color: rgba(148,163,184,.3); }
+    .adminbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; padding: 10px 12px; border-radius: 11px; background: rgba(254,238,0,.05); border: 1px solid rgba(254,238,0,.16); font-size: 11.5px; font-weight: 700; color: #fde68a; }
+    .adminbar .btn { flex-shrink: 0; }
 
     .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(6px); z-index: 100; display: none; align-items: flex-start; justify-content: center; padding: 24px 14px; overflow-y: auto; }
     .modal-bg.show { display: flex; }
@@ -117,7 +120,7 @@
         <div class="row2">
           <div>
             <label>الدولة</label>
-            <select id="country" onchange="render()">
+            <select id="country" onchange="onCountryChange()">
               <option value="QA">Qatar (QA)</option>
               <option value="KW">Kuwait (KW)</option>
               <option value="BH">Bahrain (BH)</option>
@@ -167,8 +170,12 @@
 
       <div class="card rise d2">
         <h2>🗂️ مدير الحملات</h2>
+        <div class="adminbar" id="adminBar">
+          <span id="adminState">👤 وضع مستخدم عادي — العرض فقط</span>
+          <button class="btn btn-g btn-sm" style="margin-inline-start:auto" id="adminBtn" onclick="adminAction()">🔑 دخول المدير</button>
+        </div>
         <div id="campaignList"></div>
-        <div style="display:flex; gap:8px; margin-top:12px">
+        <div style="display:flex; gap:8px; margin-top:12px" id="mgrActions">
           <button class="btn btn-y btn-sm" style="flex:1" onclick="openEditor()">➕ حملة جديدة</button>
           <button class="btn btn-g btn-sm" onclick="exportCampaigns()">⬇️ تصدير</button>
           <button class="btn btn-g btn-sm" onclick="document.getElementById('importFile').click()">⬆️ استيراد</button>
@@ -220,8 +227,12 @@
       <div><label>اسم المرسل الافتراضي</label><input id="ed_sender" placeholder="Mahmoud"></div>
     </div>
     <div class="row2">
-      <div><label>لينك البريف (Brief)</label><input id="ed_briefUrl" dir="ltr" style="text-align:left" placeholder="https://drive.google.com/..."></div>
+      <div><label>لينك البريف (Brief)</label><input id="ed_briefUrl" dir="ltr" style="text-align:left" placeholder="https://drive.google.com/... (قديم — اختياري)"></div>
       <div><label>لينك دليل التصوير (Guide)</label><input id="ed_guideUrl" dir="ltr" style="text-align:left" placeholder="https://drive.google.com/..."></div>
+    </div>
+    <div class="row2">
+      <div><label>لينك البريف الإنجليزي (Brief EN)</label><input id="ed_briefUrlEn" dir="ltr" style="text-align:left" placeholder="https://drive.google.com/..."></div>
+      <div><label>لينك البريف العربي (Brief AR)</label><input id="ed_briefUrlAr" dir="ltr" style="text-align:left" placeholder="https://drive.google.com/..."></div>
     </div>
     <div class="row2">
       <div><label>لينك بورتال الفواتير</label><input id="ed_portalUrl" dir="ltr" style="text-align:left" placeholder="https://..."></div>
@@ -278,6 +289,40 @@ var MONTHS_EN = { '01':'January','02':'February','03':'March','04':'April','05':
 /* بيانات أغسطس المبدئية (من مولدات الشهور السابقة) */
 function seedCampaigns() {
   return [{
+    id: 'sep2026',
+    nameEn: 'Noon GCC September Campaign 2026',
+    nameAr: 'حملة نون لدول الخليج - شهر سبتمبر',
+    monthEn: 'September', monthAr: 'سبتمبر',
+    promoCode: 'PROMO15',
+    sender: 'Mahmoud',
+    briefUrl: 'https://drive.google.com/file/d/1FspsfIuJHSXwWNiFd5Mv3TxljCbmYE0q/view?usp=sharing',
+    briefUrlEn: 'https://drive.google.com/file/d/1FspsfIuJHSXwWNiFd5Mv3TxljCbmYE0q/view?usp=sharing',
+    briefUrlAr: 'https://drive.google.com/file/d/1sHKimVC97C_x0fFGBAqXkb905V2DzMDj/view?usp=sharing',
+    guideUrl: 'https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view',
+    portalUrl: 'https://noon-invoice.vercel.app/',
+    hashtags: '#noon #noonGCC #noonBeauty',
+    countryDiscounts: {
+      'QA': { en: '<strong>Flat 20% OFF</strong> on first order for new customers with code FIRST20', ar: '<strong>خصم 20% فلات</strong> على الطلب الأول للعملاء الجدد بكود FIRST20', tag: '@noon_Qar' },
+      'KW': { en: '<strong>Flat 20% OFF</strong> on first order for new customers with code FIRST20', ar: '<strong>خصم 20% فلات</strong> على الطلب الأول للعملاء الجدد بكود FIRST20', tag: '@noon_kuwt' },
+      'BH': { en: '<strong>PROMO15</strong> — exclusive extra savings on your order', ar: '<strong>PROMO15</strong> — كود خصم حصري لتوفير إضافي على طلبك', tag: '@noon_bahr' },
+      'OM': { en: '<strong>PROMO15</strong> — exclusive extra savings on your order', ar: '<strong>PROMO15</strong> — كود خصم حصري لتوفير إضافي على طلبك', tag: '@noon_Omn' }
+    },
+    phases: [
+      { en: { title: 'Grand Lifestyle Reset (Primary)', date: 'September 7', categories: 'Home, Fashion, Lifestyle, & Daily Essentials', action: 'Download the noon app • Show the Grand Lifestyle Reset campaign banner inside the app (screen recording) • Showcase provided SKUs alongside highlighted products from featured categories • Encourage users to explore the category through the banner • Promote the market-specific promo code', msg: 'September must-have picks featuring provided SKUs' },
+        ar: { title: 'تجديد أسلوب الحياة الكبير (رئيسية)', date: '7 سبتمبر', categories: 'المنزل، الموضة، أسلوب الحياة، المستلزمات اليومية', action: 'حث المتابعين على تحميل تطبيق نون • عرض البنر الإعلاني لحملة تجديد أسلوب الحياة الكبير داخل التطبيق (تسجيل شاشة) • استعراض المنتجات المحددة (SKUs) إلى جانب المنتجات المميزة من الأقسام المحددة • تشجيع المستخدمين على استكشاف القسم من خلال البنر • الترويج لكود الخصم المخصص لكل دولة', msg: 'اختيارات سبتمبر الأساسية باستخدام المنتجات المحددة' } },
+      { en: { title: 'International Makeup Day (Secondary)', date: 'September 7 – 11', categories: 'Makeup, Skincare, Beauty Tools, & Cosmetics', action: 'Show the International Makeup Day banner inside the app • Feature assigned SKUs, beauty routines, and trending cosmetics • Direct users to browse beauty deals through the app banner • Promote the market-specific promo code', msg: 'Makeup transformation, Beauty haul' },
+        ar: { title: 'اليوم العالمي للمكياج (فرعية)', date: '7 - 11 سبتمبر', categories: 'المكياج، العناية بالبشرة، أدوات التجميل، ومستحضرات التجميل', action: 'إظهار البنر الإعلاني لليوم العالمي للمكياج داخل التطبيق • عرض المنتجات المحددة (SKUs)، روتين التجميل، ومستحضرات التجميل الأكثر تريند • توجيه المستخدمين لتصفح عروض الجمال عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة', msg: 'تحوّل المكياج، جولة مشتريات الجمال' } },
+      { en: { title: 'Mega Tech Sale (Primary)', date: 'September 10 – 14', categories: 'Electronics, Laptops, TV & Appliances, Gaming, Telco & Gadgets', action: 'Show the Mega Tech Sale banner inside the app • Feature assigned tech SKUs and showcase top electronics/gadgets • Direct users to browse tech deals through the app banner • Promote the market-specific promo code', msg: 'Tech unboxing & reviews' },
+        ar: { title: 'تخفيضات التكنولوجيا الكبرى (رئيسية)', date: '10 - 14 سبتمبر', categories: 'الإلكترونيات، أجهزة اللابتوب، التلفزيونات والأجهزة المنزلية، ألعاب الفيديو، والاتصالات والإكسسوارات', action: 'إظهار البنر الإعلاني لتخفيضات التكنولوجيا الكبرى داخل التطبيق • استعراض منتجات التكنولوجيا المحددة (SKUs) وأبرز الأجهزة الإلكترونية • توجيه المستخدمين لتصفح عروض التكنولوجيا عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة', msg: 'فتح صندوق الأجهزة التكنولوجية ومراجعتها' } },
+      { en: { title: 'Health and Wellness Event (Secondary)', date: 'September 9 – 21', categories: 'Supplements, Fitness Accessories, Healthy Snacks, & Personal Wellness', action: 'Show the Health and Wellness Event banner inside the app • Showcase assigned SKUs, wellness products, and workout essentials • Direct users to discover health offers via the dedicated app banner • Promote the market-specific promo code', msg: 'Wellness routines & fitness gear' },
+        ar: { title: 'فعالية الصحة واللياقة (فرعية)', date: '9 - 21 سبتمبر', categories: 'المكملات الغذائية، مستلزمات اللياقة البدنية، الوجبات الخفيفة الصحية، والعناية الشخصية', action: 'إظهار البنر الإعلاني لفعالية الصحة واللياقة داخل التطبيق • استعراض المنتجات المحددة (SKUs)، منتجات العناية بالصحة، ومستلزمات التمارين الرياضية • توجيه المستخدمين لاكتشاف عروض الصحة عبر البنر المخصص في التطبيق • الترويج لكود الخصم المخصص لكل دولة', msg: 'روتين العناية بالصحة ومستلزمات الرياضة' } },
+      { en: { title: 'End of Month Sale (Primary)', date: 'September 24 – 30', categories: 'Multi-category site-wide deals (Fashion, Tech, Home, Beauty)', action: 'Show the End of Month Sale banner inside the app • Showcase provided SKUs and highlight best end-of-month shopping deals • Direct users to explore deals through the app banner • Promote the market-specific promo code', msg: 'Best end-of-month deals picks' },
+        ar: { title: 'تخفيضات نهاية الشهر (رئيسية)', date: '24 - 30 سبتمبر', categories: 'عروض شاملة لكافة الأقسام (الموضة، التكنولوجيا، المنزل، الجمال)', action: 'إظهار البنر الإعلاني لتخفيضات نهاية الشهر داخل التطبيق • استعراض المنتجات المحددة (SKUs) وتسليط الضوء على أفضل عروض نهاية الشهر • توجيه المستخدمين لاستكشاف العروض عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة', msg: 'أفضل عروض نهاية الشهر' } },
+      { en: { title: 'International Coffee Day (Secondary)', date: 'September 24 – 30', categories: 'Coffee Machines, Espresso Beans, Mugs, Barista Tools, & Coffee Accessories', action: 'Show the International Coffee Day banner inside the app • Showcase assigned SKUs, coffee setups, or daily morning routine integrations • Direct users to check out coffee deals via the in-app banner • Promote the market-specific promo code', msg: 'Morning coffee routine' },
+        ar: { title: 'اليوم العالمي للقهوة (فرعية)', date: '24 - 30 سبتمبر', categories: 'ماكينات القهوة، حبوب الإسبريسو، الأكواب، أدوات الباريستا، وإكسسوارات القهوة', action: 'إظهار البنر الإعلاني لليوم العالمي للقهوة داخل التطبيق • استعراض المنتجات المحددة (SKUs)، ركن القهوة، أو دمجها ضمن الروتين الصباحي اليومي • توجيه المستخدمين للاطلاع على عروض القهوة عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة', msg: 'روتين القهوة الصباحي' } }
+    ]
+  },
+  {
     id: 'aug2026',
     nameEn: 'Noon GCC August Campaign 2026',
     nameAr: 'حملة نون لدول الخليج - شهر أغسطس',
@@ -346,7 +391,17 @@ function seedCampaigns() {
 function loadCampaigns() {
   try {
     var raw = localStorage.getItem(STORE_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      var list = JSON.parse(raw);
+      /* ترحيل: أضف الحملات المثبتة الجديدة اللي مش موجودة عند المستخدم */
+      var seeds = seedCampaigns();
+      var changed = false;
+      seeds.forEach(function (s) {
+        if (!list.some(function (c) { return c.id === s.id; })) { list.push(s); changed = true; }
+      });
+      if (changed) { saveCampaigns(list); }
+      return list;
+    }
   } catch (e) {}
   var seed = seedCampaigns();
   saveCampaigns(seed);
@@ -359,17 +414,61 @@ function saveCampaigns(list) {
 var CAMPAIGNS = loadCampaigns();
 var currentOut = 'email-en';
 
+/* ---------- صلاحيات المدير ---------- */
+var ADMIN_KEY = 'noonCampaignHub_admin';
+var ADMIN_PIN_KEY = 'noonCampaignHub_adminPin';
+var isAdmin = false;
+try { isAdmin = localStorage.getItem(ADMIN_KEY) === '1'; } catch (e) {}
+
+function adminAction() {
+  if (isAdmin) { logoutAdmin(); return; }
+  var saved = null;
+  try { saved = localStorage.getItem(ADMIN_PIN_KEY); } catch (e) {}
+  var pin = prompt(saved ? 'اكتب كود المدير:' : 'حدد كود المدير (أول مرة — احفظه كويس، ده اللي هيفتح الإضافة والحذف):');
+  if (pin === null || !pin.trim()) return;
+  pin = pin.trim();
+  if (!saved) {
+    var pin2 = prompt('أعد كتابة نفس الكود للتأكيد:');
+    if (pin2 === null || pin2.trim() !== pin) { mgrStatus('الكودين مش متطابقين — مفيش تغيير', false); return; }
+    try { localStorage.setItem(ADMIN_PIN_KEY, pin); } catch (e) {}
+    isAdmin = true;
+  } else if (pin === saved) {
+    isAdmin = true;
+  } else {
+    mgrStatus('كود المدير غلط ❌', false);
+    return;
+  }
+  try { localStorage.setItem(ADMIN_KEY, '1'); } catch (e) {}
+  applyAdminUI();
+  mgrStatus('أهلاً يا مدير 👑 — الإضافة والحذف والتعديل مفتوحين', true);
+}
+function logoutAdmin() {
+  isAdmin = false;
+  try { localStorage.removeItem(ADMIN_KEY); } catch (e) {}
+  applyAdminUI();
+  mgrStatus('خرجت من وضع المدير — رجعت مستخدم عادي', true);
+}
+function applyAdminUI() {
+  $('adminState').textContent = isAdmin ? '👑 وضع المدير — صلاحيات كاملة' : '👤 وضع مستخدم عادي — العرض فقط';
+  $('adminBtn').textContent = isAdmin ? '🚪 خروج' : '🔑 دخول المدير';
+  $('mgrActions').style.display = isAdmin ? 'flex' : 'none';
+  renderList();
+}
+
 /* ---------- UI ---------- */
 function $(id) { return document.getElementById(id); }
 function esc(s) { return String(s == null ? '' : s); }
 
+function visibleCampaigns() { return CAMPAIGNS.filter(function (c) { return !c.hidden; }); }
+
 function fillCampaignSelect() {
   var sel = $('campaignId');
   var cur = sel.value;
-  sel.innerHTML = CAMPAIGNS.map(function (c) {
+  var vis = visibleCampaigns();
+  sel.innerHTML = vis.map(function (c) {
     return '<option value="' + c.id + '">' + esc(c.nameEn) + '</option>';
   }).join('');
-  if (CAMPAIGNS.some(function (c) { return c.id === cur; })) sel.value = cur;
+  if (vis.some(function (c) { return c.id === cur; })) sel.value = cur;
   onCampaignChange(true);
 }
 
@@ -395,26 +494,53 @@ function onCampaignChange(keep) {
 
 function currentCampaign() {
   var id = $('campaignId').value;
-  return CAMPAIGNS.filter(function (c) { return c.id === id; })[0] || CAMPAIGNS[0];
+  var vis = visibleCampaigns();
+  return vis.filter(function (c) { return c.id === id; })[0] || vis[0] || CAMPAIGNS[0];
 }
 
 function renderList() {
   $('campaignList').innerHTML = CAMPAIGNS.map(function (c) {
-    return '<div class="camp-item">' +
-      '<div class="nm">' + esc(c.nameEn) + '<small>' + esc(c.nameAr) + '</small></div>' +
-      '<button class="btn btn-g btn-sm" onclick="duplicateCampaign(\'' + c.id + '\')">📄</button>' +
-      '<button class="btn btn-g btn-sm" onclick="openEditor(\'' + c.id + '\')">✏️</button>' +
-      '<button class="btn btn-r btn-sm" onclick="deleteCampaign(\'' + c.id + '\')">🗑️</button>' +
+    var adminBtns = isAdmin
+      ? '<button class="btn btn-g btn-sm" title="' + (c.hidden ? 'إظهار في القائمة' : 'إخفاء من القائمة') + '" onclick="toggleHidden(\'' + c.id + '\')">' + (c.hidden ? '🙈' : '👁️') + '</button>' +
+        '<button class="btn btn-g btn-sm" onclick="duplicateCampaign(\'' + c.id + '\')">📄</button>' +
+        '<button class="btn btn-g btn-sm" onclick="openEditor(\'' + c.id + '\')">✏️</button>' +
+        '<button class="btn btn-r btn-sm" onclick="deleteCampaign(\'' + c.id + '\')">🗑️</button>'
+      : '';
+    return '<div class="camp-item"' + (c.hidden ? ' style="opacity:.55"' : '') + '>' +
+      '<div class="nm">' + esc(c.nameEn) + (c.hidden ? ' <span class="badge off">مخفية</span>' : '') + '<small>' + esc(c.nameAr) + '</small></div>' +
+      adminBtns +
       '</div>';
-  }).join('') || '<div style="color:var(--muted); font-size:12.5px; text-align:center; padding:10px">مفيش حملات — ضيف واحدة</div>';
+  }).join('') || '<div style="color:var(--muted); font-size:12.5px; text-align:center; padding:10px">مفيش حملات — ' + (isAdmin ? 'ضيف واحدة' : 'كلم المدير') + '</div>';
+}
+
+function toggleHidden(id) {
+  var c = CAMPAIGNS.filter(function (x) { return x.id === id; })[0];
+  if (!c) return;
+  c.hidden = !c.hidden;
+  saveCampaigns(CAMPAIGNS);
+  renderList();
+  fillCampaignSelect();
+  if (!c.hidden && currentCampaignHidden()) $('campaignId').value = c.id;
+  mgrStatus((c.hidden ? 'الحملة اتخفيت من قائمة التوليد 🙈' : 'الحملة ظهرت تاني 👁️'), true);
+}
+function currentCampaignHidden() {
+  var id = $('campaignId').value;
+  var c = CAMPAIGNS.filter(function (x) { return x.id === id; })[0];
+  return c ? !!c.hidden : false;
 }
 
 /* ---------- التوليد ---------- */
+function sepDefaultCode(country) {
+  return (country === 'QA' || country === 'KW') ? 'FIRST20' : 'PROMO15';
+}
+
 function getInputs() {
+  var c = currentCampaign();
+  var country = $('country').value;
   return {
     name: $('infName').value.trim(),
-    country: $('country').value,
-    code: ($('discountCode').value.trim() || currentCampaign().promoCode || 'PROMO15'),
+    country: country,
+    code: ($('discountCode').value.trim() || (c.id === 'sep2026' ? sepDefaultCode(country) : (c.promoCode || 'PROMO15'))),
     phaseIx: parseInt($('selectedPhase').value || '0', 10),
     platform: $('platform').value.trim(),
     subDay: $('subDay').value.trim(),
@@ -430,6 +556,14 @@ function getInputs() {
 function dateStr(day, monthKey, l) {
   var m = l === 'ar' ? MONTHS_AR[monthKey] : MONTHS_EN[monthKey];
   return day ? (day + ' ' + m) : (l === 'ar' ? '[التاريخ]' : '[Date]');
+}
+
+function onCountryChange() {
+  var cur = $('discountCode').value.trim();
+  if (currentCampaign().id === 'sep2026' && (!cur || cur === 'FIRST20' || cur === 'PROMO15')) {
+    $('discountCode').value = sepDefaultCode($('country').value);
+  }
+  render();
 }
 
 function render(force) {
@@ -494,6 +628,22 @@ function buildEmail(c, I, phase, dis, l) {
   var clickTxt = l === 'ar' ? 'اضغط هنا لبريف حملة ' + c.monthAr : 'Click Here for the ' + c.monthEn + ' Campaign Brief';
   var rtl = l === 'ar' ? 'border-right' : 'border-left';
 
+  var hasDualBrief = !!(c.briefUrlEn && c.briefUrlAr);
+  var briefBlock;
+  if (hasDualBrief) {
+    var lblEn = l === 'ar' ? 'البريف بالإنجليزية (Brief EN)' : 'English Brief (EN)';
+    var lblAr = l === 'ar' ? 'البريف بالعربية (Brief AR)' : 'Arabic Brief (AR)';
+    var clickEn = l === 'ar' ? 'اضغط هنا لفتح البريف الإنجليزي' : 'Click Here for the English Brief';
+    var clickAr = l === 'ar' ? 'اضغط هنا لفتح البريف العربي' : 'Click Here for the Arabic Brief';
+    briefBlock = '<div style="background-color: #f8fafc; padding: 12px; ' + rtl + ': 3px solid #64748b; border-radius: 6px; margin: 16px 0;"><strong>🔗 ' + briefTxt + ':</strong><br>' +
+      (l === 'ar' ? 'يُرجى قراءة البريف المناسب للغتك بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:' : 'Please read the brief in your preferred language carefully before filming to understand all guidelines and messaging:') + '<br><br>' +
+      '👉 <a href="' + c.briefUrlEn + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickEn + ' — ' + lblEn + '</a><br><br>' +
+      '👉 <a href="' + c.briefUrlAr + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickAr + ' — ' + lblAr + '</a></div>';
+  } else {
+    briefBlock = '<div style="background-color: #f8fafc; padding: 12px; ' + rtl + ': 3px solid #64748b; border-radius: 6px; margin: 16px 0;"><strong>🔗 ' + briefTxt + ':</strong><br>' +
+      (l === 'ar' ? 'يُرجى قراءة الملف التالي (باللغة الإنجليزية) بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:' : 'Please read the full detailed brief carefully before filming to understand all guidelines and messaging:') + '<br>👉 <a href="' + c.briefUrl + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickTxt + '</a></div>';
+  }
+
   var o;
   if (l === 'ar') {
     o = '<strong>أهداف الحملة</strong><br>' + STATIC.objectivesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
@@ -502,7 +652,7 @@ function buildEmail(c, I, phase, dis, l) {
       '<strong>إرشادات المحتوى والعناصر الإلزامية</strong><br>' + STATIC.guidelinesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>المخرجات المطلوبة (Deliverables)</strong><br>• ريلز / فيديوهات قصيرة (التنسيق الأساسي)<br>• ستوري داعمة لكل فيديو<br><br>' +
       '<strong>التسليم والجدول الزمني</strong><br>نحتاج إلى استلام الفيديو بحلول <strong>' + sub + '</strong> كحد أقصى، حيث سيتم النشر في <strong>' + live + '</strong>.<br>الموافقة النهائية مطلوبة قبل النشر.<br><br>' +
-      '<div style="background-color: #f8fafc; padding: 12px; ' + rtl + ': 3px solid #64748b; border-radius: 6px; margin: 16px 0;"><strong>🔗 ' + briefTxt + ':</strong><br>يُرجى قراءة الملف التالي (باللغة الإنجليزية) بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:<br>👉 <a href="' + c.briefUrl + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickTxt + '</a></div><br>' +
+      briefBlock + '<br>' +
       '<strong>تفاصيل الدفع</strong><br>قيمة الحملة: <strong>' + fee + '</strong><br><br>سيتم تحويل المبلغ إلى حسابك البنكي خلال 30 يومًا من انتهاء الحملة.<br><br>' +
       '<div style="background-color: #f0fdf4; padding: 12px; ' + rtl + ': 3px solid #22c55e; border-radius: 6px; margin: 16px 0;"><strong>🧾 الفاتورة المطلوبة:</strong><br>يُرجى إصدار فاتورتك عبر البورتال أدناه — سيتم توليد ملف الـ PDF وتسليمه لفريقنا تلقائياً، ويمكنك الاحتفاظ بنسخة من الفاتورة:<br>🔗 <a href="' + c.portalUrl + '" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">بورتال فواتير نون</a></div><br>' +
       '<strong>ملاحظات هامة ومؤشرات الأداء (KPIs)</strong><br>' + STATIC.kpiAr.replace('{KPI}', kpiText(I.kpi, l)) + '<br><br>' +
@@ -514,7 +664,7 @@ function buildEmail(c, I, phase, dis, l) {
       '<strong>Content Guidelines & Mandatory Elements</strong><br>' + STATIC.guidelinesEn.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>Deliverables</strong><br>• Reels / Short Videos (Primary Format)<br>• Stories supporting each video<br><br>' +
       '<strong>Submission & Timeline</strong><br>We need the video by <strong>' + sub + '</strong> at the latest, as the post will go live on <strong>' + live + '</strong>.<br>Final approval is required before posting.<br><br>' +
-      '<div style="background-color: #f8fafc; padding: 12px; ' + rtl + ': 3px solid #64748b; border-radius: 6px; margin: 16px 0;"><strong>🔗 ' + briefTxt + ':</strong><br>Please read the full detailed brief carefully before filming to understand all guidelines and messaging:<br>👉 <a href="' + c.briefUrl + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickTxt + '</a></div><br>' +
+      briefBlock + '<br>' +
       '<strong>Payment Details</strong><br>Campaign fee: <strong>' + fee + '</strong><br><br>The payment will be transferred to your bank account within 30 days after the campaign ends.<br><br>' +
       '<div style="background-color: #f0fdf4; padding: 12px; ' + rtl + ': 3px solid #22c55e; border-radius: 6px; margin: 16px 0;"><strong>🧾 Invoice Submission:</strong><br>Please generate your invoice through our portal below — your PDF is created and delivered to our team automatically, and you keep a copy:<br>🔗 <a href="' + c.portalUrl + '" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">noon Invoice Portal</a></div><br>' +
       '<strong>Notes & KPIs</strong><br>' + STATIC.kpiEn.replace('{KPI}', kpiText(I.kpi, l)) + '<br><br>' +
@@ -659,6 +809,7 @@ function flash(btn, txt) {
 var editingId = null;
 
 function openEditor(id) {
+  if (!isAdmin) { mgrStatus('محتاج دخول المدير الأول 🔑', false); return; }
   editingId = id || null;
   var c = id ? CAMPAIGNS.filter(function (x) { return x.id === id; })[0] : null;
   $('editorTitle').textContent = c ? 'تعديل حملة: ' + c.nameEn : 'حملة جديدة';
@@ -669,6 +820,8 @@ function openEditor(id) {
   $('ed_promoCode').value = c ? c.promoCode : 'PROMO15';
   $('ed_sender').value = c ? (c.sender || 'Mahmoud') : 'Mahmoud';
   $('ed_briefUrl').value = c ? c.briefUrl : '';
+  $('ed_briefUrlEn').value = c ? (c.briefUrlEn || '') : '';
+  $('ed_briefUrlAr').value = c ? (c.briefUrlAr || '') : '';
   $('ed_guideUrl').value = c ? c.guideUrl : '';
   $('ed_portalUrl').value = c ? c.portalUrl : 'https://noon-invoice.vercel.app/';
   $('ed_hashtags').value = c ? c.hashtags : '#noon #noonGCC';
@@ -682,11 +835,13 @@ function closeEditor() { $('editorModal').classList.remove('show'); }
 function newCampaignId() { return 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 
 function saveCampaign() {
+  if (!isAdmin) { edStatus('محتاج دخول المدير الأول 🔑'); return; }
   try {
     var discounts = JSON.parse($('ed_discounts').value || '{}');
     var phases = JSON.parse($('ed_phases').value || '[]');
     if (!$('ed_nameEn').value.trim()) throw new Error('اسم الحملة بالإنجليزية مطلوب');
     if (!phases.length) throw new Error('لازم مرحلة واحدة على الأقل');
+    var prev = editingId ? CAMPAIGNS.filter(function (x) { return x.id === editingId; })[0] : null;
     var obj = {
       id: editingId || newCampaignId(),
       nameEn: $('ed_nameEn').value.trim(),
@@ -696,9 +851,12 @@ function saveCampaign() {
       promoCode: $('ed_promoCode').value.trim() || 'PROMO15',
       sender: $('ed_sender').value.trim() || 'Mahmoud',
       briefUrl: $('ed_briefUrl').value.trim(),
+      briefUrlEn: $('ed_briefUrlEn').value.trim(),
+      briefUrlAr: $('ed_briefUrlAr').value.trim(),
       guideUrl: $('ed_guideUrl').value.trim(),
       portalUrl: $('ed_portalUrl').value.trim(),
       hashtags: $('ed_hashtags').value.trim(),
+      hidden: prev ? !!prev.hidden : false,
       countryDiscounts: discounts,
       phases: phases
     };
@@ -720,6 +878,7 @@ function saveCampaign() {
 }
 
 function duplicateCampaign(id) {
+  if (!isAdmin) { mgrStatus('محتاج دخول المدير الأول 🔑', false); return; }
   var c = CAMPAIGNS.filter(function (x) { return x.id === id; })[0];
   if (!c) return;
   var copy = JSON.parse(JSON.stringify(c));
@@ -732,6 +891,7 @@ function duplicateCampaign(id) {
 }
 
 function deleteCampaign(id) {
+  if (!isAdmin) { mgrStatus('محتاج دخول المدير الأول 🔑', false); return; }
   if (!confirm('متأكد من حذف الحملة؟')) return;
   CAMPAIGNS = CAMPAIGNS.filter(function (c) { return c.id !== id; });
   saveCampaigns(CAMPAIGNS);
@@ -740,6 +900,7 @@ function deleteCampaign(id) {
 }
 
 function exportCampaigns() {
+  if (!isAdmin) { mgrStatus('محتاج دخول المدير الأول 🔑', false); return; }
   var blob = new Blob([JSON.stringify(CAMPAIGNS, null, 2)], { type: 'application/json' });
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -748,6 +909,7 @@ function exportCampaigns() {
 }
 
 function importCampaigns(files) {
+  if (!isAdmin) { mgrStatus('محتاج دخول المدير الأول 🔑', false); return; }
   if (!files || !files[0]) return;
   var r = new FileReader();
   r.onload = function (e) {
@@ -787,7 +949,7 @@ function edStatus(msg) {
 
 /* init */
 fillMonthSelects();
-renderList();
+applyAdminUI();
 fillCampaignSelect();
 $('senderName').value = currentCampaign().sender || 'Mahmoud';
 render();
