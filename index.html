@@ -85,6 +85,7 @@
 
     .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(6px); z-index: 100; display: none; align-items: flex-start; justify-content: center; padding: 24px 14px; overflow-y: auto; }
     .modal-bg.show { display: flex; }
+    #editorModal { z-index: 120; }
     .modal { background: #131318; border: 1px solid var(--border); border-radius: 18px; padding: 22px; width: 100%; max-width: 680px; animation: rise .4s cubic-bezier(.16,1,.3,1) both; }
     .modal h3 { margin: 0 0 16px; font-size: 17px; font-weight: 900; }
     .modal textarea { font-family: monospace; font-size: 12px; direction: ltr; text-align: left; min-height: 180px; line-height: 1.6; }
@@ -101,9 +102,13 @@
 <div class="wrap">
 
   <header class="rise">
-    <div class="logo">n</div>
+    <div class="logo" id="noonLogo" onclick="handleLogoSecretClick()" title="noon" style="cursor:pointer; user-select:none;">n</div>
     <h1>Noon <span>Campaign Hub</span></h1>
     <div class="sub">مولد الإيميلات والبريفات — كل الشهور من مكان واحد</div>
+    <div id="adminHeaderBadge" style="display:none; margin-top:12px; gap:8px; justify-content:center; align-items:center;">
+      <button class="btn btn-g btn-sm" onclick="openAdminModal()">👑 فتح لوحة تحكم الحملات</button>
+      <button class="btn btn-r btn-sm" onclick="logoutAdmin()">🚪 خروج</button>
+    </div>
   </header>
 
   <div class="grid">
@@ -168,22 +173,6 @@
 
         <button class="btn btn-y" style="margin-top:16px" onclick="render(true)">⚡ توليد الإيميل والبريف</button>
       </div>
-
-      <div class="card rise d2">
-        <h2>🗂️ مدير الحملات</h2>
-        <div class="adminbar" id="adminBar">
-          <span id="adminState">👤 وضع مستخدم عادي — العرض فقط</span>
-          <button class="btn btn-g btn-sm" style="margin-inline-start:auto" id="adminBtn" onclick="adminAction()">🔑 دخول المدير</button>
-        </div>
-        <div id="campaignList"></div>
-        <div style="display:flex; gap:8px; margin-top:12px" id="mgrActions">
-          <button class="btn btn-y btn-sm" style="flex:1" onclick="openEditor()">➕ حملة جديدة</button>
-          <button class="btn btn-g btn-sm" onclick="exportCampaigns()">⬇️ تصدير</button>
-          <button class="btn btn-g btn-sm" onclick="document.getElementById('importFile').click()">⬆️ استيراد</button>
-          <input type="file" id="importFile" accept=".json" style="display:none" onchange="importCampaigns(this.files)">
-        </div>
-        <div class="status-msg" id="mgrStatus"></div>
-      </div>
     </div>
 
     <!-- OUTPUT -->
@@ -205,6 +194,39 @@
       <div class="output" id="out-brief-en" style="display:none"></div>
       <div class="output rtl-out" id="out-brief-ar" style="display:none" dir="rtl"></div>
       <button class="copy-btn" id="copyFabBottom" style="margin-top:12px;" onclick="copyCurrent(this)">📋 نسخ المحتوى المعروض</button>
+    </div>
+  </div>
+</div>
+
+<!-- لوحة تحكم المدير (مدير الحملات) -->
+<div class="modal-bg" id="adminModal">
+  <div class="modal" style="max-width: 720px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">
+      <h3 style="margin:0; font-size:18px; display:flex; align-items:center; gap:8px;">
+        <span>👑</span> لوحة تحكم الحملات (Admin Panel)
+      </h3>
+      <button class="btn btn-g btn-sm" onclick="closeAdminModal()">✕</button>
+    </div>
+
+    <div class="adminbar" id="adminBar">
+      <span id="adminState">👑 وضع المدير — صلاحيات كاملة</span>
+      <button class="btn btn-r btn-sm" style="margin-inline-start:auto" id="adminBtn" onclick="logoutAdmin()">🚪 خروج</button>
+    </div>
+
+    <div style="display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;" id="mgrActions">
+      <button class="btn btn-y btn-sm" style="flex:1" onclick="openEditor()">➕ إضافة حملة جديدة</button>
+      <button class="btn btn-g btn-sm" onclick="exportCampaigns()">⬇️ تصدير الحملات</button>
+      <button class="btn btn-g btn-sm" onclick="document.getElementById('importFile').click()">⬆️ استيراد حملات</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importCampaigns(this.files)">
+    </div>
+
+    <div style="margin-bottom:10px; font-size:12.5px; font-weight:700; color:var(--muted)">قائمة الحملات المسجلة:</div>
+    <div id="campaignList" style="max-height:360px; overflow-y:auto; padding-inline-end:4px;"></div>
+
+    <div class="status-msg" id="mgrStatus"></div>
+
+    <div style="display:flex; justify-content:flex-end; margin-top:16px; border-top:1px solid var(--border); padding-top:12px;">
+      <button class="btn btn-g" onclick="closeAdminModal()">إغلاق اللوحة</button>
     </div>
   </div>
 </div>
@@ -416,45 +438,91 @@ function saveCampaigns(list) {
 var CAMPAIGNS = loadCampaigns();
 var currentOut = 'email-en';
 
-/* ---------- صلاحيات المدير ---------- */
+/* ---------- صلاحيات المدير ولوحة الإدارة ---------- */
 var ADMIN_KEY = 'noonCampaignHub_admin';
 var ADMIN_PIN_KEY = 'noonCampaignHub_adminPin';
 var isAdmin = false;
 try { isAdmin = localStorage.getItem(ADMIN_KEY) === '1'; } catch (e) {}
 
+function triggerAdminEntry() {
+  if (isAdmin) {
+    openAdminModal();
+  } else {
+    adminAction();
+  }
+}
+
 function adminAction() {
-  if (isAdmin) { logoutAdmin(); return; }
+  if (isAdmin) {
+    openAdminModal();
+    return;
+  }
   var saved = null;
   try { saved = localStorage.getItem(ADMIN_PIN_KEY); } catch (e) {}
-  var pin = prompt(saved ? 'اكتب كود المدير:' : 'حدد كود المدير (أول مرة — احفظه كويس، ده اللي هيفتح الإضافة والحذف):');
+  var pin = prompt(saved ? 'اكتب كلمة مرور أو كود المدير:' : 'حدد كلمة مرور أو كود المدير (أول مرة):');
   if (pin === null || !pin.trim()) return;
   pin = pin.trim();
   if (!saved) {
-    var pin2 = prompt('أعد كتابة نفس الكود للتأكيد:');
-    if (pin2 === null || pin2.trim() !== pin) { mgrStatus('الكودين مش متطابقين — مفيش تغيير', false); return; }
-    try { localStorage.setItem(ADMIN_PIN_KEY, pin); } catch (e) {}
-    isAdmin = true;
+    if (pin === 'noon@admin#2026') {
+      try { localStorage.setItem(ADMIN_PIN_KEY, pin); } catch (e) {}
+      isAdmin = true;
+    } else {
+      var pin2 = prompt('أعد كتابة نفس الكود للتأكيد:');
+      if (pin2 === null || pin2.trim() !== pin) { alert('الكودين مش متطابقين!'); return; }
+      try { localStorage.setItem(ADMIN_PIN_KEY, pin); } catch (e) {}
+      isAdmin = true;
+    }
   } else if (pin === saved || pin === 'noon@admin#2026') {
     isAdmin = true;
   } else {
-    mgrStatus('كود المدير غلط ❌', false);
+    alert('كلمة المرور / كود المدير غير صحيح ❌');
     return;
   }
   try { localStorage.setItem(ADMIN_KEY, '1'); } catch (e) {}
   applyAdminUI();
-  mgrStatus('أهلاً يا مدير 👑 — الإضافة والحذف والتعديل مفتوحين', true);
+  openAdminModal();
+  mgrStatus('أهلاً يا مدير 👑 — صلاحيات كاملة مفعلة', true);
 }
+
+function openAdminModal() {
+  if (!isAdmin) {
+    adminAction();
+    return;
+  }
+  $('adminModal').classList.add('show');
+  renderList();
+}
+
+function closeAdminModal() {
+  $('adminModal').classList.remove('show');
+}
+
 function logoutAdmin() {
   isAdmin = false;
   try { localStorage.removeItem(ADMIN_KEY); } catch (e) {}
+  closeAdminModal();
+  closeEditor();
   applyAdminUI();
-  mgrStatus('خرجت من وضع المدير — رجعت مستخدم عادي', true);
 }
+
 function applyAdminUI() {
-  $('adminState').textContent = isAdmin ? '👑 وضع المدير — صلاحيات كاملة' : '👤 وضع مستخدم عادي — العرض فقط';
-  $('adminBtn').textContent = isAdmin ? '🚪 خروج' : '🔑 دخول المدير';
-  $('mgrActions').style.display = isAdmin ? 'flex' : 'none';
+  var badge = $('adminHeaderBadge');
+  if (badge) badge.style.display = isAdmin ? 'inline-flex' : 'none';
+  if ($('adminState')) $('adminState').textContent = isAdmin ? '👑 وضع المدير — صلاحيات كاملة' : '👤 وضع مستخدم عادي';
+  if ($('mgrActions')) $('mgrActions').style.display = isAdmin ? 'flex' : 'none';
   renderList();
+}
+
+var logoClicks = 0;
+var logoClickTimer = null;
+function handleLogoSecretClick() {
+  logoClicks++;
+  clearTimeout(logoClickTimer);
+  logoClickTimer = setTimeout(function() { logoClicks = 0; }, 1200);
+  if (logoClicks >= 3) {
+    logoClicks = 0;
+    triggerAdminEntry();
+  }
 }
 
 /* ---------- UI ---------- */
@@ -955,7 +1023,7 @@ function edStatus(msg) {
 document.addEventListener('keydown', function(e) {
   if ((e.ctrlKey || e.metaKey) && e.altKey && (e.key === 'a' || e.key === 'A' || e.key === 'ش')) {
     e.preventDefault();
-    adminAction();
+    triggerAdminEntry();
     return false;
   }
 });
@@ -967,7 +1035,7 @@ $('senderName').value = currentCampaign().sender || 'Mahmoud';
 render();
 
 if (window.location.pathname.endsWith('/admin') || window.location.search.indexOf('admin') !== -1) {
-  setTimeout(function() { adminAction(); }, 300);
+  setTimeout(function() { triggerAdminEntry(); }, 300);
 }
 </script>
 </body>
