@@ -1,0 +1,13 @@
+{
+  "name": "noon-campaign-hub",
+  "version": "2.0.0",
+  "description": "Secure Campaign Hub & Email Generator for Noon Influencer Operations",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node -e \"console.log('All OK')\""
+  },
+  "keywords": ["noon", "campaign", "email", "brief"],
+  "author": "Mahmoud",
+  "license": "ISC"
+}

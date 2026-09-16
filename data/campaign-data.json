@@ -1,0 +1,475 @@
+{
+  "static": {
+    "objectivesEn": [
+      "Increase noon app downloads",
+      "Drive traffic to category pages via dedicated in-app banners",
+      "Generate sales across the selected promotional campaigns",
+      "Promote your discount code across all content formats"
+    ],
+    "objectivesAr": [
+      "زيادة تنزيلات تطبيق نون",
+      "توجيه الزيارات إلى صفحات الفئات عبر اللافتات المخصصة داخل التطبيق",
+      "توليد المبيعات عبر الحملات الترويجية المحددة",
+      "الترويج لرمز الخصم الخاص بك عبر جميع تنسيقات المحتوى"
+    ],
+    "guidelinesEn": [
+      "<strong>Key Messaging:</strong> Shop directly through the noon app, download the app for exclusive deals, and use the discount code.",
+      "<strong>Style:</strong> Fast-paced, trend-driven, strong hook in first 3 seconds.",
+      "<strong>Focus:</strong> Lifestyle integration over hard selling.",
+      "<strong>Must clearly show/mention:</strong><br>&nbsp;&nbsp;1. The noon app screen/interface<br>&nbsp;&nbsp;2. The specific campaign banner<br>&nbsp;&nbsp;3. Clear product visibility<br>&nbsp;&nbsp;4. Clear CTA (Download app, click banner, use code)"
+    ],
+    "guidelinesAr": [
+      "<strong>الرسائل الأساسية:</strong> التسوق عبر التطبيق، تحميل التطبيق للعروض الحصرية، واستخدام كود الخصم.",
+      "<strong>الأسلوب:</strong> سريع الإيقاع، مواكب للتريند، وخطّاف قوي (Hook) في أول 3 ثوانٍ.",
+      "<strong>التركيز:</strong> دمج نمط الحياة بدلاً من البيع المباشر.",
+      "<strong>يجب إظهار/ذكر التالي بوضوح:</strong><br>&nbsp;&nbsp;1. شاشة/واجهة تطبيق نون<br>&nbsp;&nbsp;2. لافتة (Banner) الحملة المخصصة<br>&nbsp;&nbsp;3. وضوح المنتج المعروض<br>&nbsp;&nbsp;4. دعوة واضحة للمشاهدين (تحميل التطبيق، الضغط على البانر، استخدام الكود)"
+    ],
+    "goldenRuleEn": "The discount code <strong>MUST</strong> appear in every content format:<br><ul style=\"margin:4px 0 0 0; padding-left:20px;\"><li style=\"margin-bottom:2px;\">Spoken and/or on-screen text in the video.</li><li style=\"margin-bottom:2px;\">Clearly written at the top or middle of the caption.</li><li>In Stories with a link sticker/CTA.</li></ul><br><em>Examples: \"Use code {CODE} for extra savings\" | \"Don't forget to use the discount code {CODE} on the noon app.\"</em>",
+    "goldenRuleAr": "يجب أن يظهر كود الخصم في كل تنسيق محتوى: منطوقاً أو مكتوباً على الشاشة في الفيديو، وفي بداية أو منتصف النص المكتوب (Caption)، وفي الستوري مع رابط مباشر/دعوة لاتخاذ إجراء.",
+    "creativeEn": [
+      "<strong>Key Messaging:</strong> Shop directly through the noon app | Exclusive deals available inside the app | Download the app to access offers | Use my discount code for extra savings.",
+      "<strong>Tone:</strong> Fast-paced, trend-driven, strong hook in the first 3 seconds.",
+      "<strong>Focus:</strong> Lifestyle integration over hard selling.",
+      "<strong>Suggested Angles:</strong> {ANGLES}.",
+      "<strong style=\"background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;\">Important:</strong> The word <strong>\"noon\"</strong> must ALWAYS be written in lowercase everywhere."
+    ],
+    "creativeAr": [
+      "<strong>الرسائل الأساسية:</strong> التسوق عبر التطبيق | عروض حصرية داخل التطبيق | حمّل التطبيق للوصول للعروض | استخدم كود الخصم لتوفير إضافي.",
+      "<strong>الأسلوب:</strong> سريع الإيقاع، مواكب للتريند، وخطّاف قوي في أول 3 ثوانٍ.",
+      "<strong>التركيز:</strong> دمج نمط الحياة بدلاً من البيع المباشر.",
+      "<strong>زوايا مقترحة:</strong> {ANGLES}.",
+      "<strong style=\"background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;\">مهم:</strong> كلمة <strong>\"noon\"</strong> يجب أن تُكتب دائماً بأحرف صغيرة في كل مكان."
+    ],
+    "mandatoryEn": [
+      "The noon app screen/interface.",
+      "The specific campaign banner.",
+      "Clear product visibility.",
+      "Clear CTA: Download the app / Click the banner / Explore the category / Use my discount code."
+    ],
+    "mandatoryAr": [
+      "شاشة/واجهة تطبيق نون.",
+      "لافتة (Banner) الحملة المخصصة.",
+      "وضوح المنتج المعروض.",
+      "دعوة واضحة للمشاهدين: تحميل التطبيق / الضغط على البانر / استكشاف الفئة / استخدام كود الخصم."
+    ],
+    "typographyEn": "A bold, layered text style for bilingual reels (English and Arabic) with warm tones and strong typographic contrast is required.<br><br><strong style=\"color:#000\">Recommended Font Pairings:</strong><br>• <strong>English:</strong> Cairo, Elegant, or Rubik.<br>• <strong>Arabic:</strong> BLK القاهرة, BLK الإسكندرية, or BLK تجول.",
+    "typographyAr": "نص جريء متعدد الطبقات للريلز ثنائية اللغة (عربي/إنجليزي) بألوان دافئة وتباين قوي.<br><br><strong style=\"color:#000\">الخطوط الموصى بها:</strong><br>• <strong>إنجليزي:</strong> Cairo, Elegant, Rubik.<br>• <strong>عربي:</strong> BLK القاهرة, BLK الإسكندرية, BLK تجول.",
+    "approvalEn": [
+      "<strong>Do NOT post</strong> until your draft is approved.",
+      "All content (video + caption) must be shared before posting.",
+      "Posting allowed ONLY after <strong>explicit written approval</strong> from your contact."
+    ],
+    "approvalAr": [
+      "<strong>لا تنشر</strong> قبل الموافقة على مسودتك.",
+      "كل المحتوى (فيديو + كابشن) لازم يتشارك قبل النشر.",
+      "النشر مسموح فقط بعد <strong>موافقة خطية صريحة</strong> من مسؤول التواصل."
+    ],
+    "deliverablesEn": "• Reels / Short Videos (Primary Format)<br>• Stories supporting each Reel<br><br><strong style=\"color:#000; font-size:13px;\">Submit 2 files for the video:</strong><br><ol style=\"margin-top:4px; padding-left:20px; color:#3f3f46; font-size:13px;\"><li style=\"margin-bottom:4px;\"><strong>Fully Edited Video</strong> (with music, text, effects)</li><li style=\"margin-bottom:4px;\"><strong>RAW Footage</strong> (no filters, no text, unedited)</li></ol>",
+    "deliverablesAr": "• ريلز / فيديوهات قصيرة (التنسيق الأساسي)<br>• ستوري داعمة لكل ريل<br><br><strong style=\"color:#000; font-size:13px;\">يُسلم ملفان للفيديو:</strong><br><ol style=\"margin-top:4px; padding-left:20px; color:#3f3f46; font-size:13px;\"><li style=\"margin-bottom:4px;\"><strong>فيديو معدل بالكامل</strong> (موسيقى، نصوص، مؤثرات)</li><li style=\"margin-bottom:4px;\"><strong>فيديو خام</strong> (بدون فلاتر، بدون نصوص)</li></ol>",
+    "kpiEn": "• <strong>KPI:</strong> {KPI}<br>• If the target is not met, the video may need boosting or reposting.<br>• The content must remain live for at least one year.<br>• noon reserves the right to use the content across its marketing/ advertising platforms.",
+    "kpiAr": "• <strong>الهدف (KPI):</strong> {KPI}<br>• في حال عدم تحقيق الهدف، قد يحتاج الفيديو إلى التمويل (Boost) أو إعادة النشر.<br>• يجب أن يظل المحتوى متاحاً لمدة عام واحد على الأقل.<br>• تحتفظ نون بالحق في استخدام المحتوى عبر منصاتها التسويقية / الإعلانية."
+  },
+  "campaigns": [
+    {
+      "id": "sep2026",
+      "nameEn": "Noon GCC September Campaign 2026",
+      "nameAr": "حملة نون لدول الخليج - شهر سبتمبر",
+      "monthEn": "September",
+      "monthAr": "سبتمبر",
+      "promoCode": "PROMO15",
+      "sender": "Mahmoud",
+      "briefUrl": "https://drive.google.com/file/d/1FspsfIuJHSXwWNiFd5Mv3TxljCbmYE0q/view?usp=sharing",
+      "briefUrlEn": "https://drive.google.com/file/d/1FspsfIuJHSXwWNiFd5Mv3TxljCbmYE0q/view?usp=sharing",
+      "briefUrlAr": "https://drive.google.com/file/d/1sHKimVC97C_x0fFGBAqXkb905V2DzMDj/view?usp=sharing",
+      "guideUrl": "https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view",
+      "portalUrl": "https://noon-invoice.vercel.app/",
+      "hashtags": "#noon #noonGCC #noonBeauty",
+      "countryDiscounts": {
+        "QA": {
+          "en": "<strong>Use code (FIRST20)</strong> for flat 20% off your first order on the noon app! (new customers)",
+          "ar": "<strong>استخدم كود (FIRST20)</strong> واحصل على خصم 20% على طلبك الأول من تطبيق نون! (للعملاء الجدد)",
+          "tag": "@noon_Qar"
+        },
+        "KW": {
+          "en": "<strong>Use code (FIRST20)</strong> for flat 20% off your first order on the noon app! (new customers)",
+          "ar": "<strong>استخدم كود (FIRST20)</strong> واحصل على خصم 20% على طلبك الأول من تطبيق نون! (للعملاء الجدد)",
+          "tag": "@noon_kuwt"
+        },
+        "BH": {
+          "en": "<strong>Use code (PROMO15)</strong> for extra savings on your order!",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!",
+          "tag": "@noon_bahr"
+        },
+        "OM": {
+          "en": "<strong>Use code (PROMO15)</strong> for extra savings on your order!",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!",
+          "tag": "@noon_Omn"
+        }
+      },
+      "phases": [
+        {
+          "en": {
+            "title": "Grand Lifestyle Reset (Primary)",
+            "date": "September 7",
+            "categories": "Home, Fashion, Lifestyle, & Daily Essentials",
+            "action": "Download the noon app • Show the Grand Lifestyle Reset campaign banner inside the app (screen recording) • Showcase provided SKUs alongside highlighted products from featured categories • Encourage users to explore the category through the banner • Promote the market-specific promo code",
+            "msg": "September must-have picks featuring provided SKUs"
+          },
+          "ar": {
+            "title": "تجديد أسلوب الحياة الكبير (رئيسية)",
+            "date": "7 سبتمبر",
+            "categories": "المنزل، الموضة، أسلوب الحياة، المستلزمات اليومية",
+            "action": "حث المتابعين على تحميل تطبيق نون • عرض البنر الإعلاني لحملة تجديد أسلوب الحياة الكبير داخل التطبيق (تسجيل شاشة) • استعراض المنتجات المحددة (SKUs) إلى جانب المنتجات المميزة من الأقسام المحددة • تشجيع المستخدمين على استكشاف القسم من خلال البنر • الترويج لكود الخصم المخصص لكل دولة",
+            "msg": "اختيارات سبتمبر الأساسية باستخدام المنتجات المحددة"
+          }
+        },
+        {
+          "en": {
+            "title": "International Makeup Day (Secondary)",
+            "date": "September 7 – 11",
+            "categories": "Makeup, Skincare, Beauty Tools, & Cosmetics",
+            "action": "Show the International Makeup Day banner inside the app • Feature assigned SKUs, beauty routines, and trending cosmetics • Direct users to browse beauty deals through the app banner • Promote the market-specific promo code",
+            "msg": "Makeup transformation, Beauty haul"
+          },
+          "ar": {
+            "title": "اليوم العالمي للمكياج (فرعية)",
+            "date": "7 - 11 سبتمبر",
+            "categories": "المكياج، العناية بالبشرة، أدوات التجميل، ومستحضرات التجميل",
+            "action": "إظهار البنر الإعلاني لليوم العالمي للمكياج داخل التطبيق • عرض المنتجات المحددة (SKUs)، روتين التجميل، ومستحضرات التجميل الأكثر تريند • توجيه المستخدمين لتصفح عروض الجمال عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة",
+            "msg": "تحوّل المكياج، جولة مشتريات الجمال"
+          }
+        },
+        {
+          "en": {
+            "title": "Mega Tech Sale (Primary)",
+            "date": "September 10 – 14",
+            "categories": "Electronics, Laptops, TV & Appliances, Gaming, Telco & Gadgets",
+            "action": "Show the Mega Tech Sale banner inside the app • Feature assigned tech SKUs and showcase top electronics/gadgets • Direct users to browse tech deals through the app banner • Promote the market-specific promo code",
+            "msg": "Tech unboxing & reviews"
+          },
+          "ar": {
+            "title": "تخفيضات التكنولوجيا الكبرى (رئيسية)",
+            "date": "10 - 14 سبتمبر",
+            "categories": "الإلكترونيات، أجهزة اللابتوب، التلفزيونات والأجهزة المنزلية، ألعاب الفيديو، والاتصالات والإكسسوارات",
+            "action": "إظهار البنر الإعلاني لتخفيضات التكنولوجيا الكبرى داخل التطبيق • استعراض منتجات التكنولوجيا المحددة (SKUs) وأبرز الأجهزة الإلكترونية • توجيه المستخدمين لتصفح عروض التكنولوجيا عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة",
+            "msg": "فتح صندوق الأجهزة التكنولوجية ومراجعتها"
+          }
+        },
+        {
+          "en": {
+            "title": "Health and Wellness Event (Secondary)",
+            "date": "September 9 – 21",
+            "categories": "Supplements, Fitness Accessories, Healthy Snacks, & Personal Wellness",
+            "action": "Show the Health and Wellness Event banner inside the app • Showcase assigned SKUs, wellness products, and workout essentials • Direct users to discover health offers via the dedicated app banner • Promote the market-specific promo code",
+            "msg": "Wellness routines & fitness gear"
+          },
+          "ar": {
+            "title": "فعالية الصحة واللياقة (فرعية)",
+            "date": "9 - 21 سبتمبر",
+            "categories": "المكملات الغذائية، مستلزمات اللياقة البدنية، الوجبات الخفيفة الصحية، والعناية الشخصية",
+            "action": "إظهار البنر الإعلاني لفعالية الصحة واللياقة داخل التطبيق • استعراض المنتجات المحددة (SKUs)، منتجات العناية بالصحة، ومستلزمات التمارين الرياضية • توجيه المستخدمين لاكتشاف عروض الصحة عبر البنر المخصص في التطبيق • الترويج لكود الخصم المخصص لكل دولة",
+            "msg": "روتين العناية بالصحة ومستلزمات الرياضة"
+          }
+        },
+        {
+          "en": {
+            "title": "End of Month Sale (Primary)",
+            "date": "September 24 – 30",
+            "categories": "Multi-category site-wide deals (Fashion, Tech, Home, Beauty)",
+            "action": "Show the End of Month Sale banner inside the app • Showcase provided SKUs and highlight best end-of-month shopping deals • Direct users to explore deals through the app banner • Promote the market-specific promo code",
+            "msg": "Best end-of-month deals picks"
+          },
+          "ar": {
+            "title": "تخفيضات نهاية الشهر (رئيسية)",
+            "date": "24 - 30 سبتمبر",
+            "categories": "عروض شاملة لكافة الأقسام (الموضة، التكنولوجيا، المنزل، الجمال)",
+            "action": "إظهار البنر الإعلاني لتخفيضات نهاية الشهر داخل التطبيق • استعراض المنتجات المحددة (SKUs) وتسليط الضوء على أفضل عروض نهاية الشهر • توجيه المستخدمين لاستكشاف العروض عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة",
+            "msg": "أفضل عروض نهاية الشهر"
+          }
+        },
+        {
+          "en": {
+            "title": "International Coffee Day (Secondary)",
+            "date": "September 24 – 30",
+            "categories": "Coffee Machines, Espresso Beans, Mugs, Barista Tools, & Coffee Accessories",
+            "action": "Show the International Coffee Day banner inside the app • Showcase assigned SKUs, coffee setups, or daily morning routine integrations • Direct users to check out coffee deals via the in-app banner • Promote the market-specific promo code",
+            "msg": "Morning coffee routine"
+          },
+          "ar": {
+            "title": "اليوم العالمي للقهوة (فرعية)",
+            "date": "24 - 30 سبتمبر",
+            "categories": "ماكينات القهوة، حبوب الإسبريسو، الأكواب، أدوات الباريستا، وإكسسوارات القهوة",
+            "action": "إظهار البنر الإعلاني لليوم العالمي للقهوة داخل التطبيق • استعراض المنتجات المحددة (SKUs)، ركن القهوة، أو دمجها ضمن الروتين الصباحي اليومي • توجيه المستخدمين للاطلاع على عروض القهوة عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة",
+            "msg": "روتين القهوة الصباحي"
+          }
+        }
+      ]
+    },
+    {
+      "id": "aug2026",
+      "nameEn": "Noon GCC August Campaign 2026",
+      "nameAr": "حملة نون لدول الخليج - شهر أغسطس",
+      "monthEn": "August",
+      "monthAr": "أغسطس",
+      "promoCode": "PROMO15",
+      "sender": "Mahmoud",
+      "briefUrl": "https://drive.google.com/file/d/1c0lFfQJ7_Nt1tP0NqLebCh3uBK39OWCB/view?usp=drive_link",
+      "guideUrl": "https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view",
+      "portalUrl": "https://noon-invoice.vercel.app/",
+      "hashtags": "#noon #noonGCC #GrandLifestyleReset #MegaTechFestival #BackToSchool #noonBeauty #noonFashion",
+      "countryDiscounts": {
+        "QA": {
+          "en": "<strong>New Users:</strong> 15% off up to 75 QAR<br><strong>Returning Users:</strong> 5% off up to 25 QAR",
+          "ar": "<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 75 ريال قطري<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 25 ريال قطري",
+          "tag": "@noon_Qar"
+        },
+        "KW": {
+          "en": "<strong>New Users:</strong> 15% off up to 7 KWD<br><strong>Returning Users:</strong> 5% off up to 2 KWD",
+          "ar": "<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7 دينار كويتي<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2 دينار كويتي",
+          "tag": "@noon_kuwt"
+        },
+        "BH": {
+          "en": "<strong>New Users:</strong> 15% off up to 7.5 BHD<br><strong>Returning Users:</strong> 5% off up to 2.5 BHD",
+          "ar": "<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 دينار بحريني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 دينار بحريني",
+          "tag": "@noon_bahr"
+        },
+        "OM": {
+          "en": "<strong>New Users:</strong> 15% off up to 7.5 OMR<br><strong>Returning Users:</strong> 5% off up to 2.5 OMR",
+          "ar": "<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 ريال عماني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 ريال عماني",
+          "tag": "@noon_Omn"
+        }
+      },
+      "phases": [
+        {
+          "en": {
+            "title": "Grand Lifestyle Reset",
+            "date": "August 7 – 10",
+            "categories": "Home, Fashion, Lifestyle, & Daily Essentials",
+            "action": "Download the noon app • Show the campaign banner inside the app (screen recording) • Highlight products from the featured categories • Encourage users to explore the category through the banner",
+            "msg": "Must-have picks from this category, Daily routine using these products"
+          },
+          "ar": {
+            "title": "انطلاقة أسلوب الحياة",
+            "date": "7 - 10 أغسطس",
+            "categories": "المنزل، الأزياء، أسلوب الحياة، والأساسيات اليومية",
+            "action": "تحميل تطبيق نون • إظهار لافتة الحملة داخل التطبيق (تسجيل الشاشة) • إبراز منتجات الفئات المميزة • حث المستخدمين على استكشاف الفئة عبر اللافتة",
+            "msg": "المنتجات اللازمة من هذه الفئة، الروتين اليومي باستخدام هذه المنتجات"
+          }
+        },
+        {
+          "en": {
+            "title": "Beauty Campaign",
+            "date": "August 6 – 9",
+            "categories": "Skincare, Makeup, Haircare, Fragrances, & Personal Care",
+            "action": "Show the Beauty campaign banner • Feature skincare or makeup products • Demonstrate a quick beauty routine",
+            "msg": "GRWM looks, Honest product reviews"
+          },
+          "ar": {
+            "title": "حملة الجمال",
+            "date": "6 - 9 أغسطس",
+            "categories": "العناية بالبشرة، المكياج، العناية بالشعر، العطور، والعناية الشخصية",
+            "action": "إظهار لافتة حملة الجمال • عرض منتجات للعناية بالمكياج • تقديم روتين جمال سريع",
+            "msg": "إطلالات GRWM، مراجعات صادقة للمنتجات"
+          }
+        },
+        {
+          "en": {
+            "title": "Mega Tech Festival",
+            "date": "August 10 – 13",
+            "categories": "Electronics, Laptops, TV & Appliances, Gaming, Telco & Gadgets",
+            "action": "Show the Tech Festival banner • Feature a gadget or appliance from the categories • Show the product listing inside the noon app",
+            "msg": "Tech unboxing, Best-value gadget picks"
+          },
+          "ar": {
+            "title": "مهرجان التقنية الأكبر",
+            "date": "10 - 13 أغسطس",
+            "categories": "الإلكترونيات، اللابتوبات، التلفزيونات والأجهزة المنزلية، الألعاب، الاتصالات",
+            "action": "إظهار لافتة مهرجان التقنية • عرض جهاز أو منتج من الفئات • إظهار صفحة المنتج داخل تطبيق نون",
+            "msg": "فتح علبة التقنية، أفضل الأجهزة بقيمة ممتازة"
+          }
+        },
+        {
+          "en": {
+            "title": "Health & Nutrition Campaign",
+            "date": "August 13 – 16",
+            "categories": "Supplements, Fitness Accessories, Healthy Snacks, & Wellness",
+            "action": "Show the Health campaign banner • Feature wellness or fitness products • Show a healthy routine moment",
+            "msg": "Fitness routine picks, Healthy lifestyle swaps"
+          },
+          "ar": {
+            "title": "حملة الصحة والتغذية",
+            "date": "13 - 16 أغسطس",
+            "categories": "المكملات الغذائية، إكسسوارات اللياقة البدنية، الوجبات الخفيفة الصحية، والعناية بالصحة",
+            "action": "إظهار لافتة حملة الصحة • عرض منتجات للعافية أو اللياقة • إظهار لحظة روتين صحي",
+            "msg": "اختيارات روتين اللياقة، بدائل صحية لنمط الحياة"
+          }
+        },
+        {
+          "en": {
+            "title": "Fashion Campaign",
+            "date": "August 20 – 23",
+            "categories": "Apparel, Footwear, Watches & Eyewear, Bags & Accessories",
+            "action": "Show the Fashion banner • Style an outfit from noon items • Show the items inside the app",
+            "msg": "Outfit transitions, Seasonal style haul"
+          },
+          "ar": {
+            "title": "حملة الأزياء",
+            "date": "20 - 23 أغسطس",
+            "categories": "الملابس، الأحذية، الساعات والنظارات، الحقائب والإكسسوارات",
+            "action": "إظهار لافتة الأزياء • تنسيق إطلالة من منتجات نون • إظهار المنتجات داخل التطبيق",
+            "msg": "انتقالات الإطلالات، تشكيلة إطلالات الموسم"
+          }
+        },
+        {
+          "en": {
+            "title": "Back To School Sale",
+            "date": "August 14 – 31",
+            "categories": "Stationery, Backpacks, Laptops & Tablets, School Essentials, Kids Fashion",
+            "action": "Show the Back To School banner • Feature school supplies • Show the noon app browsing experience",
+            "msg": "School haul, Back-to-routine essentials"
+          },
+          "ar": {
+            "title": "عروض العودة للمدارس",
+            "date": "14 - 31 أغسطس",
+            "categories": "القرطاسية، حقائب الظهر، اللابتوبات والأجهزة اللوحية، المستلزمات المدرسية، أزياء الأطفال",
+            "action": "إظهار لافتة العودة للمدارس • عرض مستلزمات مدرسية • إظهار تجربة التصفح في تطبيق نون",
+            "msg": "تشكيلة المستلزمات المدرسية، أساسيات العودة للروتين"
+          }
+        },
+        {
+          "en": {
+            "title": "Salalah Khareef Festival (Oman)",
+            "date": "Oman Only",
+            "categories": "Seasonal Offers — All Categories",
+            "action": "Show the Khareef banner • Feature seasonal picks • Mention the Oman-exclusive offers",
+            "msg": "Khareef season vibes, Family outings picks"
+          },
+          "ar": {
+            "title": "مهرجان صلالة الخريف (عُمان)",
+            "date": "عُمان فقط",
+            "categories": "عروض موسمية — كل الفئات",
+            "action": "إظهار لافتة الخريف • عرض اختيارات موسمية • ذكر العروض الحصرية لعُمان",
+            "msg": "أجواء موسم الخريف، اختيارات للخروجات العائلية"
+          }
+        }
+      ]
+    },
+    {
+      "id": "apr2026",
+      "nameEn": "Noon GCC April Campaign 2026",
+      "nameAr": "حملة نون لدول الخليج - شهر أبريل",
+      "monthEn": "April",
+      "monthAr": "أبريل",
+      "promoCode": "PROMO10",
+      "sender": "Mahmoud",
+      "briefUrl": "",
+      "guideUrl": "",
+      "portalUrl": "https://noon-invoice.vercel.app/",
+      "hashtags": "#noon #noonGCC #PROMO10",
+      "countryDiscounts": {
+        "QA": {
+          "en": "10% off with code PROMO10 on stories & caption",
+          "ar": "خصم 10% بكود PROMO10 في الستوري والكابشن",
+          "tag": "@noon_Qar"
+        },
+        "KW": {
+          "en": "10% off with code PROMO10 on stories & caption",
+          "ar": "خصم 10% بكود PROMO10 في الستوري والكابشن",
+          "tag": "@noon_kuwt"
+        },
+        "BH": {
+          "en": "10% off with code PROMO10 on stories & caption",
+          "ar": "خصم 10% بكود PROMO10 في الستوري والكابشن",
+          "tag": "@noon_bahr"
+        },
+        "OM": {
+          "en": "10% off with code PROMO10 on stories & caption",
+          "ar": "خصم 10% بكود PROMO10 في الستوري والكابشن",
+          "tag": "@noon_Omn"
+        }
+      },
+      "phases": [
+        {
+          "en": {
+            "title": "Grand Lifestyle Sale",
+            "date": "April 12 – 13",
+            "categories": "Home, Fashion, W&E, Footwear, Beauty, Fitness",
+            "action": "Show the campaign banner • Feature products from the categories • Use code PROMO10 on stories & caption",
+            "msg": "Grand sale picks, Everyday lifestyle essentials"
+          },
+          "ar": {
+            "title": "Grand Lifestyle Sale",
+            "date": "12 - 13 أبريل",
+            "categories": "المنزل، الأزياء، الإلكترونيات والأجهزة، الأحذية، الجمال، اللياقة",
+            "action": "إظهار لافتة الحملة • عرض منتجات من الفئات • استخدام كود PROMO10 في الستوري والكابشن",
+            "msg": "اختيارات التخفيضات الكبرى، أساسيات الحياة اليومية"
+          }
+        },
+        {
+          "en": {
+            "title": "Gap – Light Phase",
+            "date": "April 14 – 16",
+            "categories": "Beauty, Fashion basics, Home essentials, Footwear, Fitness, Coupons/Bundles",
+            "action": "Use code PROMO10 • Tease the Mega Tech Festival (April 17–20) — 10% mention on stories/caption",
+            "msg": "Everyday basics, Smart savings picks"
+          },
+          "ar": {
+            "title": "فترة انتقالية",
+            "date": "14 - 16 أبريل",
+            "categories": "الجمال، أساسيات الأزياء، أساسيات المنزل، الأحذية، اللياقة، الكوبونات/الحزم",
+            "action": "استخدام كود PROMO10 • التلميح لمهرجان التقنية (17 - 20 أبريل) — ذكر 10% في الستوري/الكابشن",
+            "msg": "أساسيات يومية، اختيارات توفير ذكية"
+          }
+        },
+        {
+          "en": {
+            "title": "Mega Tech Festival",
+            "date": "April 17 – 20",
+            "categories": "TVs, Appliances, Laptops, Gaming, Telco",
+            "action": "Show the Tech Festival banner • Feature a gadget from the categories • Use code PROMO10 on stories & caption",
+            "msg": "Tech unboxing, Best-value gadget picks"
+          },
+          "ar": {
+            "title": "مهرجان التقنية الأكبر",
+            "date": "17 - 20 أبريل",
+            "categories": "التلفزيونات، الأجهزة، اللابتوبات، الجيمنج، الاتصالات",
+            "action": "إظهار لافتة المهرجان • عرض جهاز من الفئات • استخدام كود PROMO10 في الستوري والكابشن",
+            "msg": "فتح علبة التقنية، أفضل الأجهزة بقيمة ممتازة"
+          }
+        },
+        {
+          "en": {
+            "title": "Gap – Light Phase",
+            "date": "April 21 – 23",
+            "categories": "Tech accessories, Gaming accessories, Wearables, Fashion accessories, Baby/Kids, Budget tech",
+            "action": "Use code PROMO10 • Tease the End of Month Sale — 10% mention",
+            "msg": "Accessory picks, Budget tech finds"
+          },
+          "ar": {
+            "title": "فترة انتقالية",
+            "date": "21 - 23 أبريل",
+            "categories": "إكسسوارات تقنية، إكسسوارات جيمنج، أجهزة قابلة للارتداء، إكسسوارات أزياء، الأطفال، تقنية اقتصادية",
+            "action": "استخدام كود PROMO10 • التلميح لتخفيضات نهاية الشهر — ذكر 10%",
+            "msg": "اختيارات الإكسسوارات، تقنية اقتصادية"
+          }
+        },
+        {
+          "en": {
+            "title": "End of Month Sale",
+            "date": "April 24 – May 2",
+            "categories": "Platform-wide — ALL categories",
+            "action": "Use code PROMO10 • Tease 10% about May campaigns",
+            "msg": "Best-of-sale picks, Don't-miss deals"
+          },
+          "ar": {
+            "title": "تخفيضات نهاية الشهر",
+            "date": "24 أبريل - 2 مايو",
+            "categories": "كل الأقسام",
+            "action": "استخدام كود PROMO10 • تلميح 10% عن حملات مايو",
+            "msg": "أفضل عروض التخفيضات، عروض مش ممكن تفوتك"
+          }
+        }
+      ]
+    }
+  ]
+}
