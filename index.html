@@ -53,7 +53,7 @@
     .btn-sm { padding: 7px 12px; font-size: 12px; border-radius: 9px; }
 
     .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; background: rgba(0,0,0,.4); padding: 5px; border-radius: 12px; border: 1px solid var(--border); }
-    .tab { flex: 1; min-width: 90px; border: none; background: transparent; color: var(--muted); font-family: inherit; font-weight: 800; font-size: 12px; padding: 9px 6px; border-radius: 8px; cursor: pointer; transition: .25s; white-space: nowrap; }
+    .tab { flex: 1; min-width: 120px; border: none; background: transparent; color: var(--muted); font-family: inherit; font-weight: 800; font-size: 11.5px; padding: 9px 8px; border-radius: 8px; cursor: pointer; transition: .25s; text-align: center; }
     .tab.active { background: var(--yellow); color: #000; }
 
     .subject-bar { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,.4); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; margin-bottom: 12px; }
@@ -64,15 +64,16 @@
     .output.rtl-out { direction: rtl; text-align: right; }
     .output a { color: #0284c7; }
 
-    .copy-fab {
-      position: fixed; bottom: 22px; inset-inline-end: 22px; z-index: 60;
-      border: none; border-radius: 99px; padding: 14px 26px; font-family: inherit; font-weight: 900; font-size: 14px;
-      background: #fff; color: #000; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,.6), 0 0 0 2px var(--yellow);
+    .copy-btn {
+      width: 100%; border: none; border-radius: 12px; padding: 12px 20px; font-family: inherit; font-weight: 900; font-size: 14px;
+      background: linear-gradient(135deg, var(--yellow), #e8d900); color: #000; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(254,238,0,.2);
       transition: .25s;
     }
-    .copy-fab:hover { transform: scale(1.05); background: var(--yellow); }
+    .copy-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(254,238,0,.35); }
+    .copy-btn:active { transform: scale(.98); }
     @keyframes copiedPulse { 0% { box-shadow: 0 0 0 0 rgba(52,211,153,.7);} 100% { box-shadow: 0 0 0 18px rgba(52,211,153,0);} }
-    .copy-fab.copied { background: var(--ok); color: #000; animation: copiedPulse .6s ease; }
+    .copy-btn.copied { background: var(--ok) !important; color: #000 !important; animation: copiedPulse .6s ease; }
 
     .camp-item { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,.35); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; }
     .camp-item .nm { flex: 1; font-weight: 800; font-size: 13.5px; }
@@ -195,14 +196,15 @@
       <div class="tabs">
         <button class="tab active" onclick="switchOut('email-en',this)">Email EN</button>
         <button class="tab" onclick="switchOut('email-ar',this)">Email AR</button>
-        <button class="tab" onclick="switchOut('brief-en',this)">Brief EN</button>
-        <button class="tab" onclick="switchOut('brief-ar',this)">Brief AR</button>
+        <button class="tab" onclick="switchOut('brief-en',this)">Brief With Brand Guidelines EN</button>
+        <button class="tab" onclick="switchOut('brief-ar',this)">Brief With Brand Guidelines AR</button>
       </div>
+      <button class="copy-btn" id="copyFab" style="margin-bottom:12px;" onclick="copyCurrent(this)">📋 نسخ المحتوى المعروض</button>
       <div class="output" id="out-email-en"></div>
       <div class="output rtl-out" id="out-email-ar" style="display:none" dir="rtl"></div>
       <div class="output" id="out-brief-en" style="display:none"></div>
       <div class="output rtl-out" id="out-brief-ar" style="display:none" dir="rtl"></div>
-      <button class="copy-fab" id="copyFab" onclick="copyCurrent(this)">📋 نسخ المحتوى المعروض</button>
+      <button class="copy-btn" id="copyFabBottom" style="margin-top:12px;" onclick="copyCurrent(this)">📋 نسخ المحتوى المعروض</button>
     </div>
   </div>
 </div>
@@ -798,7 +800,7 @@ function copyRich(el, btn) {
 function flash(btn, txt) {
   var old = btn.textContent;
   btn.textContent = txt;
-  if (btn.classList.contains('copy-fab')) {
+  if (btn.classList.contains('copy-fab') || btn.classList.contains('copy-btn')) {
     btn.classList.add('copied');
     setTimeout(function () { btn.classList.remove('copied'); btn.textContent = old; }, 1800);
   } else {
