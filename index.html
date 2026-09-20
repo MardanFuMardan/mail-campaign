@@ -800,6 +800,8 @@ function buildEmail(c, I, phase, dis, l) {
       (l === 'ar' ? 'يُرجى قراءة الملف التالي (باللغة الإنجليزية) بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:' : 'Please read the full detailed brief carefully before filming to understand all guidelines and messaging:') + '<br>👉 <a href="' + c.briefUrl + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickTxt + '</a></div>';
   }
 
+  var portalLink = (c.portalUrl || 'https://noon-invoice.vercel.app/') + (c.monthEn ? ((c.portalUrl || '').indexOf('?') === -1 ? '?' : '&') + 'month=' + encodeURIComponent(c.monthEn) : '');
+
   var o;
   if (l === 'ar') {
     o = '<strong>أهداف الحملة</strong><br>' + STATIC.objectivesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
@@ -811,7 +813,7 @@ function buildEmail(c, I, phase, dis, l) {
       '<strong>التسليم والجدول الزمني</strong><br>نحتاج إلى استلام الفيديو بحلول <strong>' + sub + '</strong> كحد أقصى، حيث سيتم النشر في <strong>' + live + '</strong>.<br>الموافقة النهائية مطلوبة قبل النشر.<br><br>' +
       briefBlock + '<br>' +
       '<strong>تفاصيل الدفع</strong><br>قيمة الحملة: <strong>' + fee + '</strong><br><br>سيتم تحويل المبلغ إلى حسابك البنكي خلال 30 يومًا من انتهاء الحملة.<br><br>' +
-      '<div style="background-color: #f0fdf4; padding: 12px; ' + rtl + ': 3px solid #22c55e; border-radius: 6px; margin: 16px 0;"><strong>🧾 الفاتورة المطلوبة:</strong><br>يُرجى إصدار فاتورتك عبر البورتال أدناه — سيتم توليد ملف الـ PDF وتسليمه لفريقنا تلقائياً، ويمكنك الاحتفاظ بنسخة من الفاتورة:<br>🔗 <a href="' + c.portalUrl + '" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">بورتال فواتير نون</a></div><br>' +
+      '<div style="background-color: #f0fdf4; padding: 12px; ' + rtl + ': 3px solid #22c55e; border-radius: 6px; margin: 16px 0;"><strong>🧾 الفاتورة المطلوبة:</strong><br>يُرجى إصدار فاتورتك عبر البورتال أدناه — سيتم توليد ملف الـ PDF وتسليمه لفريقنا تلقائياً، ويمكنك الاحتفاظ بنسخة من الفاتورة:<br>🔗 <a href="' + portalLink + '" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">بورتال فواتير نون</a></div><br>' +
       '<strong>ملاحظات هامة ومؤشرات الأداء (KPIs)</strong><br>' + STATIC.kpiAr.replace('{KPI}', kpiText(I.kpi, l)) + '<br><br>' +
       '<strong>الخطوات التالية</strong><br>يُرجى تأكيد مدى توفرك واهتمامك بالمشاركة في هذه الحملة.<br><br>إذا كان لديك أي أسئلة، لا تتردد في التواصل معنا، نحن متحمسون لرؤية إبداعك في هذه الحملة.<br><br>مع خالص التحيات،<br><strong>' + I.sender + '</strong><br>فريق تسويق نون';
   } else {
@@ -824,7 +826,7 @@ function buildEmail(c, I, phase, dis, l) {
       '<strong>Submission & Timeline</strong><br>We need the video by <strong>' + sub + '</strong> at the latest, as the post will go live on <strong>' + live + '</strong>.<br>Final approval is required before posting.<br><br>' +
       briefBlock + '<br>' +
       '<strong>Payment Details</strong><br>Campaign fee: <strong>' + fee + '</strong><br><br>The payment will be transferred to your bank account within 30 days after the campaign ends.<br><br>' +
-      '<div style="background-color: #f0fdf4; padding: 12px; ' + rtl + ': 3px solid #22c55e; border-radius: 6px; margin: 16px 0;"><strong>🧾 Invoice Submission:</strong><br>Please generate your invoice through our portal below — your PDF is created and delivered to our team automatically, and you keep a copy:<br>🔗 <a href="' + c.portalUrl + '" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">noon Invoice Portal</a></div><br>' +
+      '<div style="background-color: #f0fdf4; padding: 12px; ' + rtl + ': 3px solid #22c55e; border-radius: 6px; margin: 16px 0;"><strong>🧾 Invoice Submission:</strong><br>Please generate your invoice through our portal below — your PDF is created and delivered to our team automatically, and you keep a copy:<br>🔗 <a href="' + portalLink + '" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">noon Invoice Portal</a></div><br>' +
       '<strong>Notes & KPIs</strong><br>' + STATIC.kpiEn.replace('{KPI}', kpiText(I.kpi, l)) + '<br><br>' +
       '<strong>Next Steps</strong><br>Please confirm your availability and interest in participating in this campaign.<br><br>If you have any questions, feel free to reach out, we\'d love to see your creative take on this campaign.<br><br>Best regards,<br><strong>' + I.sender + '</strong><br>noon Marketing Team';
   }
