@@ -139,6 +139,10 @@
           </div>
         </div>
 
+        <div id="bahrainNotice" style="display:none; background:rgba(254,240,138,0.12); border:1px solid rgba(250,204,21,0.4); border-radius:8px; padding:9px 12px; margin-bottom:12px; font-size:12px; color:#fef08a; line-height:1.5;">
+          🚨 <strong>خاص بالبحرين:</strong> تم تفعيل تفاصيل فعالية <strong>Spot The Bag (#SpotTheNoonBag)</strong> تلقائياً في الإيميل والبريف (25-26 سبتمبر).
+        </div>
+
         <label>المرحلة (Phase)</label>
         <select id="selectedPhase" onchange="render()"></select>
 
@@ -634,6 +638,9 @@ function onCountryChange() {
   var cur = $('discountCode').value.trim();
   var def = defaultCodeFor($('country').value, c);
   if (!cur || cur === def || cur === 'FIRST20' || cur === 'PROMO15' || cur === 'PROMO10') $('discountCode').value = def;
+  var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
+  var bNot = $('bahrainNotice');
+  if (bNot) bNot.style.display = ($('country').value === 'BH' && isSep) ? 'block' : 'none';
   render();
 }
 
@@ -643,6 +650,10 @@ function render(force) {
   var I = getInputs();
   var dis = c.countryDiscounts[I.country] || {};
   var phase = c.phases[I.phaseIx] || c.phases[0];
+
+  var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
+  var bNot = $('bahrainNotice');
+  if (bNot) bNot.style.display = (I.country === 'BH' && isSep) ? 'block' : 'none';
 
   updateSubject(c, I);
   // EMAIL EN
@@ -690,6 +701,80 @@ function discountBox(dis, code, l) {
     '</div>';
 }
 
+function spotTheBagBox(c, I, l) {
+  var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || 
+              (c && c.id === 'sep2026') || 
+              (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
+  if (I.country !== 'BH' || !isSep) return '';
+  var rtl = l === 'ar' ? 'border-right' : 'border-left';
+
+  if (l === 'ar') {
+    return '<div style="background-color: #fefce8; ' + rtl + ': 4px solid #eab308; padding: 16px; border-radius: 8px; margin: 18px 0;">' +
+      '<div style="color: #854d0e; font-size: 14.5px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
+      '<span>🚨</span> تحديث هام وإلزامي (خاص بمملكة البحرين) — فعالية SPOT THE BAG (#SpotTheNoonBag)' +
+      '</div>' +
+      '<div style="font-size: 13.5px; color: #713f12; line-height: 1.6; margin-bottom: 12px;">' +
+      '<strong>فعالية ميدانية كبرى في البحرين:</strong> كجزء استثنائي وهام من الحملة في البحرين، ستقوم نون باجتياح أشهر وأكبر المولات بـ <strong>20 مروّجاً (Ushers) يحملون أكياس نون صفراء عملاقة</strong> عليها كود QR ضخم في الخلف. المطلوب منك تحفيز وتحدي جمهورك للبحث عنهم وتتبعهم في المولات للدخول في سحب رسمي للفوز بجهاز <strong>iPhone 18 Pro</strong> جديد!' +
+      '</div>' +
+      '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
+      '<strong style="color: #b45309;">🎯 فكرة الفعالية — لعبة مطاردة وبحث واقعية في المولات (Scavenger Hunt):</strong><br>' +
+      'مروّجون يحملون أكياس تسوق نون ضخمة مزودة بكود QR عملاق في الظهر، سيتجولون في المولات الأكثر ازدحاماً. أي شخص يلمح الكيس ويمسح الكود بكاميرا الموبايل يدخل السحب على جهاز iPhone 18 Pro جديد.<br>' +
+      '<strong>الشعار الأساسي للحملة:</strong> <span style="background: #fef08a; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">"دوّر على الكيس.. امسح الكود.. واكسب آيفون!"</span>' +
+      '</div>' +
+      '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
+      '<strong style="color: #b45309;">📦 المخرجات المطلوبة من المؤثر (إلزامية):</strong><br>' +
+      '• <strong>1x فيديو ريلز / تيك توك (Reel / TikTok):</strong> نداء حماسي وتشويقي عالي الطاقة للإعلان عن اجتياح نون للمولات، مع ذكر أسماء المولات وتشجيع المتابعين وتحديهم للنزول والبحث عن الأكياس.<br>' +
+      '• <strong>1x ستوري يوم الفعالية (Story Post):</strong> نشر تغطية مباشرة وإعادة نشر (Repost) لفيديوهات وتفاعل المتابعين أثناء رصدهم للأكياس في المولات لزيادة التفاعل والحماس.' +
+      '</div>' +
+      '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
+      '<strong style="color: #b45309;">🗣️ نقاط الحديث الأساسية (Key Talking Points):</strong><br>' +
+      '• لاحظوا ودوّروا على أكياس نون الصفراء العملاقة المتجولة في <strong>[مول 1، مول 2، مول 3]</strong>.<br>' +
+      '• امسحوا كود الـ QR على الكيس للدخول في سحب هدية <strong>iPhone 18 Pro</strong>.<br>' +
+      '• استخدموا الهاشتاق الرسمي <strong>#SpotTheNoonBag</strong> واعملوا منشن لحساب نون البحرين <strong>@noon.bahr</strong> في كل تغطياتكم.' +
+      '</div>' +
+      '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; font-size: 12.5px; color: #1f2937; line-height: 1.6;">' +
+      '<strong style="color: #b45309;">📍 تفاصيل الفعالية:</strong><br>' +
+      '• <strong>الدولة:</strong> البحرين 🇧🇭<br>' +
+      '• <strong>التاريخ:</strong> 25 و 26 سبتمبر 2026<br>' +
+      '• <strong>الأماكن:</strong> [مول 1، مول 2، مول 3] — <em>(في انتظار التأكيد النهائي للتراخيص الحكومية وسيتم مشاركة الأسماء فوراً)</em>.<br>' +
+      '• <strong>التوقيت:</strong> سيتم تأكيده ومشاركته قبل موعد الانطلاق.' +
+      '</div>' +
+      '</div>';
+  }
+
+  return '<div style="background-color: #fefce8; ' + rtl + ': 4px solid #eab308; padding: 16px; border-radius: 8px; margin: 18px 0;">' +
+    '<div style="color: #854d0e; font-size: 14.5px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
+    '<span>🚨</span> IMPORTANT UPDATE (BAHRAIN ONLY) — SPOT THE BAG CAMPAIGN (#SpotTheNoonBag)' +
+    '</div>' +
+    '<div style="font-size: 13.5px; color: #713f12; line-height: 1.6; margin-bottom: 12px;">' +
+    '<strong>Special On-Ground Activation in Bahrain:</strong> noon is taking over Bahrain\'s top malls with <strong>20 ushers carrying giant yellow noon bags</strong>, and we need you to challenge your audience to track them down for a chance to win a brand-new <strong>iPhone 18 Pro</strong>!' +
+    '</div>' +
+    '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
+    '<strong style="color: #b45309; text-transform: uppercase;">🎯 The Concept — Real-World Scavenger Hunt:</strong><br>' +
+    'Promoters carrying oversized noon shopping bags with a giant QR code on the back will be roaming high-traffic malls. Anyone who finds a bag and scans the code enters the official draw for a brand-new iPhone 18 Pro.<br>' +
+    '<strong>Primary Slogan:</strong> <span style="background: #fef08a; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">"Find the bag. Scan the code. Win an iPhone!"</span>' +
+    '</div>' +
+    '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
+    '<strong style="color: #b45309; text-transform: uppercase;">📦 Mandatory Influencer Deliverables:</strong><br>' +
+    '• <strong>1x Reel / TikTok Video:</strong> Post a high-energy call-out teasing the takeover. Tell your followers which malls the ushers are in and urge them to go hunting.<br>' +
+    '• <strong>1x Story Post (Day of Event):</strong> Share real-time updates or repost follower sightings to keep the buzz alive.' +
+    '</div>' +
+    '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
+    '<strong style="color: #b45309; text-transform: uppercase;">🗣️ Key Talking Points:</strong><br>' +
+    '• Spot the giant yellow noon bags roaming <strong>[Mall 1, Mall 2, Mall 3]</strong>.<br>' +
+    '• Scan the QR code on the bag and enter the draw to win an <strong>iPhone 18 Pro</strong> giveaway.<br>' +
+    '• Use the official hashtag <strong>#SpotTheNoonBag</strong> in your sightings and tag <strong>@noon.bahr</strong>.' +
+    '</div>' +
+    '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; font-size: 12.5px; color: #1f2937; line-height: 1.6;">' +
+    '<strong style="color: #b45309; text-transform: uppercase;">📍 Event Details:</strong><br>' +
+    '• <strong>Country:</strong> Bahrain 🇧🇭<br>' +
+    '• <strong>Date:</strong> 25th & 26th September, 2026<br>' +
+    '• <strong>Locations:</strong> [Mall 1, Mall 2, Mall 3] — <em>Awaiting final confirmation from government bodies regarding permissions (exact mall names will be shared ASAP)</em>.<br>' +
+    '• <strong>Timing:</strong> Awaited (will be confirmed prior to activation).' +
+    '</div>' +
+    '</div>';
+}
+
 function buildEmail(c, I, phase, dis, l) {
   var inf = I.name || (l === 'ar' ? '[الاسم]' : '[Name]');
   var sub = dateStr(I.subDay, I.subMonth, l);
@@ -720,6 +805,7 @@ function buildEmail(c, I, phase, dis, l) {
     o = '<strong>أهداف الحملة</strong><br>' + STATIC.objectivesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>مرحلة الحملة المخصصة لك</strong><br>' + phaseBox(phase, l) + '<br>' +
       discountBox(dis, I.code, l) + '<br>' +
+      spotTheBagBox(c, I, l) +
       '<strong>إرشادات المحتوى والعناصر الإلزامية</strong><br>' + STATIC.guidelinesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>المخرجات المطلوبة (Deliverables)</strong><br>• ريلز / فيديوهات قصيرة (التنسيق الأساسي)<br>• ستوري داعمة لكل فيديو<br><br>' +
       '<strong>التسليم والجدول الزمني</strong><br>نحتاج إلى استلام الفيديو بحلول <strong>' + sub + '</strong> كحد أقصى، حيث سيتم النشر في <strong>' + live + '</strong>.<br>الموافقة النهائية مطلوبة قبل النشر.<br><br>' +
@@ -732,6 +818,7 @@ function buildEmail(c, I, phase, dis, l) {
     o = '<strong>Campaign Objectives</strong><br>' + STATIC.objectivesEn.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>Assigned Campaign Phase</strong><br>' + phaseBox(phase, l) + '<br>' +
       discountBox(dis, I.code, l) + '<br>' +
+      spotTheBagBox(c, I, l) +
       '<strong>Content Guidelines & Mandatory Elements</strong><br>' + STATIC.guidelinesEn.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>Deliverables</strong><br>• Reels / Short Videos (Primary Format)<br>• Stories supporting each video<br><br>' +
       '<strong>Submission & Timeline</strong><br>We need the video by <strong>' + sub + '</strong> at the latest, as the post will go live on <strong>' + live + '</strong>.<br>Final approval is required before posting.<br><br>' +
@@ -770,6 +857,7 @@ function buildBrief(c, I, phase, dis, l) {
       '<strong style="color:#0284c7; font-size:13px;">🏆 القاعدة الذهبية — كود الخصم إلزامي</strong><br><br>' +
       '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold;">كود الخصم</div><div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block;">' + code + '</div><div style="color:#9a3412; font-size:14px;"><strong>تفاصيل العرض:</strong><br>' + (dis.ar || '') + '</div></div>' +
       '<div style="color:#3f3f46; margin-top:8px; font-size:13px;"><em>' + STATIC.goldenRuleAr + '</em></div>' +
+      spotTheBagBox(c, I, l) +
       '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
       '<strong style="color:#0284c7; font-size:13px;">🎨 التوجيه الإبداعي وإرشادات المحتوى</strong><br><br>' +
       '<ul style="margin:0; padding-right:20px; color:#3f3f46; font-size:13px;">' + list(STATIC.creativeAr.map(function (b) { return b.replace('{ANGLES}', angles); })) + '</ul>' +
@@ -805,6 +893,7 @@ function buildBrief(c, I, phase, dis, l) {
     '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🏆 THE GOLDEN RULE — DISCOUNT CODE MANDATE</strong><br><br>' +
     '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold; text-transform:uppercase;">Discount Code</div><div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block;">' + code + '</div><div style="color:#9a3412; font-size:14px;"><strong>Offer Details:</strong><br>' + (dis.en || '') + '</div></div>' +
     '<div style="color:#3f3f46; margin-top:8px; font-size:13px;">' + STATIC.goldenRuleEn.replace(/\{CODE\}/g, code) + '</div>' +
+    spotTheBagBox(c, I, l) +
     '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
     '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🎨 CREATIVE DIRECTION & CONTENT GUIDELINES</strong><br><br>' +
     '<ul style="margin:0; padding-left:20px; color:#3f3f46; font-size:13px;">' + list(STATIC.creativeEn.map(function (b) { return b.replace('{ANGLES}', angles); })) + '</ul>' +
