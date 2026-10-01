@@ -931,6 +931,65 @@ function spotTheBagBox(c, I, l) {
     '</div>';
 }
 
+function collabAndHashtagsBox(c, I, l) {
+  var rtl = l === 'ar' ? 'border-right' : 'border-left';
+  var countryTagMap = {
+    QA: '@noon_Qar',
+    KW: '@noon_kuwt',
+    BH: '@noon_bahr',
+    OM: '@noon_Omn'
+  };
+  var countryNameMap = {
+    QA: { ar: 'قطر 🇶🇦', en: 'Qatar 🇶🇦' },
+    KW: { ar: 'الكويت 🇰🇼', en: 'Kuwait 🇰🇼' },
+    BH: { ar: 'البحرين 🇧🇭', en: 'Bahrain 🇧🇭' },
+    OM: { ar: 'عُمان 🇴🇲', en: 'Oman 🇴🇲' }
+  };
+  var cTag = countryTagMap[I.country] || '@noon';
+  var cName = countryNameMap[I.country] ? countryNameMap[I.country][l] : I.country;
+  var hashtags = c.hashtags || '#noon #HealthAndFitness #noonHome #noonBeauty';
+
+  if (l === 'ar') {
+    return '<div style="background-color: #f0fdf4; ' + rtl + ': 4px solid #16a34a; padding: 14px; border-radius: 8px; margin: 16px 0;">' +
+      '<div style="color: #15803d; font-size: 14px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
+      '<span>👥</span> الحسابات الإلزامية للمشاركة ودعوة التعاون (Mandatory Collab Accounts)' +
+      '</div>' +
+      '<div style="font-size: 13.5px; color: #166534; line-height: 1.7; margin-bottom: 10px;">' +
+      '<strong>يُرجى العلم أنه بالنسبة لأي حساب سيتم التعاون معه، يتوجب عليكم إرسال دعوة تعاون (Collab) إلى:</strong><br>' +
+      '• حساب الدولة الخاص بك (' + cName + '): <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">' + cTag + '</strong><br>' +
+      '• <strong>بالإضافة إلى إرسال دعوة تعاون (Collab) أيضاً وبشكل إلزامي إلى:</strong><br>' +
+      '&nbsp;&nbsp;&nbsp;1. حساب نون الأساسي: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon</strong><br>' +
+      '&nbsp;&nbsp;&nbsp;2. حساب نون الإمارات: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon_UAE</strong>' +
+      '</div>' +
+      '<div style="background: #ffffff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #14532d; line-height: 1.6;">' +
+      '<strong>📌 الهاشتاغات الإلزامية في الوصف (Mandatory Hashtags):</strong><br>' +
+      '<div style="margin: 4px 0; font-weight: 800; font-size: 13.5px; color: #047857; direction: ltr; text-align: right;">' + hashtags + '</div>' +
+      '<div style="font-size: 12px; color: #15803d; margin-top: 4px;">• يجب دمج الهاشتاغات الأساسية مع أي هاشتاغ خاص بالحملة الفرعية.</div>' +
+      '<div style="font-size: 12px; color: #15803d;">• <strong>متطلبات الوصف (Caption):</strong> يجب أن يظهر كود الخصم <strong>(' + I.code + ')</strong> بوضوح بالقرب من أعلى أو منتصف الوصف، وكذلك على الشاشة داخل الفيديو.</div>' +
+      '</div>' +
+      '</div>';
+  }
+
+  return '<div style="background-color: #f0fdf4; ' + rtl + ': 4px solid #16a34a; padding: 14px; border-radius: 8px; margin: 16px 0;">' +
+    '<div style="color: #15803d; font-size: 14px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
+    '<span>👥</span> Mandatory Collab Accounts' +
+    '</div>' +
+    '<div style="font-size: 13.5px; color: #166534; line-height: 1.7; margin-bottom: 10px;">' +
+    '<strong>Please note that for any collaboration post, you must send a Collab invite to:</strong><br>' +
+    '• Your country account (' + cName + '): <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">' + cTag + '</strong><br>' +
+    '• <strong>Plus, it is MANDATORY to also invite:</strong><br>' +
+    '&nbsp;&nbsp;&nbsp;1. Main noon account: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon</strong><br>' +
+    '&nbsp;&nbsp;&nbsp;2. noon UAE account: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon_UAE</strong>' +
+    '</div>' +
+    '<div style="background: #ffffff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #14532d; line-height: 1.6;">' +
+    '<strong>📌 Mandatory Caption Hashtags:</strong><br>' +
+    '<div style="margin: 4px 0; font-weight: 800; font-size: 13.5px; color: #047857; direction: ltr; text-align: left;">' + hashtags + '</div>' +
+    '<div style="font-size: 12px; color: #15803d; margin-top: 4px;">• Combine the 4 core hashtags with your assigned sub-campaign hashtag.</div>' +
+    '<div style="font-size: 12px; color: #15803d;">• <strong>Caption Requirement:</strong> The discount code <strong>(' + I.code + ')</strong> must clearly appear near the top/middle of your caption and on-screen in the video.</div>' +
+    '</div>' +
+    '</div>';
+}
+
 function buildEmail(c, I, phase, dis, l) {
   var inf = I.name || (l === 'ar' ? '[الاسم]' : '[Name]');
   var sub = dateStr(I.subDay, I.subMonth, l);
@@ -964,6 +1023,7 @@ function buildEmail(c, I, phase, dis, l) {
     o = '<strong>أهداف الحملة</strong><br>' + STATIC.objectivesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>مرحلة الحملة المخصصة لك</strong><br>' + phaseBox(phase, l) + '<br>' +
       discountBox(dis, I.code, l) + '<br>' +
+      collabAndHashtagsBox(c, I, l) +
       spotTheBagBox(c, I, l) +
       '<strong>إرشادات المحتوى والعناصر الإلزامية</strong><br>' + STATIC.guidelinesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>المخرجات المطلوبة (Deliverables)</strong><br>• ريلز / فيديوهات قصيرة (التنسيق الأساسي)<br>• ستوري داعمة لكل فيديو<br><br>' +
@@ -977,6 +1037,7 @@ function buildEmail(c, I, phase, dis, l) {
     o = '<strong>Campaign Objectives</strong><br>' + STATIC.objectivesEn.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>Assigned Campaign Phase</strong><br>' + phaseBox(phase, l) + '<br>' +
       discountBox(dis, I.code, l) + '<br>' +
+      collabAndHashtagsBox(c, I, l) +
       spotTheBagBox(c, I, l) +
       '<strong>Content Guidelines & Mandatory Elements</strong><br>' + STATIC.guidelinesEn.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>Deliverables</strong><br>• Reels / Short Videos (Primary Format)<br>• Stories supporting each video<br><br>' +
@@ -1033,9 +1094,7 @@ function buildBrief(c, I, phase, dis, l) {
       '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
       '<strong style="color:#0284c7; font-size:13px;">📄 ملف البريف الشامل (PDF)</strong><br><br>' +
       '<div style="color:#3f3f46; font-size:13px;">للاطلاع على البريف وموجز الحملة الرسمي بالكامل:<br>👉 <a href="' + (c.briefUrl || c.briefUrlAr || c.briefUrlEn) + '" target="_blank" style="color:#0284c7; text-decoration:none; font-weight:bold; border-bottom:1px solid #7dd3fc;">اضغط هنا لفتح ملف البريف (Google Drive)</a></div>' +
-      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-      '<strong style="color:#0284c7; font-size:13px;">📌 الهاشتاقات والتاج</strong><br><br>' +
-      '<div style="color:#3f3f46; font-size:13px;">• <strong>التاج والتعاون:</strong> ' + (dis.tag || '') + '<br>• <strong>الهاشتاقات:</strong> ' + hashtags + '</div>' +
+      collabAndHashtagsBox(c, I, l) +
       '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
       '<strong style="color:#0284c7; font-size:13px;">⏳ عملية المراجعة والموافقة</strong><br><br>' +
       '<ul style="margin:0; padding-right:20px; color:#3f3f46; font-size:13px;">' + list(STATIC.approvalAr) + '</ul>' +
@@ -1072,9 +1131,7 @@ function buildBrief(c, I, phase, dis, l) {
     '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
     '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">📄 FULL CAMPAIGN BRIEF (PDF)</strong><br><br>' +
     '<div style="color:#3f3f46; font-size:13px;">To view and review the complete official campaign brief:<br>👉 <a href="' + (c.briefUrl || c.briefUrlEn || c.briefUrlAr) + '" target="_blank" style="color:#0284c7; text-decoration:none; font-weight:bold; border-bottom:1px solid #7dd3fc;">Click Here to Open Campaign Brief (Google Drive)</a></div>' +
-    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">📌 HASHTAGS & TAGS</strong><br><br>' +
-    '<div style="color:#3f3f46; font-size:13px;">• <strong>Tag & Collab:</strong> ' + (dis.tag || '') + '<br>• <strong>Hashtags:</strong> ' + hashtags + '</div>' +
+    collabAndHashtagsBox(c, I, l) +
     '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
     '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">⏳ REVIEW & APPROVAL PROCESS</strong><br><br>' +
     '<ul style="margin:0; padding-left:20px; color:#3f3f46; font-size:13px;">' + list(STATIC.approvalEn) + '</ul>' +
