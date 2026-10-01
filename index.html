@@ -314,9 +314,160 @@ var COUNTRIES = { QA: 'Qatar', KW: 'Kuwait', BH: 'Bahrain', OM: 'Oman' };
 var MONTHS_AR = { '01':'يناير','02':'فبراير','03':'مارس','04':'أبريل','05':'مايو','06':'يونيو','07':'يوليو','08':'أغسطس','09':'سبتمبر','10':'أكتوبر','11':'نوفمبر','12':'ديسمبر' };
 var MONTHS_EN = { '01':'January','02':'February','03':'March','04':'April','05':'May','06':'June','07':'July','08':'August','09':'September','10':'October','11':'November','12':'December' };
 
-/* بيانات أغسطس المبدئية (من مولدات الشهور السابقة) */
+/* بيانات الحملات المبدئية */
 function seedCampaigns() {
-  return [{
+  return [
+  {
+    id: 'oct2026',
+    nameEn: 'Noon GCC October Campaign 2026',
+    nameAr: 'حملة نون لدول الخليج - شهر أكتوبر',
+    monthEn: 'October', monthAr: 'أكتوبر',
+    promoCode: 'PROMO15',
+    sender: 'Mahmoud',
+    briefUrl: 'https://drive.google.com/file/d/1gsl1X8Rp2QRt5Jh6KRnf2lVR_inbn_1A/view?usp=drive_link',
+    briefUrlEn: '',
+    briefUrlAr: '',
+    guideUrl: 'https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view',
+    portalUrl: 'https://noon-invoice.vercel.app/',
+    hashtags: '#noon #HealthAndFitness #noonHome #noonBeauty',
+    countryDiscounts: {
+      'QA': {
+        en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 75 QAR / equivalent)!',
+        ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري أو ما يعادله)!',
+        tag: '@noon_Qar (Mandatory Collab invite to @noon & @noon_UAE)'
+      },
+      'KW': {
+        en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 6 KWD / equivalent)!',
+        ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي أو ما يعادله)!',
+        tag: '@noon_kuwt (Mandatory Collab invite to @noon & @noon_UAE)'
+      },
+      'BH': {
+        en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 BHD / equivalent)!',
+        ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني أو ما يعادله)!',
+        tag: '@noon_bahr (Mandatory Collab invite to @noon & @noon_UAE)'
+      },
+      'OM': {
+        en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 OMR / equivalent)!',
+        ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني أو ما يعادله)!',
+        tag: '@noon_Omn (Mandatory Collab invite to @noon & @noon_UAE)'
+      }
+    },
+    phases: [
+      {
+        en: {
+          title: 'International Coffee Day',
+          date: 'October 1 – 3',
+          categories: 'Coffee Tools, Coffee Beans, Mugs, Barista Tools',
+          action: 'Start with a strong 3-sec hook (Health, Fitness, Beauty, or Home) • Morning wellness routine, coffee as a pre-workout energy drink, or organizing an aesthetic home coffee corner • Smooth transition to assigned SKUs • In-app walkthrough showing the International Coffee Day banner • CTA: Download noon app and use promo code PROMO15',
+          msg: 'Morning wellness routine, Pre-workout energy drink, Aesthetic home coffee corner'
+        },
+        ar: {
+          title: 'اليوم العالمي للقهوة',
+          date: '1 - 3 أكتوبر',
+          categories: 'أدوات القهوة، الحبوب، الأكواب، أدوات الباريستا',
+          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ (صحة أو لياقة أو جمال أو منزل) • روتين العافية الصباحي، القهوة كمشروب طاقة قبل التمارين، أو تنظيم ركن القهوة المنزلي الجمالي • الانتقال بسلاسة لاستعراض المنتجات المحددة (SKUs) • تسجيل شاشة يوضح النقر على بنر اليوم العالمي للقهوة بتطبيق نون • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
+          msg: 'روتين العافية الصباحي، القهوة كمشروب طاقة قبل التمارين، تنظيم ركن القهوة المنزلي الجمالي'
+        }
+      },
+      {
+        en: {
+          title: 'Grand Lifestyle Reset',
+          date: 'October 5 – 8',
+          categories: 'Home, Fashion, Lifestyle, Daily Essentials',
+          action: 'Start with a strong 3-sec hook (Home & Organization) • Full home reset and organization or creating a comfortable, aesthetic living space • Smooth transition to assigned SKUs • In-app walkthrough showing the Grand Lifestyle Reset banner • CTA: Download noon app and use promo code PROMO15',
+          msg: 'Full home reset & organization, Comfortable & aesthetic living space'
+        },
+        ar: {
+          title: 'إعادة ضبط أسلوب الحياة الكبير',
+          date: '5 - 8 أكتوبر',
+          categories: 'المنزل، الموضة، أسلوب الحياة، المستلزمات اليومية',
+          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ (تنظيم وديكور المنزل) • إعادة ترتيب وتنظيم المنزل بالكامل أو تنسيق مساحة معيشة مريحة وجمالية • الانتقال بسلاسة لاستعراض المنتجات المحددة (SKUs) • تسجيل شاشة يوضح النقر على بنر إعادة ضبط أسلوب الحياة الكبير • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
+          msg: 'إعادة ترتيب وتنظيم المنزل بالكامل، تنسيق مساحة معيشة مريحة وجمالية'
+        }
+      },
+      {
+        en: {
+          title: 'Mega Tech Sale',
+          date: 'October 16 – 19',
+          categories: 'Electronics, Laptops, TV & Appliances, Gaming, Telco & Smart Tech',
+          action: 'Start with a strong 3-sec hook • Smart home & aesthetic tech essentials, beauty tech devices, or fitness/sports tech • Smooth transition to assigned tech SKUs • In-app walkthrough showing the Mega Tech Sale banner • CTA: Download noon app and use promo code PROMO15',
+          msg: 'Smart home & aesthetic gadgets, Beauty devices, Fitness & sports tech'
+        },
+        ar: {
+          title: 'تخفيضات التكنولوجيا الكبرى',
+          date: '16 - 19 أكتوبر',
+          categories: 'الإلكترونيات، اللابتوبات، التلفزيون والأجهزة، الألعاب، الذكاء والاتصالات',
+          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ • مستلزمات المنزل والجماليات الذكية، أجهزة التجميل، أو التكنولوجيا الرياضية • الانتقال بسلاسة لاستعراض المنتجات المحددة (SKUs) • تسجيل شاشة يوضح النقر على بنر تخفيضات التكنولوجيا الكبرى • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
+          msg: 'مستلزمات المنزل والجماليات الذكية، أجهزة التجميل، التكنولوجيا الرياضية'
+        }
+      },
+      {
+        en: {
+          title: "Omani Woman's Day",
+          date: 'October 16 – 17',
+          categories: "Women's Fashion, Beauty, Luxury Fragrances, Gift Sets",
+          action: 'Start with a strong 3-sec hook • Celebrating active & elegant Omani women with luxury looks, luxury perfumes, elegant home decor, or pampering and wellness ideas • Showcase assigned SKUs • In-app banner walkthrough • CTA: Download noon app and use promo code PROMO15',
+          msg: 'Celebrating active & elegant women, Luxury looks & perfumes, Pampering & wellness ideas'
+        },
+        ar: {
+          title: 'يوم المرأة العمانية',
+          date: '16 - 17 أكتوبر',
+          categories: 'الأزياء النسائية، الجمال، العطور الفاخرة، مجموعات الهدايا',
+          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ • الاحتفاء بالمرأة العمانية النشطة والأنيقة بإطلالات فاخرة، عطور وديكورات المنزل الراقية، أو أفكار تدليل الصحة والعافية والرياضة • استعراض المنتجات المحددة (SKUs) • تسجيل شاشة يوضح بنر الفعالية بتطبيق نون • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
+          msg: 'الاحتفاء بالمرأة النشطة والأنيقة، إطلالات وعطور فاخرة، أفكار تدليل الصحة والعافية والرياضة'
+        }
+      },
+      {
+        en: {
+          title: 'Payweek Sale',
+          date: 'October 24 – 31',
+          categories: 'Site-wide Multi-category Deals (Fashion, Tech, Home, Beauty)',
+          action: 'Start with a strong 3-sec hook • Vanity table & beauty upgrades or wellness & fitness supplements • Showcase assigned SKUs across site-wide deals • In-app walkthrough showing the Payweek Sale banner • CTA: Download noon app and use promo code PROMO15',
+          msg: 'Vanity table & beauty upgrade, Wellness & fitness supplements, Payweek best deals'
+        },
+        ar: {
+          title: 'تخفيضات أسبوع الرواتب',
+          date: '24 - 31 أكتوبر',
+          categories: 'عروض شاملة لعدة فئات على مستوى الموقع (الموضة، التكنولوجيا، المنزل، الجمال)',
+          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ • ترقية طاولة الزينة والتجميل أو مكملات العافية واللياقة البدنية • استعراض المنتجات المحددة (SKUs) مع عروض نهاية الشهر • تسجيل شاشة يوضح النقر على بنر تخفيضات أسبوع الرواتب • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
+          msg: 'ترقية طاولة الزينة والتجميل، مكملات العافية واللياقة البدنية، أفضل عروض أسبوع الرواتب'
+        }
+      },
+      {
+        en: {
+          title: 'Breast Cancer Awareness Month',
+          date: 'October 1 – 31',
+          categories: "Wellness, Self-Care, Women's Care & Fitness",
+          action: "Start with a strong 3-sec hook • Highlighting holistic women's health, skincare routines, or active fitness and wellness habits • Showcase assigned wellness SKUs • In-app walkthrough to the campaign page • CTA: Download noon app and use promo code PROMO15",
+          msg: "Holistic women's health, Skincare routines, Active fitness & wellness habits"
+        },
+        ar: {
+          title: 'شهر التوعية بسرطان الثدي',
+          date: '1 - 31 أكتوبر',
+          categories: 'العافية، العناية الذاتية، العناية بالمرأة واللياقة',
+          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ • تسليط الضوء على الصحة الشاملة للمرأة، روتينات العناية بالبشرة، أو عادات اللياقة والعافية النشطة • استعراض منتجات العناية والعافية المحددة (SKUs) • تسجيل شاشة لبنر وصفحة الحملة بالتطبيق • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
+          msg: 'الصحة الشاملة للمرأة، روتينات العناية بالبشرة، عادات اللياقة والعافية النشطة'
+        }
+      },
+      {
+        en: {
+          title: 'Halloween Page',
+          date: 'October 1 – 31',
+          categories: 'Costumes, Party Supplies, Spooky Decor, Treats & Accessories',
+          action: 'Start with a strong 3-sec hook • Spooky makeup & beauty transformations, aesthetic Halloween home decor, or preparing healthy low-sugar fitness treats • Showcase assigned Halloween SKUs • In-app walkthrough to the Halloween banner/page • CTA: Download noon app and use promo code PROMO15',
+          msg: 'Spooky makeup & beauty transformations, Aesthetic Halloween home decor, Healthy low-sugar fitness treats'
+        },
+        ar: {
+          title: 'صفحة الهالوين',
+          date: '1 - 31 أكتوبر',
+          categories: 'الأزياء، مستلزمات الحفلات، الديكورات المرعبة، الحلويات والإكسسوارات',
+          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ • تحولات المكياج والجمال المخيف، تجديد ديكور المنزل الجمالي للهالوين، أو تحضير أطباق صحية وقليلة السكر تناسب أسلوب الحياة الرياضي • استعراض منتجات الهالوين المحددة (SKUs) • تسجيل شاشة لصفحة الهالوين بالتطبيق • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
+          msg: 'تحولات المكياج والجمال المخيف، تجديد ديكور المنزل الجمالي للهالوين، تحضير أطباق صحية وقليلة السكر'
+        }
+      }
+    ]
+  },
+  {
     id: 'sep2026',
     nameEn: 'Noon GCC September Campaign 2026',
     nameAr: 'حملة نون لدول الخليج - شهر سبتمبر',
@@ -421,11 +572,11 @@ function loadCampaigns() {
     var raw = localStorage.getItem(STORE_KEY);
     if (raw) {
       var list = JSON.parse(raw);
-      /* ترحيل: أضف الحملات المثبتة الجديدة اللي مش موجودة عند المستخدم */
+      /* ترحيل: أضف الحملات المثبتة الجديدة في بداية القائمة */
       var seeds = seedCampaigns();
       var changed = false;
       seeds.forEach(function (s) {
-        if (!list.some(function (c) { return c.id === s.id; })) { list.push(s); changed = true; }
+        if (!list.some(function (c) { return c.id === s.id; })) { list.unshift(s); changed = true; }
       });
       if (changed) { saveCampaigns(list); }
       return list;
@@ -542,7 +693,11 @@ function fillCampaignSelect() {
   sel.innerHTML = vis.map(function (c) {
     return '<option value="' + c.id + '">' + esc(c.nameEn) + '</option>';
   }).join('');
-  if (vis.some(function (c) { return c.id === cur; })) sel.value = cur;
+  if (cur && vis.some(function (c) { return c.id === cur; })) {
+    sel.value = cur;
+  } else if (vis.some(function (c) { return c.id === 'oct2026'; })) {
+    sel.value = 'oct2026';
+  }
   onCampaignChange(true);
 }
 
@@ -552,8 +707,9 @@ function fillMonthSelects() {
   }).join('');
   $('subMonth').innerHTML = opts;
   $('liveMonth').innerHTML = opts;
-  $('subMonth').value = '08';
-  $('liveMonth').value = '08';
+  var curM = ('0' + (new Date().getMonth() + 1)).slice(-2);
+  $('subMonth').value = (curM === '10' || curM === '09') ? curM : '10';
+  $('liveMonth').value = (curM === '10' || curM === '09') ? curM : '10';
 }
 
 function onCampaignChange(keep) {
@@ -781,10 +937,10 @@ function buildEmail(c, I, phase, dis, l) {
   var live = dateStr(I.liveDay, I.liveMonth, l);
   var fee = I.fee ? I.fee + ' AED' : (l === 'ar' ? '[المبلغ] AED' : '[Fee] AED');
   var briefTxt = l === 'ar' ? 'الدليل الإرشادي الشامل (Brief)' : 'Full Campaign Brief';
-  var clickTxt = l === 'ar' ? 'اضغط هنا لبريف حملة ' + c.monthAr : 'Click Here for the ' + c.monthEn + ' Campaign Brief';
+  var clickTxt = l === 'ar' ? 'اضغط هنا لفتح بريف حملة ' + c.monthAr : 'Click Here for the ' + c.monthEn + ' Campaign Brief';
   var rtl = l === 'ar' ? 'border-right' : 'border-left';
 
-  var hasDualBrief = !!(c.briefUrlEn && c.briefUrlAr);
+  var hasDualBrief = !!(c.briefUrlEn && c.briefUrlAr && c.briefUrlEn !== c.briefUrlAr);
   var briefBlock;
   if (hasDualBrief) {
     var lblEn = l === 'ar' ? 'البريف بالإنجليزية (Brief EN)' : 'English Brief (EN)';
@@ -796,8 +952,9 @@ function buildEmail(c, I, phase, dis, l) {
       '👉 <a href="' + c.briefUrlEn + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickEn + ' — ' + lblEn + '</a><br><br>' +
       '👉 <a href="' + c.briefUrlAr + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickAr + ' — ' + lblAr + '</a></div>';
   } else {
+    var singleBriefUrl = c.briefUrl || c.briefUrlAr || c.briefUrlEn;
     briefBlock = '<div style="background-color: #f8fafc; padding: 12px; ' + rtl + ': 3px solid #64748b; border-radius: 6px; margin: 16px 0;"><strong>🔗 ' + briefTxt + ':</strong><br>' +
-      (l === 'ar' ? 'يُرجى قراءة الملف التالي (باللغة الإنجليزية) بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:' : 'Please read the full detailed brief carefully before filming to understand all guidelines and messaging:') + '<br>👉 <a href="' + c.briefUrl + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickTxt + '</a></div>';
+      (l === 'ar' ? 'يُرجى قراءة ملف البريف الإرشادي التالي بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:' : 'Please read the full detailed brief carefully before filming to understand all guidelines and messaging:') + '<br>👉 <a href="' + singleBriefUrl + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickTxt + '</a></div>';
   }
 
   var portalLink = (c.portalUrl || 'https://noon-invoice.vercel.app/') + (c.monthEn ? ((c.portalUrl || '').indexOf('?') === -1 ? '?' : '&') + 'month=' + encodeURIComponent(c.monthEn) : '');
@@ -872,7 +1029,10 @@ function buildBrief(c, I, phase, dis, l) {
       '<div style="color:#3f3f46; font-size:13px;">' + STATIC.typographyAr + '</div>' +
       '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
       '<strong style="color:#0284c7; font-size:13px;">🎬 شاهد قبل التصوير</strong><br><br>' +
-      '<div style="color:#3f3f46; font-size:13px;">لضمان قبول الفيديو من أول مسودة، لازم تشوف دليل "افعل ولا تفعل":<br>👉 <a href="' + c.guideUrl + '">اضغط هنا لمشاهدة الدليل الإبداعي</a></div>' +
+      '<div style="color:#3f3f46; font-size:13px;">لضمان قبول الفيديو من أول مسودة، لازم تشوف دليل "افعل ولا تفعل":<br>👉 <a href="' + c.guideUrl + '" target="_blank">اضغط هنا لمشاهدة الدليل الإبداعي</a></div>' +
+      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+      '<strong style="color:#0284c7; font-size:13px;">📄 ملف البريف الشامل (PDF)</strong><br><br>' +
+      '<div style="color:#3f3f46; font-size:13px;">للاطلاع على البريف وموجز الحملة الرسمي بالكامل:<br>👉 <a href="' + (c.briefUrl || c.briefUrlAr || c.briefUrlEn) + '" target="_blank" style="color:#0284c7; text-decoration:none; font-weight:bold; border-bottom:1px solid #7dd3fc;">اضغط هنا لفتح ملف البريف (Google Drive)</a></div>' +
       '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
       '<strong style="color:#0284c7; font-size:13px;">📌 الهاشتاقات والتاج</strong><br><br>' +
       '<div style="color:#3f3f46; font-size:13px;">• <strong>التاج والتعاون:</strong> ' + (dis.tag || '') + '<br>• <strong>الهاشتاقات:</strong> ' + hashtags + '</div>' +
@@ -908,7 +1068,10 @@ function buildBrief(c, I, phase, dis, l) {
     '<div style="color:#3f3f46; font-size:13px;">' + STATIC.typographyEn + '</div>' +
     '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
     '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🎬 WATCH BEFORE FILMING</strong><br><br>' +
-    '<div style="color:#3f3f46; font-size:13px;">To ensure the video gets approved from the first draft, you must watch this "Do\'s & Don\'ts" guide:<br>👉 <a href="' + c.guideUrl + '">Click Here to Watch the Creative Guide</a></div>' +
+    '<div style="color:#3f3f46; font-size:13px;">To ensure the video gets approved from the first draft, you must watch this "Do\'s & Don\'ts" guide:<br>👉 <a href="' + c.guideUrl + '" target="_blank">Click Here to Watch the Creative Guide</a></div>' +
+    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">📄 FULL CAMPAIGN BRIEF (PDF)</strong><br><br>' +
+    '<div style="color:#3f3f46; font-size:13px;">To view and review the complete official campaign brief:<br>👉 <a href="' + (c.briefUrl || c.briefUrlEn || c.briefUrlAr) + '" target="_blank" style="color:#0284c7; text-decoration:none; font-weight:bold; border-bottom:1px solid #7dd3fc;">Click Here to Open Campaign Brief (Google Drive)</a></div>' +
     '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
     '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">📌 HASHTAGS & TAGS</strong><br><br>' +
     '<div style="color:#3f3f46; font-size:13px;">• <strong>Tag & Collab:</strong> ' + (dis.tag || '') + '<br>• <strong>Hashtags:</strong> ' + hashtags + '</div>' +

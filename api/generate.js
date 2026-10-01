@@ -56,10 +56,10 @@ function buildEmail(c, I, phase, dis, l, STATIC) {
   var live = dateStr(I.liveDay, I.liveMonth, l);
   var fee = I.fee ? I.fee + ' AED' : (l === 'ar' ? '[المبلغ] AED' : '[Fee] AED');
   var briefTxt = l === 'ar' ? 'الدليل الإرشادي الشامل (Brief)' : 'Full Campaign Brief';
-  var clickTxt = l === 'ar' ? 'اضغط هنا لبريف حملة ' + c.monthAr : 'Click Here for the ' + c.monthEn + ' Campaign Brief';
+  var clickTxt = l === 'ar' ? 'اضغط هنا لفتح بريف حملة ' + c.monthAr : 'Click Here for the ' + c.monthEn + ' Campaign Brief';
   var rtl = l === 'ar' ? 'border-right' : 'border-left';
 
-  var hasDualBrief = !!(c.briefUrlEn && c.briefUrlAr);
+  var hasDualBrief = !!(c.briefUrlEn && c.briefUrlAr && c.briefUrlEn !== c.briefUrlAr);
   var briefBlock;
   if (hasDualBrief) {
     var lblEn = l === 'ar' ? 'البريف بالإنجليزية (Brief EN)' : 'English Brief (EN)';
@@ -71,8 +71,9 @@ function buildEmail(c, I, phase, dis, l, STATIC) {
       '👉 <a href="' + c.briefUrlEn + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickEn + ' — ' + lblEn + '</a><br><br>' +
       '👉 <a href="' + c.briefUrlAr + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickAr + ' — ' + lblAr + '</a></div>';
   } else {
+    var singleBriefUrl = c.briefUrl || c.briefUrlAr || c.briefUrlEn;
     briefBlock = '<div style="background-color: #f8fafc; padding: 12px; ' + rtl + ': 3px solid #64748b; border-radius: 6px; margin: 16px 0;"><strong>🔗 ' + briefTxt + ':</strong><br>' +
-      (l === 'ar' ? 'يُرجى قراءة الملف التالي (باللغة الإنجليزية) بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:' : 'Please read the full detailed brief carefully before filming to understand all guidelines and messaging:') + '<br>👉 <a href="' + c.briefUrl + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickTxt + '</a></div>';
+      (l === 'ar' ? 'يُرجى قراءة ملف البريف الإرشادي التالي بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:' : 'Please read the full detailed brief carefully before filming to understand all guidelines and messaging:') + '<br>👉 <a href="' + singleBriefUrl + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickTxt + '</a></div>';
   }
 
   var o;
