@@ -286,7 +286,7 @@
    مولد واحد لكل الشهور + مدير حملات محفوظ محلياً
    ============================================================ */
 
-var STORE_KEY = 'noonCampaignHub_v1';
+var STORE_KEY = 'noonCampaignHub_v2';
 
 /* القيم الثابتة المتكررة في كل الحملات */
 var STATIC = {
@@ -334,22 +334,22 @@ function seedCampaigns() {
       'QA': {
         en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 75 QAR / equivalent)!',
         ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري أو ما يعادله)!',
-        tag: '@noon_Qar (Mandatory Collab invite to @noon & @noon_UAE)'
+        tag: '@noon_qar (Mandatory Collab invite to @noon & @noon_uae)'
       },
       'KW': {
         en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 6 KWD / equivalent)!',
         ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي أو ما يعادله)!',
-        tag: '@noon_kuwt (Mandatory Collab invite to @noon & @noon_UAE)'
+        tag: '@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)'
       },
       'BH': {
         en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 BHD / equivalent)!',
         ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني أو ما يعادله)!',
-        tag: '@noon_bahr (Mandatory Collab invite to @noon & @noon_UAE)'
+        tag: '@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)'
       },
       'OM': {
         en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 OMR / equivalent)!',
         ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني أو ما يعادله)!',
-        tag: '@noon_Omn (Mandatory Collab invite to @noon & @noon_UAE)'
+        tag: '@noon_omn (Mandatory Collab invite to @noon & @noon_uae)'
       }
     },
     phases: [
@@ -481,10 +481,10 @@ function seedCampaigns() {
     portalUrl: 'https://noon-invoice.vercel.app/',
     hashtags: '#noon #noonGCC #noonBeauty',
     countryDiscounts: {
-      'QA': { en: '<strong>Use code (FIRST20)</strong> for flat 20% off your first order on the noon app! (new customers)', ar: '<strong>استخدم كود (FIRST20)</strong> واحصل على خصم 20% على طلبك الأول من تطبيق نون! (للعملاء الجدد)', tag: '@noon_Qar' },
+      'QA': { en: '<strong>Use code (FIRST20)</strong> for flat 20% off your first order on the noon app! (new customers)', ar: '<strong>استخدم كود (FIRST20)</strong> واحصل على خصم 20% على طلبك الأول من تطبيق نون! (للعملاء الجدد)', tag: '@noon_qar' },
       'KW': { en: '<strong>Use code (FIRST20)</strong> for flat 20% off your first order on the noon app! (new customers)', ar: '<strong>استخدم كود (FIRST20)</strong> واحصل على خصم 20% على طلبك الأول من تطبيق نون! (للعملاء الجدد)', tag: '@noon_kuwt' },
-      'BH': { en: '<strong>Use code (PROMO15)</strong> for extra savings on your order!', ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!', tag: '@noon_bahr' },
-      'OM': { en: '<strong>Use code (PROMO15)</strong> for extra savings on your order!', ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!', tag: '@noon_Omn' }
+      'BH': { en: '<strong>Use code (PROMO15)</strong> for extra savings on your order!', ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!', tag: '@noon.bahr' },
+      'OM': { en: '<strong>Use code (PROMO15)</strong> for extra savings on your order!', ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!', tag: '@noon_omn' }
     },
     phases: [
       { en: { title: 'Grand Lifestyle Reset (Primary)', date: 'September 7', categories: 'Home, Fashion, Lifestyle, & Daily Essentials', action: 'Download the noon app • Show the Grand Lifestyle Reset campaign banner inside the app (screen recording) • Showcase provided SKUs alongside highlighted products from featured categories • Encourage users to explore the category through the banner • Promote the market-specific promo code', msg: 'September must-have picks featuring provided SKUs' },
@@ -513,10 +513,10 @@ function seedCampaigns() {
     portalUrl: 'https://noon-invoice.vercel.app/',
     hashtags: '#noon #noonGCC #GrandLifestyleReset #MegaTechFestival #BackToSchool #noonBeauty #noonFashion',
     countryDiscounts: {
-      'QA': { en: '<strong>New Users:</strong> 15% off up to 75 QAR<br><strong>Returning Users:</strong> 5% off up to 25 QAR', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 75 ريال قطري<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 25 ريال قطري', tag: '@noon_Qar' },
+      'QA': { en: '<strong>New Users:</strong> 15% off up to 75 QAR<br><strong>Returning Users:</strong> 5% off up to 25 QAR', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 75 ريال قطري<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 25 ريال قطري', tag: '@noon_qar' },
       'KW': { en: '<strong>New Users:</strong> 15% off up to 7 KWD<br><strong>Returning Users:</strong> 5% off up to 2 KWD', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7 دينار كويتي<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2 دينار كويتي', tag: '@noon_kuwt' },
-      'BH': { en: '<strong>New Users:</strong> 15% off up to 7.5 BHD<br><strong>Returning Users:</strong> 5% off up to 2.5 BHD', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 دينار بحريني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 دينار بحريني', tag: '@noon_bahr' },
-      'OM': { en: '<strong>New Users:</strong> 15% off up to 7.5 OMR<br><strong>Returning Users:</strong> 5% off up to 2.5 OMR', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 ريال عماني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 ريال عماني', tag: '@noon_Omn' }
+      'BH': { en: '<strong>New Users:</strong> 15% off up to 7.5 BHD<br><strong>Returning Users:</strong> 5% off up to 2.5 BHD', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 دينار بحريني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 دينار بحريني', tag: '@noon.bahr' },
+      'OM': { en: '<strong>New Users:</strong> 15% off up to 7.5 OMR<br><strong>Returning Users:</strong> 5% off up to 2.5 OMR', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 ريال عماني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 ريال عماني', tag: '@noon_omn' }
     },
     phases: [
       { en: { title: 'Grand Lifestyle Reset', date: 'August 7 – 10', categories: 'Home, Fashion, Lifestyle, & Daily Essentials', action: 'Download the noon app • Show the campaign banner inside the app (screen recording) • Highlight products from the featured categories • Encourage users to explore the category through the banner', msg: 'Must-have picks from this category, Daily routine using these products' },
@@ -547,10 +547,10 @@ function seedCampaigns() {
     portalUrl: 'https://noon-invoice.vercel.app/',
     hashtags: '#noon #noonGCC #PROMO10',
     countryDiscounts: {
-      'QA': { en: '10% off with code PROMO10 on stories & caption', ar: 'خصم 10% بكود PROMO10 في الستوري والكابشن', tag: '@noon_Qar' },
+      'QA': { en: '10% off with code PROMO10 on stories & caption', ar: 'خصم 10% بكود PROMO10 في الستوري والكابشن', tag: '@noon_qar' },
       'KW': { en: '10% off with code PROMO10 on stories & caption', ar: 'خصم 10% بكود PROMO10 في الستوري والكابشن', tag: '@noon_kuwt' },
-      'BH': { en: '10% off with code PROMO10 on stories & caption', ar: 'خصم 10% بكود PROMO10 في الستوري والكابشن', tag: '@noon_bahr' },
-      'OM': { en: '10% off with code PROMO10 on stories & caption', ar: 'خصم 10% بكود PROMO10 في الستوري والكابشن', tag: '@noon_Omn' }
+      'BH': { en: '10% off with code PROMO10 on stories & caption', ar: 'خصم 10% بكود PROMO10 في الستوري والكابشن', tag: '@noon.bahr' },
+      'OM': { en: '10% off with code PROMO10 on stories & caption', ar: 'خصم 10% بكود PROMO10 في الستوري والكابشن', tag: '@noon_omn' }
     },
     phases: [
       { en: { title: 'Grand Lifestyle Sale', date: 'April 12 – 13', categories: 'Home, Fashion, W&E, Footwear, Beauty, Fitness', action: 'Show the campaign banner • Feature products from the categories • Use code PROMO10 on stories & caption', msg: 'Grand sale picks, Everyday lifestyle essentials' },
@@ -569,14 +569,26 @@ function seedCampaigns() {
 
 function loadCampaigns() {
   try {
-    var raw = localStorage.getItem(STORE_KEY);
+    var raw = localStorage.getItem(STORE_KEY) || localStorage.getItem('noonCampaignHub_v1');
     if (raw) {
       var list = JSON.parse(raw);
-      /* ترحيل: أضف الحملات المثبتة الجديدة في بداية القائمة */
+      /* ترحيل: أضف الحملات المثبتة الجديدة أو حدث بيانات النظام الأساسية */
       var seeds = seedCampaigns();
       var changed = false;
       seeds.forEach(function (s) {
-        if (!list.some(function (c) { return c.id === s.id; })) { list.unshift(s); changed = true; }
+        var existingIdx = -1;
+        for (var i = 0; i < list.length; i++) {
+          if (list[i].id === s.id) { existingIdx = i; break; }
+        }
+        if (existingIdx === -1) {
+          list.unshift(s);
+          changed = true;
+        } else if (s.id === 'oct2026' || s.id === 'sep2026') {
+          list[existingIdx].countryDiscounts = s.countryDiscounts;
+          list[existingIdx].briefUrl = s.briefUrl;
+          list[existingIdx].hashtags = s.hashtags;
+          changed = true;
+        }
       });
       if (changed) { saveCampaigns(list); }
       return list;
@@ -934,10 +946,16 @@ function spotTheBagBox(c, I, l) {
 function collabAndHashtagsBox(c, I, l) {
   var rtl = l === 'ar' ? 'border-right' : 'border-left';
   var countryTagMap = {
-    QA: '@noon_Qar',
+    QA: '@noon_qar',
     KW: '@noon_kuwt',
-    BH: '@noon_bahr',
-    OM: '@noon_Omn'
+    BH: '@noon.bahr',
+    OM: '@noon_omn'
+  };
+  var countryUrlMap = {
+    QA: 'https://www.instagram.com/noon_qar/',
+    KW: 'https://www.instagram.com/noon_kuwt/',
+    BH: 'https://www.instagram.com/noon.bahr/',
+    OM: 'https://www.instagram.com/noon_omn/'
   };
   var countryNameMap = {
     QA: { ar: 'قطر 🇶🇦', en: 'Qatar 🇶🇦' },
@@ -946,6 +964,7 @@ function collabAndHashtagsBox(c, I, l) {
     OM: { ar: 'عُمان 🇴🇲', en: 'Oman 🇴🇲' }
   };
   var cTag = countryTagMap[I.country] || '@noon';
+  var cUrl = countryUrlMap[I.country] || 'https://www.instagram.com/noon/';
   var cName = countryNameMap[I.country] ? countryNameMap[I.country][l] : I.country;
   var hashtags = c.hashtags || '#noon #HealthAndFitness #noonHome #noonBeauty';
 
@@ -956,10 +975,10 @@ function collabAndHashtagsBox(c, I, l) {
       '</div>' +
       '<div style="font-size: 13.5px; color: #166534; line-height: 1.7; margin-bottom: 10px;">' +
       '<strong>يُرجى العلم أنه بالنسبة لأي حساب سيتم التعاون معه، يتوجب عليكم إرسال دعوة تعاون (Collab) إلى:</strong><br>' +
-      '• حساب الدولة الخاص بك (' + cName + '): <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">' + cTag + '</strong><br>' +
+      '• حساب الدولة الخاص بك (' + cName + '): <a href="' + cUrl + '" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">' + cTag + '</strong></a><br>' +
       '• <strong>بالإضافة إلى إرسال دعوة تعاون (Collab) أيضاً وبشكل إلزامي إلى:</strong><br>' +
-      '&nbsp;&nbsp;&nbsp;1. حساب نون الأساسي: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon</strong><br>' +
-      '&nbsp;&nbsp;&nbsp;2. حساب نون الإمارات: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon_UAE</strong>' +
+      '&nbsp;&nbsp;&nbsp;1. حساب نون الأساسي: <a href="https://www.instagram.com/noon/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon</strong></a><br>' +
+      '&nbsp;&nbsp;&nbsp;2. حساب نون الإمارات: <a href="https://www.instagram.com/noon_uae/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon_uae</strong></a>' +
       '</div>' +
       '<div style="background: #ffffff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #14532d; line-height: 1.6;">' +
       '<strong>📌 الهاشتاغات الإلزامية في الوصف (Mandatory Hashtags):</strong><br>' +
@@ -976,10 +995,10 @@ function collabAndHashtagsBox(c, I, l) {
     '</div>' +
     '<div style="font-size: 13.5px; color: #166534; line-height: 1.7; margin-bottom: 10px;">' +
     '<strong>Please note that for any collaboration post, you must send a Collab invite to:</strong><br>' +
-    '• Your country account (' + cName + '): <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">' + cTag + '</strong><br>' +
+    '• Your country account (' + cName + '): <a href="' + cUrl + '" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">' + cTag + '</strong></a><br>' +
     '• <strong>Plus, it is MANDATORY to also invite:</strong><br>' +
-    '&nbsp;&nbsp;&nbsp;1. Main noon account: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon</strong><br>' +
-    '&nbsp;&nbsp;&nbsp;2. noon UAE account: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon_UAE</strong>' +
+    '&nbsp;&nbsp;&nbsp;1. Main noon account: <a href="https://www.instagram.com/noon/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon</strong></a><br>' +
+    '&nbsp;&nbsp;&nbsp;2. noon UAE account: <a href="https://www.instagram.com/noon_uae/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon_uae</strong></a>' +
     '</div>' +
     '<div style="background: #ffffff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #14532d; line-height: 1.6;">' +
     '<strong>📌 Mandatory Caption Hashtags:</strong><br>' +

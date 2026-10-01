@@ -88,22 +88,22 @@
         "QA": {
           "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 75 QAR / equivalent)!",
           "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري أو ما يعادله)!",
-          "tag": "@noon_Qar (Mandatory Collab invite to @noon & @noon_UAE)"
+          "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
         },
         "KW": {
           "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 6 KWD / equivalent)!",
           "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي أو ما يعادله)!",
-          "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_UAE)"
+          "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
         },
         "BH": {
           "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 BHD / equivalent)!",
           "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني أو ما يعادله)!",
-          "tag": "@noon_bahr (Mandatory Collab invite to @noon & @noon_UAE)"
+          "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
         },
         "OM": {
           "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 OMR / equivalent)!",
           "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني أو ما يعادله)!",
-          "tag": "@noon_Omn (Mandatory Collab invite to @noon & @noon_UAE)"
+          "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
         }
       },
       "phases": [
@@ -239,7 +239,7 @@
         "QA": {
           "en": "<strong>Use code (FIRST20)</strong> for flat 20% off your first order on the noon app! (new customers)",
           "ar": "<strong>استخدم كود (FIRST20)</strong> واحصل على خصم 20% على طلبك الأول من تطبيق نون! (للعملاء الجدد)",
-          "tag": "@noon_Qar"
+          "tag": "@noon_qar"
         },
         "KW": {
           "en": "<strong>Use code (FIRST20)</strong> for flat 20% off your first order on the noon app! (new customers)",
@@ -249,12 +249,12 @@
         "BH": {
           "en": "<strong>Use code (PROMO15)</strong> for extra savings on your order!",
           "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!",
-          "tag": "@noon_bahr"
+          "tag": "@noon.bahr"
         },
         "OM": {
           "en": "<strong>Use code (PROMO15)</strong> for extra savings on your order!",
           "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!",
-          "tag": "@noon_Omn"
+          "tag": "@noon_omn"
         }
       },
       "phases": [
@@ -372,7 +372,7 @@
         "QA": {
           "en": "<strong>New Users:</strong> 15% off up to 75 QAR<br><strong>Returning Users:</strong> 5% off up to 25 QAR",
           "ar": "<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 75 ريال قطري<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 25 ريال قطري",
-          "tag": "@noon_Qar"
+          "tag": "@noon_qar"
         },
         "KW": {
           "en": "<strong>New Users:</strong> 15% off up to 7 KWD<br><strong>Returning Users:</strong> 5% off up to 2 KWD",
@@ -382,12 +382,12 @@
         "BH": {
           "en": "<strong>New Users:</strong> 15% off up to 7.5 BHD<br><strong>Returning Users:</strong> 5% off up to 2.5 BHD",
           "ar": "<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 دينار بحريني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 دينار بحريني",
-          "tag": "@noon_bahr"
+          "tag": "@noon.bahr"
         },
         "OM": {
           "en": "<strong>New Users:</strong> 15% off up to 7.5 OMR<br><strong>Returning Users:</strong> 5% off up to 2.5 OMR",
           "ar": "<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 ريال عماني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 ريال عماني",
-          "tag": "@noon_Omn"
+          "tag": "@noon_omn"
         }
       },
       "phases": [
@@ -521,7 +521,7 @@
         "QA": {
           "en": "10% off with code PROMO10 on stories & caption",
           "ar": "خصم 10% بكود PROMO10 في الستوري والكابشن",
-          "tag": "@noon_Qar"
+          "tag": "@noon_qar"
         },
         "KW": {
           "en": "10% off with code PROMO10 on stories & caption",
@@ -531,12 +531,12 @@
         "BH": {
           "en": "10% off with code PROMO10 on stories & caption",
           "ar": "خصم 10% بكود PROMO10 في الستوري والكابشن",
-          "tag": "@noon_bahr"
+          "tag": "@noon.bahr"
         },
         "OM": {
           "en": "10% off with code PROMO10 on stories & caption",
           "ar": "خصم 10% بكود PROMO10 في الستوري والكابشن",
-          "tag": "@noon_Omn"
+          "tag": "@noon_omn"
         }
       },
       "phases": [

@@ -127,10 +127,16 @@ function spotTheBagBox(c, I, l) {
 function collabAndHashtagsBox(c, I, l) {
   var rtl = l === 'ar' ? 'border-right' : 'border-left';
   var countryTagMap = {
-    QA: '@noon_Qar',
+    QA: '@noon_qar',
     KW: '@noon_kuwt',
-    BH: '@noon_bahr',
-    OM: '@noon_Omn'
+    BH: '@noon.bahr',
+    OM: '@noon_omn'
+  };
+  var countryUrlMap = {
+    QA: 'https://www.instagram.com/noon_qar/',
+    KW: 'https://www.instagram.com/noon_kuwt/',
+    BH: 'https://www.instagram.com/noon.bahr/',
+    OM: 'https://www.instagram.com/noon_omn/'
   };
   var countryNameMap = {
     QA: { ar: 'قطر 🇶🇦', en: 'Qatar 🇶🇦' },
@@ -139,6 +145,7 @@ function collabAndHashtagsBox(c, I, l) {
     OM: { ar: 'عُمان 🇴🇲', en: 'Oman 🇴🇲' }
   };
   var cTag = countryTagMap[I.country] || '@noon';
+  var cUrl = countryUrlMap[I.country] || 'https://www.instagram.com/noon/';
   var cName = countryNameMap[I.country] ? countryNameMap[I.country][l] : I.country;
   var hashtags = c.hashtags || '#noon #HealthAndFitness #noonHome #noonBeauty';
 
@@ -149,10 +156,10 @@ function collabAndHashtagsBox(c, I, l) {
       '</div>' +
       '<div style="font-size: 13.5px; color: #166534; line-height: 1.7; margin-bottom: 10px;">' +
       '<strong>يُرجى العلم أنه بالنسبة لأي حساب سيتم التعاون معه، يتوجب عليكم إرسال دعوة تعاون (Collab) إلى:</strong><br>' +
-      '• حساب الدولة الخاص بك (' + cName + '): <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">' + cTag + '</strong><br>' +
+      '• حساب الدولة الخاص بك (' + cName + '): <a href="' + cUrl + '" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">' + cTag + '</strong></a><br>' +
       '• <strong>بالإضافة إلى إرسال دعوة تعاون (Collab) أيضاً وبشكل إلزامي إلى:</strong><br>' +
-      '&nbsp;&nbsp;&nbsp;1. حساب نون الأساسي: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon</strong><br>' +
-      '&nbsp;&nbsp;&nbsp;2. حساب نون الإمارات: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon_UAE</strong>' +
+      '&nbsp;&nbsp;&nbsp;1. حساب نون الأساسي: <a href="https://www.instagram.com/noon/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon</strong></a><br>' +
+      '&nbsp;&nbsp;&nbsp;2. حساب نون الإمارات: <a href="https://www.instagram.com/noon_uae/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon_uae</strong></a>' +
       '</div>' +
       '<div style="background: #ffffff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #14532d; line-height: 1.6;">' +
       '<strong>📌 الهاشتاغات الإلزامية في الوصف (Mandatory Hashtags):</strong><br>' +
@@ -169,10 +176,10 @@ function collabAndHashtagsBox(c, I, l) {
     '</div>' +
     '<div style="font-size: 13.5px; color: #166534; line-height: 1.7; margin-bottom: 10px;">' +
     '<strong>Please note that for any collaboration post, you must send a Collab invite to:</strong><br>' +
-    '• Your country account (' + cName + '): <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">' + cTag + '</strong><br>' +
+    '• Your country account (' + cName + '): <a href="' + cUrl + '" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">' + cTag + '</strong></a><br>' +
     '• <strong>Plus, it is MANDATORY to also invite:</strong><br>' +
-    '&nbsp;&nbsp;&nbsp;1. Main noon account: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon</strong><br>' +
-    '&nbsp;&nbsp;&nbsp;2. noon UAE account: <strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px;">@noon_UAE</strong>' +
+    '&nbsp;&nbsp;&nbsp;1. Main noon account: <a href="https://www.instagram.com/noon/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon</strong></a><br>' +
+    '&nbsp;&nbsp;&nbsp;2. noon UAE account: <a href="https://www.instagram.com/noon_uae/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon_uae</strong></a>' +
     '</div>' +
     '<div style="background: #ffffff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #14532d; line-height: 1.6;">' +
     '<strong>📌 Mandatory Caption Hashtags:</strong><br>' +
