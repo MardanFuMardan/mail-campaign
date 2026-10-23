@@ -294,6 +294,7 @@ function buildEmail(c, I, phase, dis, l, STATIC) {
       discountBox(dis, I.code, l, STATIC) + '<br>' +
       collabAndHashtagsBox(c, I, l) +
       spotTheBagBox(c, I, l) +
+      brandGuidelinesBox(c, I, l) +
       '<strong>إرشادات المحتوى والعناصر الإلزامية</strong><br>' + STATIC.guidelinesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>المخرجات المطلوبة (Deliverables)</strong><br>• ريلز / فيديوهات قصيرة (التنسيق الأساسي)<br>• ستوري داعمة لكل فيديو<br><br>' +
       '<strong>التسليم والجدول الزمني</strong><br>نحتاج إلى استلام الفيديو بحلول <strong>' + sub + '</strong> كحد أقصى، حيث سيتم النشر في <strong>' + live + '</strong>.<br>الموافقة النهائية مطلوبة قبل النشر.<br><br>' +
@@ -308,6 +309,7 @@ function buildEmail(c, I, phase, dis, l, STATIC) {
       discountBox(dis, I.code, l, STATIC) + '<br>' +
       collabAndHashtagsBox(c, I, l) +
       spotTheBagBox(c, I, l) +
+      brandGuidelinesBox(c, I, l) +
       '<strong>Content Guidelines & Mandatory Elements</strong><br>' + STATIC.guidelinesEn.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>Deliverables</strong><br>• Reels / Short Videos (Primary Format)<br>• Stories supporting each video<br><br>' +
       '<strong>Submission & Timeline</strong><br>We need the video by <strong>' + sub + '</strong> at the latest, as the post will go live on <strong>' + live + '</strong>.<br>Final approval is required before posting.<br><br>' +
@@ -346,6 +348,7 @@ function buildBrief(c, I, phase, dis, l, STATIC) {
       '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold;">كود الخصم</div><div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block;">' + code + '</div><div style="color:#9a3412; font-size:14px;"><strong>تفاصيل العرض:</strong><br>' + (dis.ar || '') + '</div></div>' +
       '<div style="color:#3f3f46; margin-top:8px; font-size:13px;"><em>' + STATIC.goldenRuleAr + '</em></div>' +
       spotTheBagBox(c, I, l) +
+      brandGuidelinesBox(c, I, l) +
       '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
       '<strong style="color:#0284c7; font-size:13px;">🎨 التوجيه الإبداعي وإرشادات المحتوى</strong><br><br>' +
       '<ul style="margin:0; padding-right:20px; color:#3f3f46; font-size:13px;">' + list(STATIC.creativeAr.map(function (b) { return b.replace('{ANGLES}', angles); })) + '</ul>' +
@@ -383,6 +386,7 @@ function buildBrief(c, I, phase, dis, l, STATIC) {
     '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold; text-transform:uppercase;">Discount Code</div><div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block;">' + code + '</div><div style="color:#9a3412; font-size:14px;"><strong>Offer Details:</strong><br>' + (dis.en || '') + '</div></div>' +
     '<div style="color:#3f3f46; margin-top:8px; font-size:13px;">' + STATIC.goldenRuleEn.replace(/\{CODE\}/g, code) + '</div>' +
     spotTheBagBox(c, I, l) +
+      brandGuidelinesBox(c, I, l) +
     '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
     '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🎨 CREATIVE DIRECTION & CONTENT GUIDELINES</strong><br><br>' +
     '<ul style="margin:0; padding-left:20px; color:#3f3f46; font-size:13px;">' + list(STATIC.creativeEn.map(function (b) { return b.replace('{ANGLES}', angles); })) + '</ul>' +
