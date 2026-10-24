@@ -852,10 +852,21 @@ function fillCampaignSelect() {
   }).join('');
   if (cur && vis.some(function (c) { return c.id === cur; })) {
     sel.value = cur;
-  } else if (vis.some(function (c) { return c.id === 'oct2026'; })) {
+  } else if (vis.some(function (c) { return c.id === 'nov2026'; })) {
     sel.value = 'nov2026';
+  } else if (vis.some(function (c) { return c.id === 'oct2026'; })) {
+    sel.value = 'oct2026';
   }
   onCampaignChange(true);
+}
+
+function monthKeyFromCampaign(c) {
+  if (!c || !c.monthEn) return '11';
+  var mLower = c.monthEn.toLowerCase();
+  for (var k in MONTHS_EN) {
+    if (MONTHS_EN[k].toLowerCase().indexOf(mLower) !== -1 || mLower.indexOf(MONTHS_EN[k].toLowerCase()) !== -1) return k;
+  }
+  return '11';
 }
 
 function fillMonthSelects() {
@@ -864,9 +875,10 @@ function fillMonthSelects() {
   }).join('');
   $('subMonth').innerHTML = opts;
   $('liveMonth').innerHTML = opts;
-  var curM = ('0' + (new Date().getMonth() + 1)).slice(-2);
-  $('subMonth').value = (curM === '10' || curM === '09') ? curM : '10';
-  $('liveMonth').value = (curM === '10' || curM === '09') ? curM : '10';
+  var c = currentCampaign();
+  var mk = monthKeyFromCampaign(c);
+  $('subMonth').value = mk;
+  $('liveMonth').value = mk;
 }
 
 function onCampaignChange(keep) {
@@ -876,6 +888,11 @@ function onCampaignChange(keep) {
   ps.innerHTML = c.phases.map(function (p, ix) {
     return '<option value="' + ix + '">' + (ix + 1) + '. ' + esc(p.en.title) + ' (' + esc(p.en.date) + ')</option>';
   }).join('');
+  var mk = monthKeyFromCampaign(c);
+  if ($('subMonth')) $('subMonth').value = mk;
+  if ($('liveMonth')) $('liveMonth').value = mk;
+  var def = defaultCodeFor($('country').value, c);
+  if ($('discountCode')) $('discountCode').value = def;
   if (!keep) render();
 }
 
