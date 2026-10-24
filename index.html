@@ -135,7 +135,7 @@
           </div>
           <div>
             <label>كود الخصم</label>
-            <input id="discountCode" placeholder="افتراضي من الحملة" oninput="render()">
+            <input id="discountCode" placeholder="put the code here / ضع الكود هنا" oninput="render()">
           </div>
         </div>
 
@@ -144,7 +144,7 @@
         </div>
 
         <label>المرحلة (Phase)</label>
-        <select id="selectedPhase" onchange="render()"></select>
+        <select id="selectedPhase" onchange="updateDiscountPlaceholder(); render()"></select>
 
         <label>المنصة المتفق عليها</label>
         <input id="platform" placeholder="e.g. Instagram Reels & TikTok" oninput="render()">
@@ -286,7 +286,7 @@
    مولد واحد لكل الشهور + مدير حملات محفوظ محلياً
    ============================================================ */
 
-var STORE_KEY = 'noonCampaignHub_v3';
+var STORE_KEY = 'noonCampaignHub_v4';
 
 /* القيم الثابتة المتكررة في كل الحملات */
 var STATIC = {
@@ -317,141 +317,141 @@ var MONTHS_EN = { '01':'January','02':'February','03':'March','04':'April','05':
 /* بيانات الحملات المبدئية */
 function seedCampaigns() {
   return [
-  {
-    "id": "nov2026",
-    "nameEn": "Noon GCC November Campaign 2026 — 11.11 & Yellow Friday Sale",
-    "nameAr": "حملة نون لدول الخليج - شهر نوفمبر: عروض 11.11 والجمعة الصفراء",
-    "monthEn": "November",
-    "monthAr": "نوفمبر",
-    "promoCode": "YFS15",
-    "sender": "Mahmoud",
-    "briefUrl": "https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link",
-    "briefUrlEn": "https://drive.google.com/file/d/1c122AdbFbHGW7uWPQ_QY7xR5VwRhXS3g/view?usp=drive_link",
-    "briefUrlAr": "https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link",
-    "guideUrl": "https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view",
-    "portalUrl": "https://noon-invoice.vercel.app/",
-    "logoUrl": "https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS",
-    "hashtags": "#noon #noonGCC #YellowFridaySale #noonYFS #YFS2026 #SingleDay1111 #الجمعة_الصفراء #عروض_نون #عروض_11_11 #تخفيضات_نون",
-    "countryDiscounts": {
-        "QA": {
-            "en": "<strong>Use code (YFS15)</strong> for flat 15% off your order on the noon app (up to 75 QAR / equivalent)! (Available across all categories for all users)",
-            "ar": "<strong>استخدم كود (YFS15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
-            "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "KW": {
-            "en": "<strong>Use code (YFS15)</strong> for flat 15% off your order on the noon app (up to 6 KWD / equivalent)! (Available across all categories for all users)",
-            "ar": "<strong>استخدم كود (YFS15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
-            "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "BH": {
-            "en": "<strong>Use code (YFS15)</strong> for flat 15% off your order on the noon app (up to 7.5 BHD / equivalent)! (Available across all categories for all users)",
-            "ar": "<strong>استخدم كود (YFS15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
-            "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "OM": {
-            "en": "<strong>Use code (YFS15)</strong> for flat 15% off your order on the noon app (up to 7.5 OMR / equivalent)! (Special Oman code & Oman National Day celebration)",
-            "ar": "<strong>استخدم كود (YFS15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني أو ما يعادله)! (كود خاص لسلطنة عمان وعروض العيد الوطني)",
-            "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
-        }
+{
+  "id": "nov2026",
+  "nameEn": "Noon GCC November Campaign 2026 — 11.11 & Yellow Friday Sale",
+  "nameAr": "حملة نون لدول الخليج - شهر نوفمبر: عروض 11.11 والجمعة الصفراء",
+  "monthEn": "November",
+  "monthAr": "نوفمبر",
+  "promoCode": "",
+  "sender": "Mahmoud",
+  "briefUrl": "https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link",
+  "briefUrlEn": "https://drive.google.com/file/d/1c122AdbFbHGW7uWPQ_QY7xR5VwRhXS3g/view?usp=drive_link",
+  "briefUrlAr": "https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link",
+  "guideUrl": "https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view",
+  "portalUrl": "https://noon-invoice.vercel.app/",
+  "logoUrl": "https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS",
+  "hashtags": "#noon #noonGCC #YellowFridaySale #noonYFS #YFS2026 #SingleDay1111 #الجمعة_الصفراء #عروض_نون #عروض_11_11 #تخفيضات_نون",
+  "countryDiscounts": {
+    "QA": {
+      "en": "<strong>Use code ({CODE})</strong> for flat 15% off your order on the noon app (up to 75 QAR / equivalent)! (Available across all categories for all users)",
+      "ar": "<strong>استخدم كود ({CODE})</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
+      "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
     },
-    "phases": [
-        {
-            "en": {
-                "title": "Phase 1: Teaser Push ('Add to Cart' Wishlist)",
-                "date": "November 1 – 5",
-                "categories": "All Categories — Beauty, Fashion, Tech, Home, Baby, Health, Sports",
-                "action": "Start with a strong 3-sec hook (Show noon box or logo at sec 3+) • Urge followers to download the noon app and add wishlist deals to cart before sales drop: 'Fill your noon carts now before flash stock sells out!' • Screen recording of noon app navigation • Highlight Hero Deals • CTA: Download noon app and use promo code YFS15",
-                "msg": "Build your cart early, November mega deals tease, Wishlist essential items"
-            },
-            "ar": {
-                "title": "المرحلة 1: انطلاقة التشويق وإضافة السلة",
-                "date": "1 - 5 نوفمبر",
-                "categories": "جميع الفئات — الجمال، الأزياء، التكنولوجيا، المنزل، الأطفال، الصحة، الرياضة",
-                "action": "البدء بخطّاف قوي في أول ثانيتين (ظهور كرتونة أو لوجو نون في الثانية 3 فما فوق) • حث المتابعين على تحميل تطبيق نون وإضافة العروض للسلة قبل نفاد المخزون: 'احفظ عروضك في السلة قبل نفاد الكميات!' • تسجيل شاشة واقعي للتطبيق • تسليط الضوء على عروض الهيرو • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود YFS15",
-                "msg": "جهّز سلتك من بدري، تشويق عروض نوفمبر الكبرى، احفظ اختياراتك الأساسية"
-            }
-        },
-        {
-            "en": {
-                "title": "Phase 2: 11.11 Single's Day Mega Peak",
-                "date": "November 6 – 12 (Peak: Nov 10-11)",
-                "categories": "Electronics & Tech, Beauty, Fashion, Daily Deals",
-                "action": "High-energy Single's Day push • Launch dedicated 11.11 promo coupon code featuring high discount % • Screen recording showing 11.11 banner inside noon app • Showcase assigned tech gadgets and viral beauty deals: 'Global 11.11 mega discounts are live!' • CTA: Shop 11.11 on noon now with promo code YFS15",
-                "msg": "11.11 Single's Day mega markdowns, High discount coupon drops, Tech upgrades"
-            },
-            "ar": {
-                "title": "المرحلة 2: ذروة عروض 11.11 الكبرى",
-                "date": "6 - 12 نوفمبر (الذروة: 10 - 11 نوفمبر)",
-                "categories": "الإلكترونيات والتكنولوجيا، الجمال، الأزياء، العروض اليومية",
-                "action": "نداء عالي الحماس لعروض يوم العزاب 11.11 العالمية • إبراز كود الخصم المخصص لـ 11.11 مع أعلى نسبة توفير • تسجيل شاشة يوضح النقر على بنر 11.11 داخل التطبيق • استعراض منتجات التكنولوجيا والجمال المحددة: 'انطلاق حدث 11.11 العالمي بحماس عالي!' • دعوة لاتخاذ إجراء للتسوق الفوري بكود YFS15",
-                "msg": "تخفيضات 11.11 الخيالية، خصومات عالية بكود مخصص، ترقيات التكنولوجيا"
-            }
-        },
-        {
-            "en": {
-                "title": "Phase 3: Gap Fill & Feed Sustainment",
-                "date": "November 12 – 16",
-                "categories": "Health & Nutrition, Daily Essentials, Beauty Restocks, Winter Home Upgrades",
-                "action": "Sustainment push between major sales peaks • Showcase daily wellness, supplements, winter home cozy upgrades, and routine favorites • App screen recording navigating daily essentials • CTA: Keep shopping with promo code YFS15",
-                "msg": "Daily routine restocks, Wellness supplements, Continuous everyday savings"
-            },
-            "ar": {
-                "title": "المرحلة 3: المرحلة الانتقالية واستدامة التفاعل",
-                "date": "12 - 16 نوفمبر",
-                "categories": "الصحة والتغذية، المستلزمات اليومية، تجديد مستحضرات الجمال، ديكور وتجهيزات الشتاء",
-                "action": "الحفاظ على تفاعل الجمهور وتواجده بين فترات الذروة • استعراض مكملات الصحة والاحتياجات اليومية وتجديد الروتين ومستلزمات المنزل الشتوية • تسجيل شاشة للتطبيق • دعوة للاستمرار في التسوق بكود YFS15",
-                "msg": "تجديد مستلزمات الروتين اليومي، مكملات الصحة والرياضة، توفير مستمر"
-            }
-        },
-        {
-            "en": {
-                "title": "Phase 4: Omani National Day Celebration",
-                "date": "November 15 – 19 (National Day: Nov 18)",
-                "categories": "Oman Market Focus — Luxury Fragrances, Festive Fashion, Home Decor, Gifting (Oman only 🇴🇲)",
-                "action": "Commemorate the 56th Oman National Day with culturally resonant content • Showcase patriotic looks, luxury perfumes, and home hosting decor • App walkthrough with Oman National Day banner • Feature dedicated Oman discount promo code (Oman only 🇴🇲)",
-                "msg": "Celebrating Oman National Day, Patriotic looks & perfumes, Festive home vibes"
-            },
-            "ar": {
-                "title": "المرحلة 4: احتفالات اليوم الوطني العماني الـ 56",
-                "date": "15 - 19 نوفمبر (اليوم الوطني: 18 نوفمبر)",
-                "categories": "خاص بسلطنة عمان 🇴🇲 — الأزياء الاحتفالية، العطور الفاخرة، ديكورات الضيافة، الهدايا",
-                "action": "الاحتفاء بالعيد الوطني الـ 56 لسلطنة عُمان بمحتوى وطني أصيل • استعراض إطلالات العيد الوطني، العطور الراقية، وديكورات الضيافة • تسجيل شاشة لبنر اليوم الوطني بتطبيق نون • كود خصم خاص لعمان (عُمان فقط 🇴🇲)",
-                "msg": "احتفالات اليوم الوطني العماني، إطلالات وعطور فاخرة، أجواء ضيافة منزلية"
-            }
-        },
-        {
-            "en": {
-                "title": "Phase 5: Yellow Friday Sale (YFS) Mega Launch",
-                "date": "November 17 – 30",
-                "categories": "Site-wide Mega Deals — All 7 Focus Categories (Beauty, Fashion, Tech, Home, Baby, Health, Sports)",
-                "action": "The absolute biggest commercial shopping event in 2026! Launch the new unique YFS coupon code offering maximum discount % in the entire year • Showcase assigned hero SKUs across all categories • Native app screen recording clicking Yellow Friday banner • Emphasize unmatched prices and unbeatable savings",
-                "msg": "Yellow Friday is LIVE, Biggest deals of 2026, Unbeatable discount % drops"
-            },
-            "ar": {
-                "title": "المرحلة 5: مهرجان الجمعة الصفراء السنوي (Yellow Friday Sale)",
-                "date": "17 - 30 نوفمبر",
-                "categories": "عروض شاملة لكل الأقسام — الفئات الـ 7 الرئيسية (الجمال، الأزياء، التقنية، المنزل، الأطفال، الصحة، الرياضة)",
-                "action": "الحدث التجاري الأضخم في عام 2026 على الإطلاق! إطلاق كود الجمعة الصفراء بأعلى نسبة توفير في السنة كاملة على جميع الفئات • استعراض منتجات الهيرو المحددة • تسجيل شاشة مباشر للنقر على بنر الجمعة الصفراء بالصفحة الرئيسية • التأكيد على أقوى توفير وعروض في السنة",
-                "msg": "الجمعة الصفراء انطلقت، أقوى عروض 2026، أعلى نسب خصم وتوفير"
-            }
-        },
-        {
-            "en": {
-                "title": "Phase 6: YFS Climax Weekend (Final 48h Countdown)",
-                "date": "November 26 – 28",
-                "categories": "Flash Deals, Sell-Out Tech, High-Demand Bundles, Final Clearance",
-                "action": "Maximum urgency and conversion sprint • Countdown messaging: 'Final 48 hours of Yellow Friday! Deals are selling out!' • Direct users to checkout carts immediately with promo code YFS15 before the midnight cutoff",
-                "msg": "Final hours of Yellow Friday, Last chance deals, Checkout before stock ends"
-            },
-            "ar": {
-                "title": "المرحلة 6: الويكند الختامي للجمعة الصفراء (آخر 48 ساعة)",
-                "date": "26 - 28 نوفمبر",
-                "categories": "عروض الفلاش السريعة، تكنولوجيا قاربت على النفاد، حزم التوفير، التصفية النهائية",
-                "action": "سباق الشراء السريع وأعلى درجات الإلحاح • رسائل العد التنازلي ونفاد الكميات: 'آخر 48 ساعة في الجمعة الصفراء! العروض بتخلص!' • حث المتابعين على إتمام طلبات السلة فوراً بكود YFS15 قبل إغلاق العروض",
-                "msg": "الساعات الأخيرة من الجمعة الصفراء، فرصة أخيرة للعروض، اشترِ قبل نفاد الكميات"
-            }
-        }
-    ]
+    "KW": {
+      "en": "<strong>Use code ({CODE})</strong> for flat 15% off your order on the noon app (up to 6 KWD / equivalent)! (Available across all categories for all users)",
+      "ar": "<strong>استخدم كود ({CODE})</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
+      "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
+    },
+    "BH": {
+      "en": "<strong>Use code ({CODE})</strong> for flat 15% off your order on the noon app (up to 7.5 BHD / equivalent)! (Available across all categories for all users)",
+      "ar": "<strong>استخدم كود ({CODE})</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
+      "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
+    },
+    "OM": {
+      "en": "<strong>Use code ({CODE})</strong> for flat 15% off your order on the noon app (up to 7.5 OMR / equivalent)! (Special Oman code & Oman National Day celebration)",
+      "ar": "<strong>استخدم كود ({CODE})</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني أو ما يعادله)! (كود خاص لسلطنة عمان وعروض العيد الوطني)",
+      "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
+    }
+  },
+  "phases": [
+    {
+      "en": {
+        "title": "Phase 1: Teaser Push ('Add to Cart' Wishlist)",
+        "date": "November 1 – 5",
+        "categories": "All Categories — Beauty, Fashion, Tech, Home, Baby, Health, Sports",
+        "action": "Start with a strong 3-sec hook (Show noon box or logo at sec 3+) • Urge followers to download the noon app and add wishlist deals to cart before sales drop: 'Fill your noon carts now before flash stock sells out!' • Screen recording of noon app navigation • Highlight Hero Deals • CTA: Download noon app and use promo code {CODE}",
+        "msg": "Build your cart early, November mega deals tease, Wishlist essential items"
+      },
+      "ar": {
+        "title": "المرحلة 1: انطلاقة التشويق وإضافة السلة",
+        "date": "1 - 5 نوفمبر",
+        "categories": "جميع الفئات — الجمال، الأزياء، التكنولوجيا، المنزل، الأطفال، الصحة، الرياضة",
+        "action": "البدء بخطّاف قوي في أول ثانيتين (ظهور كرتونة أو لوجو نون في الثانية 3 فما فوق) • حث المتابعين على تحميل تطبيق نون وإضافة العروض للسلة قبل نفاد المخزون: 'احفظ عروضك في السلة قبل نفاد الكميات!' • تسجيل شاشة واقعي للتطبيق • تسليط الضوء على عروض الهيرو • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود {CODE}",
+        "msg": "جهّز سلتك من بدري، تشويق عروض نوفمبر الكبرى، احفظ اختياراتك الأساسية"
+      }
+    },
+    {
+      "en": {
+        "title": "Phase 2: 11.11 Single's Day Mega Peak",
+        "date": "November 6 – 12 (Peak: Nov 10-11)",
+        "categories": "Electronics & Tech, Beauty, Fashion, Daily Deals",
+        "action": "High-energy Single's Day push • Launch dedicated 11.11 promo coupon code featuring high discount % • Screen recording showing 11.11 banner inside noon app • Showcase assigned tech gadgets and viral beauty deals: 'Global 11.11 mega discounts are live!' • CTA: Shop 11.11 on noon now with promo code {CODE}",
+        "msg": "11.11 Single's Day mega markdowns, High discount coupon drops, Tech upgrades"
+      },
+      "ar": {
+        "title": "المرحلة 2: ذروة عروض 11.11 الكبرى",
+        "date": "6 - 12 نوفمبر (الذروة: 10 - 11 نوفمبر)",
+        "categories": "الإلكترونيات والتكنولوجيا، الجمال، الأزياء، العروض اليومية",
+        "action": "نداء عالي الحماس لعروض يوم العزاب 11.11 العالمية • إبراز كود الخصم المخصص لـ 11.11 مع أعلى نسبة توفير • تسجيل شاشة يوضح النقر على بنر 11.11 داخل التطبيق • استعراض منتجات التكنولوجيا والجمال المحددة: 'انطلاق حدث 11.11 العالمي بحماس عالي!' • دعوة لاتخاذ إجراء للتسوق الفوري بكود {CODE}",
+        "msg": "تخفيضات 11.11 الخيالية، خصومات عالية بكود مخصص، ترقيات التكنولوجيا"
+      }
+    },
+    {
+      "en": {
+        "title": "Phase 3: Gap Fill & Feed Sustainment",
+        "date": "November 12 – 16",
+        "categories": "Health & Nutrition, Daily Essentials, Beauty Restocks, Winter Home Upgrades",
+        "action": "Sustainment push between major sales peaks • Showcase daily wellness, supplements, winter home cozy upgrades, and routine favorites • App screen recording navigating daily essentials • CTA: Keep shopping with promo code {CODE}",
+        "msg": "Daily routine restocks, Wellness supplements, Continuous everyday savings"
+      },
+      "ar": {
+        "title": "المرحلة 3: المرحلة الانتقالية واستدامة التفاعل",
+        "date": "12 - 16 نوفمبر",
+        "categories": "الصحة والتغذية، المستلزمات اليومية، تجديد مستحضرات الجمال، ديكور وتجهيزات الشتاء",
+        "action": "الحفاظ على تفاعل الجمهور وتواجده بين فترات الذروة • استعراض مكملات الصحة والاحتياجات اليومية وتجديد الروتين ومستلزمات المنزل الشتوية • تسجيل شاشة للتطبيق • دعوة للاستمرار في التسوق بكود {CODE}",
+        "msg": "تجديد مستلزمات الروتين اليومي، مكملات الصحة والرياضة، توفير مستمر"
+      }
+    },
+    {
+      "en": {
+        "title": "Phase 4: Omani National Day Celebration",
+        "date": "November 15 – 19 (National Day: Nov 18)",
+        "categories": "Oman Market Focus — Luxury Fragrances, Festive Fashion, Home Decor, Gifting (Oman only 🇴🇲)",
+        "action": "Commemorate the 56th Oman National Day with culturally resonant content • Showcase patriotic looks, luxury perfumes, and home hosting decor • App walkthrough with Oman National Day banner • Feature dedicated Oman discount promo code (Oman only 🇴🇲)",
+        "msg": "Celebrating Oman National Day, Patriotic looks & perfumes, Festive home vibes"
+      },
+      "ar": {
+        "title": "المرحلة 4: احتفالات اليوم الوطني العماني الـ 56",
+        "date": "15 - 19 نوفمبر (اليوم الوطني: 18 نوفمبر)",
+        "categories": "خاص بسلطنة عمان 🇴🇲 — الأزياء الاحتفالية، العطور الفاخرة، ديكورات الضيافة، الهدايا",
+        "action": "الاحتفاء بالعيد الوطني الـ 56 لسلطنة عُمان بمحتوى وطني أصيل • استعراض إطلالات العيد الوطني، العطور الراقية، وديكورات الضيافة • تسجيل شاشة لبنر اليوم الوطني بتطبيق نون • كود خصم خاص لعمان (عُمان فقط 🇴🇲)",
+        "msg": "احتفالات اليوم الوطني العماني، إطلالات وعطور فاخرة، أجواء ضيافة منزلية"
+      }
+    },
+    {
+      "en": {
+        "title": "Phase 5: Yellow Friday Sale (YFS) Mega Launch",
+        "date": "November 17 – 30",
+        "categories": "Site-wide Mega Deals — All 7 Focus Categories (Beauty, Fashion, Tech, Home, Baby, Health, Sports)",
+        "action": "The absolute biggest commercial shopping event in 2026! Launch the new unique YFS coupon code offering maximum discount % in the entire year • Showcase assigned hero SKUs across all categories • Native app screen recording clicking Yellow Friday banner • Emphasize unmatched prices and unbeatable savings",
+        "msg": "Yellow Friday is LIVE, Biggest deals of 2026, Unbeatable discount % drops"
+      },
+      "ar": {
+        "title": "المرحلة 5: مهرجان الجمعة الصفراء السنوي (Yellow Friday Sale)",
+        "date": "17 - 30 نوفمبر",
+        "categories": "عروض شاملة لكل الأقسام — الفئات الـ 7 الرئيسية (الجمال، الأزياء، التقنية، المنزل، الأطفال، الصحة، الرياضة)",
+        "action": "الحدث التجاري الأضخم في عام 2026 على الإطلاق! إطلاق كود الجمعة الصفراء بأعلى نسبة توفير في السنة كاملة على جميع الفئات • استعراض منتجات الهيرو المحددة • تسجيل شاشة مباشر للنقر على بنر الجمعة الصفراء بالصفحة الرئيسية • التأكيد على أقوى توفير وعروض في السنة",
+        "msg": "الجمعة الصفراء انطلقت، أقوى عروض 2026، أعلى نسب خصم وتوفير"
+      }
+    },
+    {
+      "en": {
+        "title": "Phase 6: YFS Climax Weekend (Final 48h Countdown)",
+        "date": "November 26 – 28",
+        "categories": "Flash Deals, Sell-Out Tech, High-Demand Bundles, Final Clearance",
+        "action": "Maximum urgency and conversion sprint • Countdown messaging: 'Final 48 hours of Yellow Friday! Deals are selling out!' • Direct users to checkout carts immediately with promo code {CODE} before the midnight cutoff",
+        "msg": "Final hours of Yellow Friday, Last chance deals, Checkout before stock ends"
+      },
+      "ar": {
+        "title": "المرحلة 6: الويكند الختامي للجمعة الصفراء (آخر 48 ساعة)",
+        "date": "26 - 28 نوفمبر",
+        "categories": "عروض الفلاش السريعة، تكنولوجيا قاربت على النفاد، حزم التوفير، التصفية النهائية",
+        "action": "سباق الشراء السريع وأعلى درجات الإلحاح • رسائل العد التنازلي ونفاد الكميات: 'آخر 48 ساعة في الجمعة الصفراء! العروض بتخلص!' • حث المتابعين على إتمام طلبات السلة فوراً بكود {CODE} قبل إغلاق العروض",
+        "msg": "الساعات الأخيرة من الجمعة الصفراء، فرصة أخيرة للعروض، اشترِ قبل نفاد الكميات"
+      }
+    }
+  ]
 },
   {
     id: 'oct2026',
@@ -893,6 +893,7 @@ function onCampaignChange(keep) {
   if ($('liveMonth')) $('liveMonth').value = mk;
   var def = defaultCodeFor($('country').value, c);
   if ($('discountCode')) $('discountCode').value = def;
+  updateDiscountPlaceholder();
   if (!keep) render();
 }
 
@@ -936,8 +937,26 @@ function currentCampaignHidden() {
 /* ---------- التوليد ---------- */
 function defaultCodeFor(country, c) {
   var m = c.countryDiscounts && c.countryDiscounts[country];
-  if (m) { var x = (m.en || '').match(/code \(?([A-Z0-9]{3,20})\)?/); if (x) return x[1]; }
-  return c.promoCode || 'PROMO15';
+  if (m) { var x = (m.en || '').match(/code \(?([A-Z0-9]{3,20})\)?/); if (x && x[1] !== 'CODE') return x[1]; }
+  return c.promoCode || '';
+}
+
+function updateDiscountPlaceholder() {
+  var c = currentCampaign();
+  var pIx = parseInt($('selectedPhase') ? $('selectedPhase').value || '0' : '0', 10);
+  var inp = $('discountCode');
+  if (!inp) return;
+  if (c && (c.id === 'nov2026' || (c.monthEn && c.monthEn.toLowerCase().indexOf('nov') !== -1))) {
+    if (pIx === 1) {
+      inp.placeholder = 'put the 11.11 code here / ضع كود 11.11 هنا';
+    } else if (pIx === 4 || pIx === 5) {
+      inp.placeholder = 'put the YFS code here / ضع كود الجمعة الصفراء هنا';
+    } else {
+      inp.placeholder = 'put the code here / ضع الكود هنا';
+    }
+  } else {
+    inp.placeholder = 'افتراضي من الحملة';
+  }
 }
 function getInputs() {
   var c = currentCampaign();
@@ -967,10 +986,11 @@ function onCountryChange() {
   var c = currentCampaign();
   var cur = $('discountCode').value.trim();
   var def = defaultCodeFor($('country').value, c);
-  if (!cur || cur === def || cur === 'FIRST20' || cur === 'PROMO15' || cur === 'PROMO10') $('discountCode').value = def;
+  if (!cur || cur === def || cur === 'FIRST20' || cur === 'PROMO15' || cur === 'PROMO10' || cur === 'YFS15') $('discountCode').value = def;
   var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
   var bNot = $('bahrainNotice');
   if (bNot) bNot.style.display = ($('country').value === 'BH' && isSep) ? 'block' : 'none';
+  updateDiscountPlaceholder();
   render();
 }
 
@@ -1022,12 +1042,18 @@ function phaseBox(phase, l, code) {
 
 function discountBox(dis, code, l) {
   var rtl = l === 'ar' ? 'border-right' : 'border-left';
-  var text = dis[l] || '';
+  var hasCode = !!(code && code.trim() && code.trim() !== '{CODE}');
+  var displayCode = hasCode ? code.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
+  var text = (dis[l] || '').replace(/\{CODE\}/g, displayCode);
+  var codeBadge = hasCode
+    ? '<div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>'
+    : '<div style="font-size: 15px; font-weight: bold; color: #dc2626; letter-spacing: 1px; margin-bottom: 6px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 4px 12px; border-radius: 4px;">' + displayCode + '</div>';
+
   return '<div style="background-color: #fff7ed; ' + rtl + ': 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 16px 0;">' +
     '<div style="font-size: 13px; color: #c2410c; margin-bottom: 4px; font-weight: bold;">' + (l === 'ar' ? 'كود الخصم الإلزامي' : 'Mandatory Discount Code') + '</div>' +
-    '<div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + code + '</div>' +
+    codeBadge +
     '<div style="margin-top: 4px; color: #9a3412; font-size: 14px;"><strong>' + (l === 'ar' ? 'تفاصيل العرض:' : 'Offer Details:') + '</strong><br>' + text + '</div>' +
-    '<div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;"><em>' + (l === 'ar' ? STATIC.goldenRuleAr : STATIC.goldenRuleEn.replace(/\{CODE\}/g, code)) + '</em></div>' +
+    '<div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;"><em>' + (l === 'ar' ? STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) : STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode)) + '</em></div>' +
     '</div>';
 }
 
@@ -1312,23 +1338,30 @@ function buildEmail(c, I, phase, dis, l) {
 
 function buildBrief(c, I, phase, dis, l) {
   var p = phase[l];
-  var code = I.code;
+  var hasCode = !!(I.code && I.code.trim() && I.code.trim() !== '{CODE}');
+  var displayCode = hasCode ? I.code.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
+  var actionText = (p.action || '').replace(/\{CODE\}/g, displayCode);
+  var offerText = (dis[l] || '').replace(/\{CODE\}/g, displayCode);
   var angles = p.msg || '';
   var bullets = function (s) { return String(s || '').replace(/\s+•\s+/g, '<br>• '); };
   var list = function (arr) { return arr.map(function (b) { return '<li style="margin-bottom:4px;">' + b + '</li>'; }).join(''); };
   var ol = function (arr) { return arr.map(function (b) { return '<li style="margin-bottom:4px;">' + b + '</li>'; }).join(''); };
   var rule = l === 'ar' ? 'border-right' : 'border-left';
+
+  var codeBadge = hasCode
+    ? '<div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block;">' + displayCode + '</div>'
+    : '<div style="font-size:16px; font-weight:bold; color:#dc2626; letter-spacing:1px; margin-bottom:8px; display:inline-block; background-color:#fee2e2; border:1.5px dashed #ef4444; padding:4px 12px; border-radius:4px;">' + displayCode + '</div>';
   var hashtags = c.hashtags || '';
 
   if (l === 'ar') {
     return '<div style="font-size:15px; font-weight:800; color:#000; margin-bottom:2px;">' + c.nameAr + '</div>' +
       '<div style="font-size:12px; font-weight:600; color:#71717a; margin-bottom:16px;">بريف المؤثر</div>' +
       '<strong style="color:#0284c7; font-size:13px;">🎯 نافذة الحملة والفئات</strong><br><br>' +
-      '<div style="background-color:#f0f9ff; padding:12px; ' + rule + ':3px solid #38bdf8; border-radius:6px; margin-bottom:12px;"><strong style="color:#0c4a6e; font-size:14px;">المرحلة: ' + p.title + ' (' + p.date + ')</strong><br><br><strong style="color:#0369a1;">الفئات:</strong> <span style="color:#000">' + p.categories + '</span><br><br><strong style="color:#0369a1;">متطلبات المحتوى:</strong><div style="color:#000; margin-top:4px;">• ' + bullets(p.action) + '</div></div>' +
+      '<div style="background-color:#f0f9ff; padding:12px; ' + rule + ':3px solid #38bdf8; border-radius:6px; margin-bottom:12px;"><strong style="color:#0c4a6e; font-size:14px;">المرحلة: ' + p.title + ' (' + p.date + ')</strong><br><br><strong style="color:#0369a1;">الفئات:</strong> <span style="color:#000">' + p.categories + '</span><br><br><strong style="color:#0369a1;">متطلبات المحتوى:</strong><div style="color:#000; margin-top:4px;">• ' + bullets(actionText) + '</div></div>' +
       '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
       '<strong style="color:#0284c7; font-size:13px;">🏆 القاعدة الذهبية — كود الخصم إلزامي</strong><br><br>' +
-      '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold;">كود الخصم</div><div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block;">' + code + '</div><div style="color:#9a3412; font-size:14px;"><strong>تفاصيل العرض:</strong><br>' + (dis.ar || '') + '</div></div>' +
-      '<div style="color:#3f3f46; margin-top:8px; font-size:13px;"><em>' + STATIC.goldenRuleAr + '</em></div>' +
+      '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold;">كود الخصم</div>' + codeBadge + '<div style="color:#9a3412; font-size:14px;"><strong>تفاصيل العرض:</strong><br>' + offerText + '</div></div>' +
+      '<div style="color:#3f3f46; margin-top:8px; font-size:13px;"><em>' + STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) + '</em></div>' +
       spotTheBagBox(c, I, l) +
       brandGuidelinesBox(c, I, l) +
       '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
@@ -1362,11 +1395,11 @@ function buildBrief(c, I, phase, dis, l) {
   return '<div style="font-size:15px; font-weight:800; color:#000; margin-bottom:2px;">' + c.nameEn + '</div>' +
     '<div style="font-size:12px; font-weight:600; color:#71717a; margin-bottom:16px; text-transform:uppercase; letter-spacing:1px;">Influencer Brief</div>' +
     '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🎯 CAMPAIGN WINDOW & CATEGORIES</strong><br><br>' +
-    '<div style="background-color:#f0f9ff; padding:12px; ' + rule + ':3px solid #38bdf8; border-radius:6px; margin-bottom:12px;"><strong style="color:#0c4a6e; font-size:14px;">Phase: ' + p.title + ' (' + p.date + ')</strong><br><br><strong style="color:#0369a1;">Categories:</strong> <span style="color:#000">' + p.categories + '</span><br><br><strong style="color:#0369a1;">Content Requirements:</strong><div style="color:#000; margin-top:4px;">• ' + bullets(p.action) + '</div></div>' +
+    '<div style="background-color:#f0f9ff; padding:12px; ' + rule + ':3px solid #38bdf8; border-radius:6px; margin-bottom:12px;"><strong style="color:#0c4a6e; font-size:14px;">Phase: ' + p.title + ' (' + p.date + ')</strong><br><br><strong style="color:#0369a1;">Categories:</strong> <span style="color:#000">' + p.categories + '</span><br><br><strong style="color:#0369a1;">Content Requirements:</strong><div style="color:#000; margin-top:4px;">• ' + bullets(actionText) + '</div></div>' +
     '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
     '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🏆 THE GOLDEN RULE — DISCOUNT CODE MANDATE</strong><br><br>' +
-    '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold; text-transform:uppercase;">Discount Code</div><div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block;">' + code + '</div><div style="color:#9a3412; font-size:14px;"><strong>Offer Details:</strong><br>' + (dis.en || '') + '</div></div>' +
-    '<div style="color:#3f3f46; margin-top:8px; font-size:13px;">' + STATIC.goldenRuleEn.replace(/\{CODE\}/g, code) + '</div>' +
+    '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold; text-transform:uppercase;">Discount Code</div>' + codeBadge + '<div style="color:#9a3412; font-size:14px;"><strong>Offer Details:</strong><br>' + offerText + '</div></div>' +
+    '<div style="color:#3f3f46; margin-top:8px; font-size:13px;">' + STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode) + '</div>' +
     spotTheBagBox(c, I, l) +
       brandGuidelinesBox(c, I, l) +
     '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
