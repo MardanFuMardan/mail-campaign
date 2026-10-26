@@ -144,7 +144,7 @@
         </div>
 
         <label>المرحلة (Phase)</label>
-        <select id="selectedPhase" onchange="updateDiscountPlaceholder(); render()"></select>
+        <select id="selectedPhase" onchange="onPhaseChange()"></select>
 
         <label>المنصة المتفق عليها</label>
         <input id="platform" placeholder="e.g. Instagram Reels & TikTok" oninput="render()">
@@ -286,7 +286,7 @@
    مولد واحد لكل الشهور + مدير حملات محفوظ محلياً
    ============================================================ */
 
-var STORE_KEY = 'noonCampaignHub_v4';
+var STORE_KEY = 'noonCampaignHub_v5';
 
 /* القيم الثابتة المتكررة في كل الحملات */
 var STATIC = {
@@ -323,7 +323,7 @@ function seedCampaigns() {
   "nameAr": "حملة نون لدول الخليج - شهر نوفمبر: عروض 11.11 والجمعة الصفراء",
   "monthEn": "November",
   "monthAr": "نوفمبر",
-  "promoCode": "",
+  "promoCode": "PROMO15",
   "sender": "Mahmoud",
   "briefUrl": "https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link",
   "briefUrlEn": "https://drive.google.com/file/d/1c122AdbFbHGW7uWPQ_QY7xR5VwRhXS3g/view?usp=drive_link",
@@ -360,16 +360,17 @@ function seedCampaigns() {
         "title": "Phase 1: Teaser Push ('Add to Cart' Wishlist)",
         "date": "November 1 – 5",
         "categories": "All Categories — Beauty, Fashion, Tech, Home, Baby, Health, Sports",
-        "action": "Start with a strong 3-sec hook (Show noon box or logo at sec 3+) • Urge followers to download the noon app and add wishlist deals to cart before sales drop: 'Fill your noon carts now before flash stock sells out!' • Screen recording of noon app navigation • Highlight Hero Deals • CTA: Download noon app and use promo code {CODE}",
+        "action": "Start with a strong 3-sec hook (Show noon box or logo at sec 3+) • Urge followers to download the noon app and add wishlist deals to cart before sales drop: 'Fill your noon carts now before flash stock sells out!' • Screen recording of noon app navigation • Highlight Hero Deals • CTA: Download noon app and use promo code PROMO15",
         "msg": "Build your cart early, November mega deals tease, Wishlist essential items"
       },
       "ar": {
         "title": "المرحلة 1: انطلاقة التشويق وإضافة السلة",
         "date": "1 - 5 نوفمبر",
         "categories": "جميع الفئات — الجمال، الأزياء، التكنولوجيا، المنزل، الأطفال، الصحة، الرياضة",
-        "action": "البدء بخطّاف قوي في أول ثانيتين (ظهور كرتونة أو لوجو نون في الثانية 3 فما فوق) • حث المتابعين على تحميل تطبيق نون وإضافة العروض للسلة قبل نفاد المخزون: 'احفظ عروضك في السلة قبل نفاد الكميات!' • تسجيل شاشة واقعي للتطبيق • تسليط الضوء على عروض الهيرو • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود {CODE}",
+        "action": "البدء بخطّاف قوي في أول ثانيتين (ظهور كرتونة أو لوجو نون في الثانية 3 فما فوق) • حث المتابعين على تحميل تطبيق نون وإضافة العروض للسلة قبل نفاد المخزون: 'احفظ عروضك في السلة قبل نفاد الكميات!' • تسجيل شاشة واقعي للتطبيق • تسليط الضوء على عروض الهيرو • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15",
         "msg": "جهّز سلتك من بدري، تشويق عروض نوفمبر الكبرى، احفظ اختياراتك الأساسية"
-      }
+      },
+      "promoCode": "PROMO15"
     },
     {
       "en": {
@@ -385,7 +386,8 @@ function seedCampaigns() {
         "categories": "الإلكترونيات والتكنولوجيا، الجمال، الأزياء، العروض اليومية",
         "action": "نداء عالي الحماس لعروض يوم العزاب 11.11 العالمية • إبراز كود الخصم المخصص لـ 11.11 مع أعلى نسبة توفير • تسجيل شاشة يوضح النقر على بنر 11.11 داخل التطبيق • استعراض منتجات التكنولوجيا والجمال المحددة: 'انطلاق حدث 11.11 العالمي بحماس عالي!' • دعوة لاتخاذ إجراء للتسوق الفوري بكود {CODE}",
         "msg": "تخفيضات 11.11 الخيالية، خصومات عالية بكود مخصص، ترقيات التكنولوجيا"
-      }
+      },
+      "promoCode": ""
     },
     {
       "en": {
@@ -401,7 +403,8 @@ function seedCampaigns() {
         "categories": "الصحة والتغذية، المستلزمات اليومية، تجديد مستحضرات الجمال، ديكور وتجهيزات الشتاء",
         "action": "الحفاظ على تفاعل الجمهور وتواجده بين فترات الذروة • استعراض مكملات الصحة والاحتياجات اليومية وتجديد الروتين ومستلزمات المنزل الشتوية • تسجيل شاشة للتطبيق • دعوة للاستمرار في التسوق بكود {CODE}",
         "msg": "تجديد مستلزمات الروتين اليومي، مكملات الصحة والرياضة، توفير مستمر"
-      }
+      },
+      "promoCode": ""
     },
     {
       "en": {
@@ -417,7 +420,8 @@ function seedCampaigns() {
         "categories": "خاص بسلطنة عمان 🇴🇲 — الأزياء الاحتفالية، العطور الفاخرة، ديكورات الضيافة، الهدايا",
         "action": "الاحتفاء بالعيد الوطني الـ 56 لسلطنة عُمان بمحتوى وطني أصيل • استعراض إطلالات العيد الوطني، العطور الراقية، وديكورات الضيافة • تسجيل شاشة لبنر اليوم الوطني بتطبيق نون • كود خصم خاص لعمان (عُمان فقط 🇴🇲)",
         "msg": "احتفالات اليوم الوطني العماني، إطلالات وعطور فاخرة، أجواء ضيافة منزلية"
-      }
+      },
+      "promoCode": ""
     },
     {
       "en": {
@@ -433,7 +437,8 @@ function seedCampaigns() {
         "categories": "عروض شاملة لكل الأقسام — الفئات الـ 7 الرئيسية (الجمال، الأزياء، التقنية، المنزل، الأطفال، الصحة، الرياضة)",
         "action": "الحدث التجاري الأضخم في عام 2026 على الإطلاق! إطلاق كود الجمعة الصفراء بأعلى نسبة توفير في السنة كاملة على جميع الفئات • استعراض منتجات الهيرو المحددة • تسجيل شاشة مباشر للنقر على بنر الجمعة الصفراء بالصفحة الرئيسية • التأكيد على أقوى توفير وعروض في السنة",
         "msg": "الجمعة الصفراء انطلقت، أقوى عروض 2026، أعلى نسب خصم وتوفير"
-      }
+      },
+      "promoCode": ""
     },
     {
       "en": {
@@ -449,7 +454,8 @@ function seedCampaigns() {
         "categories": "عروض الفلاش السريعة، تكنولوجيا قاربت على النفاد، حزم التوفير، التصفية النهائية",
         "action": "سباق الشراء السريع وأعلى درجات الإلحاح • رسائل العد التنازلي ونفاد الكميات: 'آخر 48 ساعة في الجمعة الصفراء! العروض بتخلص!' • حث المتابعين على إتمام طلبات السلة فوراً بكود {CODE} قبل إغلاق العروض",
         "msg": "الساعات الأخيرة من الجمعة الصفراء، فرصة أخيرة للعروض، اشترِ قبل نفاد الكميات"
-      }
+      },
+      "promoCode": ""
     }
   ]
 },
@@ -891,7 +897,7 @@ function onCampaignChange(keep) {
   var mk = monthKeyFromCampaign(c);
   if ($('subMonth')) $('subMonth').value = mk;
   if ($('liveMonth')) $('liveMonth').value = mk;
-  var def = defaultCodeFor($('country').value, c);
+  var def = defaultCodeFor($('country').value, c, 0);
   if ($('discountCode')) $('discountCode').value = def;
   updateDiscountPlaceholder();
   if (!keep) render();
@@ -935,7 +941,11 @@ function currentCampaignHidden() {
 }
 
 /* ---------- التوليد ---------- */
-function defaultCodeFor(country, c) {
+function defaultCodeFor(country, c, phaseIx) {
+  var ix = parseInt(phaseIx != null ? phaseIx : ($('selectedPhase') ? $('selectedPhase').value || '0' : '0'), 10);
+  if (c && c.phases && c.phases[ix] && typeof c.phases[ix].promoCode === 'string') {
+    return c.phases[ix].promoCode;
+  }
   var m = c.countryDiscounts && c.countryDiscounts[country];
   if (m) { var x = (m.en || '').match(/code \(?([A-Z0-9]{3,20})\)?/); if (x && x[1] !== 'CODE') return x[1]; }
   return c.promoCode || '';
@@ -957,6 +967,18 @@ function updateDiscountPlaceholder() {
   } else {
     inp.placeholder = 'افتراضي من الحملة';
   }
+}
+
+function onPhaseChange() {
+  var c = currentCampaign();
+  var cur = $('discountCode').value.trim();
+  var pIx = parseInt($('selectedPhase').value || '0', 10);
+  var def = defaultCodeFor($('country').value, c, pIx);
+  if (!cur || cur === 'PROMO15' || cur === 'PROMO10' || cur === 'FIRST20' || cur === 'YFS15') {
+    $('discountCode').value = def;
+  }
+  updateDiscountPlaceholder();
+  render();
 }
 function getInputs() {
   var c = currentCampaign();
@@ -985,7 +1007,8 @@ function dateStr(day, monthKey, l) {
 function onCountryChange() {
   var c = currentCampaign();
   var cur = $('discountCode').value.trim();
-  var def = defaultCodeFor($('country').value, c);
+  var pIx = parseInt($('selectedPhase') ? $('selectedPhase').value || '0' : '0', 10);
+  var def = defaultCodeFor($('country').value, c, pIx);
   if (!cur || cur === def || cur === 'FIRST20' || cur === 'PROMO15' || cur === 'PROMO10' || cur === 'YFS15') $('discountCode').value = def;
   var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
   var bNot = $('bahrainNotice');
@@ -1145,22 +1168,22 @@ function brandGuidelinesBox(c, I, l) {
       '<div style="font-size: 13.5px; color: #78350f; line-height: 1.7; margin-bottom: 12px;">' +
       '<strong>🚨 شرط إلزامي وحاسم لاعتماد الفيديو:</strong><br>' +
       '1. <strong>الظهور الحصري:</strong> إظهار إما كرتونة نون الصفراء أو لوجو نون فقط في أول 5 ثوانٍ (ممنوع إظهار الاثنين معاً في نفس المشهد الافتتاحي).<br>' +
-      '2. <strong>التوقيت الذهبي الدقيق:</strong> يجب أن تظهر الكرتونة أو اللوجو في الثانية 3 أو 4 (00:03 - 00:05). ممنوع تماماً ظهورها في أول ثانيتين (00:00 - 00:02) لضمان خطّاف طبيعي (Hook) يجذب المشاهدين ويمنع التخطي السريع.<br>' +
-      '3. <strong>لوجو نون الثابت:</strong> إبقاء لوجو نون صغيراً وأنيقاً في إحدى زوايا الشاشة كعلامة مائية طوال مدة الفيديو.<br>' +
-      '4. <strong>كتابة اسم البراند:</strong> تُكتب كلمة noon دائماً بحروف صغيرة بالإنجليزية (noon وليس NOON أو Noon في النصوص والكابشن).<br>' +
-      '5. <strong>تسجيل شاشة التطبيق:</strong> إظهار تسجيل شاشة واقعي وعالي الدقة لتطبيق نون يوضح النقر على بنر الحملة، تصفح المنتجات، وتطبيق كود الخصم في صفحة الدفع.' +
+      '2. <strong>التوقيت الذهبي الدقيق:</strong> يجب أن تظهر الكرتونة أو اللوجو في الثانية 3 أو 4 (00:03 - 00:05) وتستمر لمدة 5 ثوانٍ فقط ثم تختفي تماماً (ممنوع تماماً ظهورها في أول ثانيتين، وممنوع إبقاؤها طوال مدة الفيديو).<br>' +
+      '3. <strong>كتابة اسم البراند:</strong> تُكتب كلمة noon دائماً بحروف صغيرة بالإنجليزية (noon وليس NOON أو Noon في النصوص والكابشن).<br>' +
+      '4. <strong>تسجيل شاشة التطبيق:</strong> إظهار تسجيل شاشة واقعي وعالي الدقة لتطبيق نون يوضح النقر على بنر الحملة، تصفح المنتجات، وتطبيق كود الخصم في صفحة الدفع.' +
       '</div>' +
       '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">' +
       '<div style="background: #f0fdf4; padding: 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #166534; line-height: 1.6;">' +
       '<strong style="color: #15803d; font-size: 13.5px;">✓ إرشادات إلزامية (افعل):</strong><br>' +
       '• ابدأ بخطّاف مشوق وعفوي في أول ثانيتين.<br>' +
-      '• أظهر كرتونة نون أو اللوجو في الثانية 3 أو 4.<br>' +
+      '• أظهر كرتونة نون أو اللوجو في الثانية 3 أو 4 (تظهر لمدة 5 ثوانٍ فقط ثم تختفي).<br>' +
       '• استخدم تسجيل شاشة مباشر وعالي النقاء لتطبيق نون.<br>' +
       '• انطق كود الخصم بصوتك واعرضه بحجم كبير لـ 3 ثوانٍ على الأقل.' +
       '</div>' +
       '<div style="background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6;">' +
       '<strong style="color: #b91c1c; font-size: 13.5px;">✗ محظورات تؤدي للرفض (لا تفعل):</strong><br>' +
       '• لا تظهر اللوجو أو الكرتونة في أول ثانيتين إطلاقاً.<br>' +
+      '• لا تترك اللوجو أو الكرتونة ظاهرة طوال الفيديو (الظهور لمدة 5 ثوانٍ فقط ثم يختفي).<br>' +
       '• لا تجمع بين كرتونة نون واللوجو في مشهد البداية معاً.<br>' +
       '• لا تصور شاشة جوال آخر بكاميرا خارجية (تسجيل الشاشة إلزامي).<br>' +
       '• لا تكتفِ بوضع الكود في الكابشن فقط (النطق والعرض الشاشي إلزاميان).' +
@@ -1176,22 +1199,22 @@ function brandGuidelinesBox(c, I, l) {
     '<div style="font-size: 13.5px; color: #78350f; line-height: 1.7; margin-bottom: 12px;">' +
     '<strong>🚨 Critical Mandatory Approval Rule:</strong><br>' +
     '1. <strong>Exclusive Display:</strong> Show either the iconic yellow noon box OR the noon logo in the first 5 seconds (strictly forbidden to show both together in the opening hook).<br>' +
-    '2. <strong>Exact Golden Timing:</strong> The box or logo must appear specifically at second 3 or 4 (00:03 - 00:05). Absolutely NO brand visual in seconds 00:00 - 00:02 to maintain an organic, relatable hook that prevents instant scrolling.<br>' +
-    '3. <strong>Static Corner Watermark:</strong> Keep a clean, discreet noon logo in the top or bottom corner throughout the full video duration.<br>' +
-    '4. <strong>Brand Name Typography:</strong> Always type \"noon\" entirely in lowercase letters (strictly \"noon\", never \"NOON\" or \"Noon\" in captions or overlays).<br>' +
-    '5. <strong>Direct App Screen Recording:</strong> Include a crisp, authentic screen recording of the noon app demonstrating the campaign banner click, product selection, and entering the promo code at checkout.' +
+    '2. <strong>Exact Golden Timing:</strong> The box or logo must appear specifically at second 3 or 4 (00:03 - 00:05) for ONLY 5 seconds and then disappear (absolutely NO brand visual in seconds 00:00 - 00:02, and strictly do NOT keep it visible throughout the video).<br>' +
+    '3. <strong>Brand Name Typography:</strong> Always type \"noon\" entirely in lowercase letters (strictly \"noon\", never \"NOON\" or \"Noon\" in captions or overlays).<br>' +
+    '4. <strong>Direct App Screen Recording:</strong> Include a crisp, authentic screen recording of the noon app demonstrating the campaign banner click, product selection, and entering the promo code at checkout.' +
     '</div>' +
     '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">' +
     '<div style="background: #f0fdf4; padding: 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #166534; line-height: 1.6;">' +
     '<strong style="color: #15803d; font-size: 13.5px; text-transform: uppercase;">✓ Mandatory Best Practices (DO):</strong><br>' +
     '• Hook viewers in 00:00 - 00:02 with relatable real-life problem or discount news.<br>' +
-    '• Introduce the yellow box or logo naturally at second 3 or 4.<br>' +
+    '• Introduce the yellow box or logo naturally at second 3 or 4 (for 5 seconds only then hide it).<br>' +
     '• Include clean native in-app screen recording showing banner and promo code.<br>' +
     '• Pronounce promo code aloud with your voice and display text for 3+ seconds.' +
     '</div>' +
     '<div style="background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6;">' +
     '<strong style="color: #b91c1c; font-size: 13.5px; text-transform: uppercase;">✗ Rejection Triggers (DON\'T):</strong><br>' +
     '• Do NOT flash noon logo or delivery box in the first 2 seconds.<br>' +
+    '• Do NOT keep the logo or box on screen throughout the video (allowed for 5 seconds only).<br>' +
     '• Do NOT combine both the noon box and logo together in opening hook scene.<br>' +
     '• Do NOT film an external phone screen with an outside camera.<br>' +
     '• Do NOT hide the code only in caption; spoken audio and text are mandatory.' +

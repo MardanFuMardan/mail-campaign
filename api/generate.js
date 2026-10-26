@@ -13,7 +13,11 @@ function loadData() {
   return null;
 }
 
-function defaultCodeFor(country, c) {
+function defaultCodeFor(country, c, phaseIx) {
+  var ix = parseInt(phaseIx || 0, 10);
+  if (c && c.phases && c.phases[ix] && typeof c.phases[ix].promoCode === 'string') {
+    return c.phases[ix].promoCode;
+  }
   var m = c.countryDiscounts && c.countryDiscounts[country];
   if (m) { var x = (m.en || '').match(/code \(?([A-Z0-9]{3,20})\)?/); if (x && x[1] !== 'CODE') return x[1]; }
   return c.promoCode || '';
@@ -144,22 +148,22 @@ function brandGuidelinesBox(c, I, l) {
       '<div style="font-size: 13.5px; color: #78350f; line-height: 1.7; margin-bottom: 12px;">' +
       '<strong>🚨 شرط إلزامي وحاسم لاعتماد الفيديو:</strong><br>' +
       '1. <strong>الظهور الحصري:</strong> إظهار إما كرتونة نون الصفراء أو لوجو نون فقط في أول 5 ثوانٍ (ممنوع إظهار الاثنين معاً في نفس المشهد الافتتاحي).<br>' +
-      '2. <strong>التوقيت الذهبي الدقيق:</strong> يجب أن تظهر الكرتونة أو اللوجو في الثانية 3 أو 4 (00:03 - 00:05). ممنوع تماماً ظهورها في أول ثانيتين (00:00 - 00:02) لضمان خطّاف طبيعي (Hook) يجذب المشاهدين ويمنع التخطي السريع.<br>' +
-      '3. <strong>لوجو نون الثابت:</strong> إبقاء لوجو نون صغيراً وأنيقاً في إحدى زوايا الشاشة كعلامة مائية طوال مدة الفيديو.<br>' +
-      '4. <strong>كتابة اسم البراند:</strong> تُكتب كلمة noon دائماً بحروف صغيرة بالإنجليزية (noon وليس NOON أو Noon في النصوص والكابشن).<br>' +
-      '5. <strong>تسجيل شاشة التطبيق:</strong> إظهار تسجيل شاشة واقعي وعالي الدقة لتطبيق نون يوضح النقر على بنر الحملة، تصفح المنتجات، وتطبيق كود الخصم في صفحة الدفع.' +
+      '2. <strong>التوقيت الذهبي الدقيق:</strong> يجب أن تظهر الكرتونة أو اللوجو في الثانية 3 أو 4 (00:03 - 00:05) وتستمر لمدة 5 ثوانٍ فقط ثم تختفي تماماً (ممنوع تماماً ظهورها في أول ثانيتين، وممنوع إبقاؤها طوال مدة الفيديو).<br>' +
+      '3. <strong>كتابة اسم البراند:</strong> تُكتب كلمة noon دائماً بحروف صغيرة بالإنجليزية (noon وليس NOON أو Noon في النصوص والكابشن).<br>' +
+      '4. <strong>تسجيل شاشة التطبيق:</strong> إظهار تسجيل شاشة واقعي وعالي الدقة لتطبيق نون يوضح النقر على بنر الحملة، تصفح المنتجات، وتطبيق كود الخصم في صفحة الدفع.' +
       '</div>' +
       '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">' +
       '<div style="background: #f0fdf4; padding: 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #166534; line-height: 1.6;">' +
       '<strong style="color: #15803d; font-size: 13.5px;">✓ إرشادات إلزامية (افعل):</strong><br>' +
       '• ابدأ بخطّاف مشوق وعفوي في أول ثانيتين.<br>' +
-      '• أظهر كرتونة نون أو اللوجو في الثانية 3 أو 4.<br>' +
+      '• أظهر كرتونة نون أو اللوجو في الثانية 3 أو 4 (تظهر لمدة 5 ثوانٍ فقط ثم تختفي).<br>' +
       '• استخدم تسجيل شاشة مباشر وعالي النقاء لتطبيق نون.<br>' +
       '• انطق كود الخصم بصوتك واعرضه بحجم كبير لـ 3 ثوانٍ على الأقل.' +
       '</div>' +
       '<div style="background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6;">' +
       '<strong style="color: #b91c1c; font-size: 13.5px;">✗ محظورات تؤدي للرفض (لا تفعل):</strong><br>' +
       '• لا تظهر اللوجو أو الكرتونة في أول ثانيتين إطلاقاً.<br>' +
+      '• لا تترك اللوجو أو الكرتونة ظاهرة طوال الفيديو (الظهور لمدة 5 ثوانٍ فقط ثم يختفي).<br>' +
       '• لا تجمع بين كرتونة نون واللوجو في مشهد البداية معاً.<br>' +
       '• لا تصور شاشة جوال آخر بكاميرا خارجية (تسجيل الشاشة إلزامي).<br>' +
       '• لا تكتفِ بوضع الكود في الكابشن فقط (النطق والعرض الشاشي إلزاميان).' +
@@ -175,22 +179,22 @@ function brandGuidelinesBox(c, I, l) {
     '<div style="font-size: 13.5px; color: #78350f; line-height: 1.7; margin-bottom: 12px;">' +
     '<strong>🚨 Critical Mandatory Approval Rule:</strong><br>' +
     '1. <strong>Exclusive Display:</strong> Show either the iconic yellow noon box OR the noon logo in the first 5 seconds (strictly forbidden to show both together in the opening hook).<br>' +
-    '2. <strong>Exact Golden Timing:</strong> The box or logo must appear specifically at second 3 or 4 (00:03 - 00:05). Absolutely NO brand visual in seconds 00:00 - 00:02 to maintain an organic, relatable hook that prevents instant scrolling.<br>' +
-    '3. <strong>Static Corner Watermark:</strong> Keep a clean, discreet noon logo in the top or bottom corner throughout the full video duration.<br>' +
-    '4. <strong>Brand Name Typography:</strong> Always type \"noon\" entirely in lowercase letters (strictly \"noon\", never \"NOON\" or \"Noon\" in captions or overlays).<br>' +
-    '5. <strong>Direct App Screen Recording:</strong> Include a crisp, authentic screen recording of the noon app demonstrating the campaign banner click, product selection, and entering the promo code at checkout.' +
+    '2. <strong>Exact Golden Timing:</strong> The box or logo must appear specifically at second 3 or 4 (00:03 - 00:05) for ONLY 5 seconds and then disappear (absolutely NO brand visual in seconds 00:00 - 00:02, and strictly do NOT keep it visible throughout the video).<br>' +
+    '3. <strong>Brand Name Typography:</strong> Always type \"noon\" entirely in lowercase letters (strictly \"noon\", never \"NOON\" or \"Noon\" in captions or overlays).<br>' +
+    '4. <strong>Direct App Screen Recording:</strong> Include a crisp, authentic screen recording of the noon app demonstrating the campaign banner click, product selection, and entering the promo code at checkout.' +
     '</div>' +
     '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">' +
     '<div style="background: #f0fdf4; padding: 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #166534; line-height: 1.6;">' +
     '<strong style="color: #15803d; font-size: 13.5px; text-transform: uppercase;">✓ Mandatory Best Practices (DO):</strong><br>' +
     '• Hook viewers in 00:00 - 00:02 with relatable real-life problem or discount news.<br>' +
-    '• Introduce the yellow box or logo naturally at second 3 or 4.<br>' +
+    '• Introduce the yellow box or logo naturally at second 3 or 4 (for 5 seconds only then hide it).<br>' +
     '• Include clean native in-app screen recording showing banner and promo code.<br>' +
     '• Pronounce promo code aloud with your voice and display text for 3+ seconds.' +
     '</div>' +
     '<div style="background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6;">' +
     '<strong style="color: #b91c1c; font-size: 13.5px; text-transform: uppercase;">✗ Rejection Triggers (DON\'T):</strong><br>' +
     '• Do NOT flash noon logo or delivery box in the first 2 seconds.<br>' +
+    '• Do NOT keep the logo or box on screen throughout the video (allowed for 5 seconds only).<br>' +
     '• Do NOT combine both the noon box and logo together in opening hook scene.<br>' +
     '• Do NOT film an external phone screen with an outside camera.<br>' +
     '• Do NOT hide the code only in caption; spoken audio and text are mandatory.' +
@@ -453,7 +457,7 @@ module.exports = async function handler(req, res) {
   const I = {
     name: body.name || '',
     country: country,
-    code: body.code || defaultCodeFor(country, c),
+    code: (body.code !== undefined && body.code !== '') ? body.code : defaultCodeFor(country, c, body.phaseIx),
     phaseIx: parseInt(body.phaseIx || '0', 10),
     platform: body.platform || '',
     subDay: body.subDay || '',
