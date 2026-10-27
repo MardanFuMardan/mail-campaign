@@ -130,17 +130,40 @@
             "title": "Phase 2: 11.11 Single's Day Mega Peak",
             "date": "November 6 – 12 (Peak: Nov 10-11)",
             "categories": "Electronics & Tech, Beauty, Fashion, Daily Deals",
-            "action": "High-energy Single's Day push • Launch dedicated 11.11 promo coupon code featuring high discount % • Screen recording showing 11.11 banner inside noon app • Showcase assigned tech gadgets and viral beauty deals: 'Global 11.11 mega discounts are live!' • CTA: Shop 11.11 on noon now with promo code {CODE}",
+            "action": "Mega 11.11 Single's Day push! • Promote your exclusive 25% off code (1111SALE) alongside the special (B1G1) Buy 1 Get 1 offer • In-app screen recording clicking the 11.11 banner and applying coupon at checkout • Showcase viral electronics, beauty, and fashion deals • Strong CTA to shop 11.11 on noon now with code 1111SALE & B1G1",
             "msg": "11.11 Single's Day mega markdowns, High discount coupon drops, Tech upgrades"
           },
           "ar": {
             "title": "المرحلة 2: ذروة عروض 11.11 الكبرى",
             "date": "6 - 12 نوفمبر (الذروة: 10 - 11 نوفمبر)",
             "categories": "الإلكترونيات والتكنولوجيا، الجمال، الأزياء، العروض اليومية",
-            "action": "نداء عالي الحماس لعروض يوم العزاب 11.11 العالمية • إبراز كود الخصم المخصص لـ 11.11 مع أعلى نسبة توفير • تسجيل شاشة يوضح النقر على بنر 11.11 داخل التطبيق • استعراض منتجات التكنولوجيا والجمال المحددة: 'انطلاق حدث 11.11 العالمي بحماس عالي!' • دعوة لاتخاذ إجراء للتسوق الفوري بكود {CODE}",
+            "action": "انطلاق الحدث الأضخم لعروض يوم العزاب 11.11! • الترويج لكود الخصم الحصري (1111SALE) بنسبة 25% وكود (B1G1) اشترِ 1 واحصل على 1 مجاناً • تسجيل شاشة واقعي للتطبيق يوضح بنر 11.11 وتطبيق الأكواد عند الدفع • استعراض صفقات التكنولوجيا والجمال والأزياء • دعوة فورية للتسوق والاستفادة من عروض 11.11 بكود 1111SALE وكود B1G1",
             "msg": "تخفيضات 11.11 الخيالية، خصومات عالية بكود مخصص، ترقيات التكنولوجيا"
           },
-          "promoCode": ""
+          "promoCode": "1111SALE",
+          "secondaryCode": "B1G1",
+          "countryDiscounts": {
+            "QA": {
+              "en": "<strong>Use code (1111SALE)</strong> for 25% off your order on the noon app (up to 62.5 QAR on min order 250 QAR)! Plus onsite code <strong>(B1G1)</strong> for Buy 1 Get 1 on eligible items over 111 QAR! (Available across all categories for all users)",
+              "ar": "<strong>استخدم كود (1111SALE)</strong> للحصول على خصم 25% على طلبك من تطبيق نون (بحد أقصى 62.5 ريال قطري عند الطلب بـ 250 ريال أو أكثر)! بالإضافة لكود <strong>(B1G1)</strong> لعرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة أكثر من 111 ريال! (متاح لكافة الأقسام ولجميع المستخدمين)",
+              "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
+            },
+            "KW": {
+              "en": "<strong>Use code (1111SALE)</strong> for 25% off your order on the noon app (up to 5 KWD on min order 20 KWD)! Plus onsite code <strong>(B1G1)</strong> for Buy 1 Get 1 on eligible items over 9 KWD! (Available across all categories for all users)",
+              "ar": "<strong>استخدم كود (1111SALE)</strong> للحصول على خصم 25% على طلبك من تطبيق نون (بحد أقصى 5 دينار كويتي عند الطلب بـ 20 دينار أو أكثر)! بالإضافة لكود <strong>(B1G1)</strong> لعرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة أكثر من 9 دينار! (متاح لكافة الأقسام ولجميع المستخدمين)",
+              "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
+            },
+            "BH": {
+              "en": "<strong>Use code (1111SALE)</strong> for 25% off your order on the noon app (up to 6.25 BHD on min order 25 BHD)! Plus onsite code <strong>(B1G1)</strong> for Buy 1 Get 1 on eligible items over 11.1 BHD! (Available across all categories for all users)",
+              "ar": "<strong>استخدم كود (1111SALE)</strong> للحصول على خصم 25% على طلبك من تطبيق نون (بحد أقصى 6.25 دينار بحريني عند الطلب بـ 25 دينار أو أكثر)! بالإضافة لكود <strong>(B1G1)</strong> لعرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة أكثر من 11.1 دينار! (متاح لكافة الأقسام ولجميع المستخدمين)",
+              "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
+            },
+            "OM": {
+              "en": "<strong>Use code (1111SALE)</strong> for 25% off your order on the noon app (up to 6.25 OMR on min order 25 OMR)! Plus onsite code <strong>(B1G1)</strong> for Buy 1 Get 1 on eligible items over 11.1 OMR! (Special 11.11 deals for Oman)",
+              "ar": "<strong>استخدم كود (1111SALE)</strong> للحصول على خصم 25% على طلبك من تطبيق نون (بحد أقصى 6.25 ريال عماني عند الطلب بـ 25 ريال أو أكثر)! بالإضافة لكود <strong>(B1G1)</strong> لعرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة أكثر من 11.1 ريال! (عروض 11.11 الحصرية لسلطنة عمان)",
+              "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
+            }
+          }
         },
         {
           "en": {

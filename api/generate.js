@@ -43,14 +43,31 @@ function phaseBox(phase, l, code) {
     '<strong>' + p.title + '</strong><br>' + p.date + '<br><strong>Categories:</strong> ' + p.categories + '</div>';
 }
 
-function discountBox(dis, code, l, STATIC) {
+function discountBox(dis, code, l, STATIC, phase) {
   var rtl = l === 'ar' ? 'border-right' : 'border-left';
   var hasCode = !!(code && code.trim() && code.trim() !== '{CODE}');
   var displayCode = hasCode ? code.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
   var text = (dis[l] || '').replace(/\{CODE\}/g, displayCode);
-  var codeBadge = hasCode
-    ? '<div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>'
-    : '<div style="font-size: 15px; font-weight: bold; color: #dc2626; letter-spacing: 1px; margin-bottom: 6px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 4px 12px; border-radius: 4px;">' + displayCode + '</div>';
+
+  var codeBadge;
+  if (phase && phase.secondaryCode) {
+    codeBadge = '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">' +
+      '<div>' +
+      '<div style="font-size:11px; color:#c2410c; font-weight:bold; margin-bottom:2px;">' + (l === 'ar' ? 'كود المؤثر الحصري (خصم 25%):' : 'INFLUENCER CODE (25% OFF):') + '</div>' +
+      (hasCode
+        ? '<div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>'
+        : '<div style="font-size: 15px; font-weight: bold; color: #dc2626; letter-spacing: 1px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>') +
+      '</div>' +
+      '<div>' +
+      '<div style="font-size:11px; color:#15803d; font-weight:bold; margin-bottom:2px;">' + (l === 'ar' ? 'كود عروض التطبيق (اشترِ 1 واحصل على 1):' : 'ONSITE CODE (BUY 1 GET 1):') + '</div>' +
+      '<div style="font-size: 18px; font-weight: bold; color: #166534; letter-spacing: 1px; background-color: #dcfce7; border:1px solid #86efac; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + phase.secondaryCode + '</div>' +
+      '</div>' +
+      '</div>';
+  } else {
+    codeBadge = hasCode
+      ? '<div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>'
+      : '<div style="font-size: 15px; font-weight: bold; color: #dc2626; letter-spacing: 1px; margin-bottom: 6px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 4px 12px; border-radius: 4px;">' + displayCode + '</div>';
+  }
 
   return '<div style="background-color: #fff7ed; ' + rtl + ': 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 16px 0;">' +
     '<div style="font-size: 13px; color: #c2410c; margin-bottom: 4px; font-weight: bold;">' + (l === 'ar' ? 'كود الخصم الإلزامي' : 'Mandatory Discount Code') + '</div>' +
@@ -143,28 +160,29 @@ function brandGuidelinesBox(c, I, l) {
   if (l === 'ar') {
     return '<div style="background-color: #fffdf0; ' + rtl + ': 4px solid #d97706; padding: 16px; border-radius: 8px; margin: 18px 0;">' +
       '<div style="color: #b45309; font-size: 14.5px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
-      '<span>🎬</span> القواعد الصارمة للعلامة التجارية في تصوير الفيديو — قاعدة أول 5 ثوانٍ الإلزامية' +
+      '<span>🎬</span> القواعد الإرشادية للعلامة التجارية في تصوير الفيديو' +
       '</div>' +
       '<div style="font-size: 13.5px; color: #78350f; line-height: 1.7; margin-bottom: 12px;">' +
-      '<strong>🚨 شرط إلزامي وحاسم لاعتماد الفيديو:</strong><br>' +
-      '1. <strong>الظهور الحصري:</strong> إظهار إما كرتونة نون الصفراء أو لوجو نون فقط في أول 5 ثوانٍ (ممنوع إظهار الاثنين معاً في نفس المشهد الافتتاحي).<br>' +
-      '2. <strong>التوقيت الذهبي الدقيق:</strong> يجب أن تظهر الكرتونة أو اللوجو في الثانية 3 أو 4 (00:03 - 00:05) وتستمر لمدة 5 ثوانٍ فقط ثم تختفي تماماً (ممنوع تماماً ظهورها في أول ثانيتين، وممنوع إبقاؤها طوال مدة الفيديو).<br>' +
+      '<strong>🚨 شروط إلزامية لاعتماد الفيديو:</strong><br>' +
+      '1. <strong>توقيت ومدة ظهور اللوجو (5 ثوانٍ فقط):</strong> يجب أن يظهر لوجو نون في الثانية 3 أو 4 (00:03 - 00:05) ولمدة <strong>5 ثوانٍ فقط ثم يختفي</strong>. ممنوع تماماً ظهور اللوجو في أول ثانيتين (00:00 - 00:02) للحفاظ على الخطّاف العفوي الطبيعي (Hook)، وممنوع إبقاؤه ظاهراً طوال مدة الفيديو.<br>' +
+      '2. <strong>كرتونة / بوكس نون:</strong> مرحب بظهور كرتونة نون والتحدث عنها أو تصوير فتح الصندوق (Unboxing) بسلاسة وعفوية في أي وقت من الفيديو ضمن سياق القصة والاسكريبت. وإذا ظهر البوكس، <strong>ليس ممنوعاً وضع اللوجو معه</strong>؛ يمكن دمجهما معاً باحترافية حسب سياق الفيديو.<br>' +
       '3. <strong>كتابة اسم البراند:</strong> تُكتب كلمة noon دائماً بحروف صغيرة بالإنجليزية (noon وليس NOON أو Noon في النصوص والكابشن).<br>' +
-      '4. <strong>تسجيل شاشة التطبيق:</strong> إظهار تسجيل شاشة واقعي وعالي الدقة لتطبيق نون يوضح النقر على بنر الحملة، تصفح المنتجات، وتطبيق كود الخصم في صفحة الدفع.' +
+      '4. <strong>تسجيل شاشة التطبيق:</strong> إظهار تسجيل شاشة واقعي وعالي الدقة لتطبيق نون يوضح النقر على بنر الحملة وتطبيق كود الخصم في صفحة الدفع.' +
       '</div>' +
       '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">' +
       '<div style="background: #f0fdf4; padding: 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #166534; line-height: 1.6;">' +
       '<strong style="color: #15803d; font-size: 13.5px;">✓ إرشادات إلزامية (افعل):</strong><br>' +
       '• ابدأ بخطّاف مشوق وعفوي في أول ثانيتين.<br>' +
-      '• أظهر كرتونة نون أو اللوجو في الثانية 3 أو 4 (تظهر لمدة 5 ثوانٍ فقط ثم تختفي).<br>' +
+      '• أظهر لوجو نون في الثانية 3 أو 4 (يظهر لمدة 5 ثوانٍ فقط ثم يختفي).<br>' +
+      '• تحدث عن كرتونة نون أو استعرض فتح الصندوق (Unboxing) بأسلوب احترافي وعفوي.<br>' +
+      '• لا مانع من ظهور اللوجو مع الكرتونة في نفس المشهد إذا خدم سياق الاسكريبت.<br>' +
       '• استخدم تسجيل شاشة مباشر وعالي النقاء لتطبيق نون.<br>' +
       '• انطق كود الخصم بصوتك واعرضه بحجم كبير لـ 3 ثوانٍ على الأقل.' +
       '</div>' +
       '<div style="background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6;">' +
       '<strong style="color: #b91c1c; font-size: 13.5px;">✗ محظورات تؤدي للرفض (لا تفعل):</strong><br>' +
-      '• لا تظهر اللوجو أو الكرتونة في أول ثانيتين إطلاقاً.<br>' +
-      '• لا تترك اللوجو أو الكرتونة ظاهرة طوال الفيديو (الظهور لمدة 5 ثوانٍ فقط ثم يختفي).<br>' +
-      '• لا تجمع بين كرتونة نون واللوجو في مشهد البداية معاً.<br>' +
+      '• لا تظهر لوجو نون في أول ثانيتين إطلاقاً.<br>' +
+      '• لا تترك لوجو نون ظاهراً طوال مدة الفيديو (اللوجو يظهر لمدة 5 ثوانٍ فقط ثم يختفي).<br>' +
       '• لا تصور شاشة جوال آخر بكاميرا خارجية (تسجيل الشاشة إلزامي).<br>' +
       '• لا تكتفِ بوضع الكود في الكابشن فقط (النطق والعرض الشاشي إلزاميان).' +
       '</div>' +
@@ -174,12 +192,12 @@ function brandGuidelinesBox(c, I, l) {
 
   return '<div style="background-color: #fffdf0; ' + rtl + ': 4px solid #d97706; padding: 16px; border-radius: 8px; margin: 18px 0;">' +
     '<div style="color: #b45309; font-size: 14.5px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
-    '<span>🎬</span> Strict Brand Video Production Guidelines — The First 5 Seconds Rule' +
+    '<span>🎬</span> Brand Video Production Guidelines — Logo & Box Rules' +
     '</div>' +
     '<div style="font-size: 13.5px; color: #78350f; line-height: 1.7; margin-bottom: 12px;">' +
-    '<strong>🚨 Critical Mandatory Approval Rule:</strong><br>' +
-    '1. <strong>Exclusive Display:</strong> Show either the iconic yellow noon box OR the noon logo in the first 5 seconds (strictly forbidden to show both together in the opening hook).<br>' +
-    '2. <strong>Exact Golden Timing:</strong> The box or logo must appear specifically at second 3 or 4 (00:03 - 00:05) for ONLY 5 seconds and then disappear (absolutely NO brand visual in seconds 00:00 - 00:02, and strictly do NOT keep it visible throughout the video).<br>' +
+    '<strong>🚨 Mandatory Video Approval Guidelines:</strong><br>' +
+    '1. <strong>Logo Timing & Duration (5 Seconds Only):</strong> The official noon logo must appear specifically at second 3 or 4 (00:03 - 00:05) and remain on-screen for <strong>ONLY 5 seconds then disappear</strong>. Absolutely NO logo in seconds 00:00 - 00:02 to maintain an organic, relatable hook, and strictly do NOT keep the logo visible throughout the entire video.<br>' +
+    '2. <strong>noon Delivery Box:</strong> You are welcome to feature the yellow noon delivery box, talk about it, or film an unboxing at any suitable point in the video as fits your script. If the box appears, <strong>it is NOT forbidden to show the logo with it</strong> — both can appear together naturally according to the video context.<br>' +
     '3. <strong>Brand Name Typography:</strong> Always type \"noon\" entirely in lowercase letters (strictly \"noon\", never \"NOON\" or \"Noon\" in captions or overlays).<br>' +
     '4. <strong>Direct App Screen Recording:</strong> Include a crisp, authentic screen recording of the noon app demonstrating the campaign banner click, product selection, and entering the promo code at checkout.' +
     '</div>' +
@@ -187,15 +205,16 @@ function brandGuidelinesBox(c, I, l) {
     '<div style="background: #f0fdf4; padding: 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #166534; line-height: 1.6;">' +
     '<strong style="color: #15803d; font-size: 13.5px; text-transform: uppercase;">✓ Mandatory Best Practices (DO):</strong><br>' +
     '• Hook viewers in 00:00 - 00:02 with relatable real-life problem or discount news.<br>' +
-    '• Introduce the yellow box or logo naturally at second 3 or 4 (for 5 seconds only then hide it).<br>' +
+    '• Introduce noon logo at second 3 or 4 (for 5 seconds only then hide it).<br>' +
+    '• Feature the yellow noon box or unboxing smoothly within your video story.<br>' +
+    '• You MAY show the box and logo together whenever natural to your script.<br>' +
     '• Include clean native in-app screen recording showing banner and promo code.<br>' +
     '• Pronounce promo code aloud with your voice and display text for 3+ seconds.' +
     '</div>' +
     '<div style="background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6;">' +
     '<strong style="color: #b91c1c; font-size: 13.5px; text-transform: uppercase;">✗ Rejection Triggers (DON\'T):</strong><br>' +
-    '• Do NOT flash noon logo or delivery box in the first 2 seconds.<br>' +
-    '• Do NOT keep the logo or box on screen throughout the video (allowed for 5 seconds only).<br>' +
-    '• Do NOT combine both the noon box and logo together in opening hook scene.<br>' +
+    '• Do NOT flash noon logo in the first 2 seconds.<br>' +
+    '• Do NOT keep the noon logo visible throughout the entire video (5 seconds only).<br>' +
     '• Do NOT film an external phone screen with an outside camera.<br>' +
     '• Do NOT hide the code only in caption; spoken audio and text are mandatory.' +
     '</div>' +
@@ -301,7 +320,7 @@ function buildEmail(c, I, phase, dis, l, STATIC) {
   if (l === 'ar') {
     o = '<strong>أهداف الحملة</strong><br>' + STATIC.objectivesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>مرحلة الحملة المخصصة لك</strong><br>' + phaseBox(phase, l) + '<br>' +
-      discountBox(dis, I.code, l, STATIC) + '<br>' +
+      discountBox(dis, I.code, l, STATIC, phase) + '<br>' +
       collabAndHashtagsBox(c, I, l) +
       spotTheBagBox(c, I, l) +
       brandGuidelinesBox(c, I, l) +
@@ -316,7 +335,7 @@ function buildEmail(c, I, phase, dis, l, STATIC) {
   } else {
     o = '<strong>Campaign Objectives</strong><br>' + STATIC.objectivesEn.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
       '<strong>Assigned Campaign Phase</strong><br>' + phaseBox(phase, l) + '<br>' +
-      discountBox(dis, I.code, l, STATIC) + '<br>' +
+      discountBox(dis, I.code, l, STATIC, phase) + '<br>' +
       collabAndHashtagsBox(c, I, l) +
       spotTheBagBox(c, I, l) +
       brandGuidelinesBox(c, I, l) +
@@ -351,9 +370,25 @@ function buildBrief(c, I, phase, dis, l, STATIC) {
   var ol = function (arr) { return arr.map(function (b) { return '<li style="margin-bottom:4px;">' + b + '</li>'; }).join(''); };
   var rule = l === 'ar' ? 'border-right' : 'border-left';
 
-  var codeBadge = hasCode
-    ? '<div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block;">' + displayCode + '</div>'
-    : '<div style="font-size:16px; font-weight:bold; color:#dc2626; letter-spacing:1px; margin-bottom:8px; display:inline-block; background-color:#fee2e2; border:1.5px dashed #ef4444; padding:4px 12px; border-radius:4px;">' + displayCode + '</div>';
+  var codeBadge;
+  if (phase && phase.secondaryCode) {
+    codeBadge = '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">' +
+      '<div>' +
+      '<div style="font-size:11px; color:#c2410c; font-weight:bold; margin-bottom:2px;">' + (l === 'ar' ? 'كود المؤثر الحصري (خصم 25%):' : 'INFLUENCER CODE (25% OFF):') + '</div>' +
+      (hasCode
+        ? '<div style="font-size: 20px; font-weight: bold; color: #ea580c; letter-spacing: 2px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>'
+        : '<div style="font-size: 16px; font-weight: bold; color: #dc2626; letter-spacing: 1px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>') +
+      '</div>' +
+      '<div>' +
+      '<div style="font-size:11px; color:#15803d; font-weight:bold; margin-bottom:2px;">' + (l === 'ar' ? 'كود عروض التطبيق (اشترِ 1 واحصل على 1):' : 'ONSITE CODE (BUY 1 GET 1):') + '</div>' +
+      '<div style="font-size: 20px; font-weight: bold; color: #166534; letter-spacing: 2px; background-color: #dcfce7; border:1px solid #86efac; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + phase.secondaryCode + '</div>' +
+      '</div>' +
+      '</div>';
+  } else {
+    codeBadge = hasCode
+      ? '<div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block;">' + displayCode + '</div>'
+      : '<div style="font-size:16px; font-weight:bold; color:#dc2626; letter-spacing:1px; margin-bottom:8px; display:inline-block; background-color:#fee2e2; border:1.5px dashed #ef4444; padding:4px 12px; border-radius:4px;">' + displayCode + '</div>';
+  }
 
   if (l === 'ar') {
     return '<div style="font-size:15px; font-weight:800; color:#000; margin-bottom:2px;">' + c.nameAr + '</div>' +
@@ -453,12 +488,13 @@ module.exports = async function handler(req, res) {
   const c = (campaigns || []).filter(x => x.id === campaignId)[0] || campaigns[0];
   if (!c) return res.status(404).json({ error: 'Campaign not found' });
 
-  const country = body.country || 'QA';
+  const country = (body.country || 'QA').toUpperCase();
+  const phaseIx = parseInt(body.phaseIx !== undefined ? body.phaseIx : (body.phaseIndex !== undefined ? body.phaseIndex : '0'), 10);
   const I = {
     name: body.name || '',
     country: country,
-    code: (body.code !== undefined && body.code !== '') ? body.code : defaultCodeFor(country, c, body.phaseIx),
-    phaseIx: parseInt(body.phaseIx || '0', 10),
+    code: (body.code !== undefined && body.code !== '') ? body.code : defaultCodeFor(country, c, phaseIx),
+    phaseIx: phaseIx,
     platform: body.platform || '',
     subDay: body.subDay || '',
     subMonth: body.subMonth || '01',
@@ -469,8 +505,8 @@ module.exports = async function handler(req, res) {
     sender: body.sender || c.sender || 'Mahmoud'
   };
 
-  const dis = (c.countryDiscounts && c.countryDiscounts[country]) || {};
   const phase = (c.phases && c.phases[I.phaseIx]) || (c.phases && c.phases[0]) || { en: {}, ar: {} };
+  const dis = (phase && phase.countryDiscounts && phase.countryDiscounts[country]) || (c.countryDiscounts && c.countryDiscounts[country]) || {};
 
   const subjectEn = c.nameEn + ' | Collaboration Opportunity – ' + (COUNTRIES[country] || '');
   const subjectAr = c.nameAr;
