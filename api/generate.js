@@ -69,11 +69,21 @@ function discountBox(dis, code, l, STATIC, phase) {
       : '<div style="font-size: 15px; font-weight: bold; color: #dc2626; letter-spacing: 1px; margin-bottom: 6px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 4px 12px; border-radius: 4px;">' + displayCode + '</div>';
   }
 
+  var titleText = (phase && phase.secondaryCode)
+    ? (l === 'ar' ? 'أكواد الخصم الإلزامية — (يجب التحدث عن الكودين معاً في الفيديو وشرحهما)' : 'Mandatory Discount Codes — (Both Codes Must Be Spoken & Explained in Video)')
+    : (l === 'ar' ? 'كود الخصم الإلزامي' : 'Mandatory Discount Code');
+
+  var dualCodeAlert = (phase && phase.secondaryCode)
+    ? (l === 'ar'
+      ? '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً بصوتك):</strong><br>في هذه المرحلة من الحملة، يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong> وشرح ميزة كل كود لجمهورك:<br>• كود المؤثر الحصري <strong>(' + displayCode + ')</strong>: خصم 25% على الطلب.<br>• كود عروض التطبيق <strong>(' + phase.secondaryCode + ')</strong>: عرض (اشترِ 1 واحصل على 1 مجاناً).<br><em>* يُمنع التحدث عن كود واحد وإهمال الآخر، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.</em></div>'
+      : '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 Mandatory Creator Mandate (Speak About Both Codes):</strong><br>In this phase, you MUST <strong>speak about BOTH codes out loud in your video</strong> and explain both offers to your audience:<br>• Creator Code <strong>(' + displayCode + ')</strong>: 25% OFF discount.<br>• Onsite Code <strong>(' + phase.secondaryCode + ')</strong>: Buy 1 Get 1 Free offer.<br><em>* Mentioning only one code is strictly forbidden. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the caption preview, and in Stories.</em></div>')
+    : ('<div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;"><em>' + (l === 'ar' ? STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) : STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode)) + '</em></div>');
+
   return '<div style="background-color: #fff7ed; ' + rtl + ': 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 16px 0;">' +
-    '<div style="font-size: 13px; color: #c2410c; margin-bottom: 4px; font-weight: bold;">' + (l === 'ar' ? 'كود الخصم الإلزامي' : 'Mandatory Discount Code') + '</div>' +
+    '<div style="font-size: 13.5px; color: #c2410c; margin-bottom: 6px; font-weight: bold;">' + titleText + '</div>' +
     codeBadge +
     '<div style="margin-top: 4px; color: #9a3412; font-size: 14px;"><strong>' + (l === 'ar' ? 'تفاصيل العرض:' : 'Offer Details:') + '</strong><br>' + text + '</div>' +
-    '<div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;"><em>' + (l === 'ar' ? STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) : STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode)) + '</em></div>' +
+    dualCodeAlert +
     '</div>';
 }
 
@@ -396,9 +406,11 @@ function buildBrief(c, I, phase, dis, l, STATIC) {
       '<strong style="color:#0284c7; font-size:13px;">🎯 نافذة الحملة والفئات</strong><br><br>' +
       '<div style="background-color:#f0f9ff; padding:12px; ' + rule + ':3px solid #38bdf8; border-radius:6px; margin-bottom:12px;"><strong style="color:#0c4a6e; font-size:14px;">المرحلة: ' + p.title + ' (' + p.date + ')</strong><br><br><strong style="color:#0369a1;">الفئات:</strong> <span style="color:#000">' + p.categories + '</span><br><br><strong style="color:#0369a1;">متطلبات المحتوى:</strong><div style="color:#000; margin-top:4px;">• ' + bullets(actionText) + '</div></div>' +
       '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-      '<strong style="color:#0284c7; font-size:13px;">🏆 القاعدة الذهبية — كود الخصم إلزامي</strong><br><br>' +
-      '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold;">كود الخصم</div>' + codeBadge + '<div style="color:#9a3412; font-size:14px;"><strong>تفاصيل العرض:</strong><br>' + offerText + '</div></div>' +
-      '<div style="color:#3f3f46; margin-top:8px; font-size:13px;"><em>' + STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) + '</em></div>' +
+      '<strong style="color:#0284c7; font-size:13px;">' + (phase && phase.secondaryCode ? '🏆 القاعدة الذهبية — التحدث عن كلا الكودين إلزامي في الفيديو' : '🏆 القاعدة الذهبية — كود الخصم إلزامي') + '</strong><br><br>' +
+      '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold;">' + (phase && phase.secondaryCode ? 'أكواد الخصم والعروض' : 'كود الخصم') + '</div>' + codeBadge + '<div style="color:#9a3412; font-size:14px;"><strong>تفاصيل العرض:</strong><br>' + offerText + '</div></div>' +
+      (phase && phase.secondaryCode
+        ? '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 شرط إلزامي لقبول الفيديو في مرحلة 11.11 (التحدث عن الكودين معاً):</strong><br>يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong> وشرحهما للمتابعين:<br>1. كود المؤثر الحصري <strong>' + displayCode + '</strong>: لخصم 25% على الطلب.<br>2. كود عروض التطبيق <strong>' + phase.secondaryCode + '</strong>: لعرض اشترِ 1 واحصل على 1 مجاناً.<br><em>* يُمنع الاكتفاء بذكر كود واحد فقط، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.</em></div>'
+        : '<div style="color:#3f3f46; margin-top:8px; font-size:13px;"><em>' + STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) + '</em></div>') +
       spotTheBagBox(c, I, l) +
       brandGuidelinesBox(c, I, l) +
       '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
@@ -434,9 +446,11 @@ function buildBrief(c, I, phase, dis, l, STATIC) {
     '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🎯 CAMPAIGN WINDOW & CATEGORIES</strong><br><br>' +
     '<div style="background-color:#f0f9ff; padding:12px; ' + rule + ':3px solid #38bdf8; border-radius:6px; margin-bottom:12px;"><strong style="color:#0c4a6e; font-size:14px;">Phase: ' + p.title + ' (' + p.date + ')</strong><br><br><strong style="color:#0369a1;">Categories:</strong> <span style="color:#000">' + p.categories + '</span><br><br><strong style="color:#0369a1;">Content Requirements:</strong><div style="color:#000; margin-top:4px;">• ' + bullets(actionText) + '</div></div>' +
     '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🏆 THE GOLDEN RULE — DISCOUNT CODE MANDATE</strong><br><br>' +
-    '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold; text-transform:uppercase;">Discount Code</div>' + codeBadge + '<div style="color:#9a3412; font-size:14px;"><strong>Offer Details:</strong><br>' + offerText + '</div></div>' +
-    '<div style="color:#3f3f46; margin-top:8px; font-size:13px;">' + STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode) + '</div>' +
+    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">' + (phase && phase.secondaryCode ? '🏆 THE GOLDEN RULE — SPEAKING ABOUT BOTH CODES IN VIDEO IS MANDATORY' : '🏆 THE GOLDEN RULE — DISCOUNT CODE MANDATE') + '</strong><br><br>' +
+    '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold; text-transform:uppercase;">' + (phase && phase.secondaryCode ? 'Discount & Offer Codes' : 'Discount Code') + '</div>' + codeBadge + '<div style="color:#9a3412; font-size:14px;"><strong>Offer Details:</strong><br>' + offerText + '</div></div>' +
+    (phase && phase.secondaryCode
+      ? '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 Mandatory Approval Requirement for 11.11 Phase (Both Codes Spoken in Video):</strong><br>You MUST <strong>speak about BOTH codes out loud in your video</strong> and explain both offers to your audience:<br>1. Creator Code <strong>' + displayCode + '</strong>: Exclusive 25% OFF discount.<br>2. Onsite Code <strong>' + phase.secondaryCode + '</strong>: Buy 1 Get 1 Free offer.<br><em>* Mentioning only one code is strictly forbidden. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the caption preview, and in Stories.</em></div>'
+      : '<div style="color:#3f3f46; margin-top:8px; font-size:13px;">' + STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode) + '</div>') +
     spotTheBagBox(c, I, l) +
       brandGuidelinesBox(c, I, l) +
     '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
