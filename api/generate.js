@@ -481,6 +481,284 @@ function buildBrief(c, I, phase, dis, l, STATIC) {
     '<ul style="margin:0; padding-left:20px; color:#3f3f46; font-size:13px;"><li style="margin-bottom:4px;"><strong>Agreed Platform(s):</strong> ' + (I.platform || '[Platform]') + '</li><li style="margin-bottom:4px;"><strong>TikTok:</strong> If applicable, provide the Spark Code immediately after posting.</li><li style="margin-bottom:4px;"><strong>Logo:</strong> Use ONLY the official logo. <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">The logo must appear for ONLY 5 seconds and then disappear</strong>. Download: <a href="' + (c.logoUrl || 'https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS') + '" style="color:#0284c7; text-decoration:none; border-bottom:1px solid #7dd3fc;">Google Drive Link</a></li><li><strong>Captions & Tags:</strong> Will be provided AFTER approval. Do NOT write your own.</li></ul>';
 }
 
+
+function stripHtml(s) {
+  return String(s || '')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n\n')
+    .replace(/<\/li>/gi, '\n')
+    .replace(/<li>/gi, '• ')
+    .replace(/<\/?[^>]+(>|$)/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .trim();
+}
+
+function buildBriefText(c, I, phase, dis, l, STATIC) {
+  var p = phase[l];
+  var hasCode = !!(I.code && I.code.trim() && I.code.trim() !== '{CODE}');
+  var displayCode = hasCode ? I.code.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
+  var actionText = stripHtml((p.action || '').replace(/\{CODE\}/g, displayCode));
+  var offerText = stripHtml((dis[l] || '').replace(/\{CODE\}/g, displayCode));
+  var angles = p.msg || '';
+
+  var countryTagMap = { QA: '@noon_qar', KW: '@noon_kuwt', BH: '@noon.bahr', OM: '@noon_omn' };
+  var countryUrlMap = {
+    QA: 'https://www.instagram.com/noon_qar/',
+    KW: 'https://www.instagram.com/noon_kuwt/',
+    BH: 'https://www.instagram.com/noon.bahr/',
+    OM: 'https://www.instagram.com/noon_omn/'
+  };
+  var countryNameMap = {
+    QA: { ar: 'قطر 🇶🇦', en: 'Qatar 🇶🇦' },
+    KW: { ar: 'الكويت 🇰🇼', en: 'Kuwait 🇰🇼' },
+    BH: { ar: 'البحرين 🇧🇭', en: 'Bahrain 🇧🇭' },
+    OM: { ar: 'عُمان 🇴🇲', en: 'Oman 🇴🇲' }
+  };
+  var cTag = countryTagMap[I.country] || '@noon';
+  var cUrl = countryUrlMap[I.country] || 'https://www.instagram.com/noon/';
+  var cName = countryNameMap[I.country] ? countryNameMap[I.country][l] : I.country;
+  var hashtags = c.hashtags || '#noon #noonGCC #YellowFridaySale #noonYFS #YFS2026 #SingleDay1111 #الجمعة_الصفراء #عروض_نون #عروض_11_11';
+
+  var guideUrl = c.guideUrl || 'https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view';
+  var briefUrl = (l === 'ar' ? (c.briefUrlAr || c.briefUrl) : (c.briefUrlEn || c.briefUrl)) || 'https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link';
+  var logoUrl = c.logoUrl || 'https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS';
+  var portalLink = (c.portalUrl || 'https://noon-invoice.vercel.app/') + (c.monthEn ? ((c.portalUrl || '').indexOf('?') === -1 ? '?' : '&') + 'month=' + encodeURIComponent(c.monthEn) : '');
+
+  var sub = dateStr(I.subDay, I.subMonth, l);
+  var live = dateStr(I.liveDay, I.liveMonth, l);
+  var fee = I.fee ? (I.fee + (l === 'ar' ? ' دولار / ما يعادلها بالعملة المحلية' : ' USD / Local Equivalent')) : (l === 'ar' ? '[المقابل المالي]' : '[Campaign Fee]');
+
+  if (l === 'ar') {
+    var codeSection = '';
+    if (phase && phase.secondaryCode) {
+      codeSection = '🏆 2. القاعدة الذهبية — أكواد الخصم والعروض الإلزامية:\n' +
+        '• كود المؤثر الحصري (خصم 25%): ' + displayCode + '\n' +
+        '• كود عروض التطبيق (اشترِ 1 واحصل على 1 مجاناً): ' + phase.secondaryCode + '\n\n' +
+        'تفاصيل العرض ونسب الخصم:\n' + offerText + '\n\n' +
+        '🚨 تنبيه إلزامي لصانع المحتوى (التحدث عن الكودين معاً بصوتك):\n' +
+        'في هذه المرحلة (عروض 11.11)، يجب عليك التحدث عن الكودين معاً بصوتك في الفيديو وشرحهما للمتابعين:\n' +
+        '1. كود المؤثر الحصري (' + displayCode + '): خصم 25% على إجمالي الطلب.\n' +
+        '2. كود عروض التطبيق (' + phase.secondaryCode + '): عرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة.\n' +
+        '* يُمنع الاكتفاء بكود واحد فقط، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.';
+    } else {
+      codeSection = '🏆 2. القاعدة الذهبية — كود الخصم الإلزامي:\n' +
+        '• كود الخصم: ' + displayCode + '\n\n' +
+        'تفاصيل العرض:\n' + offerText + '\n\n' +
+        'القاعدة الذهبية لاستخدام الكود:\n' +
+        'يجب أن يظهر كود الخصم المخصص لك (' + displayCode + ') ويتم الترويج له في 4 مواضع بالتزامن:\n' +
+        '1. منطوقاً بصوتك في الفيديو بوضوح.\n' +
+        '2. مكتوباً على الشاشة في نص بارز لمدة 3 ثوانٍ على الأقل.\n' +
+        '3. في أول سطرين من النص المكتوب (Caption) قبل زر "المزيد".\n' +
+        '4. في قصص إنستغرام (Stories) مع ستيكر رابط مباشر للشراء.';
+    }
+
+    var spotTheBagText = '';
+    var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
+    if (I.country === 'BH' && isSep) {
+      spotTheBagText = '\n--------------------------------------------------------------------------------\n' +
+        '🚨 تحديث هام وإلزامي (خاص بمملكة البحرين) — فعالية SPOT THE BAG (#SpotTheNoonBag):\n' +
+        '• الفكرة: 20 مروّجاً يحملون أكياس نون صفراء عملاقة عليها كود QR في أكبر المولات بالبحرين.\n' +
+        '• الجائزة: الدخول في سحب رسمي للفوز بجهاز iPhone 18 Pro جديد لمن يمسح الكود.\n' +
+        '• المطلوب: 1x فيديو ريلز/تيك توك حماسي للإعلان عن الفعالية وتحدي الجمهور + 1x ستوري تغطية حية يوم الفعالية.\n' +
+        '• الهاشتاق المعتمد: #SpotTheNoonBag ومنشن لحساب @noon.bahr\n';
+    }
+
+    return '================================================================================\n' +
+      'بريف المؤثرين الرسمي — شركة نون (noon GCC)\n' +
+      c.nameAr + '\n' +
+      'الدولة المستهدفة: ' + cName + (I.name ? ' | صانع المحتوى: ' + I.name : '') + '\n' +
+      '================================================================================\n\n' +
+      '🎯 1. نافذة الحملة والمرحلة المخصصة لك:\n' +
+      '• المرحلة: ' + p.title + ' (' + p.date + ')\n' +
+      '• الفئات المستهدفة: ' + p.categories + '\n' +
+      '• متطلبات المحتوى والمهام:\n' +
+      actionText + '\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      codeSection + '\n' +
+      spotTheBagText + '\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '🎬 3. إرشادات تصوير الفيديو وقواعد العلامة التجارية الصارمة:\n' +
+      '🚨 شروط إلزامية لاعتماد الفيديو:\n' +
+      '1. توقيت ومدة ظهور اللوجو (5 ثوانٍ فقط):\n' +
+      '   يجب أن يظهر لوجو نون في الثانية 3 أو 4 (00:03 - 00:05) ولمدة 5 ثوانٍ فقط ثم يختفي تماماً.\n' +
+      '   (ممنوع تماماً ظهور اللوجو في أول ثانيتين للحفاظ على خطّاف عفوي طبيعي، وممنوع إبقاؤه ظاهراً طوال مدة الفيديو).\n\n' +
+      '2. كرتونة / بوكس نون الأصفر:\n' +
+      '   مرحب بظهور كرتونة نون والتحدث عنها أو تصوير فتح الصندوق (Unboxing) بسلاسة وعفوية في أي وقت من الاسكريبت.\n' +
+      '   (إذا ظهر البوكس، ليس ممنوعاً وضع اللوجو معه؛ يمكن ظهورهما معاً باحترافية حسب سياق الفيديو).\n\n' +
+      '3. كتابة اسم البراند بالإنجليزية:\n' +
+      '   تُكتب كلمة noon دائماً بحروف صغيرة بالإنجليزية (noon وليس NOON أو Noon في النصوص والكابشن).\n\n' +
+      '4. تسجيل شاشة التطبيق:\n' +
+      '   إظهار تسجيل شاشة واقعي وعالي الدقة لتطبيق نون يوضح النقر على بنر الحملة وتطبيق كود الخصم في صفحة الدفع (ممنوع تصوير شاشة جوال بكاميرا أخرى).\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '✅ 4. قائمة افعل ولا تفعل لضمان قبول الفيديو (Do\'s & Don\'ts):\n' +
+      'إرشادات وممارسات إلزامية (افعل ✓):\n' +
+      '✓ ابدأ بخطّاف مشوق وعفوي في أول ثانيتين (مشكلة يومية، مظهر جمالي، أو صدمة السعر والتوفير).\n' +
+      '✓ أظهر لوجو نون في الثانية 3 أو 4 (يظهر لمدة 5 ثوانٍ فقط ثم يختفي)، ومرحب بظهور الكرتونة أو فتح الصندوق.\n' +
+      '✓ لا مانع من ظهور اللوجو مع الكرتونة في نفس المشهد إذا خدم سياق الاسكريبت.\n' +
+      '✓ استخدم تسجيل شاشة مباشر وعالي النقاء لتطبيق نون يوضح بنر العروض وإدخال الكود.\n' +
+      '✓ انطق كود الخصم بصوتك بوضوح وضعه في ترجمة الشاشة بحجم كبير لـ 3 ثوانٍ على الأقل (وفي 11.11 انطق واشرح الكودين معاً).\n\n' +
+      'محظورات تؤدي لرفض الفيديو فوراً (لا تفعل ✗):\n' +
+      '✗ لا تظهر لوجو نون في أول ثانيتين إطلاقاً، اترك البداية طبيعية وعفوية.\n' +
+      '✗ لا تترك لوجو نون ظاهراً طوال مدة الفيديو (اللوجو يظهر لمدة 5 ثوانٍ فقط ثم يختفي).\n' +
+      '✗ لا تصور شاشة جوال آخر بكاميرا خارجية (تسجيل الشاشة المباشر إلزامي).\n' +
+      '✗ لا تكتفِ بوضع الكود في الكابشن فقط أو التحدث عن كود واحد في 11.11؛ النطق والعرض الشاشي إلزاميان.\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '🎨 5. التوجيه الإبداعي والعناصر الإلزامية في المحتوى:\n' +
+      '• الرسائل الأساسية: التسوق عبر تطبيق نون | عروض حصرية داخل التطبيق | حمّل التطبيق للوصول للعروض | استخدم كود الخصم لتوفير إضافي.\n' +
+      '• الأسلوب: سريع الإيقاع، مواكب للتريند، وخطّاف قوي (Hook) في أول ثانيتين إلى 3 ثوانٍ.\n' +
+      '• التركيز: دمج نمط الحياة والقصة العفوية بدلاً من أسلوب الإعلانات التلفزيونية المباشرة.\n' +
+      '• زوايا مقترحة للمحتوى: ' + angles + '\n' +
+      '• الخطوط والترجمة: استخدم خطوط عربية واضحة ومقروءة بدون تعقيد مع تباين ألوان قوي وسهل القراءة.\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '👥 6. دعوات التعاون الإلزامية على إنستغرام (Instagram Collab Invites):\n' +
+      'عند تجهيز المنشور وقبل النشر النهائي، أرسل دعوة تعاون رسمي (Collab Invite) للحسابات التالية:\n' +
+      '1. حساب نون للدولة الخاصة بك (إلزامي):\n' +
+      '   • ' + cTag + ': ' + cUrl + '\n' +
+      '2. حسابات نون الرسمية الرئيسية (إلزامية لجميع المؤثرين):\n' +
+      '   • حساب نون الأساسي (@noon): https://www.instagram.com/noon/\n' +
+      '   • حساب نون الإمارات (@noon_uae): https://www.instagram.com/noon_uae/\n\n' +
+      'الهاشتاقات المعتمدة للحملة:\n' +
+      hashtags + '\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '🔗 7. روابط هامة ومستندات رسمية (روابط مباشرة قابلة للنسخ والاستخدام):\n' +
+      '• رابط الدليل الإبداعي ومقطع "افعل ولا تفعل":\n' +
+      '  ' + guideUrl + '\n\n' +
+      '• رابط ملف البريف الشامل الرسمي (PDF على Google Drive):\n' +
+      '  ' + briefUrl + '\n\n' +
+      '• رابط تحميل شعارات ولوجو نون الرسمي عالي الدقة (Google Drive Folder):\n' +
+      '  ' + logoUrl + '\n\n' +
+      '• رابط بورتال إصدار وتسليم الفواتير (noon Invoice Portal):\n' +
+      '  ' + portalLink + '\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '📦 8. المخرجات والجدول الزمني وتفاصيل الدفع:\n' +
+      '• المنصة المتفق عليها: ' + (I.platform || '[المنصة]') + '\n' +
+      '• المخرجات المطلوبة: ريلز / فيديو قصير (التنسيق الأساسي) + ستوري مرافقة لكل فيديو برابط شراء مباشر.\n' +
+      '• موعد تسليم مسودة الفيديو للمراجعة: ' + sub + ' (الموافقة المسبقة مطلوبة قبل النشر).\n' +
+      '• موعد النشر بعد الموافقة: ' + live + '\n' +
+      '• المقابل المالي المتفق عليه: ' + fee + '\n' +
+      '• شروط الدفع: يتم التحويل إلى حسابك البنكي خلال 30 يوماً من انتهاء الحملة بعد تسليم الفاتورة عبر البورتال.\n' +
+      '• مؤشر الأداء المستهدف (KPI): ' + kpiText(I.kpi, l).replace(/<[^>]+>/g, '') + '\n\n' +
+      'مرسل البريف: ' + I.sender + ' — فريق تسويق نون\n' +
+      '================================================================================';
+  } else {
+    // English Plain Text
+    var codeSectionEn = '';
+    if (phase && phase.secondaryCode) {
+      codeSectionEn = '🏆 2. THE GOLDEN RULE — DUAL PROMO CODES MANDATE:\n' +
+        '• Creator Exclusive Code (25% OFF): ' + displayCode + '\n' +
+        '• Onsite App Code (Buy 1 Get 1 Free): ' + phase.secondaryCode + '\n\n' +
+        'Offer Details & Discount Limits:\n' + offerText + '\n\n' +
+        '🚨 MANDATORY CREATOR REQUIREMENT (SPEAK ABOUT BOTH CODES IN VIDEO):\n' +
+        'In this phase (11.11 Single\'s Day), you MUST speak about BOTH codes aloud in your video and explain both offers:\n' +
+        '1. Creator Code (' + displayCode + '): 25% OFF your order.\n' +
+        '2. Onsite Code (' + phase.secondaryCode + '): Buy 1 Get 1 Free on eligible items.\n' +
+        '* Mentioning only one code is strictly prohibited. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the first two caption lines, and in Stories.';
+    } else {
+      codeSectionEn = '🏆 2. THE GOLDEN RULE — PROMO CODE MANDATE:\n' +
+        '• Mandatory Promo Code: ' + displayCode + '\n\n' +
+        'Offer Details:\n' + offerText + '\n\n' +
+        'The Golden Rule for Promo Code Execution:\n' +
+        'Your discount code (' + displayCode + ') MUST appear across all 4 touchpoints simultaneously:\n' +
+        '1. Spoken Audio in Video: Clearly pronounced aloud with your voice.\n' +
+        '2. On-Screen Text: High-contrast overlay text displayed for at least 3 seconds.\n' +
+        '3. First Two Lines of Caption: Placed clearly in caption preview before "more".\n' +
+        '4. Instagram Story Link Sticker: Companion story with direct link sticker to noon.';
+    }
+
+    var spotTheBagTextEn = '';
+    var isSepEn = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
+    if (I.country === 'BH' && isSepEn) {
+      spotTheBagTextEn = '\n--------------------------------------------------------------------------------\n' +
+        '🚨 CRITICAL MANDATORY EVENT (BAHRAIN ONLY) — SPOT THE BAG (#SpotTheNoonBag):\n' +
+        '• Concept: 20 roaming ushers carrying giant yellow noon bags with a massive QR code across top Bahrain malls.\n' +
+        '• Reward: Shoppers scan the QR code to enter the draw for a new iPhone 18 Pro.\n' +
+        '• Deliverables: 1x energetic announcement Reel/TikTok challenging audience to spot ushers + 1x live story on event day.\n' +
+        '• Official Hashtag: #SpotTheNoonBag with tag @noon.bahr\n';
+    }
+
+    return '================================================================================\n' +
+      'OFFICIAL INFLUENCER BRIEF — NOON GCC\n' +
+      c.nameEn + '\n' +
+      'Target Territory: ' + cName + (I.name ? ' | Creator: ' + I.name : '') + '\n' +
+      '================================================================================\n\n' +
+      '🎯 1. CAMPAIGN WINDOW & ASSIGNED PHASE:\n' +
+      '• Phase: ' + p.title + ' (' + p.date + ')\n' +
+      '• Featured Categories: ' + p.categories + '\n' +
+      '• Content Requirements & Deliverables:\n' +
+      actionText + '\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      codeSectionEn + '\n' +
+      spotTheBagTextEn + '\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '🎬 3. STRICT BRAND VIDEO PRODUCTION GUIDELINES:\n' +
+      '🚨 Mandatory Video Approval Guidelines:\n' +
+      '1. Logo Timing & Duration (5 Seconds Only):\n' +
+      '   The official noon logo must appear specifically at second 3 or 4 (00:03 - 00:05) for ONLY 5 seconds then disappear.\n' +
+      '   (Strictly NO logo in the first 2 seconds 00:00 - 00:02 to maintain organic hook; strictly do NOT keep logo visible throughout the entire video).\n\n' +
+      '2. noon Delivery Box:\n' +
+      '   You are welcome to feature the yellow noon delivery box, talk about it, or film an unboxing naturally at any suitable point in your script.\n' +
+      '   (If the box appears, it is NOT forbidden to show the logo with it; both can appear together naturally according to video context).\n\n' +
+      '3. Brand Name Typography:\n' +
+      '   Always type "noon" entirely in lowercase letters (strictly "noon", never "NOON" or "Noon" in captions or on-screen text).\n\n' +
+      '4. Direct App Screen Recording:\n' +
+      '   Include a crisp, authentic screen recording of the noon app demonstrating banner navigation, product selection, and checkout promo code entry (never film another phone with an external camera).\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '✅ 4. CREATIVE DO\'S & DON\'TS CHECKLIST:\n' +
+      'Mandatory Best Practices (DO ✓):\n' +
+      '✓ Hook viewers in 00:00 - 00:02 with relatable real-life problem or shocking discount news.\n' +
+      '✓ Introduce noon logo at second 3 or 4 (for 5 seconds only then hide it); unboxings and featuring the noon box are welcome.\n' +
+      '✓ You MAY show the box and logo together whenever natural to your script.\n' +
+      '✓ Include clean native in-app screen recording showing banner and promo code.\n' +
+      '✓ Pronounce promo code aloud with your voice and display text for 3+ seconds (during 11.11, speak & explain BOTH codes).\n\n' +
+      'Immediate Rejection Triggers (DON\'T ✗):\n' +
+      '✗ Do NOT flash noon logo in the first 2 seconds; keep the opening 100% organic.\n' +
+      '✗ Do NOT keep the noon logo visible throughout the entire video (allowed for 5 seconds only).\n' +
+      '✗ Do NOT film an external phone screen with an outside camera.\n' +
+      '✗ Do NOT hide code in caption only or mention only one code during 11.11; spoken audio and on-screen text for BOTH codes are mandatory.\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '🎨 5. CREATIVE DIRECTION & MANDATORY ELEMENTS:\n' +
+      '• Key Messaging: Shop directly through noon app | Exclusive in-app deals | Download app to access offers | Use code for extra savings.\n' +
+      '• Tone: Fast-paced, trend-driven, strong hook in first 2-3 seconds.\n' +
+      '• Focus: Relatable lifestyle integration over hard selling.\n' +
+      '• Suggested Creative Angles: ' + angles + '\n' +
+      '• Typography & Subtitles: Use clean, bold, highly legible fonts with strong contrast and subtle drop-shadow.\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '👥 6. MANDATORY INSTAGRAM COLLAB INVITES:\n' +
+      'Prior to posting, send official Instagram Collab Invites to the following accounts:\n' +
+      '1. Territory Account (Mandatory for your country):\n' +
+      '   • ' + cTag + ': ' + cUrl + '\n' +
+      '2. Official Main noon Accounts (Mandatory for all creators across all markets):\n' +
+      '   • Main noon (@noon): https://www.instagram.com/noon/\n' +
+      '   • noon UAE (@noon_uae): https://www.instagram.com/noon_uae/\n\n' +
+      'Official Campaign Hashtags:\n' +
+      hashtags + '\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '🔗 7. ESSENTIAL OFFICIAL LINKS (COPYABLE DIRECT URLS):\n' +
+      '• Creative Direction & "Do\'s & Don\'ts" Video Guide:\n' +
+      '  ' + guideUrl + '\n\n' +
+      '• Full Campaign PDF Brief (Google Drive Link):\n' +
+      '  ' + briefUrl + '\n\n' +
+      '• Official High-Res noon Logos (Google Drive Folder):\n' +
+      '  ' + logoUrl + '\n\n' +
+      '• Official Creator Invoice Submission Portal:\n' +
+      '  ' + portalLink + '\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '📦 8. DELIVERABLES, TIMELINE & PAYMENT:\n' +
+      '• Agreed Platform(s): ' + (I.platform || '[Platform]') + '\n' +
+      '• Required Deliverables: Reel / Short Video (Primary) + Companion Story with direct purchase link sticker.\n' +
+      '• Submission Deadline: ' + sub + ' (Final approval required before going live).\n' +
+      '• Scheduled Live Date: ' + live + '\n' +
+      '• Campaign Fee: ' + fee + '\n' +
+      '• Payment Terms: Transferred to bank account within 30 days after campaign ends and invoice submission.\n' +
+      '• Target KPI: ' + kpiText(I.kpi, l).replace(/<[^>]+>/g, '') + '\n\n' +
+      'Sender: ' + I.sender + ' — noon Marketing Team\n' +
+      '================================================================================';
+  }
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
@@ -531,6 +809,8 @@ module.exports = async function handler(req, res) {
   const emailAr = buildEmail(c, I, phase, dis, 'ar', STATIC);
   const briefEn = buildBrief(c, I, phase, dis, 'en', STATIC);
   const briefAr = buildBrief(c, I, phase, dis, 'ar', STATIC);
+  const briefTxtEn = buildBriefText(c, I, phase, dis, 'en', STATIC);
+  const briefTxtAr = buildBriefText(c, I, phase, dis, 'ar', STATIC);
 
   res.status(200).json({
     success: true,
@@ -543,6 +823,8 @@ module.exports = async function handler(req, res) {
     emailEn,
     emailAr,
     briefEn,
-    briefAr
+    briefAr,
+    briefTxtEn,
+    briefTxtAr
   });
 };
