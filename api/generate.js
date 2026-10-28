@@ -396,7 +396,7 @@ function buildBrief(c, I, phase, dis, l, STATIC) {
       '</div>';
   } else {
     codeBadge = hasCode
-      ? '<div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block;">' + displayCode + '</div>'
+      ? '<div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block; background-color:#ffedd5; padding:3px 12px; border-radius:4px; border:1px solid #fdba74;">' + displayCode + '</div>'
       : '<div style="font-size:16px; font-weight:bold; color:#dc2626; letter-spacing:1px; margin-bottom:8px; display:inline-block; background-color:#fee2e2; border:1.5px dashed #ef4444; padding:4px 12px; border-radius:4px;">' + displayCode + '</div>';
   }
 
@@ -498,8 +498,12 @@ function stripHtml(s) {
 
 function buildBriefText(c, I, phase, dis, l, STATIC) {
   var p = phase[l];
-  var hasCode = !!(I.code && I.code.trim() && I.code.trim() !== '{CODE}');
-  var displayCode = hasCode ? I.code.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
+  var phaseDefCode = (phase && phase.promoCode) ? phase.promoCode : defaultCodeFor(I.country, c, I.phaseIx);
+  var effectiveCode = (I.code && I.code.trim() && I.code.trim() !== '{CODE}' && I.code.indexOf('ضع الكود') === -1 && I.code.indexOf('put the code') === -1)
+    ? I.code.trim()
+    : phaseDefCode;
+  var hasCode = !!(effectiveCode && effectiveCode.trim());
+  var displayCode = hasCode ? effectiveCode.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
   var actionText = stripHtml((p.action || '').replace(/\{CODE\}/g, displayCode));
   var offerText = stripHtml((dis[l] || '').replace(/\{CODE\}/g, displayCode));
   var angles = p.msg || '';

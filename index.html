@@ -290,7 +290,7 @@
    مولد واحد لكل الشهور + مدير حملات محفوظ محلياً
    ============================================================ */
 
-var STORE_KEY = 'noonCampaignHub_v8';
+var STORE_KEY = 'noonCampaignHub_v9';
 
 /* القيم الثابتة المتكررة في كل الحملات */
 var STATIC = {
@@ -1003,7 +1003,7 @@ function onPhaseChange() {
   var cur = $('discountCode').value.trim();
   var pIx = parseInt($('selectedPhase').value || '0', 10);
   var def = defaultCodeFor($('country').value, c, pIx);
-  if (!cur || cur === 'PROMO15' || cur === '1111SALE' || cur === 'PROMO10' || cur === 'FIRST20' || cur === 'YFS15') {
+  if (!cur || cur === 'PROMO15' || cur === '1111SALE' || cur === 'PROMO10' || cur === 'FIRST20' || cur === 'YFS15' || cur.indexOf('ضع الكود') !== -1 || cur.indexOf('put the code') !== -1) {
     $('discountCode').value = def;
   }
   updateDiscountPlaceholder();
@@ -1012,11 +1012,17 @@ function onPhaseChange() {
 function getInputs() {
   var c = currentCampaign();
   var country = $('country').value;
+  var pIx = parseInt($('selectedPhase') ? $('selectedPhase').value || '0' : '0', 10);
+  var rawCode = $('discountCode') ? $('discountCode').value.trim() : '';
+  var def = defaultCodeFor(country, c, pIx);
+  var code = (rawCode && rawCode !== '{CODE}' && rawCode.indexOf('ضع الكود') === -1 && rawCode.indexOf('put the code') === -1)
+    ? rawCode
+    : def;
   return {
     name: $('infName').value.trim(),
     country: country,
-    code: ($('discountCode').value.trim() || defaultCodeFor(country, c)),
-    phaseIx: parseInt($('selectedPhase').value || '0', 10),
+    code: code,
+    phaseIx: pIx,
     platform: $('platform').value.trim(),
     subDay: $('subDay').value.trim(),
     subMonth: $('subMonth').value,
@@ -1038,7 +1044,7 @@ function onCountryChange() {
   var cur = $('discountCode').value.trim();
   var pIx = parseInt($('selectedPhase') ? $('selectedPhase').value || '0' : '0', 10);
   var def = defaultCodeFor($('country').value, c, pIx);
-  if (!cur || cur === def || cur === 'FIRST20' || cur === 'PROMO15' || cur === '1111SALE' || cur === 'PROMO10' || cur === 'YFS15') $('discountCode').value = def;
+  if (!cur || cur === def || cur === 'FIRST20' || cur === 'PROMO15' || cur === '1111SALE' || cur === 'PROMO10' || cur === 'YFS15' || cur.indexOf('ضع الكود') !== -1 || cur.indexOf('put the code') !== -1) $('discountCode').value = def;
   var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
   var bNot = $('bahrainNotice');
   if (bNot) bNot.style.display = ($('country').value === 'BH' && isSep) ? 'block' : 'none';
@@ -1424,8 +1430,12 @@ function buildEmail(c, I, phase, dis, l) {
 
 function buildBrief(c, I, phase, dis, l) {
   var p = phase[l];
-  var hasCode = !!(I.code && I.code.trim() && I.code.trim() !== '{CODE}');
-  var displayCode = hasCode ? I.code.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
+  var phaseDefCode = (phase && phase.promoCode) ? phase.promoCode : defaultCodeFor(I.country, c, I.phaseIx);
+  var effectiveCode = (I.code && I.code.trim() && I.code.trim() !== '{CODE}' && I.code.indexOf('ضع الكود') === -1 && I.code.indexOf('put the code') === -1)
+    ? I.code.trim()
+    : phaseDefCode;
+  var hasCode = !!(effectiveCode && effectiveCode.trim());
+  var displayCode = hasCode ? effectiveCode.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
   var actionText = (p.action || '').replace(/\{CODE\}/g, displayCode);
   var offerText = (dis[l] || '').replace(/\{CODE\}/g, displayCode);
   var angles = p.msg || '';
@@ -1450,7 +1460,7 @@ function buildBrief(c, I, phase, dis, l) {
       '</div>';
   } else {
     codeBadge = hasCode
-      ? '<div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block;">' + displayCode + '</div>'
+      ? '<div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block; background-color:#ffedd5; padding:3px 12px; border-radius:4px; border:1px solid #fdba74;">' + displayCode + '</div>'
       : '<div style="font-size:16px; font-weight:bold; color:#dc2626; letter-spacing:1px; margin-bottom:8px; display:inline-block; background-color:#fee2e2; border:1.5px dashed #ef4444; padding:4px 12px; border-radius:4px;">' + displayCode + '</div>';
   }
   var hashtags = c.hashtags || '';
@@ -1553,8 +1563,12 @@ function stripHtml(s) {
 
 function buildBriefText(c, I, phase, dis, l, STATIC) {
   var p = phase[l];
-  var hasCode = !!(I.code && I.code.trim() && I.code.trim() !== '{CODE}');
-  var displayCode = hasCode ? I.code.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
+  var phaseDefCode = (phase && phase.promoCode) ? phase.promoCode : defaultCodeFor(I.country, c, I.phaseIx);
+  var effectiveCode = (I.code && I.code.trim() && I.code.trim() !== '{CODE}' && I.code.indexOf('ضع الكود') === -1 && I.code.indexOf('put the code') === -1)
+    ? I.code.trim()
+    : phaseDefCode;
+  var hasCode = !!(effectiveCode && effectiveCode.trim());
+  var displayCode = hasCode ? effectiveCode.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
   var actionText = stripHtml((p.action || '').replace(/\{CODE\}/g, displayCode));
   var offerText = stripHtml((dis[l] || '').replace(/\{CODE\}/g, displayCode));
   var angles = p.msg || '';
