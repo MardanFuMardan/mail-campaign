@@ -299,7 +299,7 @@
    مولد واحد لكل الشهور + مدير حملات محفوظ محلياً
    ============================================================ */
 
-var STORE_KEY = 'noonCampaignHub_v9';
+var STORE_KEY = 'noonCampaignHub_v11';
 
 /* القيم الثابتة المتكررة في كل الحملات */
 var STATIC = {
@@ -336,7 +336,7 @@ function seedCampaigns() {
   "nameAr": "حملة نون لدول الخليج - شهر نوفمبر: عروض 11.11 والجمعة الصفراء (YFS)",
   "monthEn": "November",
   "monthAr": "نوفمبر",
-  "promoCode": "YFS2026",
+  "promoCode": "PROMO15",
   "sender": "Mahmoud",
   "briefUrl": "https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link",
   "briefUrlEn": "https://drive.google.com/file/d/1c122AdbFbHGW7uWPQ_QY7xR5VwRhXS3g/view?usp=drive_link",
@@ -347,23 +347,23 @@ function seedCampaigns() {
   "hashtags": "#noon #noonGCC #YellowFridaySale #noonYFS #YFS2026 #SingleDay1111 #الجمعة_الصفراء #عروض_نون #عروض_11_11 #تخفيضات_نون",
   "countryDiscounts": {
     "QA": {
-      "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 62.5 QAR on min order 250 QAR)! (Yellow Friday Sale — noon Express)",
-      "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 62.5 ريال قطري عند الطلب بـ 250 ريال أو أكثر)! (عروض الجمعة الصفراء)",
+      "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 75 QAR / equivalent)! (Available across all categories for all users)",
+      "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
       "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
     },
     "KW": {
-      "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 5 KWD on min order 20 KWD)! (Yellow Friday Sale — noon Express)",
-      "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 5 دينار كويتي عند الطلب بـ 20 دينار أو أكثر)! (عروض الجمعة الصفراء)",
+      "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 6 KWD / equivalent)! (Available across all categories for all users)",
+      "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
       "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
     },
     "BH": {
-      "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 BHD on min order 25 BHD)! (Yellow Friday Sale — noon Express)",
-      "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 دينار بحريني عند الطلب بـ 25 دينار أو أكثر)! (عروض الجمعة الصفراء)",
+      "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 BHD / equivalent)! (Available across all categories for all users)",
+      "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
       "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
     },
     "OM": {
-      "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 OMR on min order 25 OMR)! (Yellow Friday Sale — noon Express)",
-      "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 ريال عماني عند الطلب بـ 25 ريال أو أكثر)! (عروض الجمعة الصفراء)",
+      "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 OMR / equivalent)! (Special Oman code & celebration)",
+      "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني أو ما يعادله)! (كود خاص بسلطنة عمان والاحتفالات)",
       "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
     }
   },
@@ -383,7 +383,30 @@ function seedCampaigns() {
         "action": "البدء بخطّاف قوي في أول ثانيتين (ظهور كرتونة أو لوجو نون في الثانية 3 فما فوق) • حث المتابعين على تحميل تطبيق نون وإضافة العروض للسلة قبل نفاد المخزون: 'احفظ عروضك في السلة قبل نفاد الكميات!' • تسجيل شاشة واقعي للتطبيق • تسليط الضوء على عروض الهيرو • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15",
         "msg": "جهّز سلتك من بدري، تشويق عروض نوفمبر الكبرى، احفظ اختياراتك الأساسية"
       },
-      "promoCode": "PROMO15"
+      "promoCode": "PROMO15",
+      "secondaryCode": null,
+      "countryDiscounts": {
+        "QA": {
+          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 75 QAR)! (Wishlist Teaser & Early November Push)",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري)! (انطلاقة التشويق وحفظ السلات)",
+          "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
+        },
+        "KW": {
+          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 6 KWD)! (Wishlist Teaser & Early November Push)",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي)! (انطلاقة التشويق وحفظ السلات)",
+          "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
+        },
+        "BH": {
+          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 BHD)! (Wishlist Teaser & Early November Push)",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني)! (انطلاقة التشويق وحفظ السلات)",
+          "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
+        },
+        "OM": {
+          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 OMR)! (Wishlist Teaser & Early November Push)",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني)! (انطلاقة التشويق وحفظ السلات)",
+          "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
+        }
+      }
     },
     {
       "en": {
@@ -1106,7 +1129,8 @@ function onPhaseChange() {
   var cur = $('discountCode').value.trim();
   var pIx = parseInt($('selectedPhase').value || '0', 10);
   var def = defaultCodeFor($('country').value, c, pIx);
-  if (!cur || cur === 'PROMO15' || cur === '1111SALE' || cur === 'PROMO10' || cur === 'FIRST20' || cur === 'YFS15' || cur.indexOf('ضع الكود') !== -1 || cur.indexOf('put the code') !== -1) {
+  var defaultCodes = ['PROMO15', '1111SALE', 'YFS2026', 'PROMO10', 'FIRST20', 'YFS15'];
+  if (!cur || defaultCodes.indexOf(cur) !== -1 || cur.indexOf('ضع الكود') !== -1 || cur.indexOf('put the code') !== -1) {
     $('discountCode').value = def;
   }
   updateDiscountPlaceholder();
@@ -1147,7 +1171,8 @@ function onCountryChange() {
   var cur = $('discountCode').value.trim();
   var pIx = parseInt($('selectedPhase') ? $('selectedPhase').value || '0' : '0', 10);
   var def = defaultCodeFor($('country').value, c, pIx);
-  if (!cur || cur === def || cur === 'FIRST20' || cur === 'PROMO15' || cur === '1111SALE' || cur === 'PROMO10' || cur === 'YFS15' || cur.indexOf('ضع الكود') !== -1 || cur.indexOf('put the code') !== -1) $('discountCode').value = def;
+  var defaultCodes = ['PROMO15', '1111SALE', 'YFS2026', 'PROMO10', 'FIRST20', 'YFS15'];
+  if (!cur || cur === def || defaultCodes.indexOf(cur) !== -1 || cur.indexOf('ضع الكود') !== -1 || cur.indexOf('put the code') !== -1) $('discountCode').value = def;
   var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
   var bNot = $('bahrainNotice');
   if (bNot) bNot.style.display = ($('country').value === 'BH' && isSep) ? 'block' : 'none';
@@ -1566,17 +1591,25 @@ function buildBrief(c, I, phase, dis, l) {
   var ol = function (arr) { return arr.map(function (b) { return '<li style="margin-bottom:4px;">' + b + '</li>'; }).join(''); };
   var rule = l === 'ar' ? 'border-right' : 'border-left';
 
+  var isYfsHype = phase && phase.secondaryCode === 'YFS2026';
+  var badge1Title = isYfsHype
+    ? (l === 'ar' ? 'كود الخصم الفعّال حالياً (خصم 15%):' : 'ACTIVE PROMO CODE (15% OFF):')
+    : (l === 'ar' ? 'كود المؤثر الحصري (خصم 25%):' : 'INFLUENCER CODE (25% OFF):');
+  var badge2Title = isYfsHype
+    ? (l === 'ar' ? 'كود الهايب للجمعة الصفراء (خصم 25% على نون إكسبريس من 19 نوفمبر):' : 'UPCOMING YFS HYPE CODE (25% OFF ON NOON EXPRESS FROM NOV 19):')
+    : (l === 'ar' ? 'كود عروض التطبيق (اشترِ 1 واحصل على 1):' : 'ONSITE CODE (BUY 1 GET 1):');
+
   var codeBadge;
   if (phase && phase.secondaryCode) {
     codeBadge = '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">' +
       '<div>' +
-      '<div style="font-size:11px; color:#c2410c; font-weight:bold; margin-bottom:2px;">' + (l === 'ar' ? 'كود المؤثر الحصري (خصم 25%):' : 'INFLUENCER CODE (25% OFF):') + '</div>' +
+      '<div style="font-size:11px; color:#c2410c; font-weight:bold; margin-bottom:2px;">' + badge1Title + '</div>' +
       (hasCode
         ? '<div style="font-size: 20px; font-weight: bold; color: #ea580c; letter-spacing: 2px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>'
         : '<div style="font-size: 16px; font-weight: bold; color: #dc2626; letter-spacing: 1px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>') +
       '</div>' +
       '<div>' +
-      '<div style="font-size:11px; color:#15803d; font-weight:bold; margin-bottom:2px;">' + (l === 'ar' ? 'كود عروض التطبيق (اشترِ 1 واحصل على 1):' : 'ONSITE CODE (BUY 1 GET 1):') + '</div>' +
+      '<div style="font-size:11px; color:#15803d; font-weight:bold; margin-bottom:2px;">' + badge2Title + '</div>' +
       '<div style="font-size: 20px; font-weight: bold; color: #166534; letter-spacing: 2px; background-color: #dcfce7; border:1px solid #86efac; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + phase.secondaryCode + '</div>' +
       '</div>' +
       '</div>';
@@ -1596,7 +1629,9 @@ function buildBrief(c, I, phase, dis, l) {
       '<strong style="color:#0284c7; font-size:13px;">' + (phase && phase.secondaryCode ? '🏆 القاعدة الذهبية — التحدث عن كلا الكودين إلزامي في الفيديو' : '🏆 القاعدة الذهبية — كود الخصم إلزامي') + '</strong><br><br>' +
       '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold;">' + (phase && phase.secondaryCode ? 'أكواد الخصم والعروض' : 'كود الخصم') + '</div>' + codeBadge + '<div style="color:#9a3412; font-size:14px;"><strong>تفاصيل العرض:</strong><br>' + offerText + '</div></div>' +
       (phase && phase.secondaryCode
-        ? '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 شرط إلزامي لقبول الفيديو في مرحلة 11.11 (التحدث عن الكودين معاً):</strong><br>يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong> وشرحهما للمتابعين:<br>1. كود المؤثر الحصري <strong>' + displayCode + '</strong>: لخصم 25% على الطلب.<br>2. كود عروض التطبيق <strong>' + phase.secondaryCode + '</strong>: لعرض اشترِ 1 واحصل على 1 مجاناً.<br><em>* يُمنع الاكتفاء بذكر كود واحد فقط، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.</em></div>'
+        ? (isYfsHype
+            ? '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً وعمل هايب لكود YFS2026 على نون إكسبريس):</strong><br>في هذه الفترة (13 - 18 نوفمبر)، يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong>:<br>1. كود الخصم الفعّال <strong>(' + displayCode + ')</strong>: كود شغال ومفعّل حالياً لخصم ثابت 15% على طلباتكم اليومية.<br>2. كود الهايب والتشويق <strong>(' + phase.secondaryCode + ')</strong>: عمل هايب وتشويق قوي للإعلان أنه سينطلق رسمياً يوم 19 نوفمبر بخصم جبار 25% على <strong>منتجات نون إكسبريس (noon Express)</strong>! حث المتابعين على حفظ الكود وتجهيز سلاتهم من الآن.<br><em style="font-size:12px; color:#b91c1c;">* إلزامي نطق الكودين بصوتك وإظهارهما كنص بارز على الشاشة لـ 3 ثوانٍ على الأقل وفي أول سطرين من الكابشن والستوري.</em></div>'
+            : '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 شرط إلزامي لقبول الفيديو في مرحلة 11.11 (التحدث عن الكودين معاً):</strong><br>يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong> وشرحهما للمتابعين:<br>1. كود المؤثر الحصري <strong>' + displayCode + '</strong>: لخصم 25% على الطلب.<br>2. كود عروض التطبيق <strong>' + phase.secondaryCode + '</strong>: لعرض اشترِ 1 واحصل على 1 مجاناً.<br><em style="font-size:12px; color:#b91c1c;">* يُمنع الاكتفاء بذكر كود واحد فقط، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.</em></div>')
         : '<div style="color:#3f3f46; margin-top:8px; font-size:13px;"><em>' + STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) + '</em></div>') +
       spotTheBagBox(c, I, l) +
       brandGuidelinesBox(c, I, l) +
@@ -1636,7 +1671,9 @@ function buildBrief(c, I, phase, dis, l) {
     '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">' + (phase && phase.secondaryCode ? '🏆 THE GOLDEN RULE — SPEAKING ABOUT BOTH CODES IN VIDEO IS MANDATORY' : '🏆 THE GOLDEN RULE — DISCOUNT CODE MANDATE') + '</strong><br><br>' +
     '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold; text-transform:uppercase;">' + (phase && phase.secondaryCode ? 'Discount & Offer Codes' : 'Discount Code') + '</div>' + codeBadge + '<div style="color:#9a3412; font-size:14px;"><strong>Offer Details:</strong><br>' + offerText + '</div></div>' +
     (phase && phase.secondaryCode
-      ? '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 Mandatory Approval Requirement for 11.11 Phase (Both Codes Spoken in Video):</strong><br>You MUST <strong>speak about BOTH codes out loud in your video</strong> and explain both offers to your audience:<br>1. Creator Code <strong>' + displayCode + '</strong>: Exclusive 25% OFF discount.<br>2. Onsite Code <strong>' + phase.secondaryCode + '</strong>: Buy 1 Get 1 Free offer.<br><em>* Mentioning only one code is strictly forbidden. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the caption preview, and in Stories.</em></div>'
+      ? (isYfsHype
+          ? '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 Mandatory Creator Mandate (Dual Code Callout & YFS Hype on noon Express):</strong><br>In this phase (Nov 13 – 18), you MUST <strong>speak about BOTH codes out loud in your video</strong>:<br>1. Active Code <strong>(' + displayCode + ')</strong>: Currently active for flat 15% off daily orders.<br>2. Hype Code <strong>(' + phase.secondaryCode + ')</strong>: Build massive hype for the upcoming Yellow Friday Sale launching Nov 19 with 25% off on <strong>noon Express items</strong>! Urge followers to bookmark the code and build their noon Express wishlists.<br><em style="font-size:12px; color:#b91c1c;">* Speaking both codes aloud and displaying both on screen for 3+ seconds is mandatory.</em></div>'
+          : '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 Mandatory Approval Requirement for 11.11 Phase (Both Codes Spoken in Video):</strong><br>You MUST <strong>speak about BOTH codes out loud in your video</strong> and explain both offers to your audience:<br>1. Creator Code <strong>' + displayCode + '</strong>: Exclusive 25% OFF discount.<br>2. Onsite Code <strong>' + phase.secondaryCode + '</strong>: Buy 1 Get 1 Free offer.<br><em>* Mentioning only one code is strictly forbidden. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the caption preview, and in Stories.</em></div>')
       : '<div style="color:#3f3f46; margin-top:8px; font-size:13px;">' + STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode) + '</div>') +
     spotTheBagBox(c, I, l) +
       brandGuidelinesBox(c, I, l) +
@@ -1685,6 +1722,7 @@ function stripHtml(s) {
 
 function buildBriefText(c, I, phase, dis, l, STATIC) {
   var p = phase[l];
+  var isYfsHype = phase && phase.secondaryCode === 'YFS2026';
   var phaseDefCode = (phase && phase.promoCode) ? phase.promoCode : defaultCodeFor(I.country, c, I.phaseIx);
   var effectiveCode = (I.code && I.code.trim() && I.code.trim() !== '{CODE}' && I.code.indexOf('ضع الكود') === -1 && I.code.indexOf('put the code') === -1)
     ? I.code.trim()
@@ -1725,15 +1763,27 @@ function buildBriefText(c, I, phase, dis, l, STATIC) {
   if (l === 'ar') {
     var codeSection = '';
     if (phase && phase.secondaryCode) {
-      codeSection = '🏆 2. القاعدة الذهبية — أكواد الخصم والعروض الإلزامية:\n' +
-        '• كود المؤثر الحصري (خصم 25%): ' + displayCode + '\n' +
-        '• كود عروض التطبيق (اشترِ 1 واحصل على 1 مجاناً): ' + phase.secondaryCode + '\n\n' +
-        'تفاصيل العرض ونسب الخصم:\n' + offerText + '\n\n' +
-        '🚨 تنبيه إلزامي لصانع المحتوى (التحدث عن الكودين معاً بصوتك):\n' +
-        'في هذه المرحلة (عروض 11.11)، يجب عليك التحدث عن الكودين معاً بصوتك في الفيديو وشرحهما للمتابعين:\n' +
-        '1. كود المؤثر الحصري (' + displayCode + '): خصم 25% على إجمالي الطلب.\n' +
-        '2. كود عروض التطبيق (' + phase.secondaryCode + '): عرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة.\n' +
-        '* يُمنع الاكتفاء بكود واحد فقط، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.';
+      if (isYfsHype) {
+        codeSection = '🏆 2. القاعدة الذهبية — أكواد الحملة الإلزامية (كود التخفيض الحالي + تشويق وهايب كود الجمعة الصفراء على نون إكسبريس):\n' +
+          '• كود الخصم الفعّال حالياً (خصم 15%): ' + displayCode + '\n' +
+          '• كود الهايب للجمعة الصفراء (خصم 25% على نون إكسبريس من 19 نوفمبر): ' + phase.secondaryCode + '\n\n' +
+          'تفاصيل العرض ونسب الخصم:\n' + offerText + '\n\n' +
+          '🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً وعمل هايب لكود YFS2026 على نون إكسبريس):\n' +
+          'في هذه الفترة (13 - 18 نوفمبر)، يجب عليك التحدث عن الكودين معاً بصوتك في الفيديو:\n' +
+          '1. كود الخصم الفعّال (' + displayCode + '): كود شغال ومفعّل حالياً لخصم ثابت 15% على طلباتكم اليومية المعتادة.\n' +
+          '2. كود الهايب والتشويق (' + phase.secondaryCode + '): عمل هايب وتشويق ضخم للإعلان أنه سينطلق رسمياً يوم 19 نوفمبر بخصم جبار 25% على منتجات نون إكسبريس (noon Express)! حث المتابعين على حفظ الكود وتجهيز سلاتهم من الآن.\n' +
+          '* إلزامي التحدث عن الكودين معاً بصوتك في الفيديو وإظهارهما كنص بارز على الشاشة لـ 3 ثوانٍ على الأقل وفي أول سطرين من الكابشن والستوري.';
+      } else {
+        codeSection = '🏆 2. القاعدة الذهبية — أكواد الخصم والعروض الإلزامية:\n' +
+          '• كود المؤثر الحصري (خصم 25%): ' + displayCode + '\n' +
+          '• كود عروض التطبيق (اشترِ 1 واحصل على 1 مجاناً): ' + phase.secondaryCode + '\n\n' +
+          'تفاصيل العرض ونسب الخصم:\n' + offerText + '\n\n' +
+          '🚨 تنبيه إلزامي لصانع المحتوى (التحدث عن الكودين معاً بصوتك):\n' +
+          'في هذه المرحلة (عروض 11.11)، يجب عليك التحدث عن الكودين معاً بصوتك في الفيديو وشرحهما للمتابعين:\n' +
+          '1. كود المؤثر الحصري (' + displayCode + '): خصم 25% على إجمالي الطلب.\n' +
+          '2. كود عروض التطبيق (' + phase.secondaryCode + '): عرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة.\n' +
+          '* يُمنع الاكتفاء بكود واحد فقط، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.';
+      }
     } else {
       codeSection = '🏆 2. القاعدة الذهبية — كود الخصم الإلزامي:\n' +
         '• كود الخصم: ' + displayCode + '\n\n' +
@@ -1838,15 +1888,27 @@ function buildBriefText(c, I, phase, dis, l, STATIC) {
     // English Plain Text
     var codeSectionEn = '';
     if (phase && phase.secondaryCode) {
-      codeSectionEn = '🏆 2. THE GOLDEN RULE — DUAL PROMO CODES MANDATE:\n' +
-        '• Creator Exclusive Code (25% OFF): ' + displayCode + '\n' +
-        '• Onsite App Code (Buy 1 Get 1 Free): ' + phase.secondaryCode + '\n\n' +
-        'Offer Details & Discount Limits:\n' + offerText + '\n\n' +
-        '🚨 MANDATORY CREATOR REQUIREMENT (SPEAK ABOUT BOTH CODES IN VIDEO):\n' +
-        'In this phase (11.11 Single\'s Day), you MUST speak about BOTH codes aloud in your video and explain both offers:\n' +
-        '1. Creator Code (' + displayCode + '): 25% OFF your order.\n' +
-        '2. Onsite Code (' + phase.secondaryCode + '): Buy 1 Get 1 Free on eligible items.\n' +
-        '* Mentioning only one code is strictly prohibited. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the first two caption lines, and in Stories.';
+      if (isYfsHype) {
+        codeSectionEn = '🏆 2. THE GOLDEN RULE — MANDATORY CAMPAIGN CODES (ACTIVE PROMO CODE + UPCOMING YFS HYPE CODE):\n' +
+          '• Active Promo Code (15% OFF): ' + displayCode + '\n' +
+          '• Upcoming YFS Hype Code (25% OFF on noon Express from Nov 19): ' + phase.secondaryCode + '\n\n' +
+          'Offer Details & Discount Limits:\n' + offerText + '\n\n' +
+          '🚨 MANDATORY CREATOR MANDATE (NOV 13 – 18) — SPEAK ABOUT BOTH CODES & HYPE UP YFS2026:\n' +
+          'In this phase (Nov 13 – 18), you MUST speak about BOTH codes out loud in your video:\n' +
+          '1. Active Code (' + displayCode + '): Currently active for flat 15% off regular daily orders.\n' +
+          '2. Upcoming Hype Code (' + phase.secondaryCode + '): Build massive hype for the upcoming Yellow Friday Sale launching Nov 19 with 25% off exclusively on noon Express items! Urge followers to bookmark the code and build their noon Express wishlists.\n' +
+          '* Speaking both codes aloud and displaying both on screen for 3+ seconds is mandatory.';
+      } else {
+        codeSectionEn = '🏆 2. THE GOLDEN RULE — DUAL PROMO CODES MANDATE:\n' +
+          '• Creator Exclusive Code (25% OFF): ' + displayCode + '\n' +
+          '• Onsite App Code (Buy 1 Get 1 Free): ' + phase.secondaryCode + '\n\n' +
+          'Offer Details & Discount Limits:\n' + offerText + '\n\n' +
+          '🚨 MANDATORY CREATOR REQUIREMENT (SPEAK ABOUT BOTH CODES IN VIDEO):\n' +
+          'In this phase (11.11 Single\'s Day), you MUST speak about BOTH codes aloud in your video and explain both offers:\n' +
+          '1. Creator Code (' + displayCode + '): 25% OFF your order.\n' +
+          '2. Onsite Code (' + phase.secondaryCode + '): Buy 1 Get 1 Free on eligible items.\n' +
+          '* Mentioning only one code is strictly prohibited. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the first two caption lines, and in Stories.';
+      }
     } else {
       codeSectionEn = '🏆 2. THE GOLDEN RULE — PROMO CODE MANDATE:\n' +
         '• Mandatory Promo Code: ' + displayCode + '\n\n' +

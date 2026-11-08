@@ -76,7 +76,7 @@
       "nameAr": "حملة نون لدول الخليج - شهر نوفمبر: عروض 11.11 والجمعة الصفراء (YFS)",
       "monthEn": "November",
       "monthAr": "نوفمبر",
-      "promoCode": "YFS2026",
+      "promoCode": "PROMO15",
       "sender": "Mahmoud",
       "briefUrl": "https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link",
       "briefUrlEn": "https://drive.google.com/file/d/1c122AdbFbHGW7uWPQ_QY7xR5VwRhXS3g/view?usp=drive_link",
@@ -87,23 +87,23 @@
       "hashtags": "#noon #noonGCC #YellowFridaySale #noonYFS #YFS2026 #SingleDay1111 #الجمعة_الصفراء #عروض_نون #عروض_11_11 #تخفيضات_نون",
       "countryDiscounts": {
         "QA": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 62.5 QAR on min order 250 QAR)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 62.5 ريال قطري عند الطلب بـ 250 ريال أو أكثر)! (عروض الجمعة الصفراء)",
+          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 75 QAR / equivalent)! (Available across all categories for all users)",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
           "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
         },
         "KW": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 5 KWD on min order 20 KWD)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 5 دينار كويتي عند الطلب بـ 20 دينار أو أكثر)! (عروض الجمعة الصفراء)",
+          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 6 KWD / equivalent)! (Available across all categories for all users)",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
           "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
         },
         "BH": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 BHD on min order 25 BHD)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 دينار بحريني عند الطلب بـ 25 دينار أو أكثر)! (عروض الجمعة الصفراء)",
+          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 BHD / equivalent)! (Available across all categories for all users)",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
           "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
         },
         "OM": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 OMR on min order 25 OMR)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 ريال عماني عند الطلب بـ 25 ريال أو أكثر)! (عروض الجمعة الصفراء)",
+          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 OMR / equivalent)! (Special Oman code & celebration)",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني أو ما يعادله)! (كود خاص بسلطنة عمان والاحتفالات)",
           "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
         }
       },
@@ -123,7 +123,30 @@
             "action": "البدء بخطّاف قوي في أول ثانيتين (ظهور كرتونة أو لوجو نون في الثانية 3 فما فوق) • حث المتابعين على تحميل تطبيق نون وإضافة العروض للسلة قبل نفاد المخزون: 'احفظ عروضك في السلة قبل نفاد الكميات!' • تسجيل شاشة واقعي للتطبيق • تسليط الضوء على عروض الهيرو • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15",
             "msg": "جهّز سلتك من بدري، تشويق عروض نوفمبر الكبرى، احفظ اختياراتك الأساسية"
           },
-          "promoCode": "PROMO15"
+          "promoCode": "PROMO15",
+          "secondaryCode": null,
+          "countryDiscounts": {
+            "QA": {
+              "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 75 QAR)! (Wishlist Teaser & Early November Push)",
+              "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري)! (انطلاقة التشويق وحفظ السلات)",
+              "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
+            },
+            "KW": {
+              "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 6 KWD)! (Wishlist Teaser & Early November Push)",
+              "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي)! (انطلاقة التشويق وحفظ السلات)",
+              "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
+            },
+            "BH": {
+              "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 BHD)! (Wishlist Teaser & Early November Push)",
+              "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني)! (انطلاقة التشويق وحفظ السلات)",
+              "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
+            },
+            "OM": {
+              "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 OMR)! (Wishlist Teaser & Early November Push)",
+              "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني)! (انطلاقة التشويق وحفظ السلات)",
+              "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
+            }
+          }
         },
         {
           "en": {
