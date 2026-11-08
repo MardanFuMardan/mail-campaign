@@ -146,8 +146,17 @@
         <label>المرحلة (Phase)</label>
         <select id="selectedPhase" onchange="onPhaseChange()"></select>
 
-        <label>المنصة المتفق عليها</label>
-        <input id="platform" placeholder="e.g. Instagram Reels & TikTok" oninput="render()">
+                <label>المنصة المتفق عليها</label>
+        <select id="platform" onchange="render()" style="width:100%; padding:9px 12px; background:#18181b; border:1px solid #3f3f46; border-radius:8px; color:#fff; font-size:13.5px; font-family:inherit; outline:none;">
+          <option value="Instagram Reels">Instagram Reels (إنستغرام ريلز)</option>
+          <option value="TikTok">TikTok (تيك توك)</option>
+          <option value="Instagram Reels & TikTok" selected>Instagram Reels & TikTok (إنستغرام وتيك توك)</option>
+          <option value="Snapchat">Snapchat (سناب شات)</option>
+          <option value="Instagram & Snapchat">Instagram & Snapchat (إنستغرام وسناب شات)</option>
+          <option value="TikTok & Snapchat">TikTok & Snapchat (تيك توك وسناب شات)</option>
+          <option value="YouTube Shorts">YouTube Shorts (يوتيوب شورتس)</option>
+          <option value="All Platforms (IG, TT, Snap)">All Platforms (كافة المنصات: إنستا وتيك توك وسناب)</option>
+        </select>
 
         <div class="row2">
           <div>
@@ -323,11 +332,11 @@ function seedCampaigns() {
   return [
 {
   "id": "nov2026",
-  "nameEn": "Noon GCC November Campaign 2026 — 11.11 & Yellow Friday Sale",
-  "nameAr": "حملة نون لدول الخليج - شهر نوفمبر: عروض 11.11 والجمعة الصفراء",
+  "nameEn": "Noon GCC November Campaign 2026 — 11.11 & Yellow Friday Sale (YFS)",
+  "nameAr": "حملة نون لدول الخليج - شهر نوفمبر: عروض 11.11 والجمعة الصفراء (YFS)",
   "monthEn": "November",
   "monthAr": "نوفمبر",
-  "promoCode": "PROMO15",
+  "promoCode": "YFS2026",
   "sender": "Mahmoud",
   "briefUrl": "https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link",
   "briefUrlEn": "https://drive.google.com/file/d/1c122AdbFbHGW7uWPQ_QY7xR5VwRhXS3g/view?usp=drive_link",
@@ -338,23 +347,23 @@ function seedCampaigns() {
   "hashtags": "#noon #noonGCC #YellowFridaySale #noonYFS #YFS2026 #SingleDay1111 #الجمعة_الصفراء #عروض_نون #عروض_11_11 #تخفيضات_نون",
   "countryDiscounts": {
     "QA": {
-      "en": "<strong>Use code ({CODE})</strong> for flat 15% off your order on the noon app (up to 75 QAR / equivalent)! (Available across all categories for all users)",
-      "ar": "<strong>استخدم كود ({CODE})</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
+      "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 62.5 QAR on min order 250 QAR)! (Yellow Friday Sale — noon Express)",
+      "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 62.5 ريال قطري عند الطلب بـ 250 ريال أو أكثر)! (عروض الجمعة الصفراء)",
       "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
     },
     "KW": {
-      "en": "<strong>Use code ({CODE})</strong> for flat 15% off your order on the noon app (up to 6 KWD / equivalent)! (Available across all categories for all users)",
-      "ar": "<strong>استخدم كود ({CODE})</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
+      "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 5 KWD on min order 20 KWD)! (Yellow Friday Sale — noon Express)",
+      "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 5 دينار كويتي عند الطلب بـ 20 دينار أو أكثر)! (عروض الجمعة الصفراء)",
       "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
     },
     "BH": {
-      "en": "<strong>Use code ({CODE})</strong> for flat 15% off your order on the noon app (up to 7.5 BHD / equivalent)! (Available across all categories for all users)",
-      "ar": "<strong>استخدم كود ({CODE})</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
+      "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 BHD on min order 25 BHD)! (Yellow Friday Sale — noon Express)",
+      "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 دينار بحريني عند الطلب بـ 25 دينار أو أكثر)! (عروض الجمعة الصفراء)",
       "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
     },
     "OM": {
-      "en": "<strong>Use code ({CODE})</strong> for flat 15% off your order on the noon app (up to 7.5 OMR / equivalent)! (Special Oman code & Oman National Day celebration)",
-      "ar": "<strong>استخدم كود ({CODE})</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني أو ما يعادله)! (كود خاص لسلطنة عمان وعروض العيد الوطني)",
+      "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 OMR on min order 25 OMR)! (Yellow Friday Sale — noon Express)",
+      "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 ريال عماني عند الطلب بـ 25 ريال أو أكثر)! (عروض الجمعة الصفراء)",
       "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
     }
   },
@@ -381,7 +390,7 @@ function seedCampaigns() {
         "title": "Phase 2: 11.11 Single's Day Mega Peak",
         "date": "November 6 – 12 (Peak: Nov 10-11)",
         "categories": "Electronics & Tech, Beauty, Fashion, Daily Deals",
-        "action": "Mega 11.11 Single's Day push! • Mandatory spoken callout in your video for BOTH codes: exclusive 25% off code (1111SALE) AND onsite (B1G1) Buy 1 Get 1 offer • In-app screen recording clicking the 11.11 banner and applying coupon at checkout • Showcase viral electronics, beauty, and fashion deals • Strong CTA to shop 11.11 on noon now with code 1111SALE & B1G1",
+        "action": "Mega 11.11 Single's Day push! • Mandatory spoken callout in your video for BOTH codes: exclusive 25% off code (1111SALE) AND onsite (B1G1) Buy 1 Get 1 offer • In-app screen recording clicking 11.11 banner and applying both codes at checkout • Showcase viral electronics, beauty, and fashion deals • Strong CTA to shop 11.11 on noon now with code 1111SALE & B1G1",
         "msg": "11.11 Single's Day mega markdowns, High discount coupon drops, Tech upgrades"
       },
       "ar": {
@@ -418,71 +427,82 @@ function seedCampaigns() {
     },
     {
       "en": {
-        "title": "Phase 3: Gap Fill & Feed Sustainment",
-        "date": "November 12 – 16",
-        "categories": "Health & Nutrition, Daily Essentials, Beauty Restocks, Winter Home Upgrades",
-        "action": "Sustainment push between major sales peaks • Showcase daily wellness, supplements, winter home cozy upgrades, and routine favorites • App screen recording navigating daily essentials • CTA: Keep shopping with promo code {CODE}",
-        "msg": "Daily routine restocks, Wellness supplements, Continuous everyday savings"
+        "title": "Phase 3: Pre-YFS Hype & Gap (Dual Code: PROMO15 + YFS2026 Teaser on noon Express)",
+        "date": "November 13 – 18",
+        "categories": "Daily Essentials, Health & Nutrition, Beauty Restocks, Winter Upgrades & YFS Hype (noon Express)",
+        "action": "MANDATORY DUAL-CODE CALLOUT! 1) Mention active promo code PROMO15 for flat 15% off current daily purchases. 2) HYPE UP the upcoming Yellow Friday mega coupon YFS2026 launching November 19 with massive 25% off on noon Express items! Urge followers to bookmark code YFS2026 and pre-build their noon Express carts for the biggest sale of the year • Native app screen recording clicking wishlist and showing the yellow noon Express badge • Spoken voiceover and bold on-screen subtitles for BOTH codes",
+        "msg": "Shop now with PROMO15 & Hype up mega 25% code YFS2026 launching Nov 19 on noon Express"
       },
       "ar": {
-        "title": "المرحلة 3: المرحلة الانتقالية واستدامة التفاعل",
-        "date": "12 - 16 نوفمبر",
-        "categories": "الصحة والتغذية، المستلزمات اليومية، تجديد مستحضرات الجمال، ديكور وتجهيزات الشتاء",
-        "action": "الحفاظ على تفاعل الجمهور وتواجده بين فترات الذروة • استعراض مكملات الصحة والاحتياجات اليومية وتجديد الروتين ومستلزمات المنزل الشتوية • تسجيل شاشة للتطبيق • دعوة للاستمرار في التسوق بكود {CODE}",
-        "msg": "تجديد مستلزمات الروتين اليومي، مكملات الصحة والرياضة، توفير مستمر"
+        "title": "المرحلة 3: مرحلة الهايب والتشويق للجمعة الصفراء (ذكر الكودين: PROMO15 الحالي + هايب كود YFS2026 على نون إكسبريس)",
+        "date": "13 - 18 نوفمبر",
+        "categories": "المستلزمات اليومية، الصحة والعافية، تجديد الجمال، تجهيزات الشتاء، وتشويق الجمعة الصفراء (نون إكسبريس)",
+        "action": "تنبيه إلزامي لذكر الكودين معاً في الفيديو! 1) التحدث عن كود (PROMO15) ككود شغال ومفعّل حالياً لخصومات 15% على طلباتكم اليومية المعتادة. 2) عمل هايب وتشويق ضخم لكود الجمعة الصفراء القادم (YFS2026) اللي هينطلق رسمياً يوم 19 نوفمبر بخصم جبار 25% على منتجات نون إكسبريس (noon Express)! حث المتابعين على حفظ كود YFS2026 وتجهيز سلاتهم من الآن لمنتجات إكسبريس السريعة • تسجيل شاشة واقعي للتطبيق يوضح بنر العروض وإضافة منتجات إكسبريس • نطق الكودين بصوتك بوضوح وإظهارهما بخط عريض على الشاشة",
+        "msg": "تسوقوا الآن بكود PROMO15 وجهزوا أنفسكم للهايب الأكبر بكود YFS2026 على منتجات نون إكسبريس من 19 نوفمبر"
       },
-      "promoCode": ""
+      "promoCode": "PROMO15",
+      "secondaryCode": "YFS2026",
+      "countryDiscounts": {
+        "QA": {
+          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 75 QAR)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 62.5 QAR on min order 250 QAR)!",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 62.5 ريال عند الطلب بـ 250 ريال أو أكثر)!",
+          "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
+        },
+        "KW": {
+          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 6 KWD)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 5 KWD on min order 20 KWD)!",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 5 دينار عند الطلب بـ 20 دينار أو أكثر)!",
+          "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
+        },
+        "BH": {
+          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 7.5 BHD)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 6.25 BHD on min order 25 BHD)!",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 6.25 دينار عند الطلب بـ 25 دينار أو أكثر)!",
+          "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
+        },
+        "OM": {
+          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 7.5 OMR)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 6.25 OMR on min order 25 OMR) & Oman National Day celebration!",
+          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 6.25 ريال عند الطلب بـ 25 ريال أو أكثر) واحتفالات العيد الوطني العماني!",
+          "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
+        }
+      }
     },
     {
       "en": {
-        "title": "Phase 4: Omani National Day Celebration",
-        "date": "November 15 – 19 (National Day: Nov 18)",
-        "categories": "Oman Market Focus — Luxury Fragrances, Festive Fashion, Home Decor, Gifting (Oman only 🇴🇲)",
-        "action": "Commemorate the 56th Oman National Day with culturally resonant content • Showcase patriotic looks, luxury perfumes, and home hosting decor • App walkthrough with Oman National Day banner • Feature dedicated Oman discount promo code (Oman only 🇴🇲)",
-        "msg": "Celebrating Oman National Day, Patriotic looks & perfumes, Festive home vibes"
+        "title": "Phase 4: Yellow Friday Sale (YFS) Mega Launch & Climax (Code: YFS2026 on noon Express Only)",
+        "date": "November 19 – 30",
+        "categories": "Site-wide Mega Deals — All Focus Categories on noon Express (Tech, Beauty, Fashion, Home, Baby, Health, Sports)",
+        "action": "The absolute biggest commercial shopping event of 2026! Sole focus on code YFS2026 offering massive 25% off on noon Express items across all categories! (Do NOT mention PROMO15). Emphasize that the code works on products marked with the yellow \"noon Express\" badge for fast delivery • Showcase assigned hero SKUs • In-app screen walkthrough tapping Yellow Friday banner and applying YFS2026 at checkout • Strong CTA to checkout immediately with code YFS2026",
+        "msg": "Yellow Friday is LIVE! 25% off on noon Express with code YFS2026 exclusively, Biggest savings of the year"
       },
       "ar": {
-        "title": "المرحلة 4: احتفالات اليوم الوطني العماني الـ 56",
-        "date": "15 - 19 نوفمبر (اليوم الوطني: 18 نوفمبر)",
-        "categories": "خاص بسلطنة عمان 🇴🇲 — الأزياء الاحتفالية، العطور الفاخرة، ديكورات الضيافة، الهدايا",
-        "action": "الاحتفاء بالعيد الوطني الـ 56 لسلطنة عُمان بمحتوى وطني أصيل • استعراض إطلالات العيد الوطني، العطور الراقية، وديكورات الضيافة • تسجيل شاشة لبنر اليوم الوطني بتطبيق نون • كود خصم خاص لعمان (عُمان فقط 🇴🇲)",
-        "msg": "احتفالات اليوم الوطني العماني، إطلالات وعطور فاخرة، أجواء ضيافة منزلية"
+        "title": "المرحلة 4: انطلاق مهرجان الجمعة الصفراء الأضخم والذروة (كود YFS2026 على منتجات نون إكسبريس فقط)",
+        "date": "19 - 30 نوفمبر",
+        "categories": "عروض شاملة لكل أقسام نون على منتجات إكسبريس — التقنية، الجمال، الأزياء، المنزل، الأطفال، الصحة، الرياضة",
+        "action": "الحدث التجاري والبيعي الأضخم في عام 2026 على الإطلاق! التركيز حصرياً وبشكل كامل على كود (YFS2026) فقط الذي يمنح خصم 25% على منتجات نون إكسبريس (noon Express) عبر كافة الأقسام (ممنوع ذكر كود PROMO15 نهائياً في هذه الفترة). التأكيد على أن الكود شغال على المنتجات المميزة بشعار نون إكسبريس الأصفر للتوصيل السريع، والتحذير من نفاد الكميات السريعة • استعراض منتجات الهيرو المحددة • تسجيل شاشة مباشر للنقر على بنر الجمعة الصفراء وتطبيق كود YFS2026 عند الدفع • حث المتابعين على الشراء فوراً قبل انتهاء العروض",
+        "msg": "الجمعة الصفراء انطلقت رسمياً! خصم 25% حصرياً بكود YFS2026 على منتجات نون إكسبريس، أكبر توفير في السنة"
       },
-      "promoCode": ""
-    },
-    {
-      "en": {
-        "title": "Phase 5: Yellow Friday Sale (YFS) Mega Launch",
-        "date": "November 17 – 30",
-        "categories": "Site-wide Mega Deals — All 7 Focus Categories (Beauty, Fashion, Tech, Home, Baby, Health, Sports)",
-        "action": "The absolute biggest commercial shopping event in 2026! Launch the new unique YFS coupon code offering maximum discount % in the entire year • Showcase assigned hero SKUs across all categories • Native app screen recording clicking Yellow Friday banner • Emphasize unmatched prices and unbeatable savings",
-        "msg": "Yellow Friday is LIVE, Biggest deals of 2026, Unbeatable discount % drops"
-      },
-      "ar": {
-        "title": "المرحلة 5: مهرجان الجمعة الصفراء السنوي (Yellow Friday Sale)",
-        "date": "17 - 30 نوفمبر",
-        "categories": "عروض شاملة لكل الأقسام — الفئات الـ 7 الرئيسية (الجمال، الأزياء، التقنية، المنزل، الأطفال، الصحة، الرياضة)",
-        "action": "الحدث التجاري الأضخم في عام 2026 على الإطلاق! إطلاق كود الجمعة الصفراء بأعلى نسبة توفير في السنة كاملة على جميع الفئات • استعراض منتجات الهيرو المحددة • تسجيل شاشة مباشر للنقر على بنر الجمعة الصفراء بالصفحة الرئيسية • التأكيد على أقوى توفير وعروض في السنة",
-        "msg": "الجمعة الصفراء انطلقت، أقوى عروض 2026، أعلى نسب خصم وتوفير"
-      },
-      "promoCode": ""
-    },
-    {
-      "en": {
-        "title": "Phase 6: YFS Climax Weekend (Final 48h Countdown)",
-        "date": "November 26 – 28",
-        "categories": "Flash Deals, Sell-Out Tech, High-Demand Bundles, Final Clearance",
-        "action": "Maximum urgency and conversion sprint • Countdown messaging: 'Final 48 hours of Yellow Friday! Deals are selling out!' • Direct users to checkout carts immediately with promo code {CODE} before the midnight cutoff",
-        "msg": "Final hours of Yellow Friday, Last chance deals, Checkout before stock ends"
-      },
-      "ar": {
-        "title": "المرحلة 6: الويكند الختامي للجمعة الصفراء (آخر 48 ساعة)",
-        "date": "26 - 28 نوفمبر",
-        "categories": "عروض الفلاش السريعة، تكنولوجيا قاربت على النفاد، حزم التوفير، التصفية النهائية",
-        "action": "سباق الشراء السريع وأعلى درجات الإلحاح • رسائل العد التنازلي ونفاد الكميات: 'آخر 48 ساعة في الجمعة الصفراء! العروض بتخلص!' • حث المتابعين على إتمام طلبات السلة فوراً بكود {CODE} قبل إغلاق العروض",
-        "msg": "الساعات الأخيرة من الجمعة الصفراء، فرصة أخيرة للعروض، اشترِ قبل نفاد الكميات"
-      },
-      "promoCode": ""
+      "promoCode": "YFS2026",
+      "countryDiscounts": {
+        "QA": {
+          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 62.5 QAR on min order 250 QAR)! (Yellow Friday Sale — noon Express)",
+          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 62.5 ريال قطري عند الطلب بـ 250 ريال أو أكثر)! (عروض الجمعة الصفراء)",
+          "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
+        },
+        "KW": {
+          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 5 KWD on min order 20 KWD)! (Yellow Friday Sale — noon Express)",
+          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 5 دينار كويتي عند الطلب بـ 20 دينار أو أكثر)! (عروض الجمعة الصفراء)",
+          "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
+        },
+        "BH": {
+          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 BHD on min order 25 BHD)! (Yellow Friday Sale — noon Express)",
+          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 دينار بحريني عند الطلب بـ 25 دينار أو أكثر)! (عروض الجمعة الصفراء)",
+          "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
+        },
+        "OM": {
+          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 OMR on min order 25 OMR)! (Yellow Friday Sale — noon Express)",
+          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 ريال عماني عند الطلب بـ 25 ريال أو أكثر)! (عروض الجمعة الصفراء)",
+          "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
+        }
+      }
     }
   ]
 },
@@ -887,6 +907,8 @@ function fillCampaignSelect() {
     sel.value = cur;
   } else if (vis.some(function (c) { return c.id === 'nov2026'; })) {
     sel.value = 'nov2026';
+  } else if (vis.some(function (c) { return c.id === 'nov2026'; })) {
+    sel.value = 'nov2026';
   } else if (vis.some(function (c) { return c.id === 'oct2026'; })) {
     sel.value = 'oct2026';
   }
@@ -988,10 +1010,10 @@ function updateDiscountPlaceholder() {
       inp.placeholder = 'PROMO15';
     } else if (pIx === 1) {
       inp.placeholder = '1111SALE';
-    } else if (pIx === 4 || pIx === 5) {
-      inp.placeholder = 'put the YFS code here / ضع كود الجمعة الصفراء هنا';
+    } else if (pIx === 2) {
+      inp.placeholder = 'PROMO15 (Hype YFS2026)';
     } else {
-      inp.placeholder = 'put the code here / ضع الكود هنا';
+      inp.placeholder = 'YFS2026';
     }
   } else {
     inp.placeholder = 'افتراضي من الحملة';
@@ -1109,17 +1131,25 @@ function discountBox(dis, code, l, phase) {
   var displayCode = hasCode ? code.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
   var text = (dis[l] || '').replace(/\{CODE\}/g, displayCode);
 
+  var isYfsHype = phase && phase.secondaryCode === 'YFS2026';
+  var badge1Title = isYfsHype 
+    ? (l === 'ar' ? 'كود الخصم الفعّال حالياً (خصم 15%):' : 'ACTIVE PROMO CODE (15% OFF):')
+    : (l === 'ar' ? 'كود المؤثر الحصري (خصم 25%):' : 'INFLUENCER CODE (25% OFF):');
+  var badge2Title = isYfsHype 
+    ? (l === 'ar' ? 'كود الهايب القادم للجمعة الصفراء (خصم 25% من 19 نوفمبر):' : 'UPCOMING YFS HYPE CODE (25% OFF FROM NOV 19):')
+    : (l === 'ar' ? 'كود عروض التطبيق (اشترِ 1 واحصل على 1):' : 'ONSITE CODE (BUY 1 GET 1):');
+
   var codeBadge;
   if (phase && phase.secondaryCode) {
     codeBadge = '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">' +
       '<div>' +
-      '<div style="font-size:11px; color:#c2410c; font-weight:bold; margin-bottom:2px;">' + (l === 'ar' ? 'كود المؤثر الحصري (خصم 25%):' : 'INFLUENCER CODE (25% OFF):') + '</div>' +
+      '<div style="font-size:11px; color:#c2410c; font-weight:bold; margin-bottom:2px;">' + badge1Title + '</div>' +
       (hasCode
         ? '<div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>'
         : '<div style="font-size: 15px; font-weight: bold; color: #dc2626; letter-spacing: 1px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>') +
       '</div>' +
       '<div>' +
-      '<div style="font-size:11px; color:#15803d; font-weight:bold; margin-bottom:2px;">' + (l === 'ar' ? 'كود عروض التطبيق (اشترِ 1 واحصل على 1):' : 'ONSITE CODE (BUY 1 GET 1):') + '</div>' +
+      '<div style="font-size:11px; color:#15803d; font-weight:bold; margin-bottom:2px;">' + badge2Title + '</div>' +
       '<div style="font-size: 18px; font-weight: bold; color: #166534; letter-spacing: 1px; background-color: #dcfce7; border:1px solid #86efac; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + phase.secondaryCode + '</div>' +
       '</div>' +
       '</div>';
@@ -1130,14 +1160,25 @@ function discountBox(dis, code, l, phase) {
   }
 
   var titleText = (phase && phase.secondaryCode)
-    ? (l === 'ar' ? 'أكواد الخصم الإلزامية — (يجب التحدث عن الكودين معاً في الفيديو وشرحهما)' : 'Mandatory Discount Codes — (Both Codes Must Be Spoken & Explained in Video)')
+    ? (isYfsHype 
+        ? (l === 'ar' ? 'أكواد الحملة الإلزامية — (كود التخفيض الحالي + تشويق وهايب كود الجمعة الصفراء)' : 'Mandatory Campaign Codes — (Active Code + Upcoming YFS Hype Code)')
+        : (l === 'ar' ? 'أكواد الخصم الإلزامية — (يجب التحدث عن الكودين معاً في الفيديو وشرحهما)' : 'Mandatory Discount Codes — (Both Codes Must Be Spoken & Explained in Video)'))
     : (l === 'ar' ? 'كود الخصم الإلزامي' : 'Mandatory Discount Code');
 
-  var dualCodeAlert = (phase && phase.secondaryCode)
-    ? (l === 'ar'
-      ? '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً بصوتك):</strong><br>في هذه المرحلة من الحملة، يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong> وشرح ميزة كل كود لجمهورك:<br>• كود المؤثر الحصري <strong>(' + displayCode + ')</strong>: خصم 25% على الطلب.<br>• كود عروض التطبيق <strong>(' + phase.secondaryCode + ')</strong>: عرض (اشترِ 1 واحصل على 1 مجاناً).<br><em>* يُمنع التحدث عن كود واحد وإهمال الآخر، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.</em></div>'
-      : '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 Mandatory Creator Mandate (Speak About Both Codes):</strong><br>In this phase, you MUST <strong>speak about BOTH codes out loud in your video</strong> and explain both offers to your audience:<br>• Creator Code <strong>(' + displayCode + ')</strong>: 25% OFF discount.<br>• Onsite Code <strong>(' + phase.secondaryCode + ')</strong>: Buy 1 Get 1 Free offer.<br><em>* Mentioning only one code is strictly forbidden. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the caption preview, and in Stories.</em></div>')
-    : ('<div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;"><em>' + (l === 'ar' ? STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) : STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode)) + '</em></div>');
+  var dualCodeAlert;
+  if (phase && phase.secondaryCode) {
+    if (isYfsHype) {
+      dualCodeAlert = (l === 'ar'
+        ? '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً وعمل هايب لكود YFS2026):</strong><br>في هذه الفترة (13 - 18 نوفمبر)، يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong>:<br>1. كود <strong>(' + displayCode + ')</strong>: كود الخصم الفعلي الشغال حالياً (خصم 15% على طلباتكم اليومية).<br>2. كود <strong>(' + phase.secondaryCode + ')</strong>: عمل هايب وتشويق قوي للجمهور للإعلان أنه سينطلق رسمياً يوم 19 نوفمبر بخصم جبار 25% وأقوى عروض الجمعة الصفراء السنوية! حثهم على حفظ الكود وتجهيز سلاتهم.<br><em>* إلزامي نطق الكودين بصوتك وإظهارهما كنص بارز على الشاشة لـ 3 ثوانٍ على الأقل وفي أول سطرين من الكابشن.</em></div>'
+        : '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 Mandatory Creator Mandate (Dual Code Callout & YFS Hype):</strong><br>In this phase (Nov 13 – 18), you MUST <strong>speak about BOTH codes out loud in your video</strong>:<br>1. Active Code <strong>(' + displayCode + ')</strong>: Currently active for flat 15% off daily orders.<br>2. Hype Code <strong>(' + phase.secondaryCode + ')</strong>: Build massive hype for the upcoming Yellow Friday Sale launching Nov 19 with 25% off! Urge followers to bookmark the code and build wishlists.<br><em>* Speaking both codes aloud and displaying both on screen for 3+ seconds is mandatory.</em></div>');
+    } else {
+      dualCodeAlert = (l === 'ar'
+        ? '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً بصوتك):</strong><br>في هذه المرحلة من الحملة، يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong> وشرح ميزة كل كود لجمهورك:<br>• كود المؤثر الحصري <strong>(' + displayCode + ')</strong>: خصم 25% على الطلب.<br>• كود عروض التطبيق <strong>(' + phase.secondaryCode + ')</strong>: عرض (اشترِ 1 واحصل على 1 مجاناً).<br><em>* يُمنع التحدث عن كود واحد وإهمال الآخر، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.</em></div>'
+        : '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 Mandatory Creator Mandate (Speak About Both Codes):</strong><br>In this phase, you MUST <strong>speak about BOTH codes out loud in your video</strong> and explain both offers to your audience:<br>• Creator Code <strong>(' + displayCode + ')</strong>: 25% OFF discount.<br>• Onsite Code <strong>(' + phase.secondaryCode + ')</strong>: Buy 1 Get 1 Free offer.<br><em>* Mentioning only one code is strictly forbidden. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the caption preview, and in Stories.</em></div>');
+    }
+  } else {
+    dualCodeAlert = ('<div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;"><em>' + (l === 'ar' ? STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) : STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode)) + '</em></div>');
+  }
 
   return '<div style="background-color: #fff7ed; ' + rtl + ': 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 16px 0;">' +
     '<div style="font-size: 13.5px; color: #c2410c; margin-bottom: 6px; font-weight: bold;">' + titleText + '</div>' +

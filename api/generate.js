@@ -49,17 +49,25 @@ function discountBox(dis, code, l, STATIC, phase) {
   var displayCode = hasCode ? code.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
   var text = (dis[l] || '').replace(/\{CODE\}/g, displayCode);
 
+  var isYfsHype = phase && phase.secondaryCode === 'YFS2026';
+  var badge1Title = isYfsHype 
+    ? (l === 'ar' ? 'كود الخصم الفعّال حالياً (خصم 15%):' : 'ACTIVE PROMO CODE (15% OFF):')
+    : (l === 'ar' ? 'كود المؤثر الحصري (خصم 25%):' : 'INFLUENCER CODE (25% OFF):');
+  var badge2Title = isYfsHype 
+    ? (l === 'ar' ? 'كود الهايب للجمعة الصفراء (خصم 25% على نون إكسبريس من 19 نوفمبر):' : 'UPCOMING YFS HYPE CODE (25% OFF ON NOON EXPRESS FROM NOV 19):')
+    : (l === 'ar' ? 'كود عروض التطبيق (اشترِ 1 واحصل على 1):' : 'ONSITE CODE (BUY 1 GET 1):');
+
   var codeBadge;
   if (phase && phase.secondaryCode) {
     codeBadge = '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">' +
       '<div>' +
-      '<div style="font-size:11px; color:#c2410c; font-weight:bold; margin-bottom:2px;">' + (l === 'ar' ? 'كود المؤثر الحصري (خصم 25%):' : 'INFLUENCER CODE (25% OFF):') + '</div>' +
+      '<div style="font-size:11px; color:#c2410c; font-weight:bold; margin-bottom:2px;">' + badge1Title + '</div>' +
       (hasCode
         ? '<div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>'
         : '<div style="font-size: 15px; font-weight: bold; color: #dc2626; letter-spacing: 1px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>') +
       '</div>' +
       '<div>' +
-      '<div style="font-size:11px; color:#15803d; font-weight:bold; margin-bottom:2px;">' + (l === 'ar' ? 'كود عروض التطبيق (اشترِ 1 واحصل على 1):' : 'ONSITE CODE (BUY 1 GET 1):') + '</div>' +
+      '<div style="font-size:11px; color:#15803d; font-weight:bold; margin-bottom:2px;">' + badge2Title + '</div>' +
       '<div style="font-size: 18px; font-weight: bold; color: #166534; letter-spacing: 1px; background-color: #dcfce7; border:1px solid #86efac; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + phase.secondaryCode + '</div>' +
       '</div>' +
       '</div>';
@@ -70,14 +78,25 @@ function discountBox(dis, code, l, STATIC, phase) {
   }
 
   var titleText = (phase && phase.secondaryCode)
-    ? (l === 'ar' ? 'أكواد الخصم الإلزامية — (يجب التحدث عن الكودين معاً في الفيديو وشرحهما)' : 'Mandatory Discount Codes — (Both Codes Must Be Spoken & Explained in Video)')
+    ? (isYfsHype 
+        ? (l === 'ar' ? 'أكواد الحملة الإلزامية — (كود التخفيض الحالي + تشويق وهايب كود الجمعة الصفراء على نون إكسبريس)' : 'Mandatory Campaign Codes — (Active Code + Upcoming YFS Hype Code on noon Express)')
+        : (l === 'ar' ? 'أكواد الخصم الإلزامية — (يجب التحدث عن الكودين معاً في الفيديو وشرحهما)' : 'Mandatory Discount Codes — (Both Codes Must Be Spoken & Explained in Video)'))
     : (l === 'ar' ? 'كود الخصم الإلزامي' : 'Mandatory Discount Code');
 
-  var dualCodeAlert = (phase && phase.secondaryCode)
-    ? (l === 'ar'
-      ? '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً بصوتك):</strong><br>في هذه المرحلة من الحملة، يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong> وشرح ميزة كل كود لجمهورك:<br>• كود المؤثر الحصري <strong>(' + displayCode + ')</strong>: خصم 25% على الطلب.<br>• كود عروض التطبيق <strong>(' + phase.secondaryCode + ')</strong>: عرض (اشترِ 1 واحصل على 1 مجاناً).<br><em>* يُمنع التحدث عن كود واحد وإهمال الآخر، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.</em></div>'
-      : '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 Mandatory Creator Mandate (Speak About Both Codes):</strong><br>In this phase, you MUST <strong>speak about BOTH codes out loud in your video</strong> and explain both offers to your audience:<br>• Creator Code <strong>(' + displayCode + ')</strong>: 25% OFF discount.<br>• Onsite Code <strong>(' + phase.secondaryCode + ')</strong>: Buy 1 Get 1 Free offer.<br><em>* Mentioning only one code is strictly forbidden. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the caption preview, and in Stories.</em></div>')
-    : ('<div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;"><em>' + (l === 'ar' ? STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) : STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode)) + '</em></div>');
+  var dualCodeAlert;
+  if (phase && phase.secondaryCode) {
+    if (isYfsHype) {
+      dualCodeAlert = (l === 'ar'
+        ? '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً وعمل هايب لكود YFS2026 على نون إكسبريس):</strong><br>في هذه الفترة (13 - 18 نوفمبر)، يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong>:<br>1. كود <strong>(' + displayCode + ')</strong>: كود الخصم الفعلي الشغال حالياً (خصم 15% على طلباتكم اليومية).<br>2. كود <strong>(' + phase.secondaryCode + ')</strong>: عمل هايب وتشويق قوي للجمهور للإعلان أنه سينطلق رسمياً يوم 19 نوفمبر بخصم جبار 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> وأقوى عروض الجمعة الصفراء السنوية! حثهم على حفظ الكود وتجهيز سلاتهم.<br><em>* إلزامي نطق الكودين بصوتك وإظهارهما كنص بارز على الشاشة لـ 3 ثوانٍ على الأقل وفي أول سطرين من الكابشن.</em></div>'
+        : '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 Mandatory Creator Mandate (Dual Code Callout & YFS Hype on noon Express):</strong><br>In this phase (Nov 13 – 18), you MUST <strong>speak about BOTH codes out loud in your video</strong>:<br>1. Active Code <strong>(' + displayCode + ')</strong>: Currently active for flat 15% off daily orders.<br>2. Hype Code <strong>(' + phase.secondaryCode + ')</strong>: Build massive hype for the upcoming Yellow Friday Sale launching Nov 19 with 25% off on <strong>noon Express items</strong>! Urge followers to bookmark the code and build their noon Express wishlists.<br><em>* Speaking both codes aloud and displaying both on screen for 3+ seconds is mandatory.</em></div>');
+    } else {
+      dualCodeAlert = (l === 'ar'
+        ? '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً بصوتك):</strong><br>في هذه المرحلة من الحملة، يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong> وشرح ميزة كل كود لجمهورك:<br>• كود المؤثر الحصري <strong>(' + displayCode + ')</strong>: خصم 25% على الطلب.<br>• كود عروض التطبيق <strong>(' + phase.secondaryCode + ')</strong>: عرض (اشترِ 1 واحصل على 1 مجاناً).<br><em>* يُمنع التحدث عن كود واحد وإهمال الآخر، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.</em></div>'
+        : '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 Mandatory Creator Mandate (Speak About Both Codes):</strong><br>In this phase, you MUST <strong>speak about BOTH codes out loud in your video</strong> and explain both offers to your audience:<br>• Creator Code <strong>(' + displayCode + ')</strong>: 25% OFF discount.<br>• Onsite Code <strong>(' + phase.secondaryCode + ')</strong>: Buy 1 Get 1 Free offer.<br><em>* Mentioning only one code is strictly forbidden. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the caption preview, and in Stories.</em></div>');
+    }
+  } else {
+    dualCodeAlert = ('<div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;"><em>' + (l === 'ar' ? STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) : STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode)) + '</em></div>');
+  }
 
   return '<div style="background-color: #fff7ed; ' + rtl + ': 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 16px 0;">' +
     '<div style="font-size: 13.5px; color: #c2410c; margin-bottom: 6px; font-weight: bold;">' + titleText + '</div>' +
