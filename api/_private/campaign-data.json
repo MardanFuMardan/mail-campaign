@@ -72,6 +72,13 @@
   "campaigns": [
     {
       "id": "nov2026",
+      "market": "GCC",
+      "countries": [
+        "QA",
+        "KW",
+        "BH",
+        "OM"
+      ],
       "nameEn": "Noon GCC November Campaign 2026 — 11.11 & Yellow Friday Sale (YFS)",
       "nameAr": "حملة نون لدول الخليج - شهر نوفمبر: عروض 11.11 والجمعة الصفراء (YFS)",
       "monthEn": "November",
@@ -351,7 +358,82 @@
       ]
     },
     {
+      "id": "dubaiMall2026",
+      "market": "UAE",
+      "countries": [
+        "AE"
+      ],
+      "brandProfile": "dubai_mall",
+      "optionalPromo": true,
+      "isEvergreen": true,
+      "nameEn": "Dubai Mall Online Application Launch Campaign",
+      "nameAr": "حملة إطلاق تطبيق دبي مول أونلاين (Dubai Mall Online) — الإمارات",
+      "monthEn": "",
+      "monthAr": "",
+      "promoCode": "",
+      "sender": "Mahmoud",
+      "briefUrl": "",
+      "briefUrlEn": "",
+      "briefUrlAr": "",
+      "guideUrl": "",
+      "portalUrl": "https://noon-invoice.vercel.app/",
+      "logoUrl": "",
+      "hashtags": "#DubaiMallOnline #DubaiMall #DubaiMallApp #TheDubaiMall #دبي_مول",
+      "countryDiscounts": {
+        "AE": {
+          "en": "Optional promo code: <strong>{CODE}</strong> — showcase how seamless and effortless the Dubai Mall Online application makes shopping in the UAE.",
+          "ar": "كود خصم اختياري: <strong>{CODE}</strong> — استعرض سهولة وسلاسة التسوق عبر تطبيق دبي مول أونلاين (Dubai Mall Online) في دولة الإمارات.",
+          "tag": "@thedubaimall"
+        }
+      },
+      "phases": [
+        {
+          "en": {
+            "title": "Part 1: The Physical Experience (In-Mall Shooting)",
+            "date": "UAE Only (Flexible Window)",
+            "categories": "Dubai Mall Online App — In-Mall Lifestyle Vlog, Parking & Navigation, Wishlist & Digital Screens",
+            "action": "Choose or combine any of these organic In-Mall storytelling concepts (1 Instagram Reel or TikTok Video): • Concept 1 — Come Spend the Day at Dubai Mall With Me: A day-in-my-life vlog documenting the creator’s visit to Dubai Mall, from arriving and finding parking to exploring the mall and enjoying the day. Naturally demonstrate how the app helps make the experience easier (checking parking information, navigating the mall, keeping track of ongoing events & promotions) • Concept 2 — My Wishlist (Online Convenience vs. The Mall Experience): Share a long-standing wishlist of items you’ve been meaning to purchase. Explain that although you could conveniently order everything through Dubai Mall Online and have it delivered, you still love visiting the mall physically, browsing, trying things out, and carrying shopping bags — naturally showing how the app tracks wishlist items while enjoying the in-mall experience • Concept 3 — The Casual Coffee Run: Casually visiting Dubai Mall (grabbing coffee, walking around), organically noticing the new digital screens/signage announcing the \"Dubai Mall Online\" launch and reacting naturally: \"Wait, you can now shop the entire mall online?\" • Concept 4 — The 10,000 Step Fatigue: Filming a relatable vlog about how massive Dubai Mall is, joking about step count or feeling tired after walking across the mall, spotting the digital screen, and having an \"epiphany\" moment realizing you can save your energy • Key Rule: Keep the tone authentic & organic; NEVER mention, tag, or name other mall brands/stores, and avoid stiff transitions.",
+            "msg": "Storytelling over hard selling, Day-in-the-life at Dubai Mall, Wishlist vs. in-mall shopping, Organic reaction to Dubai Mall Online screens & saving energy"
+          },
+          "ar": {
+            "title": "الجزء 1: التجربة الفعلية داخل دبي مول (التصوير في المول)",
+            "date": "الإمارات فقط (فترة مرنة)",
+            "categories": "تطبيق دبي مول أونلاين — تجربة المول، أسلوب الحياة، المواقف والتنقل، قائمة الأمنيات والشاشات الرقمية",
+            "action": "اختر أو ادمج أي من أفكار التصوير الواقعية التالية داخل دبي مول (1 فيديو إنستغرام ريلز أو تيك توك): • الفكرة 1 — تعالوا اقضوا يومي في دبي مول (Come Spend the Day at Dubai Mall With Me): فلوج ليومك في دبي مول منذ لحظة الوصول والبحث عن موقف سيارات حتى التجول والاستمتاع باليوم، مع استعراض عفوي لكيفية تسهيل التطبيق للتجربة (التحقق من معلومات المواقف، التنقل داخل المول، ومتابعة الفعاليات والعروض الحالية) • الفكرة 2 — قائمة أمنياتي (راحة الأونلاين مقابل متعة المول): شارك قائمة مشتريات لطالما رغبت بشرائها، واشرح أنه رغم إمكانية طلبها بسهولة عبر تطبيق دبي مول أونلاين وتوصيلها للمنزل، لا تزال تستمتع بزيارة المول والتجول وتجربة القطع وحمل أكياس التسوق، مع إظهار كيف يساعدك التطبيق في متابعة قائمة الأمنيات أثناء وجودك في المول • الفكرة 3 — مشوار القهوة العفوي (The Casual Coffee Run): زيارة طبيعية لدبي مول (أخذ قهوة والتجول)، ثم ملاحظة الشاشات واللوحات الرقمية الجديدة لإطلاق \"Dubai Mall Online\" بشكل عفوي وردة فعل طبيعية: \"لحظة.. هل صار يمدينا نتسوق المول بالكامل أونلاين؟\" • الفكرة 4 — تعب الـ 10,000 خطوة (The 10,000 Step Fatigue): فلوج عفوي يمزح حول مدى ضخامة دبي مول وعدد الخطوات أو التعب من المشي، ثم رؤية الشاشة الرقمية واكتشاف إمكانية توفير الجهد عبر الطلب أونلاين • قاعدة أساسية: حافظ على العفوية والسرد القصصي الطبيعي؛ يُمنع تماماً ذكر أو منشن أو الإشارة لأي براند أو متجر آخر داخل المول، وتجنب الانتقالات المتكلفة بين اللقطات.",
+            "msg": "السرد القصصي قبل الإعلان المباشر، يوم في دبي مول، قائمة الأمنيات ومتعة المول، ردة فعل عفوية لشاشات دبي مول أونلاين وتوفير الجهد"
+          },
+          "promoCode": "",
+          "secondaryCode": null
+        },
+        {
+          "en": {
+            "title": "Part 2: The Digital Experience (At-Home Scrolling)",
+            "date": "UAE Only (Flexible Window)",
+            "categories": "Dubai Mall Online App — Tips & Tricks, GRWM, ChatGPT AI Styling, Multi-Tasking & Lazy Weekend Scroll",
+            "action": "Choose or combine any of these authentic At-Home storytelling concepts (1 Instagram Reel or TikTok Video): • Concept 1 — Tips & Tricks (Making the Most of Dubai Mall): Casual insider-tips video sharing useful features recently discovered on the Dubai Mall App (scanning shopping receipts to collect rewards, staying updated on upcoming events & promotions, discovering exclusive offers) — feels like sharing helpful tips with friends rather than promoting an app • Concept 2 — GRWM (Getting Ready for a Shopping Day at Dubai Mall): Casual GRWM while choosing an outfit or doing makeup, naturally talking about often getting lost inside the huge mall or struggling to find specific stores/destinations, then introducing the Dubai Mall App as a helpful way to navigate before continuing your normal GRWM chat • Concept 3 — Let’s Try Something New (Dubai Mall App Discovery + ChatGPT): Casual talking-to-camera discovery where you explore the app, browse different products/categories, and test them on AI tool \"ChatGPT\" to see how different items can be styled together and which combinations you like best (genuine reactions, NOT a structured tutorial) • Concept 4 — The Multi-Tasking Master: Working from home, doing skincare routine, or cooking while simultaneously browsing the Dubai Mall App — emphasizing shopping at the biggest mall in the world without disrupting your daily routine or leaving home • Concept 5 — The Lazy Weekend Scroll: Relaxing at home (couch, bed, or morning coffee) with clean screen-recording or over-the-shoulder scrolling through the platform, highlighting how seamless it is to find what you need • Key Rule: No stiff transitions between mall and home, and NEVER mention, tag, or name any other mall brands or stores.",
+            "msg": "Organic at-home app discovery, Receipt scanning for rewards & mall navigation, Trying outfit combinations on ChatGPT AI, Seamless multi-tasking & cozy weekend scroll"
+          },
+          "ar": {
+            "title": "الجزء 2: التجربة الرقمية والتسوق من المنزل (At-Home Scrolling)",
+            "date": "الإمارات فقط (فترة مرنة)",
+            "categories": "تطبيق دبي مول أونلاين — نصائح وحيل، تجهيزات GRWM، تنسيق ChatGPT، روتين المنزل والويكند",
+            "action": "اختر أو ادمج أي من أفكار التصوير المنزلية التالية بأسلوبك العفوي (1 فيديو إنستغرام ريلز أو تيك توك): • الفكرة 1 — نصائح وحيل للاستفادة القصوى من دبي مول (Tips & Tricks): فيديو عفوي لمشاركة حيل مفيدة اكتشفتها في تطبيق دبي مول (مثل مسح فواتير التسوق لجمع المكافآت، متابعة الفعاليات والعروض القادمة، واكتشاف العروض الحصرية) وكأنك تشارك أسراراً مفيدة مع متابعيك بدون طابع إعلاني • الفكرة 2 — تجهزوا معي ليوم تسوق في دبي مول (GRWM): فيديو تجهيز طبيعي أثناء اختيار الإطلالة أو المكياج، تتحدث فيه بعفوية عن صعوبة إيجاد المحلات أو التوهان داخل المول الضخم، ثم تقدم تطبيق دبي مول كوسيلة ذكية للتنقل وإيجاد وجهاتك قبل استكمال حديث الـ GRWM المعتاد • الفكرة 3 — نجرب شيء جديد مع ChatGPT: حديث عفوي أمام الكاميرا عن اكتشافك لتطبيق دبي مول أونلاين، وتصفح المنتجات والفئات المختلفة وتجربتها عبر أداة الذكاء الاصطناعي \"ChatGPT\" لتنسيق القطع معاً واكتشاف أفضل التشكيلات (ردود فعل حقيقية وليس شرحاً تعليمياً جامداً للتطبيق) • الفكرة 4 — إنجاز أكثر من مهمة بالمنزل (The Multi-Tasking Master): أثناء العمل من المنزل أو روتين العناية بالبشرة أو الطبخ، تتصفح التطبيق بالتوازي لإبراز متعة التسوق من أكبر مول في العالم دون مغادرة المنزل أو تعطيل روتينك • الفكرة 5 — تصفح الويكند المريح (The Lazy Weekend Scroll): لحظة استرخاء بالمنزل (على الأريكة، السرير، أو مع قهوة الصباح) مع لقطة من فوق الكتف أو تسجيل شاشة سلس يبرز بساطة العثور على ما تحتاجه في التطبيق • قاعدة أساسية: يُمنع تماماً ذكر أو منشن أو الإشارة لأي براند أو متجر آخر داخل المول، وتجنب القطعات الجامدة عند الانتقال بين المنزل والمول.",
+            "msg": "اكتشاف عفوي للتطبيق بالمنزل، مسح الفواتير للمكافآت والتنقل، تنسيق الإطلالات باستخدام ChatGPT، التصفح مع روتين المنزل أو استرخاء الويكند"
+          },
+          "promoCode": "",
+          "secondaryCode": null
+        }
+      ]
+    },
+    {
       "id": "oct2026",
+      "market": "GCC",
+      "countries": [
+        "QA",
+        "KW",
+        "BH",
+        "OM"
+      ],
       "nameEn": "Noon GCC October Campaign 2026",
       "nameAr": "حملة نون لدول الخليج - شهر أكتوبر",
       "monthEn": "October",
@@ -503,6 +585,13 @@
     },
     {
       "id": "sep2026",
+      "market": "GCC",
+      "countries": [
+        "QA",
+        "KW",
+        "BH",
+        "OM"
+      ],
       "nameEn": "Noon GCC September Campaign 2026",
       "nameAr": "حملة نون لدول الخليج - شهر سبتمبر",
       "monthEn": "September",
@@ -638,6 +727,13 @@
     },
     {
       "id": "aug2026",
+      "market": "GCC",
+      "countries": [
+        "QA",
+        "KW",
+        "BH",
+        "OM"
+      ],
       "nameEn": "Noon GCC August Campaign 2026",
       "nameAr": "حملة نون لدول الخليج - شهر أغسطس",
       "monthEn": "August",
@@ -787,6 +883,13 @@
     },
     {
       "id": "apr2026",
+      "market": "GCC",
+      "countries": [
+        "QA",
+        "KW",
+        "BH",
+        "OM"
+      ],
       "nameEn": "Noon GCC April Campaign 2026",
       "nameAr": "حملة نون لدول الخليج - شهر أبريل",
       "monthEn": "April",

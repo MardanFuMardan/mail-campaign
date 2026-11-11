@@ -215,6 +215,173 @@ function runVmLogicVerification() {
     'api/_lib/generator-core.js output matches client VM generators 100% byte-for-byte'
   );
 
+  console.log('\n▶️ Checking Dubai Mall Online Launch Campaign (UAE Only & Optional Promo Code)...');
+  const dm = seeds.find(s => s.id === 'dubaiMall2026');
+  assert(!!dm, 'dubaiMall2026 campaign exists in seeds');
+  assert(dm && dm.market === 'UAE', 'dubaiMall2026 market is UAE');
+  assert(dm && Array.isArray(dm.countries) && dm.countries.length === 1 && dm.countries[0] === 'AE', 'dubaiMall2026 restricts countries strictly to [AE]');
+  assert(dm && dm.optionalPromo === true && dm.brandProfile === 'dubai_mall', 'dubaiMall2026 uses optionalPromo=true and brandProfile=dubai_mall');
+  assert(dm && Array.isArray(dm.phases) && dm.phases.length === 2, 'dubaiMall2026 contains 2 creative tracks (Physical & Digital)');
+  assert(context.defaultCodeFor('AE', dm, 0) === '' && context.defaultCodeFor('AE', dm, 1) === '', 'defaultCodeFor returns empty string for optionalPromo campaign');
+
+  const dmEmptyInput = {
+    name: 'Salma Test',
+    country: 'AE',
+    code: '',
+    phaseIx: 0,
+    platform: 'Instagram Reels',
+    subDay: '12',
+    subMonth: '05',
+    liveDay: '18',
+    liveMonth: '05',
+    fee: '3500',
+    kpi: '80K',
+    sender: 'Mahmoud'
+  };
+  const dmP0 = dm.phases[0];
+  const dmDis0 = (dmP0.countryDiscounts && dmP0.countryDiscounts.AE) || (dm.countryDiscounts && dm.countryDiscounts.AE) || {};
+  const dmEmailEn0 = context.buildEmail(dm, dmEmptyInput, dmP0, dmDis0, 'en');
+  const dmEmailAr0 = context.buildEmail(dm, dmEmptyInput, dmP0, dmDis0, 'ar');
+  const dmBriefEn0 = context.buildBrief(dm, dmEmptyInput, dmP0, dmDis0, 'en');
+  const dmBriefAr0 = context.buildBrief(dm, dmEmptyInput, dmP0, dmDis0, 'ar');
+  const dmTxtEn0 = context.buildBriefText(dm, dmEmptyInput, dmP0, dmDis0, 'en');
+  const dmTxtAr0 = context.buildBriefText(dm, dmEmptyInput, dmP0, dmDis0, 'ar');
+
+  const dmServer0 = generateAllOutputs(rawData, {
+    campaignId: 'dubaiMall2026',
+    name: 'Salma Test',
+    country: 'AE',
+    code: '',
+    phaseIx: 0,
+    platform: 'Instagram Reels',
+    subDay: '12',
+    subMonth: '05',
+    liveDay: '18',
+    liveMonth: '05',
+    fee: '3500',
+    kpi: '80K',
+    sender: 'Mahmoud'
+  });
+
+  assert(
+    dmServer0 &&
+    dmServer0.emailEn === dmEmailEn0 &&
+    dmServer0.emailAr === dmEmailAr0 &&
+    dmServer0.briefEn === dmBriefEn0 &&
+    dmServer0.briefAr === dmBriefAr0 &&
+    dmServer0.briefTxtEn === dmTxtEn0 &&
+    dmServer0.briefTxtAr === dmTxtAr0,
+    'dubaiMall2026 Phase 1 (empty promo) matches server generator-core.js 100% byte-for-byte'
+  );
+
+  const emptyPromoAll = [dmEmailEn0, dmEmailAr0, dmBriefEn0, dmBriefAr0, dmTxtEn0, dmTxtAr0].join('\n');
+  assert(
+    !emptyPromoAll.includes('{CODE}') &&
+    !emptyPromoAll.includes('PROMO15') &&
+    !emptyPromoAll.includes('[ضع الكود هنا]') &&
+    !emptyPromoAll.includes('[put the code here]') &&
+    !emptyPromoAll.includes('الكرتونة') &&
+    !dmEmailEn0.includes('Discount Code') &&
+    !dmBriefEn0.includes('CAMPAIGN PROMO CODE'),
+    'dubaiMall2026 with empty code omits all promo sections, placeholders, and noon box references'
+  );
+  assert(
+    dmEmailEn0.includes('3500 AED') &&
+    dmEmailEn0.includes('@thedubaimall') &&
+    dmBriefEn0.includes('00:03') &&
+    dmBriefEn0.includes('5 seconds') &&
+    dmBriefEn0.includes('Come Spend the Day at Dubai Mall With Me') &&
+    dmBriefEn0.includes('The 10,000 Step Fatigue') &&
+    dmBriefAr0.includes('يُمنع ذكر أو منشن أو تسمية'),
+    'dubaiMall2026 Phase 1 includes AED fee, @thedubaimall, 5s logo rule, tenant exclusion & Part 1 concepts'
+  );
+
+  // Part 2 + custom optional promo code
+  const dmPromoInput = {
+    name: 'Mariam Test',
+    country: 'AE',
+    code: 'DXB15',
+    phaseIx: 1,
+    platform: 'TikTok',
+    subDay: '14',
+    subMonth: '06',
+    liveDay: '20',
+    liveMonth: '06',
+    fee: '4200',
+    kpi: '',
+    sender: 'Sara'
+  };
+  const dmP1 = dm.phases[1];
+  const dmDis1 = (dmP1.countryDiscounts && dmP1.countryDiscounts.AE) || (dm.countryDiscounts && dm.countryDiscounts.AE) || {};
+  const dmEmailEn1 = context.buildEmail(dm, dmPromoInput, dmP1, dmDis1, 'en');
+  const dmEmailAr1 = context.buildEmail(dm, dmPromoInput, dmP1, dmDis1, 'ar');
+  const dmBriefEn1 = context.buildBrief(dm, dmPromoInput, dmP1, dmDis1, 'en');
+  const dmBriefAr1 = context.buildBrief(dm, dmPromoInput, dmP1, dmDis1, 'ar');
+  const dmTxtEn1 = context.buildBriefText(dm, dmPromoInput, dmP1, dmDis1, 'en');
+  const dmTxtAr1 = context.buildBriefText(dm, dmPromoInput, dmP1, dmDis1, 'ar');
+
+  const dmServer1 = generateAllOutputs(rawData, {
+    campaignId: 'dubaiMall2026',
+    name: 'Mariam Test',
+    country: 'AE',
+    code: 'DXB15',
+    phaseIx: 1,
+    platform: 'TikTok',
+    subDay: '14',
+    subMonth: '06',
+    liveDay: '20',
+    liveMonth: '06',
+    fee: '4200',
+    kpi: '',
+    sender: 'Sara'
+  });
+
+  assert(
+    dmServer1 &&
+    dmServer1.emailEn === dmEmailEn1 &&
+    dmServer1.emailAr === dmEmailAr1 &&
+    dmServer1.briefEn === dmBriefEn1 &&
+    dmServer1.briefAr === dmBriefAr1 &&
+    dmServer1.briefTxtEn === dmTxtEn1 &&
+    dmServer1.briefTxtAr === dmTxtAr1,
+    'dubaiMall2026 Phase 2 (custom code DXB15) matches server generator-core.js 100% byte-for-byte'
+  );
+  assert(
+    dmEmailEn1.includes('DXB15') &&
+    dmEmailAr1.includes('DXB15') &&
+    dmBriefEn1.includes('DXB15') &&
+    dmBriefAr1.includes('DXB15') &&
+    dmTxtEn1.includes('DXB15') &&
+    dmTxtAr1.includes('DXB15') &&
+    dmBriefEn1.includes('ChatGPT') &&
+    dmBriefEn1.includes('The Lazy Weekend Scroll'),
+    'dubaiMall2026 Phase 2 renders custom promo code DXB15 across all 6 panes and includes Part 2 concepts + ChatGPT'
+  );
+
+  // Disallowed country QA coerced to AE
+  const dmServerCoerced = generateAllOutputs(rawData, {
+    campaignId: 'dubaiMall2026',
+    name: 'Laila Test',
+    country: 'QA',
+    code: '',
+    phaseIx: 0,
+    platform: 'Instagram Reels',
+    subDay: '5',
+    subMonth: '05',
+    liveDay: '8',
+    liveMonth: '05',
+    fee: '2000',
+    kpi: '',
+    sender: ''
+  });
+  assert(
+    dmServerCoerced &&
+    dmServerCoerced.subjects['email-en'].includes('United Arab Emirates') &&
+    !dmServerCoerced.emailEn.includes('Qatar') &&
+    !dmServerCoerced.emailEn.includes('@noon_qar'),
+    'dubaiMall2026 rejects/normalizes non-UAE country QA strictly to United Arab Emirates (AE)'
+  );
+
   const elapsed = Date.now() - startTime;
   console.log('\n===============================================================');
   console.log(`📊 NODE VM RESULTS: ${passed} PASSED, ${failed} FAILED in ${elapsed}ms`);

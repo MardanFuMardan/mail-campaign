@@ -1,4 +1,4 @@
-const COUNTRIES = { QA: 'Qatar', KW: 'Kuwait', BH: 'Bahrain', OM: 'Oman' };
+const COUNTRIES = { QA: 'Qatar', KW: 'Kuwait', BH: 'Bahrain', OM: 'Oman', AE: 'United Arab Emirates', SA: 'Saudi Arabia' };
 const MONTHS_AR = { '01': 'يناير', '02': 'فبراير', '03': 'مارس', '04': 'أبريل', '05': 'مايو', '06': 'يونيو', '07': 'يوليو', '08': 'أغسطس', '09': 'سبتمبر', '10': 'أكتوبر', '11': 'نوفمبر', '12': 'ديسمبر' };
 const MONTHS_EN = { '01': 'January', '02': 'February', '03': 'March', '04': 'April', '05': 'May', '06': 'June', '07': 'July', '08': 'August', '09': 'September', '10': 'October', '11': 'November', '12': 'December' };
 
@@ -11,7 +11,19 @@ function esc(s) {
     .replace(/'/g, '&#39;');
 }
 
+function hasCustomPromoInput(code) {
+  var t = String(code == null ? '' : code).trim();
+  return !!(t && t !== '{CODE}' && t.indexOf('ضع الكود') === -1 && t.indexOf('put the code') === -1);
+}
+
 function defaultCodeFor(country, c, phaseIx) {
+  if (c && c.optionalPromo) {
+    var ixOpt = parseInt(phaseIx != null ? phaseIx : '0', 10);
+    if (c.phases && c.phases[ixOpt] && typeof c.phases[ixOpt].promoCode === 'string' && c.phases[ixOpt].promoCode.trim()) {
+      return c.phases[ixOpt].promoCode.trim();
+    }
+    return (typeof c.promoCode === 'string' && c.promoCode.trim()) ? c.promoCode.trim() : '';
+  }
   var ix = parseInt(phaseIx != null ? phaseIx : '0', 10);
   if (c && c.phases && c.phases[ix] && typeof c.phases[ix].promoCode === 'string') {
     return c.phases[ix].promoCode;
@@ -181,7 +193,100 @@ function spotTheBagBox(c, I, l) {
     '</div>';
 }
 
+function dubaiMallDiscountBox(dis, code, l) {
+  var hasCode = hasCustomPromoInput(code);
+  if (!hasCode) return '';
+  var rtl = l === 'ar' ? 'border-right' : 'border-left';
+  var displayCode = String(code).trim();
+  var fallbackText = l === 'ar'
+    ? 'كود الخصم الاختياري الخاص بك: <strong>' + displayCode + '</strong>.'
+    : 'Your campaign promo code: <strong>' + displayCode + '</strong>.';
+  var text = (dis && dis[l] ? dis[l] : fallbackText).replace(/\{CODE\}/g, displayCode);
+  return '<div style="background-color: #fff7ed; ' + rtl + ': 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 16px 0;">' +
+    '<div style="font-size: 13.5px; color: #c2410c; margin-bottom: 6px; font-weight: bold;">' + (l === 'ar' ? 'كود الخصم (اختياري للحملة)' : 'Campaign Promo Code') + '</div>' +
+    '<div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>' +
+    '<div style="margin-top: 4px; color: #9a3412; font-size: 14px;"><strong>' + (l === 'ar' ? 'تفاصيل الكود:' : 'Code Details:') + '</strong><br>' + text + '</div>' +
+    '<div style="margin-top: 8px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;"><em>' +
+    (l === 'ar'
+      ? 'يُذكر كود الخصم (' + displayCode + ') بشكل طبيعي وعفوي داخل الفيديو وعلى الشاشة وفي الوصف (Caption).'
+      : 'Mention code (' + displayCode + ') naturally in the video, on-screen text, and near the top/middle of your caption.') +
+    '</em></div>' +
+    '</div>';
+}
+
 function brandGuidelinesBox(c, I, l) {
+  if (c && c.brandProfile === 'dubai_mall') {
+    var dmRtl = l === 'ar' ? 'border-right' : 'border-left';
+    var dmHasCode = hasCustomPromoInput(I && I.code);
+    if (l === 'ar') {
+      return '<div style="background-color: #fffdf0; ' + dmRtl + ': 4px solid #d97706; padding: 16px; border-radius: 8px; margin: 18px 0;">' +
+        '<div style="color: #b45309; font-size: 14.5px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
+        '<span>🎬</span> القواعد الإرشادية للعلامة التجارية والإنتاج (Dubai Mall Online)' +
+        '</div>' +
+        '<div style="font-size: 13.5px; color: #78350f; line-height: 1.7; margin-bottom: 12px;">' +
+        '<strong>🚨 شروط وقواعد إنتاجية إلزامية لاعتماد الفيديو:</strong><br>' +
+        '1. <strong>توقيت ومدة ظهور اللوجو (5 ثوانٍ فقط):</strong> يجب أن يظهر اللوجو الرسمي في الثانية 3 أو 4 (00:03 - 00:04) ولمدة <strong>5 ثوانٍ فقط ثم يختفي</strong>. ممنوع تماماً ظهور اللوجو في أول ثانيتين (00:00 - 00:02) للحفاظ على الخطّاف العفوي الطبيعي، وممنوع إبقاؤه ظاهراً طوال مدة الفيديو.<br>' +
+        '2. <strong>الأسلوب والسرد القصصي (Storytelling First):</strong> قدّم القصة وتجربة اليوم العفوية أولاً؛ اجعل تطبيق <strong>Dubai Mall Online</strong> جزءاً طبيعياً من التجربة لا إعلاناً مباشراً أو شرحاً تعليمياً جامداً (Tutorial)، وحافظ على أسلوبك ونبرة صوتك المعتادة.<br>' +
+        '3. <strong>استعراض التطبيق بسلاسة:</strong> اعرض ميزات التطبيق الواقعية بشكل طبيعي (مثل المواقف والتنقل، قائمة الأمنيات، مسح الفواتير للمكافآت، أو التصفح المنزلي عبر تسجيل شاشة واضح أو لقطة عفوية).<br>' +
+        '4. <strong>منع ذكر المتاجر والانتقالات المتكلفة:</strong> يُمنع تماماً ذكر أو منشن أو إظهار أسماء أي علامات تجارية أو محلات أخرى داخل دبي مول طوال الفيديو، وتجنب القطعات الجامدة بين المول والمنزل.' +
+        '</div>' +
+        '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">' +
+        '<div style="background: #f0fdf4; padding: 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #166534; line-height: 1.6;">' +
+        '<strong style="color: #15803d; font-size: 13.5px;">✓ إرشادات إلزامية (Do\'s):</strong><br>' +
+        '• حافظ على محتوى عفوي، حقيقي، وقريب من الجمهور بأسلوبك الخاص.<br>' +
+        '• اجذب الانتباه منذ الثواني الأولى بخطّاف طبيعي مشوق.<br>' +
+        '• التزم بإضاءة ممتازة، صوت نقي، وجودة تصوير عالية.<br>' +
+        '• اعتمد على تجربتك الشخصية ورأيك الصادق وتأكد من دقة كل معلومة.<br>' +
+        '• أظهر اللوجو عند الثانية 3 أو 4 (لمدة 5 ثوانٍ فقط ثم يختفي).<br>' +
+        (dmHasCode ? '• اذكر كود الخصم (<strong>' + I.code.trim() + '</strong>) بوضوح في الفيديو وعلى الشاشة.<br>' : '') +
+        '• أرسل مسودة الفيديو للموافقة الخطية قبل النشر.' +
+        '</div>' +
+        '<div style="background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6;">' +
+        '<strong style="color: #b91c1c; font-size: 13.5px;">✗ محظورات تؤدي للرفض (Don\'ts):</strong><br>' +
+        '• لا تجعل المحتوى يبدو مصطنعاً أو ترويجياً مبالغاً فيه أو كأنك تقرأ من بريف.<br>' +
+        '• لا تقدم وعوداً مبالغاً فيها أو معلومات غير دقيقة.<br>' +
+        '• <strong>يُمنع ذكر أو منشن أو تسمية أي براندات أو محلات أخرى داخل دبي مول طوال الفيديو.</strong><br>' +
+        '• <strong>يُمنع ظهور أي إشارات أو تاجات ترويجية لمستأجري المول الآخرين.</strong><br>' +
+        '• <strong>تجنب الانتقالات الجامدة (No Stiff Transitions)</strong> بين المول والمنزل؛ يجب أن يكون التدرج طبيعياً.<br>' +
+        '• لا تظهر اللوجو في أول ثانيتين ولا تتركه طوال الفيديو (5 ثوانٍ فقط).' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+    }
+    return '<div style="background-color: #fffdf0; ' + dmRtl + ': 4px solid #d97706; padding: 16px; border-radius: 8px; margin: 18px 0;">' +
+      '<div style="color: #b45309; font-size: 14.5px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
+      '<span>🎬</span> Brand &amp; Video Production Guidelines — Dubai Mall Online' +
+      '</div>' +
+      '<div style="font-size: 13.5px; color: #78350f; line-height: 1.7; margin-bottom: 12px;">' +
+      '<strong>🚨 Mandatory Creative &amp; Approval Guidelines:</strong><br>' +
+      '1. <strong>Logo Timing &amp; Duration (5 Seconds Only):</strong> Introduce the official campaign logo specifically at second 3 or 4 (00:03 - 00:04) and keep it visible for <strong>ONLY 5 seconds then disappear</strong>. Strictly NO logo in seconds 00:00 - 00:02 to preserve an organic hook, and do NOT keep it visible throughout the entire video.<br>' +
+      '2. <strong>Vibe, Tone &amp; Storytelling First:</strong> Keep the video authentic, highly organic, relatable, and seamless — let the <strong>Dubai Mall Online</strong> app be part of your real day rather than a heavily produced advertisement or structured tutorial. Maintain your own voice and personality.<br>' +
+      '3. <strong>Seamless App Integration:</strong> Showcase relevant features naturally (parking/mall navigation, wishlists, scanning receipts, or cozy at-home browsing via crisp screen-recording or natural over-the-shoulder shots).<br>' +
+      '4. <strong>Strict Tenant &amp; Transition Rules:</strong> ZERO verbal or visual mentions/tags of other brands or stores inside Dubai Mall, and avoid jarring/stiff transitions between home and the mall.' +
+      '</div>' +
+      '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">' +
+      '<div style="background: #f0fdf4; padding: 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #166534; line-height: 1.6;">' +
+      '<strong style="color: #15803d; font-size: 13.5px; text-transform: uppercase;">✓ The Do\'s:</strong><br>' +
+      '• Keep content authentic, natural, relatable, and aligned with your personal style.<br>' +
+      '• Make content engaging from the first 2–3 seconds to capture viewer attention.<br>' +
+      '• Ensure good lighting, clear audio, and high-quality visuals.<br>' +
+      '• Use your own genuine experience and opinions; ensure all shared details are accurate.<br>' +
+      '• Introduce official logo at 00:03–00:04 for ONLY 5 seconds then hide it.<br>' +
+      (dmHasCode ? '• Clearly mention code (<strong>' + I.code.trim() + '</strong>) aloud and on screen.<br>' : '') +
+      '• Submit draft content for approval before publishing.' +
+      '</div>' +
+      '<div style="background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6;">' +
+      '<strong style="color: #b91c1c; font-size: 13.5px; text-transform: uppercase;">✗ Strict Don\'ts (Rejection Triggers):</strong><br>' +
+      '• Don\'t make content feel scripted, forced, overly promotional, or read from a brief.<br>' +
+      '• Don\'t make exaggerated claims or share misleading information.<br>' +
+      '• <strong>Don\'t mention, tag, or verbally name ANY other brands or stores located within Dubai Mall throughout the video.</strong><br>' +
+      '• <strong>Don\'t include visible brand tags, mentions, or promotional references to other mall tenants.</strong><br>' +
+      '• <strong>No Stiff Transitions:</strong> Avoid jarring cuts between the mall and home; transitions must feel like a natural progression of your day.<br>' +
+      '• Don\'t flash logo in 00:00–00:02 or keep logo onscreen all video (5s only).' +
+      '</div>' +
+      '</div>' +
+      '</div>';
+  }
   var isNov = (c && c.id === 'nov2026') || (c && c.monthEn && c.monthEn.toLowerCase().indexOf('nov') !== -1);
   if (!isNov) return '';
   var rtl = l === 'ar' ? 'border-right' : 'border-left';
@@ -251,20 +356,75 @@ function brandGuidelinesBox(c, I, l) {
     '</div>';
 }
 
-function collabAndHashtagsBox(c, I, l) {
+function dubaiMallCollabBox(c, I, l) {
   var rtl = l === 'ar' ? 'border-right' : 'border-left';
-  var countryTagMap = { QA: '@noon_qar', KW: '@noon_kuwt', BH: '@noon.bahr', OM: '@noon_omn' };
+  var hashtags = (c && c.hashtags) || '#DubaiMallOnline #DubaiMall #DubaiMallApp #TheDubaiMall #دبي_مول';
+  var hasCustomCode = hasCustomPromoInput(I && I.code);
+  var codeRuleAr = hasCustomCode
+    ? '<div style="font-size: 12px; color: #15803d;">• <strong>متطلبات الوصف (Caption):</strong> يُرجى ذكر كود الخصم الاختياري <strong>(' + String(I.code).trim() + ')</strong> بوضوح بالقرب من أعلى أو منتصف الوصف، وكذلك على الشاشة داخل الفيديو.</div>'
+    : '';
+  var codeRuleEn = hasCustomCode
+    ? '<div style="font-size: 12px; color: #15803d;">• <strong>Caption Requirement:</strong> Include optional promo code <strong>(' + String(I.code).trim() + ')</strong> clearly near the top/middle of your caption and on-screen in the video.</div>'
+    : '';
+
+  if (l === 'ar') {
+    return '<div style="background-color: #f0fdf4; ' + rtl + ': 4px solid #16a34a; padding: 14px; border-radius: 8px; margin: 16px 0;">' +
+      '<div style="color: #15803d; font-size: 14px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
+      '<span>👥</span> الحساب الرسمي والهاشتاقات المعتمدة — الإمارات العربية المتحدة 🇦🇪' +
+      '</div>' +
+      '<div style="font-size: 13.5px; color: #166534; line-height: 1.7; margin-bottom: 10px;">' +
+      '<strong>النطاق الجغرافي للحملة:</strong> دولة الإمارات العربية المتحدة فقط 🇦🇪<br>' +
+      '• <strong>حساب دبي مول الرسمي:</strong> <a href="https://www.instagram.com/thedubaimall/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@thedubaimall</strong></a><br>' +
+      '<span style="font-size:12px; color:#15803d;">• <strong>تنبيه هام:</strong> يُمنع تماماً ذكر أو عمل تاج (Tag) أو منشن لأي متجر أو براند آخر داخل دبي مول؛ تُعتمد صيغة التاج/التعاون والكابشن النهائي مع اعتماد المسودة.</span>' +
+      '</div>' +
+      '<div style="background: #ffffff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #14532d; line-height: 1.6;">' +
+      '<strong>📌 الهاشتاقات المعتمدة (Hashtags):</strong><br>' +
+      '<div style="margin: 4px 0; font-weight: 800; font-size: 13.5px; color: #047857; direction: ltr; text-align: right;">' + hashtags + '</div>' +
+      '<div style="font-size: 12px; color: #15803d; margin-top: 4px;">• التزم بالهاشتاقات أعلاه ولا تضف تاجات لمتاجر أخرى داخل المول.</div>' +
+      codeRuleAr +
+      '</div>' +
+      '</div>';
+  }
+
+  return '<div style="background-color: #f0fdf4; ' + rtl + ': 4px solid #16a34a; padding: 14px; border-radius: 8px; margin: 16px 0;">' +
+    '<div style="color: #15803d; font-size: 14px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
+    '<span>👥</span> Official Account &amp; Campaign Hashtags — UAE Only 🇦🇪' +
+    '</div>' +
+    '<div style="font-size: 13.5px; color: #166534; line-height: 1.7; margin-bottom: 10px;">' +
+    '<strong>Target Territory:</strong> United Arab Emirates 🇦🇪<br>' +
+    '• <strong>Official Dubai Mall Account:</strong> <a href="https://www.instagram.com/thedubaimall/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@thedubaimall</strong></a><br>' +
+    '<span style="font-size:12px; color:#15803d;">• <strong>Important:</strong> Strictly NO mentions, tags, or references to any other mall tenants/stores. Final collab/caption details are confirmed alongside draft approval.</span>' +
+    '</div>' +
+    '<div style="background: #ffffff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #14532d; line-height: 1.6;">' +
+    '<strong>📌 Recommended Campaign Hashtags:</strong><br>' +
+    '<div style="margin: 4px 0; font-weight: 800; font-size: 13.5px; color: #047857; direction: ltr; text-align: left;">' + hashtags + '</div>' +
+    '<div style="font-size: 12px; color: #15803d; margin-top: 4px;">• Use the official hashtags above; avoid tagging third-party brands located inside Dubai Mall.</div>' +
+    codeRuleEn +
+    '</div>' +
+    '</div>';
+}
+
+function collabAndHashtagsBox(c, I, l) {
+  if (c && c.brandProfile === 'dubai_mall') {
+    return dubaiMallCollabBox(c, I, l);
+  }
+  var rtl = l === 'ar' ? 'border-right' : 'border-left';
+  var countryTagMap = { QA: '@noon_qar', KW: '@noon_kuwt', BH: '@noon.bahr', OM: '@noon_omn', AE: '@noon_uae', SA: '@noon_ksa' };
   var countryUrlMap = {
     QA: 'https://www.instagram.com/noon_qar/',
     KW: 'https://www.instagram.com/noon_kuwt/',
     BH: 'https://www.instagram.com/noon.bahr/',
-    OM: 'https://www.instagram.com/noon_omn/'
+    OM: 'https://www.instagram.com/noon_omn/',
+    AE: 'https://www.instagram.com/noon_uae/',
+    SA: 'https://www.instagram.com/noon_ksa/'
   };
   var countryNameMap = {
     QA: { ar: 'قطر 🇶🇦', en: 'Qatar 🇶🇦' },
     KW: { ar: 'الكويت 🇰🇼', en: 'Kuwait 🇰🇼' },
     BH: { ar: 'البحرين 🇧🇭', en: 'Bahrain 🇧🇭' },
-    OM: { ar: 'عُمان 🇴🇲', en: 'Oman 🇴🇲' }
+    OM: { ar: 'عُمان 🇴🇲', en: 'Oman 🇴🇲' },
+    AE: { ar: 'الإمارات العربية المتحدة 🇦🇪', en: 'United Arab Emirates 🇦🇪' },
+    SA: { ar: 'السعودية 🇸🇦', en: 'Saudi Arabia 🇸🇦' }
   };
   var cTag = countryTagMap[I.country] || '@noon';
   var cUrl = countryUrlMap[I.country] || 'https://www.instagram.com/noon/';
@@ -312,7 +472,140 @@ function collabAndHashtagsBox(c, I, l) {
     '</div>';
 }
 
+function dubaiMallOptionalBriefBlock(c, l, rtl) {
+  var briefTxt = l === 'ar' ? 'الدليل الإرشادي الشامل (Brief)' : 'Full Campaign Brief';
+  var hasDualBrief = !!(c.briefUrlEn && c.briefUrlAr && c.briefUrlEn !== c.briefUrlAr);
+  if (hasDualBrief) {
+    var lblEn = l === 'ar' ? 'البريف بالإنجليزية (Brief EN)' : 'English Brief (EN)';
+    var lblAr = l === 'ar' ? 'البريف بالعربية (Brief AR)' : 'Arabic Brief (AR)';
+    var clickEn = l === 'ar' ? 'اضغط هنا لفتح البريف الإنجليزي' : 'Click Here for the English Brief';
+    var clickAr = l === 'ar' ? 'اضغط هنا لفتح البريف العربي' : 'Click Here for the Arabic Brief';
+    return '<div style="background-color: #f8fafc; padding: 12px; ' + rtl + ': 3px solid #64748b; border-radius: 6px; margin: 16px 0;"><strong>🔗 ' + briefTxt + ':</strong><br>' +
+      (l === 'ar' ? 'يُرجى قراءة البريف المناسب للغتك بدقة قبل البدء بالتصوير:' : 'Please read the brief in your preferred language carefully before filming:') + '<br><br>' +
+      '👉 <a href="' + c.briefUrlEn + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickEn + ' — ' + lblEn + '</a><br><br>' +
+      '👉 <a href="' + c.briefUrlAr + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickAr + ' — ' + lblAr + '</a></div><br>';
+  }
+  var singleBriefUrl = c.briefUrl || c.briefUrlAr || c.briefUrlEn;
+  if (singleBriefUrl) {
+    var clickTxt = l === 'ar' ? 'اضغط هنا لفتح ملف البريف الرسمي' : 'Click Here for the Full Campaign Brief';
+    return '<div style="background-color: #f8fafc; padding: 12px; ' + rtl + ': 3px solid #64748b; border-radius: 6px; margin: 16px 0;"><strong>🔗 ' + briefTxt + ':</strong><br>' +
+      (l === 'ar' ? 'يُرجى قراءة ملف البريف الإرشادي التالي بدقة قبل البدء بالتصوير:' : 'Please read the full detailed brief carefully before filming:') + '<br>👉 <a href="' + singleBriefUrl + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickTxt + '</a></div><br>';
+  }
+  return '';
+}
+
+function buildDubaiMallEmail(c, I, phase, dis, l) {
+  var inf = I.name || (l === 'ar' ? '[الاسم]' : '[Name]');
+  var sub = dateStr(I.subDay, I.subMonth, l);
+  var live = dateStr(I.liveDay, I.liveMonth, l);
+  var fee = I.fee ? I.fee + ' AED' : (l === 'ar' ? '[المبلغ] AED' : '[Fee] AED');
+  var rtl = l === 'ar' ? 'border-right' : 'border-left';
+  var p = (phase && phase[l]) || {};
+  var hasCustomCode = hasCustomPromoInput(I && I.code);
+  var actionHtml = String(p.action || '').replace(/\s+•\s+/g, '<br>• ');
+  var portalLink = (c.portalUrl || 'https://noon-invoice.vercel.app/') + (c.monthEn ? ((c.portalUrl || '').indexOf('?') === -1 ? '?' : '&') + 'month=' + encodeURIComponent(c.monthEn) : '');
+  var briefBlock = dubaiMallOptionalBriefBlock(c, l, rtl);
+  var optDiscountHtml = hasCustomCode ? (dubaiMallDiscountBox(dis, I.code, l) + '<br>') : '';
+
+  if (l === 'ar') {
+    var objectivesAr = [
+      'تعزيز الوعي وتحقيق تفاعل وتحويلات فورية لتطبيق <strong>دبي مول أونلاين (Dubai Mall Online)</strong> الجديد في الإمارات.',
+      'تقديم محتوى عفوي، واقعي، وقريب من المتابعين يبدو كجزء طبيعي من يوم صانع المحتوى لا كإعلان تقليدي.',
+      'إبراز كيف يُبسّط التطبيق تجربة دبي مول سواء أثناء التواجد داخل المول أو عند التصفح من المنزل.'
+    ];
+    if (hasCustomCode) {
+      objectivesAr.push('الترويج لكود الخصم الاختياري (<strong>' + String(I.code).trim() + '</strong>) بسلاسة داخل المحتوى.');
+    }
+    var kpiBlockAr = '• <strong>الهدف (KPI):</strong> ' + kpiText(I.kpi, l) + '<br>' +
+      '• في حال عدم تحقيق الهدف، قد يحتاج الفيديو إلى التمويل (Boost) أو إعادة النشر.<br>' +
+      '• يجب أن يظل المحتوى متاحاً لمدة عام واحد على الأقل.<br>' +
+      '• يحتفظ فريق الحملة والعلامة التجارية بحق استخدام المحتوى عبر منصاتها التسويقية والإعلانية.';
+
+    return 'مرحباً <strong>' + inf + '</strong>،<br><br>' +
+      'نأمل أن تكون بخير ✨<br><br>' +
+      'يسعدنا التعاون معك في <strong>' + c.nameAr + '</strong> داخل <strong>دولة الإمارات العربية المتحدة</strong>.<br><br>' +
+      'تهدف هذه الحملة إلى نشر الوعي وتحقيق تحويلات مباشرة لتطبيق <strong>Dubai Mall Online</strong> الجديد من خلال قصص يومية حقيقية وملهمة بأسلوبك الشخصي المعتاد، بحيث يندمج التطبيق بشكل طبيعي في يومك (أولوية السرد القصصي على الإعلان المباشر).<br><br>' +
+      '<strong>أهداف الحملة</strong><br>' + objectivesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
+      '<strong>المسار والاتجاه الإبداعي المخصص لك</strong><br>' + phaseBox(phase, l) +
+      '<div style="background-color: #f0f9ff; padding: 12px 14px; ' + rtl + ': 3px solid #38bdf8; border-radius: 6px; margin: 10px 0 16px 0; font-size: 13.5px; color: #0f172a; line-height: 1.65;">' +
+      '<strong style="color: #0369a1;">🎬 أفكار القصة والتصوير المقترحة لهذا الجزء:</strong><br>• ' + actionHtml +
+      '</div>' +
+      optDiscountHtml +
+      collabAndHashtagsBox(c, I, l) +
+      brandGuidelinesBox(c, I, l) +
+      '<strong>الخطوط الرئيسية للمحتوى والعناصر الإلزامية</strong><br>' +
+      '• <strong>السرد القصصي أولاً:</strong> اجعل التطبيق جزءاً طبيعياً من تجربتك وليس محور الفيديو كله كشرح جامد.<br>' +
+      '• <strong>الأسلوب والنبرة:</strong> عفوي، سلس، غير متكلف، مع الحفاظ على شخصيتك وأسلوبك المعتاد بدون مبالغة أو عبارات بيعية ثقيلة.<br>' +
+      '• <strong>جودة الإنتاج:</strong> خطّاف جذاب في أول 2–3 ثوانٍ، إضاءة جيدة، صوت نقي، ولقطة واضحة لتصفح التطبيق.<br>' +
+      '• <strong>التزام حاسم:</strong> يُمنع تماماً ذكر أو منشن أو الإشارة إلى أي براندات أو متاجر أخرى داخل دبي مول، مع تجنب الانتقالات الجامدة.<br><br>' +
+      '<strong>المخرجات المطلوبة (Deliverables)</strong><br>' +
+      '• <strong>1 فيديو إنستغرام ريلز أو تيك توك</strong> (المنصة المتفق عليها: <strong>' + esc(I.platform || 'Instagram Reels / TikTok') + '</strong>)<br>' +
+      '• ستوري داعمة إذا لزم الأمر<br>' +
+      '• تسليم <strong>ملفين للفيديو:</strong> (1) الفيديو المعدل بالكامل + (2) النسخة الخام (RAW) بدون نصوص أو فلاتر<br><br>' +
+      '<strong>التسليم والجدول الزمني</strong><br>' +
+      'نحتاج إلى استلام مسودة الفيديو للمراجعة بحلول <strong>' + sub + '</strong> كحد أقصى، حيث سيتم النشر في <strong>' + live + '</strong>.<br>' +
+      '<strong>الموافقة الخطية المسبقة مطلوبة قبل النشر نهائياً.</strong><br><br>' +
+      briefBlock +
+      '<strong>تفاصيل الدفع</strong><br>قيمة الحملة: <strong>' + fee + '</strong><br><br>' +
+      'سيتم تحويل المبلغ إلى حسابك البنكي خلال 30 يوماً من انتهاء الحملة (Net 30).<br><br>' +
+      '<div style="background-color: #f0fdf4; padding: 12px; ' + rtl + ': 3px solid #22c55e; border-radius: 6px; margin: 16px 0;"><strong>🧾 الفاتورة المطلوبة:</strong><br>يُرجى إصدار فاتورتك عبر بورتال الفواتير أدناه — سيتم توليد ملف الـ PDF وتسليمه لفريقنا تلقائياً، ويمكنك الاحتفاظ بنسخة من الفاتورة:<br>🔗 <a href="' + portalLink + '" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">بورتال إصدار الفواتير (Invoice Portal)</a></div><br>' +
+      '<strong>ملاحظات هامة ومؤشرات الأداء (KPIs)</strong><br>' + kpiBlockAr + '<br><br>' +
+      '<strong>الخطوات التالية</strong><br>يُرجى تأكيد مدى توفرك وموافقتك على المشاركة في هذه الحملة.<br><br>' +
+      'إذا كان لديك أي استفسار، لا تتردد في التواصل معنا، متحمسون لرؤية إبداعك العفوي!<br><br>' +
+      'مع خالص التحيات،<br><strong>' + I.sender + '</strong><br>فريق إدارة حملات المؤثرين';
+  }
+
+  var objectivesEn = [
+    'Drive awareness and generate immediate conversions for the new <strong>Dubai Mall Online Application</strong> in the UAE.',
+    'Keep content authentic, highly organic, relatable, and seamless — feeling like a natural part of your day rather than a heavily produced ad.',
+    'Highlight how the app enhances or simplifies the Dubai Mall experience (both in-mall and at-home).'
+  ];
+  if (hasCustomCode) {
+    objectivesEn.push('Promote optional campaign promo code (<strong>' + String(I.code).trim() + '</strong>) naturally within your content.');
+  }
+  var kpiBlockEn = '• <strong>KPI:</strong> ' + kpiText(I.kpi, l) + '<br>' +
+    '• If the target is not met, the video may need boosting or reposting.<br>' +
+    '• The content must remain live for at least one year.<br>' +
+    '• The brand / campaign team reserves the right to use the content across its marketing/advertising platforms.';
+
+  return 'Hi <strong>' + inf + '</strong>,<br><br>' +
+    'We hope you’re doing well ✨<br><br>' +
+    'We’re excited to collaborate with you on the <strong>' + c.nameEn + '</strong> across the <strong>United Arab Emirates</strong>.<br><br>' +
+    'This campaign is focused on driving awareness and immediate conversions for the new <strong>Dubai Mall Online Application</strong> through authentic, day-in-the-life lifestyle storytelling tailored specifically for audiences who love shopping at Dubai Mall.<br><br>' +
+    '<strong>Campaign Objectives</strong><br>' + objectivesEn.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
+    '<strong>Assigned Creative Direction Track</strong><br>' + phaseBox(phase, l) +
+    '<div style="background-color: #f0f9ff; padding: 12px 14px; ' + rtl + ': 3px solid #38bdf8; border-radius: 6px; margin: 10px 0 16px 0; font-size: 13.5px; color: #0f172a; line-height: 1.65;">' +
+    '<strong style="color: #0369a1;">🎬 Storyboard Concepts &amp; Creative Focus:</strong><br>• ' + actionHtml +
+    '</div>' +
+    optDiscountHtml +
+    collabAndHashtagsBox(c, I, l) +
+    brandGuidelinesBox(c, I, l) +
+    '<strong>Key Points &amp; Storytelling Principles</strong><br>' +
+    '• <strong>Storytelling First:</strong> Let the app be part of your real experience, not a rigid app tutorial or overly promotional pitch.<br>' +
+    '• <strong>Personal Voice:</strong> Maintain your usual tone, personality, lighting, and relatable lifestyle feel (no scripted dialogue or exaggerated claims).<br>' +
+    '• <strong>Strong Hook &amp; Crisp Visuals:</strong> Engage viewers in the first 2–3 seconds and showcase relevant app screens cleanly.<br>' +
+    '• <strong>Strict Compliance:</strong> Do NOT mention, tag, or name any other brands or stores inside Dubai Mall, and avoid stiff transitions between home and mall.<br><br>' +
+    '<strong>Deliverables</strong><br>' +
+    '• <strong>1 Instagram Reel or TikTok Video</strong> (Agreed Platform: <strong>' + esc(I.platform || 'Instagram Reels / TikTok') + '</strong>)<br>' +
+    '• Supporting Story if applicable<br>' +
+    '• Submit <strong>2 video files:</strong> (1) Fully Edited Video + (2) RAW Footage (unedited, no text/filters)<br><br>' +
+    '<strong>Submission &amp; Timeline</strong><br>' +
+    'We need your draft video for review by <strong>' + sub + '</strong> at the latest, with scheduled Go Live on <strong>' + live + '</strong>.<br>' +
+    '<strong>Explicit written approval is required before publishing.</strong><br><br>' +
+    briefBlock +
+    '<strong>Payment Details</strong><br>Campaign fee: <strong>' + fee + '</strong><br><br>' +
+    'The payment will be transferred to your bank account within 30 days after the campaign ends (Net 30).<br><br>' +
+    '<div style="background-color: #f0fdf4; padding: 12px; ' + rtl + ': 3px solid #22c55e; border-radius: 6px; margin: 16px 0;"><strong>🧾 Invoice Submission:</strong><br>Please generate your invoice through our portal below — your PDF is created and delivered to our team automatically, and you keep a copy:<br>🔗 <a href="' + portalLink + '" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">Creator Invoice Submission Portal</a></div><br>' +
+    '<strong>Notes &amp; KPIs</strong><br>' + kpiBlockEn + '<br><br>' +
+    '<strong>Next Steps</strong><br>Please confirm your availability and interest in participating in this campaign.<br><br>' +
+    'If you have any questions, feel free to reach out — we’d love to see your authentic creative take!<br><br>' +
+    'Best regards,<br><strong>' + I.sender + '</strong><br>Influencer Marketing Team';
+}
+
 function buildEmail(c, I, phase, dis, l, STATIC) {
+  if (c && c.brandProfile === 'dubai_mall') {
+    return buildDubaiMallEmail(c, I, phase, dis, l, STATIC);
+  }
   var inf = I.name || (l === 'ar' ? '[الاسم]' : '[Name]');
   var sub = dateStr(I.subDay, I.subMonth, l);
   var live = dateStr(I.liveDay, I.liveMonth, l);
@@ -382,7 +675,178 @@ function buildEmail(c, I, phase, dis, l, STATIC) {
   return intro + o;
 }
 
+function buildDubaiMallBrief(c, I, phase, dis, l, STATIC) {
+  var st = STATIC || {};
+  var p = (phase && phase[l]) || {};
+  var hasCode = hasCustomPromoInput(I && I.code);
+  var displayCode = hasCode ? String(I.code).trim() : '';
+  var actionText = (p.action || '').replace(/\{CODE\}/g, displayCode);
+  var offerText = ((dis && dis[l]) ? dis[l] : '').replace(/\{CODE\}/g, displayCode);
+  var angles = p.msg || '';
+  var bullets = function (s) { return String(s || '').replace(/\s+•\s+/g, '<br>• '); };
+  var list = function (arr) { return (arr || []).map(function (b) { return '<li style="margin-bottom:4px;">' + b + '</li>'; }).join(''); };
+  var rule = l === 'ar' ? 'border-right' : 'border-left';
+  var portalLink = (c.portalUrl || 'https://noon-invoice.vercel.app/') + (c.monthEn ? ((c.portalUrl || '').indexOf('?') === -1 ? '?' : '&') + 'month=' + encodeURIComponent(c.monthEn) : '');
+  var singleBriefUrl = c.briefUrl || (l === 'ar' ? (c.briefUrlAr || c.briefUrlEn) : (c.briefUrlEn || c.briefUrlAr));
+  var feeDisplay = I.fee ? (I.fee + ' AED') : (l === 'ar' ? '[المبلغ] AED' : '[Fee] AED');
+  var sub = dateStr(I.subDay, I.subMonth, l);
+  var live = dateStr(I.liveDay, I.liveMonth, l);
+
+  var optPromoSection = '';
+  if (hasCode) {
+    if (l === 'ar') {
+      optPromoSection = '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+        '<strong style="color:#0284c7; font-size:13px;">🏆 كود الخصم (اختياري للحملة)</strong><br><br>' +
+        '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;">' +
+        '<div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold;">كود الخصم الترويجي</div>' +
+        '<div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block; background-color:#ffedd5; padding:3px 12px; border-radius:4px; border:1px solid #fdba74;">' + displayCode + '</div>' +
+        '<div style="color:#9a3412; font-size:14px;"><strong>تفاصيل الكود:</strong><br>' + (offerText || ('استخدم كود <strong>' + displayCode + '</strong> داخل تطبيق دبي مول أونلاين.')) + '</div>' +
+        '</div>' +
+        '<div style="color:#3f3f46; margin-top:8px; font-size:13px;"><em>يُذكر كود الخصم (' + displayCode + ') بشكل طبيعي وعفوي داخل الفيديو وعلى الشاشة وفي الوصف.</em></div>';
+    } else {
+      optPromoSection = '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+        '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🏆 CAMPAIGN PROMO CODE (OPTIONAL ADD-ON)</strong><br><br>' +
+        '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;">' +
+        '<div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold; text-transform:uppercase;">Promo Code</div>' +
+        '<div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block; background-color:#ffedd5; padding:3px 12px; border-radius:4px; border:1px solid #fdba74;">' + displayCode + '</div>' +
+        '<div style="color:#9a3412; font-size:14px;"><strong>Code Details:</strong><br>' + (offerText || ('Use promo code <strong>' + displayCode + '</strong> on the Dubai Mall Online application.')) + '</div>' +
+        '</div>' +
+        '<div style="color:#3f3f46; margin-top:8px; font-size:13px;"><em>Naturally integrate promo code (' + displayCode + ') within your storytelling, on-screen text, and caption.</em></div>';
+    }
+  }
+
+  var guideSection = '';
+  if (c.guideUrl) {
+    guideSection = l === 'ar'
+      ? '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div><strong style="color:#0284c7; font-size:13px;">🎬 شاهد قبل التصوير</strong><br><br><div style="color:#3f3f46; font-size:13px;">للاطلاع على الدليل الإرشادي للمحتوى:<br>👉 <a href="' + c.guideUrl + '" target="_blank">اضغط هنا لمشاهدة الدليل الإبداعي</a></div>'
+      : '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div><strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🎬 CREATIVE REFERENCE GUIDE</strong><br><br><div style="color:#3f3f46; font-size:13px;">Review our creative best practices reference before filming:<br>👉 <a href="' + c.guideUrl + '" target="_blank">Click Here to Watch the Creative Guide</a></div>';
+  }
+
+  var briefPdfSection = '';
+  if (singleBriefUrl) {
+    briefPdfSection = l === 'ar'
+      ? '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div><strong style="color:#0284c7; font-size:13px;">📄 ملف البريف الشامل (PDF)</strong><br><br><div style="color:#3f3f46; font-size:13px;">للاطلاع على البريف وموجز الحملة الرسمي بالكامل:<br>👉 <a href="' + singleBriefUrl + '" target="_blank" style="color:#0284c7; text-decoration:none; font-weight:bold; border-bottom:1px solid #7dd3fc;">اضغط هنا لفتح ملف البريف</a></div>'
+      : '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div><strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">📄 FULL CAMPAIGN BRIEF (PDF)</strong><br><br><div style="color:#3f3f46; font-size:13px;">Review the official campaign document:<br>👉 <a href="' + singleBriefUrl + '" target="_blank" style="color:#0284c7; text-decoration:none; font-weight:bold; border-bottom:1px solid #7dd3fc;">Click Here to Open Campaign Brief</a></div>';
+  }
+
+  var typoAr = st.typographyAr || 'نص جريء متعدد الطبقات للريلز ثنائية اللغة (عربي/إنجليزي) بألوان دافئة وتباين قوي.<br><br><strong style="color:#000">الخطوط الموصى بها:</strong><br>• <strong>إنجليزي:</strong> Cairo, Elegant, Rubik.<br>• <strong>عربي:</strong> BLK القاهرة, BLK الإسكندرية, BLK تجول.';
+  var typoEn = st.typographyEn || 'A bold, layered text style for bilingual reels (English and Arabic) with warm tones and strong typographic contrast is required.<br><br><strong style="color:#000">Recommended Font Pairings:</strong><br>• <strong>English:</strong> Cairo, Elegant, or Rubik.<br>• <strong>Arabic:</strong> BLK القاهرة, BLK الإسكندرية, or BLK تجول.';
+  var approvalListAr = st.approvalAr || [
+    '<strong>لا تنشر</strong> قبل الموافقة على مسودتك.',
+    'كل المحتوى (فيديو + كابشن) لازم يتشارك قبل النشر.',
+    'النشر مسموح فقط بعد <strong>موافقة خطية صريحة</strong> من مسؤول التواصل.'
+  ];
+  var approvalListEn = st.approvalEn || [
+    '<strong>Do NOT post</strong> until your draft is approved.',
+    'All content (video + caption) must be shared before posting.',
+    'Posting allowed ONLY after <strong>explicit written approval</strong> from your contact.'
+  ];
+
+  if (l === 'ar') {
+    var logoLineAr = c.logoUrl
+      ? '<li style="margin-bottom:4px;"><strong>اللوجو (قاعدة الـ 5 ثوانٍ):</strong> استخدم الشعار الرسمي فقط. <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">يظهر في الثانية 3 أو 4 (00:03 - 00:04) لمدة 5 ثوانٍ فقط ثم يختفي</strong> (ممنوع في أول ثانيتين). التحميل: <a href="' + c.logoUrl + '" target="_blank" style="color:#0284c7; text-decoration:none; border-bottom:1px solid #7dd3fc;">ملف اللوجو</a></li>'
+      : '<li style="margin-bottom:4px;"><strong>اللوجو (قاعدة الـ 5 ثوانٍ):</strong> <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">يظهر الشعار الرسمي في الثانية 3 أو 4 (00:03 - 00:04) لمدة 5 ثوانٍ فقط ثم يختفي</strong> (ممنوع تماماً في 00:00 - 00:02 وممنوع إبقاؤه طوال الفيديو).</li>';
+
+    return '<div style="font-size:15px; font-weight:800; color:#000; margin-bottom:2px;">' + c.nameAr + '</div>' +
+      '<div style="font-size:12px; font-weight:600; color:#71717a; margin-bottom:16px;">بريف المؤثر — حملة الإمارات (UAE Only)</div>' +
+      '<strong style="color:#0284c7; font-size:13px;">🎯 نظرة عامة على الحملة وأفكار التصوير</strong><br><br>' +
+      '<div style="background-color:#f0f9ff; padding:12px; ' + rule + ':3px solid #38bdf8; border-radius:6px; margin-bottom:12px;"><strong style="color:#0c4a6e; font-size:14px;">المسار الإبداعي: ' + p.title + ' (' + p.date + ')</strong><br><br><strong style="color:#0369a1;">التركيز الأساسي:</strong> <span style="color:#000">' + p.categories + '</span><br><br><strong style="color:#0369a1;">أفكار القصة المقترحة (Storyboards):</strong><div style="color:#000; margin-top:4px; line-height:1.65;">• ' + bullets(actionText) + '</div></div>' +
+      optPromoSection +
+      brandGuidelinesBox(c, I, l) +
+      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+      '<strong style="color:#0284c7; font-size:13px;">🎨 التوجيه الإبداعي وأسلوب السرد القصصي</strong><br><br>' +
+      '<ul style="margin:0; padding-right:20px; color:#3f3f46; font-size:13px;">' +
+      '<li style="margin-bottom:4px;"><strong>الهدف الرئيسي:</strong> تعزيز الوعي وتحقيق تحويلات فورية لتطبيق <strong>Dubai Mall Online</strong> داخل الإمارات.</li>' +
+      '<li style="margin-bottom:4px;"><strong>الأسلوب والنبرة:</strong> عفوي، واقعي، قريب من الجمهور، وسلس كجزء طبيعي من يومك بدون طابع إعلاني مصطنع.</li>' +
+      '<li style="margin-bottom:4px;"><strong>السرد القصصي أولاً:</strong> اجعل التطبيق جزءاً من تجربتك ولا تحوّل الفيديو إلى شرح تعليمي جامد (Tutorial).</li>' +
+      '<li style="margin-bottom:4px;"><strong>زوايا مقترحة للمحتوى:</strong> ' + angles + '</li>' +
+      '<li style="margin-bottom:4px;"><strong>الانتقالات والتنفيذ:</strong> تجنب القطعات الجامدة بين المول والمنزل (No Stiff Transitions) واحرص على جودة صوت وإضاءة ممتازة.</li>' +
+      '</ul>' +
+      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+      '<strong style="color:#0284c7; font-size:13px;">🔤 الخطوط والترجمة</strong><br><br>' +
+      '<div style="color:#3f3f46; font-size:13px;">' + typoAr + '</div>' +
+      guideSection +
+      briefPdfSection +
+      collabAndHashtagsBox(c, I, l) +
+      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+      '<strong style="color:#0284c7; font-size:13px;">⏳ عملية المراجعة والموافقة</strong><br><br>' +
+      '<ul style="margin:0; padding-right:20px; color:#3f3f46; font-size:13px;">' + list(approvalListAr) + '</ul>' +
+      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+      '<strong style="color:#0284c7; font-size:13px;">📦 المخرجات الإلزامية (Deliverables)</strong><br><br>' +
+      '<div style="color:#3f3f46; font-size:13px;">• <strong>1 فيديو إنستغرام ريلز أو تيك توك (1 Instagram Reel or TikTok Video)</strong><br>• ستوري داعمة إذا لزم الأمر<br><br><strong style="color:#000; font-size:13px;">يُسلم ملفان للفيديو:</strong><br><ol style="margin-top:4px; padding-right:20px; color:#3f3f46; font-size:13px;"><li style="margin-bottom:4px;"><strong>فيديو معدل بالكامل</strong> (موسيقى، نصوص، مؤثرات)</li><li style="margin-bottom:4px;"><strong>فيديو خام (RAW)</strong> (بدون فلاتر، بدون نصوص)</li></ol></div>' +
+      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+      '<strong style="color:#0284c7; font-size:13px;">📱 المنصة وتفاصيل النشر</strong><br><br>' +
+      '<ul style="margin:0; padding-right:20px; color:#3f3f46; font-size:13px;">' +
+      '<li style="margin-bottom:4px;"><strong>المنصة المتفق عليها:</strong> ' + esc(I.platform || 'Instagram Reels / TikTok') + '</li>' +
+      '<li style="margin-bottom:4px;"><strong>TikTok:</strong> إن كانت من منصاتك، أرسل الـ Spark Code فوراً بعد النشر.</li>' +
+      logoLineAr +
+      '<li><strong>تاج المتاجر والكابشن:</strong> يُمنع تماماً ذكر أو منشن أي براندات أو محلات أخرى داخل دبي مول؛ تُعتمد صيغة الكابشن النهائي بعد الموافقة على المسودة.</li>' +
+      '</ul>' +
+      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+      '<strong style="color:#0284c7; font-size:13px;">📈 مؤشرات الأداء والجدول والدفع (KPIs &amp; Payment)</strong><br><br>' +
+      '<div style="color:#3f3f46; font-size:13px; line-height:1.65;">' +
+      '• <strong>موعد تسليم المسودة:</strong> ' + sub + ' | <strong>موعد النشر:</strong> ' + live + '<br>' +
+      '• <strong>قيمة الحملة وشروط الدفع:</strong> ' + feeDisplay + ' — يُحوّل خلال 30 يوماً من انتهاء الحملة (Net 30) عبر <a href="' + portalLink + '" target="_blank" style="color:#0284c7; font-weight:bold;">بورتال الفواتير</a>.<br>' +
+      '• <strong>الهدف (KPI):</strong> ' + kpiText(I.kpi, l) + '<br>' +
+      '• في حال عدم تحقيق الهدف، قد يحتاج الفيديو إلى التمويل (Boost) أو إعادة النشر.<br>' +
+      '• يجب أن يظل المحتوى متاحاً لمدة عام واحد على الأقل، مع حق العلامة التجارية في إعادة استخدامه عبر منصاتها التسويقية والإعلانية.' +
+      '</div>';
+  }
+
+  var logoLineEn = c.logoUrl
+    ? '<li style="margin-bottom:4px;"><strong>Logo (5s Rule):</strong> Use official logo only. <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">Appear at 00:03–00:04 for ONLY 5 seconds then disappear</strong> (zero logo in 00:00–00:02). Download: <a href="' + c.logoUrl + '" target="_blank" style="color:#0284c7; text-decoration:none; border-bottom:1px solid #7dd3fc;">Logo Assets</a></li>'
+    : '<li style="margin-bottom:4px;"><strong>Logo (5s Rule):</strong> <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">Show official logo specifically at 00:03–00:04 for ONLY 5 seconds then disappear</strong> (strictly NO logo in 00:00–00:02 or throughout the whole video).</li>';
+
+  return '<div style="font-size:15px; font-weight:800; color:#000; margin-bottom:2px;">' + c.nameEn + '</div>' +
+    '<div style="font-size:12px; font-weight:600; color:#71717a; margin-bottom:16px; text-transform:uppercase; letter-spacing:1px;">Influencer Brief — UAE Only</div>' +
+    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🎯 CAMPAIGN OVERVIEW &amp; STORYBOARD CONCEPTS</strong><br><br>' +
+    '<div style="background-color:#f0f9ff; padding:12px; ' + rule + ':3px solid #38bdf8; border-radius:6px; margin-bottom:12px;"><strong style="color:#0c4a6e; font-size:14px;">Creative Track: ' + p.title + ' (' + p.date + ')</strong><br><br><strong style="color:#0369a1;">Creative Scope:</strong> <span style="color:#000">' + p.categories + '</span><br><br><strong style="color:#0369a1;">Storyboard Concepts &amp; Execution:</strong><div style="color:#000; margin-top:4px; line-height:1.65;">• ' + bullets(actionText) + '</div></div>' +
+    optPromoSection +
+    brandGuidelinesBox(c, I, l) +
+    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🎨 CREATIVE DIRECTION &amp; STORYTELLING FOCUS</strong><br><br>' +
+    '<ul style="margin:0; padding-left:20px; color:#3f3f46; font-size:13px;">' +
+    '<li style="margin-bottom:4px;"><strong>Core Objective:</strong> Drive awareness and generate immediate conversions for the new <strong>Dubai Mall Online Application</strong> in the UAE.</li>' +
+    '<li style="margin-bottom:4px;"><strong>Vibe &amp; Tone:</strong> Authentic, highly organic, relatable, and seamless — content should feel like a natural part of your day rather than a heavily produced ad.</li>' +
+    '<li style="margin-bottom:4px;"><strong>Storytelling First:</strong> Let the app enhance the experience naturally without turning the Reel/TikTok into a rigid step-by-step tutorial.</li>' +
+    '<li style="margin-bottom:4px;"><strong>Suggested Angles:</strong> ' + angles + '</li>' +
+    '<li style="margin-bottom:4px;"><strong>Quality &amp; Flow:</strong> Strong opening hook (first 2–3s), good lighting, clear audio, and no stiff transitions between mall and home.</li>' +
+    '</ul>' +
+    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🔤 TYPOGRAPHY &amp; SUBTITLES</strong><br><br>' +
+    '<div style="color:#3f3f46; font-size:13px;">' + typoEn + '</div>' +
+    guideSection +
+    briefPdfSection +
+    collabAndHashtagsBox(c, I, l) +
+    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">⏳ REVIEW &amp; APPROVAL PROCESS</strong><br><br>' +
+    '<ul style="margin:0; padding-left:20px; color:#3f3f46; font-size:13px;">' + list(approvalListEn) + '</ul>' +
+    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">📦 MANDATORY DELIVERABLES</strong><br><br>' +
+    '<div style="color:#3f3f46; font-size:13px;">• <strong>1 Instagram Reel or TikTok Video</strong> (Primary Organic Format)<br>• Supporting Story if applicable<br><br><strong style="color:#000; font-size:13px;">Submit 2 files for the video:</strong><br><ol style="margin-top:4px; padding-left:20px; color:#3f3f46; font-size:13px;"><li style="margin-bottom:4px;"><strong>Fully Edited Video</strong> (with music, text, effects)</li><li style="margin-bottom:4px;"><strong>RAW Footage</strong> (no filters, no text, unedited)</li></ol></div>' +
+    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">📱 PLATFORM &amp; POSTING DETAILS</strong><br><br>' +
+    '<ul style="margin:0; padding-left:20px; color:#3f3f46; font-size:13px;">' +
+    '<li style="margin-bottom:4px;"><strong>Agreed Platform(s):</strong> ' + esc(I.platform || 'Instagram Reels / TikTok') + '</li>' +
+    '<li style="margin-bottom:4px;"><strong>TikTok:</strong> If applicable, share Spark Code immediately after posting.</li>' +
+    logoLineEn +
+    '<li><strong>Store Tags &amp; Captions:</strong> Strictly NO mentions, tags, or names of other brands or mall tenants; final caption details confirmed upon draft approval.</li>' +
+    '</ul>' +
+    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
+    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">📈 KPIs, TIMELINE &amp; PAYMENT</strong><br><br>' +
+    '<div style="color:#3f3f46; font-size:13px; line-height:1.65;">' +
+    '• <strong>Draft Submission:</strong> ' + sub + ' | <strong>Go Live:</strong> ' + live + '<br>' +
+    '• <strong>Campaign Fee &amp; Payment Terms:</strong> ' + feeDisplay + ' — Net 30 bank transfer after campaign completion &amp; invoice submission via <a href="' + portalLink + '" target="_blank" style="color:#0284c7; font-weight:bold;">Invoice Portal</a>.<br>' +
+    '• <strong>Target KPI:</strong> ' + kpiText(I.kpi, l) + '<br>' +
+    '• If target is not met, boosting or reposting may be required.<br>' +
+    '• Content must stay live for at least 1 year, with brand rights to repurpose across marketing/advertising channels.' +
+    '</div>';
+}
+
 function buildBrief(c, I, phase, dis, l, STATIC) {
+  if (c && c.brandProfile === 'dubai_mall') {
+    return buildDubaiMallBrief(c, I, phase, dis, l, STATIC);
+  }
   var p = phase[l];
   var phaseDefCode = (phase && phase.promoCode) ? phase.promoCode : defaultCodeFor(I.country, c, I.phaseIx);
   var effectiveCode = (I.code && I.code.trim() && I.code.trim() !== '{CODE}' && I.code.indexOf('ضع الكود') === -1 && I.code.indexOf('put the code') === -1)
@@ -525,7 +989,201 @@ function stripHtml(s) {
     .trim();
 }
 
+function buildDubaiMallBriefText(c, I, phase, dis, l) {
+  var p = (phase && phase[l]) || {};
+  var hasCode = hasCustomPromoInput(I && I.code);
+  var displayCode = hasCode ? String(I.code).trim() : '';
+  var actionText = stripHtml((p.action || '').replace(/\{CODE\}/g, displayCode));
+  var offerText = stripHtml(((dis && dis[l]) ? dis[l] : '').replace(/\{CODE\}/g, displayCode));
+  var angles = p.msg || '';
+  var hashtags = (c && c.hashtags) || '#DubaiMallOnline #DubaiMall #DubaiMallApp #TheDubaiMall #دبي_مول';
+  var portalLink = (c.portalUrl || 'https://noon-invoice.vercel.app/') + (c.monthEn ? ((c.portalUrl || '').indexOf('?') === -1 ? '?' : '&') + 'month=' + encodeURIComponent(c.monthEn) : '');
+  var briefUrl = c.briefUrl || (l === 'ar' ? (c.briefUrlAr || c.briefUrlEn) : (c.briefUrlEn || c.briefUrlAr)) || '';
+  var sub = dateStr(I.subDay, I.subMonth, l);
+  var live = dateStr(I.liveDay, I.liveMonth, l);
+  var fee = I.fee ? (I.fee + ' AED') : (l === 'ar' ? '[المقابل المالي] AED' : '[Campaign Fee] AED');
+  var sec = 1;
+
+  if (l === 'ar') {
+    var optPromoAr = '';
+    if (hasCode) {
+      sec++;
+      optPromoAr = '--------------------------------------------------------------------------------\n' +
+        '🏆 ' + sec + '. كود الخصم (اختياري للحملة):\n' +
+        '• كود الخصم: ' + displayCode + '\n' +
+        (offerText ? '• تفاصيل الكود: ' + offerText + '\n' : '') +
+        '• طريقة الدمج: اذكر الكود بشكل طبيعي وعفوي في الفيديو وعلى الشاشة وفي الوصف.\n\n';
+    }
+
+    var optionalLinksAr = '';
+    if (c.guideUrl) {
+      optionalLinksAr += '• رابط الدليل الإبداعي:\n  ' + c.guideUrl + '\n\n';
+    }
+    if (briefUrl) {
+      optionalLinksAr += '• رابط ملف البريف الرسمي:\n  ' + briefUrl + '\n\n';
+    }
+    if (c.logoUrl) {
+      optionalLinksAr += '• رابط تحميل اللوجو الرسمي:\n  ' + c.logoUrl + '\n\n';
+    }
+
+    return '================================================================================\n' +
+      'بريف المؤثرين الرسمي — حملة تطبيق دبي مول أونلاين (UAE Only)\n' +
+      c.nameAr + '\n' +
+      'الدولة المستهدفة: الإمارات العربية المتحدة 🇦🇪' + (I.name ? ' | صانع المحتوى: ' + I.name : '') + '\n' +
+      '================================================================================\n\n' +
+      '🎯 1. نظرة عامة على الحملة وأفكار القصة (Campaign Overview & Storyboard):\n' +
+      '• المسار الإبداعي: ' + p.title + ' (' + p.date + ')\n' +
+      '• المخرجات المطلوبة: 1 فيديو إنستغرام ريلز أو تيك توك (1 Instagram Reel or TikTok Video)\n' +
+      '• الهدف: تعزيز الوعي وتحقيق تحويلات فورية لتطبيق Dubai Mall Online بأسلوب عفوي وواقعي.\n' +
+      '• التركيز: ' + p.categories + '\n' +
+      '• أفكار القصة والتصوير المقترحة:\n' +
+      actionText + '\n\n' +
+      optPromoAr +
+      '--------------------------------------------------------------------------------\n' +
+      '🎬 ' + (++sec) + '. القواعد الإرشادية للعلامة التجارية والإنتاج (Brand & Video Rules):\n' +
+      '1. توقيت ومدة ظهور اللوجو (5 ثوانٍ فقط):\n' +
+      '   يجب أن يظهر الشعار الرسمي عند الثانية 3 أو 4 (00:03 - 00:04) لمدة 5 ثوانٍ فقط ثم يختفي.\n' +
+      '   (ممنوع تماماً في أول ثانيتين 00:00 - 00:02، وممنوع إبقاؤه ظاهراً طوال الفيديو).\n\n' +
+      '2. السرد القصصي أولاً (Storytelling Over Direct Promo):\n' +
+      '   اجعل التطبيق جزءاً طبيعياً من يومك وتجربتك، وتجنب الشرح التعليمي الجامد (Tutorial) أو اللغة الإعلانية المبالغ فيها.\n\n' +
+      '3. منع ذكر المتاجر أو البراندات الأخرى (Strict Tenant Ban):\n' +
+      '   يُمنع تماماً ذكر أو منشن أو تسمية أو إظهار تاجات لأي متجر أو براند آخر داخل دبي مول طوال الفيديو.\n\n' +
+      '4. الانتقالات السلسة (No Stiff Transitions):\n' +
+      '   تجنب الانتقالات الجامدة أو القطعات المتكلفة بين المول والمنزل؛ يجب أن يبدو التدرج طبيعياً كجزء من يومك.\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '✅ ' + (++sec) + '. قائمة افعل ولا تفعل لضمان اعتماد المسودة (Do\'s & Don\'ts):\n' +
+      'إرشادات إلزامية (افعل ✓):\n' +
+      '✓ حافظ على محتوى عفوي، طبيعي، وقريب من متابعيك بأسلوبك ونبرة صوتك المعتادة.\n' +
+      '✓ اجذب المشاهد منذ الثواني الأولى بخطّاف حقيقي، مع إضاءة ممتازة وصوت نقي وجودة عالية.\n' +
+      '✓ شارك تجربتك الواقعية ورأيك الصادق وتأكد من دقة جميع المعلومات.\n' +
+      '✓ أظهر اللوجو عند 00:03–00:04 (لمدة 5 ثوانٍ فقط ثم يختفي).\n' +
+      (hasCode ? '✓ اذكر كود الخصم (' + displayCode + ') بشكل طبيعي في الفيديو وعلى الشاشة.\n' : '') +
+      '✓ أرسل مسودة الفيديو للموافقة الخطية قبل النشر نهائياً.\n\n' +
+      'محظورات تؤدي للرفض (لا تفعل ✗):\n' +
+      '✗ لا تجعل المحتوى مصطنعاً أو ترويجياً مبالغاً فيه أو كأنك تقرأ من نص مكتوب.\n' +
+      '✗ لا تقدم ادعاءات مبالغاً فيها أو معلومات غير دقيقة.\n' +
+      '✗ يُمنع ذكر أو منشن أو تسمية أي براندات أو محلات أخرى داخل دبي مول طوال الفيديو.\n' +
+      '✗ يُمنع وضع إشارات أو تاجات ترويجية لمستأجري المول الآخرين.\n' +
+      '✗ تجنب الانتقالات الجامدة بين المول والمنزل؛ ولا تظهر اللوجو في 00:00–00:02 أو طوال الفيديو.\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '🎨 ' + (++sec) + '. التوجيه الإبداعي والخطوط (Creative Focus & Typography):\n' +
+      '• الزوايا المقترحة: ' + angles + '\n' +
+      '• الخطوط الموصى بها للريلز ثنائية اللغة: الإنجليزية (Cairo, Elegant, Rubik) | العربية (BLK القاهرة، BLK الإسكندرية، BLK تجول).\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '👥 ' + (++sec) + '. الحساب الرسمي والهاشتاقات المعتمدة — الإمارات 🇦🇪:\n' +
+      '• الحساب الرسمي: @thedubaimall (https://www.instagram.com/thedubaimall/)\n' +
+      '• تنبيه: يُمنع تاج أو منشن أي متاجر داخل المول؛ يتم اعتماد الكابشن والتاج النهائي مع اعتماد المسودة.\n' +
+      '• الهاشتاقات المعتمدة:\n' +
+      hashtags + '\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '🔗 ' + (++sec) + '. الروابط الرسمية:\n' +
+      optionalLinksAr +
+      '• بورتال إصدار الفواتير (Invoice Portal):\n  ' + portalLink + '\n\n' +
+      '--------------------------------------------------------------------------------\n' +
+      '📦 ' + (++sec) + '. المخرجات، الجدول الزمني، الدفع و KPIs:\n' +
+      '• المنصة المتفق عليها: ' + (I.platform || 'Instagram Reels / TikTok') + '\n' +
+      '• المخرجات: 1 فيديو إنستغرام ريلز أو تيك توك (+ ستوري داعمة إذا لزم الأمر).\n' +
+      '• ملفات التسليم المطلوبة (ملفان): (1) الفيديو المعدل بالكامل + (2) الفيديو الخام (RAW) بدون نصوص أو فلاتر.\n' +
+      '• موعد تسليم المسودة للمراجعة: ' + sub + ' (الموافقة الخطية مطلوبة قبل النشر).\n' +
+      '• موعد النشر (Go Live): ' + live + '\n' +
+      '• المقابل المالي: ' + fee + ' (يُحوّل خلال 30 يوماً من انتهاء الحملة - Net 30 عبر بورتال الفواتير).\n' +
+      '• مؤشر الأداء (KPI): ' + kpiText(I.kpi, l).replace(/<[^>]+>/g, '') + ' (مع إمكانية التمويل أو إعادة النشر عند عدم التحقيق، وبقاء المحتوى لمدة عام على الأقل وحقوق الاستخدام التسويقي للعلامة التجارية).\n\n' +
+      'مرسل البريف: ' + I.sender + ' — فريق إدارة حملات المؤثرين\n' +
+      '================================================================================';
+  }
+
+  var optPromoEn = '';
+  if (hasCode) {
+    sec++;
+    optPromoEn = '--------------------------------------------------------------------------------\n' +
+      '🏆 ' + sec + '. CAMPAIGN PROMO CODE (OPTIONAL ADD-ON):\n' +
+      '• Promo Code: ' + displayCode + '\n' +
+      (offerText ? '• Code Details: ' + offerText + '\n' : '') +
+      '• Execution: Mention the code naturally in spoken audio, on-screen text, and caption.\n\n';
+  }
+
+  var optionalLinksEn = '';
+  if (c.guideUrl) {
+    optionalLinksEn += '• Creative Reference Guide:\n  ' + c.guideUrl + '\n\n';
+  }
+  if (briefUrl) {
+    optionalLinksEn += '• Full Official Brief (PDF):\n  ' + briefUrl + '\n\n';
+  }
+  if (c.logoUrl) {
+    optionalLinksEn += '• Official Logo Assets:\n  ' + c.logoUrl + '\n\n';
+  }
+
+  return '================================================================================\n' +
+    'OFFICIAL INFLUENCER BRIEF — DUBAI MALL ONLINE (UAE ONLY)\n' +
+    c.nameEn + '\n' +
+    'Target Territory: United Arab Emirates 🇦🇪' + (I.name ? ' | Creator: ' + I.name : '') + '\n' +
+    '================================================================================\n\n' +
+    '🎯 1. CAMPAIGN OVERVIEW & STORYBOARD CONCEPTS:\n' +
+    '• Assigned Track: ' + p.title + ' (' + p.date + ')\n' +
+    '• Deliverable: 1 Instagram Reel or TikTok Video\n' +
+    '• Core Objective: Drive awareness & immediate conversions for the new Dubai Mall Online Application.\n' +
+    '• Vibe & Tone: Authentic, highly organic, relatable, and seamless.\n' +
+    '• Creative Scope: ' + p.categories + '\n' +
+    '• Storyboard Concepts:\n' +
+    actionText + '\n\n' +
+    optPromoEn +
+    '--------------------------------------------------------------------------------\n' +
+    '🎬 ' + (++sec) + '. BRAND & VIDEO PRODUCTION GUIDELINES:\n' +
+    '1. Logo Timing & Duration (5 Seconds Only):\n' +
+    '   Official logo must appear at second 3 or 4 (00:03 - 00:04) for ONLY 5 seconds then disappear.\n' +
+    '   (Strictly NO logo in seconds 00:00 - 00:02; do NOT keep logo visible throughout the entire video).\n\n' +
+    '2. Storytelling First (Natural Integration):\n' +
+    '   Let the app be part of your real experience rather than the entire focus or a structured tutorial. Maintain your usual content style and tone of voice.\n\n' +
+    '3. Strict Mall Tenant Exclusion:\n' +
+    '   Do NOT mention, tag, or verbally name any other brands or stores inside Dubai Mall throughout the video.\n\n' +
+    '4. No Stiff Transitions:\n' +
+    '   Avoid jarring cuts between the mall and home; transitions must feel like a natural progression of the creator\'s day.\n\n' +
+    '--------------------------------------------------------------------------------\n' +
+    '✅ ' + (++sec) + '. CREATIVE DO\'S & DON\'TS CHECKLIST:\n' +
+    'The Do\'s (✓):\n' +
+    '✓ Keep content authentic, natural, relatable, and in your personal tone of voice.\n' +
+    '✓ Hook viewers from the first 2-3 seconds with good lighting, clear audio, and crisp visuals.\n' +
+    '✓ Use your genuine experience and ensure all shared details are accurate.\n' +
+    '✓ Show official logo at 00:03 - 00:04 (for ONLY 5 seconds then hide it).\n' +
+    (hasCode ? '✓ Naturally highlight promo code (' + displayCode + ') in the video & on screen.\n' : '') +
+    '✓ Submit draft video + caption for written approval before publishing.\n\n' +
+    'The Don\'ts (✗):\n' +
+    '✗ Don\'t make content feel scripted, forced, overly promotional, or read directly from a brief.\n' +
+    '✗ Don\'t make exaggerated claims or share misleading information.\n' +
+    '✗ Don\'t mention, tag, or verbally name ANY other brands or stores inside Dubai Mall.\n' +
+    '✗ Don\'t include visible brand tags, mentions, or promo references to other mall tenants.\n' +
+    '✗ Avoid stiff transitions between mall & home; don\'t show logo in 00:00 - 00:02 or all video.\n\n' +
+    '--------------------------------------------------------------------------------\n' +
+    '🎨 ' + (++sec) + '. CREATIVE FOCUS & TYPOGRAPHY:\n' +
+    '• Suggested Angles: ' + angles + '\n' +
+    '• Recommended Fonts: English (Cairo, Elegant, Rubik) | Arabic (BLK القاهرة, BLK الإسكندرية, BLK تجول).\n\n' +
+    '--------------------------------------------------------------------------------\n' +
+    '👥 ' + (++sec) + '. OFFICIAL ACCOUNT & HASHTAGS — UAE ONLY 🇦🇪:\n' +
+    '• Official Dubai Mall Account: @thedubaimall (https://www.instagram.com/thedubaimall/)\n' +
+    '• Important: Do NOT tag/mention other stores in the mall; final caption/tags confirmed with approval.\n' +
+    '• Campaign Hashtags:\n' +
+    hashtags + '\n\n' +
+    '--------------------------------------------------------------------------------\n' +
+    '🔗 ' + (++sec) + '. ESSENTIAL LINKS:\n' +
+    optionalLinksEn +
+    '• Official Creator Invoice Submission Portal:\n  ' + portalLink + '\n\n' +
+    '--------------------------------------------------------------------------------\n' +
+    '📦 ' + (++sec) + '. DELIVERABLES, TIMELINE, PAYMENT & KPIs:\n' +
+    '• Agreed Platform(s): ' + (I.platform || 'Instagram Reels / TikTok') + '\n' +
+    '• Required Deliverable: 1 Instagram Reel or TikTok Video (+ Companion Story if applicable).\n' +
+    '• Submit 2 Files: (1) Fully Edited Video (music/text/effects) + (2) RAW Footage (unedited, no filters/text).\n' +
+    '• Draft Submission Deadline: ' + sub + ' (Explicit written approval required before posting).\n' +
+    '• Scheduled Go Live Date: ' + live + '\n' +
+    '• Campaign Fee: ' + fee + ' (Net 30 transfer via Invoice Portal after campaign completion).\n' +
+    '• Target KPI: ' + kpiText(I.kpi, l).replace(/<[^>]+>/g, '') + ' (Boost/repost may apply if unmet; content must stay live 1+ year with brand marketing usage rights).\n\n' +
+    'Sender: ' + I.sender + ' — Influencer Marketing Team\n' +
+    '================================================================================';
+}
+
 function buildBriefText(c, I, phase, dis, l) {
+  if (c && c.brandProfile === 'dubai_mall') {
+    return buildDubaiMallBriefText(c, I, phase, dis, l);
+  }
   var p = phase[l];
   var isYfsHype = phase && phase.secondaryCode === 'YFS2026';
   var phaseDefCode = (phase && phase.promoCode) ? phase.promoCode : defaultCodeFor(I.country, c, I.phaseIx);
@@ -538,18 +1196,22 @@ function buildBriefText(c, I, phase, dis, l) {
   var offerText = stripHtml((dis[l] || '').replace(/\{CODE\}/g, displayCode));
   var angles = p.msg || '';
 
-  var countryTagMap = { QA: '@noon_qar', KW: '@noon_kuwt', BH: '@noon.bahr', OM: '@noon_omn' };
+  var countryTagMap = { QA: '@noon_qar', KW: '@noon_kuwt', BH: '@noon.bahr', OM: '@noon_omn', AE: '@noon_uae', SA: '@noon_ksa' };
   var countryUrlMap = {
     QA: 'https://www.instagram.com/noon_qar/',
     KW: 'https://www.instagram.com/noon_kuwt/',
     BH: 'https://www.instagram.com/noon.bahr/',
-    OM: 'https://www.instagram.com/noon_omn/'
+    OM: 'https://www.instagram.com/noon_omn/',
+    AE: 'https://www.instagram.com/noon_uae/',
+    SA: 'https://www.instagram.com/noon_ksa/'
   };
   var countryNameMap = {
     QA: { ar: 'قطر 🇶🇦', en: 'Qatar 🇶🇦' },
     KW: { ar: 'الكويت 🇰🇼', en: 'Kuwait 🇰🇼' },
     BH: { ar: 'البحرين 🇧🇭', en: 'Bahrain 🇧🇭' },
-    OM: { ar: 'عُمان 🇴🇲', en: 'Oman 🇴🇲' }
+    OM: { ar: 'عُمان 🇴🇲', en: 'Oman 🇴🇲' },
+    AE: { ar: 'الإمارات العربية المتحدة 🇦🇪', en: 'United Arab Emirates 🇦🇪' },
+    SA: { ar: 'السعودية 🇸🇦', en: 'Saudi Arabia 🇸🇦' }
   };
   var cTag = countryTagMap[I.country] || '@noon';
   var cUrl = countryUrlMap[I.country] || 'https://www.instagram.com/noon/';
@@ -823,7 +1485,13 @@ function generateAllOutputs(data, body) {
   const c = campaigns.find(x => x.id === campaignId) || campaigns.find(x => !x.hidden) || campaigns[0];
   if (!c) return null;
 
-  const country = String((body && body.country) || 'QA').trim().toUpperCase();
+  const allowedCountries = (c && Array.isArray(c.countries) && c.countries.length)
+    ? c.countries
+    : ['QA', 'KW', 'BH', 'OM'];
+  let country = String((body && body.country) || allowedCountries[0] || 'QA').trim().toUpperCase();
+  if (allowedCountries.indexOf(country) === -1) {
+    country = allowedCountries[0];
+  }
   const phaseIxRaw = parseInt(
     (body && body.phaseIx !== undefined) ? body.phaseIx : ((body && body.phaseIndex !== undefined) ? body.phaseIndex : '0'),
     10
@@ -876,6 +1544,7 @@ module.exports = {
   MONTHS_AR,
   MONTHS_EN,
   esc,
+  hasCustomPromoInput,
   defaultCodeFor,
   dateStr,
   kpiText,

@@ -90,6 +90,7 @@ async function runSecurityAuthSuite() {
 
   const forbiddenInPublicGate = [
     'noon@admin#2026', 'PROMO15', '1111SALE', 'YFS2026', 'nov2026', 'oct2026', 'sep2026',
+    'dubaiMall2026', 'thedubaimall', 'Dubai Mall Online',
     'drive.google.com', 'noon-invoice.vercel.app', 'STORE_KEY', 'ADMIN_PIN_KEY',
     'fillCampaignSelect', 'buildEmail', 'buildBrief'
   ];
@@ -546,6 +547,69 @@ async function runSecurityAuthSuite() {
       assert('F', genChecks === 336 && genMismatches === 0,
         `/api/generate matches 48-scenario golden baseline cleanly (${genChecks - genMismatches}/${genChecks} panes)`);
 
+      // Dubai Mall UAE-Only & Optional Promo /api/generate parity checks
+      const rDmEmpty = await fetch(`${srv.baseUrl}/api/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Cookie: formatCookieHeader(teamJar) },
+        body: JSON.stringify({
+          campaignId: 'dubaiMall2026',
+          country: 'QA',
+          phaseIx: 0,
+          code: '',
+          name: 'Salma Sec',
+          platform: 'Instagram Reels',
+          subDay: '12',
+          subMonth: '05',
+          liveDay: '18',
+          liveMonth: '05',
+          fee: '3000',
+          kpi: '60K',
+          sender: 'Mahmoud'
+        })
+      });
+      const jDmEmpty = await rDmEmpty.json();
+      assert('F',
+        rDmEmpty.status === 200 &&
+        jDmEmpty.subjects &&
+        jDmEmpty.subjects['email-en'].includes('United Arab Emirates') &&
+        !jDmEmpty.emailEn.includes('Qatar') &&
+        !jDmEmpty.emailEn.includes('{CODE}') &&
+        !jDmEmpty.emailEn.includes('PROMO15') &&
+        jDmEmpty.emailEn.includes('@thedubaimall') &&
+        jDmEmpty.briefEn.includes('Come Spend the Day at Dubai Mall With Me'),
+        '/api/generate coerces non-AE country on dubaiMall2026 to UAE & omits empty optional promo cleanly');
+
+      const rDmPromo = await fetch(`${srv.baseUrl}/api/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Cookie: formatCookieHeader(teamJar) },
+        body: JSON.stringify({
+          campaignId: 'dubaiMall2026',
+          country: 'AE',
+          phaseIx: 1,
+          code: 'DXB15',
+          name: 'Mariam Sec',
+          platform: 'TikTok',
+          subDay: '14',
+          subMonth: '06',
+          liveDay: '20',
+          liveMonth: '06',
+          fee: '4000',
+          kpi: '',
+          sender: 'Sara'
+        })
+      });
+      const jDmPromo = await rDmPromo.json();
+      assert('F',
+        rDmPromo.status === 200 &&
+        jDmPromo.emailEn.includes('DXB15') &&
+        jDmPromo.emailAr.includes('DXB15') &&
+        jDmPromo.briefEn.includes('DXB15') &&
+        jDmPromo.briefAr.includes('DXB15') &&
+        jDmPromo.briefTxtEn.includes('DXB15') &&
+        jDmPromo.briefTxtAr.includes('DXB15') &&
+        jDmPromo.briefEn.includes('ChatGPT'),
+        '/api/generate propagates optional DXB15 code across all 6 panes for dubaiMall2026 Part 2');
+
       // =========================================================================
       // PHASE G: Real Headless Chrome E2E Login, HttpOnly, Admin & Lockout Flow
       // =========================================================================
@@ -594,6 +658,34 @@ async function runSecurityAuthSuite() {
       }));
       assert('G', hubLoaded.campVal === 'nov2026' && hubLoaded.docCookie === '' && !hubLoaded.adminBadgeVisible && hubLoaded.sessionLockVisible && hubLoaded.isAdminVar === false,
         'Team login unlocks Hub with HttpOnly cookie (invisible to JS), hidden admin badge, and visible Session Lock button');
+
+      // Territory isolation & optional promo behavior inside authenticated Chrome Hub
+      const dmUiCheck = await page.evaluate(() => {
+        const campSel = document.getElementById('campaignId');
+        campSel.value = 'dubaiMall2026';
+        onCampaignChange();
+        const dmCountries = Array.from(document.getElementById('country').options).map(o => o.value);
+        const dmCountryVal = document.getElementById('country').value;
+        const dmCodeVal = document.getElementById('discountCode').value;
+        const dmOptVisible = document.getElementById('promoOptBadge').style.display !== 'none';
+        const dmMarketText = document.getElementById('activeMarketPill').textContent;
+
+        campSel.value = 'nov2026';
+        onCampaignChange();
+        const gccCountries = Array.from(document.getElementById('country').options).map(o => o.value);
+        const gccOptHidden = document.getElementById('promoOptBadge').style.display === 'none';
+
+        return { dmCountries, dmCountryVal, dmCodeVal, dmOptVisible, dmMarketText, gccCountries, gccOptHidden };
+      });
+      assert('G',
+        JSON.stringify(dmUiCheck.dmCountries) === '["AE"]' &&
+        dmUiCheck.dmCountryVal === 'AE' &&
+        dmUiCheck.dmCodeVal === '' &&
+        dmUiCheck.dmOptVisible &&
+        dmUiCheck.dmMarketText.includes('UAE') &&
+        JSON.stringify(dmUiCheck.gccCountries) === '["QA","KW","BH","OM"]' &&
+        dmUiCheck.gccOptHidden,
+        'Chrome UI isolates dubaiMall2026 to UAE ([AE]) with optional promo badge & restores GCC countries on switch back');
 
       // LocalStorage privilege escalation spoof test
       await page.evaluate(() => {
