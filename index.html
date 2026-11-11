@@ -3,2273 +3,496 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <title>Noon Campaign Hub — مولد الإيميلات والبريفات</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23feee00'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='21' font-weight='900' text-anchor='middle' fill='%23111111'%3En%3C/text%3E%3C/svg%3E">
+  <title>noon · Campaign Hub — بوابة الدخول الآمنة</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0c; --card: rgba(22,22,27,.75); --border: rgba(255,255,255,.08);
-      --yellow: #feee00; --text: #f4f4f5; --muted: #9d9da8; --ok: #34d399; --err: #f87171; --blue: #60a5fa;
+      color-scheme: dark;
+      --bg: #090B10;
+      --panel: #111722;
+      --line: rgba(255, 255, 255, 0.085);
+      --line-strong: rgba(255, 255, 255, 0.16);
+      --text: #F5F7FA;
+      --muted: #A2ADBC;
+      --muted-2: #748093;
+      --yellow: #feee00;
+      --yellow-2: #e9d000;
+      --err: #f87171;
+      --ok: #34d399;
+      --ease: cubic-bezier(0.2, 0.75, 0.25, 1);
     }
+
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { background: var(--bg); }
+
     body {
-      font-family: 'Cairo', sans-serif; color: var(--text); min-height: 100vh; margin: 0;
-      background: radial-gradient(1100px 500px at 50% -10%, #1c1c04 0%, var(--bg) 55%) fixed;
-      padding: 16px 14px 60px;
+      font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px 16px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(ellipse at 18% 12%, rgba(254, 238, 0, 0.075), transparent 36%),
+        radial-gradient(ellipse at 85% 82%, rgba(96, 165, 250, 0.085), transparent 40%),
+        linear-gradient(155deg, #080A0F 0%, #0B1018 52%, #090B10 100%) fixed;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    .wrap { max-width: 1200px; margin: 0 auto; }
-    @keyframes rise { from { opacity:0; transform: translateY(16px);} to { opacity:1; transform:none; } }
-    .rise { animation: rise .5s cubic-bezier(.16,1,.3,1) both; }
-    .d1 { animation-delay:.07s } .d2 { animation-delay:.14s }
 
-    header { text-align: center; margin-bottom: 18px; }
-    .logo { width: 54px; height: 54px; margin: 0 auto 10px; border-radius: 50%; background: var(--yellow); color:#000; font-weight: 900; font-size: 27px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(254,238,0,.25); }
-    h1 { font-size: 22px; font-weight: 900; margin: 0; } h1 span { color: var(--yellow); }
-    .sub { color: var(--muted); font-size: 12.5px; font-weight: 600; margin-top: 4px; }
-
-    .grid { display: grid; grid-template-columns: 360px 1fr; gap: 16px; align-items: start; }
-    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 16px; margin-bottom: 14px; backdrop-filter: blur(14px); box-shadow: 0 18px 40px -18px rgba(0,0,0,.8); }
-    .card h2 { font-size: 14.5px; font-weight: 800; margin: 0 0 14px; display: flex; align-items: center; gap: 8px; }
-
-    label { display: block; font-size: 11.5px; font-weight: 700; color: var(--muted); margin: 12px 0 6px; }
-    input, select, textarea {
-      width: 100%; background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.1); border-radius: 11px;
-      color: var(--text); font-family: inherit; font-size: 14px; padding: 11px 12px; outline: none; transition: .25s;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
     }
-    textarea { resize: vertical; }
-    input:focus, select:focus, textarea:focus { border-color: var(--yellow); box-shadow: 0 0 0 3px rgba(254,238,0,.1); }
-    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-    @media (max-width: 480px) { .row2, .row3 { grid-template-columns: 1fr; } }
 
-    .btn { border: none; border-radius: 12px; padding: 12px 18px; font-family: inherit; font-weight: 800; font-size: 13.5px; cursor: pointer; transition: .2s; }
-    .btn:active { transform: scale(.98); }
-    .btn-y { background: linear-gradient(135deg, var(--yellow), #e8d900); color: #000; width: 100%; }
-    .btn-g { background: rgba(255,255,255,.06); color: var(--text); border: 1px solid var(--border); }
-    .btn-r { background: rgba(248,113,113,.1); color: var(--err); border: 1px solid rgba(248,113,113,.3); }
-    .btn-sm { padding: 7px 12px; font-size: 12px; border-radius: 9px; }
-
-    .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; background: rgba(0,0,0,.4); padding: 5px; border-radius: 12px; border: 1px solid var(--border); }
-    .tab { flex: 1; min-width: 120px; border: none; background: transparent; color: var(--muted); font-family: inherit; font-weight: 800; font-size: 11.5px; padding: 9px 8px; border-radius: 8px; cursor: pointer; transition: .25s; text-align: center; }
-    .tab.active { background: var(--yellow); color: #000; }
-
-    .subject-bar { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,.4); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; margin-bottom: 12px; }
-    .subject-bar .lbl { font-size: 11px; font-weight: 800; color: var(--muted); flex-shrink: 0; }
-    .subject-bar .txt { flex: 1; font-size: 13px; font-weight: 700; direction: ltr; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-    .output { background: #fff; color: #222; border-radius: 14px; padding: 26px 22px; line-height: 1.9; font-size: 14px; min-height: 300px; max-height: 62vh; overflow-y: auto; direction: ltr; text-align: left; }
-    .output.rtl-out { direction: rtl; text-align: right; }
-    .output a { color: #0284c7; }
-
-    .copy-btn {
-      width: 100%; border: none; border-radius: 12px; padding: 12px 20px; font-family: inherit; font-weight: 900; font-size: 14px;
-      background: linear-gradient(135deg, var(--yellow), #e8d900); color: #000; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(254,238,0,.2);
-      transition: .25s;
+    .ambient-orb {
+      position: fixed;
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: -1;
     }
-    .copy-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(254,238,0,.35); }
-    .copy-btn:active { transform: scale(.98); }
-    @keyframes copiedPulse { 0% { box-shadow: 0 0 0 0 rgba(52,211,153,.7);} 100% { box-shadow: 0 0 0 18px rgba(52,211,153,0);} }
-    .copy-btn.copied { background: var(--ok) !important; color: #000 !important; animation: copiedPulse .6s ease; }
+    .ambient-orb.one { top: -120px; right: -160px; background: var(--yellow); }
+    .ambient-orb.two { bottom: -140px; left: -160px; background: #4f64a5; }
 
-    .camp-item { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,.35); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; }
-    .camp-item .nm { flex: 1; font-weight: 800; font-size: 13.5px; }
-    .camp-item .nm small { display: block; color: var(--muted); font-weight: 600; font-size: 11px; margin-top: 2px; }
-    .badge { font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 99px; background: rgba(52,211,153,.1); color: var(--ok); border: 1px solid rgba(52,211,153,.3); }
-    .badge.off { background: rgba(148,163,184,.1); color: #cbd5e1; border-color: rgba(148,163,184,.3); }
-    .adminbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; padding: 10px 12px; border-radius: 11px; background: rgba(254,238,0,.05); border: 1px solid rgba(254,238,0,.16); font-size: 11.5px; font-weight: 700; color: #fde68a; }
-    .adminbar .btn { flex-shrink: 0; }
+    .gate-shell {
+      width: 100%;
+      max-width: 420px;
+      animation: gateRise 0.45s var(--ease) both;
+    }
 
-    .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.75); backdrop-filter: blur(6px); z-index: 100; display: none; align-items: flex-start; justify-content: center; padding: 24px 14px; overflow-y: auto; }
-    .modal-bg.show { display: flex; }
-    #editorModal { z-index: 120; }
-    .modal { background: #131318; border: 1px solid var(--border); border-radius: 18px; padding: 22px; width: 100%; max-width: 680px; animation: rise .4s cubic-bezier(.16,1,.3,1) both; }
-    .modal h3 { margin: 0 0 16px; font-size: 17px; font-weight: 900; }
-    .modal textarea { font-family: monospace; font-size: 12px; direction: ltr; text-align: left; min-height: 180px; line-height: 1.6; }
-    .hint { font-size: 11px; font-weight: 600; padding: 9px 12px; border-radius: 10px; margin-top: 8px; line-height: 1.7; background: rgba(254,238,0,.05); border: 1px solid rgba(254,238,0,.16); color: #fde68a; }
-    .status-msg { display: none; margin-top: 10px; padding: 11px 14px; border-radius: 11px; font-size: 12.5px; font-weight: 700; }
-    .status-msg.ok { display: block; background: rgba(52,211,153,.07); border: 1px solid rgba(52,211,153,.25); color: #6ee7b7; }
-    .status-msg.err { display: block; background: rgba(248,113,113,.07); border: 1px solid rgba(248,113,113,.25); color: #fca5a5; }
-    ::-webkit-scrollbar { width: 7px; height: 7px; }
-    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--yellow); }
+    @keyframes gateRise {
+      from { opacity: 0; transform: translateY(16px) scale(0.985); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .gate-card.shake { animation: shake 0.36s ease; }
+
+    .brand-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 22px;
+      gap: 10px;
+    }
+
+    .brand-symbol {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: var(--yellow);
+      color: #111111;
+      font-size: 26px;
+      font-weight: 950;
+      letter-spacing: -2px;
+      box-shadow: 0 0 32px rgba(254, 238, 0, 0.28);
+      user-select: none;
+    }
+
+    .brand-heading {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      flex-wrap: wrap;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+    .brand-yellow {
+      color: var(--yellow);
+      font-weight: 950;
+      text-transform: lowercase;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+    }
+    .hub-divider {
+      color: var(--muted-2);
+      opacity: 0.55;
+      font-weight: 400;
+      font-size: 22px;
+    }
+    .brand-white {
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 23px;
+    }
+    .brand-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .gate-card {
+      background: linear-gradient(155deg, rgba(21, 29, 42, 0.90) 0%, rgba(15, 21, 31, 0.97) 100%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 26px 24px 24px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 26px 70px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .gate-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .gate-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: rgba(254, 238, 0, 0.09);
+      border: 1px solid rgba(254, 238, 0, 0.25);
+      color: var(--yellow);
+      flex-shrink: 0;
+    }
+
+    .gate-title {
+      margin: 0;
+      font-size: 15.5px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+    .gate-desc {
+      margin: 2px 0 0;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .field-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #DCE3EE;
+      margin-bottom: 8px;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .pass-input {
+      width: 100%;
+      height: 46px;
+      border-radius: 11px;
+      border: 1px solid var(--line-strong);
+      background: rgba(9, 11, 16, 0.85);
+      color: #FFFFFF;
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 700;
+      padding: 0 14px 0 46px;
+      outline: none;
+      direction: ltr;
+      text-align: left;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .pass-input::placeholder {
+      color: var(--muted-2);
+      font-weight: 600;
+    }
+    .pass-input:focus {
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(254, 238, 0, 0.14);
+      background: rgba(9, 11, 16, 0.98);
+    }
+
+    .toggle-vis-btn {
+      position: absolute;
+      left: 8px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: color 0.18s ease, background 0.18s ease;
+    }
+    .toggle-vis-btn:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .submit-btn {
+      width: 100%;
+      height: 46px;
+      margin-top: 16px;
+      border: none;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--yellow), var(--yellow-2));
+      color: #090B10;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(254, 238, 0, 0.22);
+      transition: transform 0.18s var(--ease), box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(254, 238, 0, 0.34);
+    }
+    .submit-btn:active:not(:disabled) { transform: scale(0.985); }
+    .submit-btn:disabled { opacity: 0.65; cursor: not-allowed; }
+
+    .status-box {
+      display: none;
+      margin-top: 14px;
+      padding: 11px 13px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      line-height: 1.55;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .status-box.err {
+      display: flex;
+      background: rgba(248, 113, 113, 0.10);
+      border: 1px solid rgba(248, 113, 113, 0.32);
+      color: #fca5a5;
+    }
+    .status-box.ok {
+      display: flex;
+      background: rgba(52, 211, 153, 0.10);
+      border: 1px solid rgba(52, 211, 153, 0.34);
+      color: #6ee7b7;
+    }
+
+    .gate-footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--muted-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    @media (max-width: 440px) {
+      .gate-card { padding: 22px 18px 20px; }
+      .brand-yellow { font-size: 25px; }
+      .brand-white { font-size: 20px; }
+    }
   </style>
 </head>
 <body>
-<div class="wrap">
+  <div class="ambient-orb one" aria-hidden="true"></div>
+  <div class="ambient-orb two" aria-hidden="true"></div>
 
-  <header class="rise">
-    <div class="logo" id="noonLogo" onclick="handleLogoSecretClick()" title="noon" style="cursor:pointer; user-select:none;">n</div>
-    <h1>Noon <span>Campaign Hub</span></h1>
-    <div class="sub">مولد الإيميلات والبريفات — كل الشهور من مكان واحد</div>
-    <div id="adminHeaderBadge" style="display:none; margin-top:12px; gap:8px; justify-content:center; align-items:center;">
-      <button class="btn btn-g btn-sm" onclick="openAdminModal()">👑 فتح لوحة تحكم الحملات</button>
-      <button class="btn btn-r btn-sm" onclick="logoutAdmin()">🚪 خروج</button>
+  <main class="gate-shell">
+    <div class="brand-lockup">
+      <div class="brand-symbol" aria-hidden="true">n</div>
+      <h1 class="brand-heading">
+        <span class="brand-yellow">noon</span>
+        <span class="hub-divider">·</span>
+        <span class="brand-white">Campaign Hub</span>
+      </h1>
+      <p class="brand-subtitle">منصة عمليات التسويق الخاصة — وصول مصرح به فقط</p>
     </div>
-  </header>
 
-  <div class="grid">
-
-    <!-- SIDE -->
-    <div>
-      <div class="card rise d1">
-        <h2>⚙️ بيانات الإيميل</h2>
-        <label>الحملة</label>
-        <select id="campaignId" onchange="onCampaignChange()"></select>
-
-        <label>اسم المؤثر</label>
-        <input id="infName" placeholder="e.g. Ahmed" oninput="render()">
-
-        <div class="row2">
-          <div>
-            <label>الدولة</label>
-            <select id="country" onchange="onCountryChange()">
-              <option value="QA">Qatar (QA)</option>
-              <option value="KW">Kuwait (KW)</option>
-              <option value="BH">Bahrain (BH)</option>
-              <option value="OM">Oman (OM)</option>
-            </select>
-          </div>
-          <div>
-            <label>كود الخصم</label>
-            <input id="discountCode" placeholder="put the code here / ضع الكود هنا" oninput="render()">
-          </div>
+    <section class="gate-card" id="gateCard" aria-labelledby="gateHeading">
+      <div class="gate-header">
+        <div class="gate-icon-box" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
         </div>
-
-        <div id="bahrainNotice" style="display:none; background:rgba(254,240,138,0.12); border:1px solid rgba(250,204,21,0.4); border-radius:8px; padding:9px 12px; margin-bottom:12px; font-size:12px; color:#fef08a; line-height:1.5;">
-          🚨 <strong>خاص بالبحرين:</strong> تم تفعيل تفاصيل فعالية <strong>Spot The Bag (#SpotTheNoonBag)</strong> تلقائياً في الإيميل والبريف (25-26 سبتمبر).
-        </div>
-
-        <label>المرحلة (Phase)</label>
-        <select id="selectedPhase" onchange="onPhaseChange()"></select>
-
-                <label>المنصة المتفق عليها</label>
-        <select id="platform" onchange="render()" style="width:100%; padding:9px 12px; background:#18181b; border:1px solid #3f3f46; border-radius:8px; color:#fff; font-size:13.5px; font-family:inherit; outline:none;">
-          <option value="Instagram Reels">Instagram Reels (إنستغرام ريلز)</option>
-          <option value="TikTok">TikTok (تيك توك)</option>
-          <option value="Instagram Reels & TikTok" selected>Instagram Reels & TikTok (إنستغرام وتيك توك)</option>
-          <option value="Snapchat">Snapchat (سناب شات)</option>
-          <option value="Instagram & Snapchat">Instagram & Snapchat (إنستغرام وسناب شات)</option>
-          <option value="TikTok & Snapchat">TikTok & Snapchat (تيك توك وسناب شات)</option>
-          <option value="YouTube Shorts">YouTube Shorts (يوتيوب شورتس)</option>
-          <option value="All Platforms (IG, TT, Snap)">All Platforms (كافة المنصات: إنستا وتيك توك وسناب)</option>
-        </select>
-
-        <div class="row2">
-          <div>
-            <label>تاريخ التسليم</label>
-            <div style="display:flex; gap:6px" dir="ltr">
-              <input type="number" id="subDay" placeholder="Day" min="1" max="31" oninput="render()" style="width:38%">
-              <select id="subMonth" onchange="render()" style="width:62%"></select>
-            </div>
-          </div>
-          <div>
-            <label>تاريخ النشر (Go Live)</label>
-            <div style="display:flex; gap:6px" dir="ltr">
-              <input type="number" id="liveDay" placeholder="Day" min="1" max="31" oninput="render()" style="width:38%">
-              <select id="liveMonth" onchange="render()" style="width:62%"></select>
-            </div>
-          </div>
-        </div>
-
-        <label>قيمة الحملة (AED)</label>
-        <input type="number" id="fee" placeholder="e.g. 500" oninput="render()">
-
-        <label>هدف المشاهدات (اختياري)</label>
-        <input id="kpiTarget" placeholder="e.g. 100K — يترك فارغاً للنسبة الافتراضية 50%" oninput="render()">
-
-        <label>اسم المرسل</label>
-        <input id="senderName" placeholder="Mahmoud" oninput="render()">
-
-        <button class="btn btn-y" style="margin-top:16px" onclick="render(true)">⚡ توليد الإيميل والبريف</button>
-      </div>
-    </div>
-
-    <!-- OUTPUT -->
-    <div class="card rise d2" style="position:sticky; top:16px">
-      <div class="subject-bar">
-        <span class="lbl">SUBJECT:</span>
-        <span class="txt" id="subjectText">—</span>
-        <button class="btn btn-g btn-sm" onclick="copySubject(this)">📋</button>
-      </div>
-      <div class="tabs">
-        <button class="tab active" onclick="switchOut('email-en',this)">Email EN</button>
-        <button class="tab" onclick="switchOut('email-ar',this)">Email AR</button>
-        <button class="tab" onclick="switchOut('brief-en',this)">Brief With Brand Guidelines EN</button>
-        <button class="tab" onclick="switchOut('brief-ar',this)">Brief With Brand Guidelines AR</button>
-        <button class="tab" onclick="switchOut('brief-txt-en',this)">Brief Text EN 📄</button>
-        <button class="tab" onclick="switchOut('brief-txt-ar',this)">Brief Text AR 📄</button>
-      </div>
-      <button class="copy-btn" id="copyFab" style="margin-bottom:12px;" onclick="copyCurrent(this)">📋 نسخ المحتوى المعروض</button>
-      <div class="output" id="out-email-en"></div>
-      <div class="output rtl-out" id="out-email-ar" style="display:none" dir="rtl"></div>
-      <div class="output" id="out-brief-en" style="display:none"></div>
-      <div class="output rtl-out" id="out-brief-ar" style="display:none" dir="rtl"></div>
-      <div class="output" id="out-brief-txt-en" style="display:none"></div>
-      <div class="output rtl-out" id="out-brief-txt-ar" style="display:none" dir="rtl"></div>
-      <button class="copy-btn" id="copyFabBottom" style="margin-top:12px;" onclick="copyCurrent(this)">📋 نسخ المحتوى المعروض</button>
-    </div>
-  </div>
-</div>
-
-<!-- لوحة تحكم المدير (مدير الحملات) -->
-<div class="modal-bg" id="adminModal">
-  <div class="modal" style="max-width: 720px;">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:12px;">
-      <h3 style="margin:0; font-size:18px; display:flex; align-items:center; gap:8px;">
-        <span>👑</span> لوحة تحكم الحملات (Admin Panel)
-      </h3>
-      <button class="btn btn-g btn-sm" onclick="closeAdminModal()">✕</button>
-    </div>
-
-    <div class="adminbar" id="adminBar">
-      <span id="adminState">👑 وضع المدير — صلاحيات كاملة</span>
-      <button class="btn btn-r btn-sm" style="margin-inline-start:auto" id="adminBtn" onclick="logoutAdmin()">🚪 خروج</button>
-    </div>
-
-    <div style="display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;" id="mgrActions">
-      <button class="btn btn-y btn-sm" style="flex:1" onclick="openEditor()">➕ إضافة حملة جديدة</button>
-      <button class="btn btn-g btn-sm" onclick="exportCampaigns()">⬇️ تصدير الحملات</button>
-      <button class="btn btn-g btn-sm" onclick="document.getElementById('importFile').click()">⬆️ استيراد حملات</button>
-      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importCampaigns(this.files)">
-    </div>
-
-    <div style="margin-bottom:10px; font-size:12.5px; font-weight:700; color:var(--muted)">قائمة الحملات المسجلة:</div>
-    <div id="campaignList" style="max-height:360px; overflow-y:auto; padding-inline-end:4px;"></div>
-
-    <div class="status-msg" id="mgrStatus"></div>
-
-    <div style="display:flex; justify-content:flex-end; margin-top:16px; border-top:1px solid var(--border); padding-top:12px;">
-      <button class="btn btn-g" onclick="closeAdminModal()">إغلاق اللوحة</button>
-    </div>
-  </div>
-</div>
-
-<!-- محرر الحملة -->
-<div class="modal-bg" id="editorModal">
-  <div class="modal">
-    <h3 id="editorTitle">حملة جديدة</h3>
-    <label>اسم الحملة (EN)</label>
-    <input id="ed_nameEn" placeholder="Noon GCC September Campaign 2026">
-    <div class="row2">
-      <div><label>اسم الحملة (AR)</label><input id="ed_nameAr" placeholder="حملة نون لدول الخليج - شهر سبتمبر"></div>
-      <div><label>الشهر (EN / AR)</label>
-        <div style="display:flex; gap:6px">
-          <input id="ed_monthEn" placeholder="September">
-          <input id="ed_monthAr" placeholder="سبتمبر">
+        <div>
+          <h2 class="gate-title" id="gateHeading">بوابة الدخول المحمية</h2>
+          <p class="gate-desc">أدخل كلمة مرور الوصول للمتابعة إلى مساحة العمل</p>
         </div>
       </div>
+
+      <form id="siteGateForm" novalidate>
+        <label class="field-label" for="sitePasswordInput">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+          </svg>
+          <span>كلمة مرور الدخول</span>
+        </label>
+
+        <div class="input-wrap">
+          <input
+            type="password"
+            id="sitePasswordInput"
+            class="pass-input"
+            placeholder="••••••••••••"
+            autocomplete="current-password"
+            required
+            autofocus
+          >
+          <button type="button" class="toggle-vis-btn" id="toggleVisBtn" aria-label="إظهار كلمة المرور" aria-pressed="false">
+            <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/>
+            <line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+          <span id="submitBtnText">دخول إلى المنصة</span>
+        </button>
+
+        <div class="status-box" id="gateStatus" role="alert" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <div class="gate-footer">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span>تحقق آمن من جانب الخادم — لا يتم تحميل أي بيانات قبل المصادقة</span>
     </div>
-    <div class="row2">
-      <div><label>كود الخصم الافتراضي</label><input id="ed_promoCode" placeholder="PROMO15"></div>
-      <div><label>اسم المرسل الافتراضي</label><input id="ed_sender" placeholder="Mahmoud"></div>
-    </div>
-    <div class="row2">
-      <div><label>لينك البريف (Brief)</label><input id="ed_briefUrl" dir="ltr" style="text-align:left" placeholder="https://drive.google.com/... (قديم — اختياري)"></div>
-      <div><label>لينك دليل التصوير (Guide)</label><input id="ed_guideUrl" dir="ltr" style="text-align:left" placeholder="https://drive.google.com/..."></div>
-    </div>
-    <div class="row2">
-      <div><label>لينك البريف الإنجليزي (Brief EN)</label><input id="ed_briefUrlEn" dir="ltr" style="text-align:left" placeholder="https://drive.google.com/..."></div>
-      <div><label>لينك البريف العربي (Brief AR)</label><input id="ed_briefUrlAr" dir="ltr" style="text-align:left" placeholder="https://drive.google.com/..."></div>
-    </div>
-    <div class="row2">
-      <div><label>لينك بورتال الفواتير</label><input id="ed_portalUrl" dir="ltr" style="text-align:left" placeholder="https://..."></div>
-      <div><label>الهاشتاقات</label><input id="ed_hashtags" dir="ltr" style="text-align:left" placeholder="#noon #noonGCC ..."></div>
-    </div>
+  </main>
 
-    <label>خصومات الدول + حسابات التاج (JSON)</label>
-    <textarea id="ed_discounts" spellcheck="false"></textarea>
-    <label>المراحل (Phases JSON)</label>
-    <textarea id="ed_phases" spellcheck="false"></textarea>
-    <div class="hint">لو مش متأكد من صيغة JSON: انسخ حملة موجودة (زر تكرار) وعدّل عليها — ده أسرع وأأمن</div>
-    <div class="status-msg" id="edStatus"></div>
-    <div style="display:flex; gap:10px; margin-top:16px">
-      <button class="btn btn-y" style="flex:1" onclick="saveCampaign()">💾 حفظ</button>
-      <button class="btn btn-g" onclick="closeEditor()">إلغاء</button>
-    </div>
-  </div>
-</div>
+  <script>
+    (function () {
+      var form = document.getElementById('siteGateForm');
+      var input = document.getElementById('sitePasswordInput');
+      var toggleBtn = document.getElementById('toggleVisBtn');
+      var eyeIcon = document.getElementById('eyeIcon');
+      var submitBtn = document.getElementById('submitBtn');
+      var submitBtnText = document.getElementById('submitBtnText');
+      var statusBox = document.getElementById('gateStatus');
+      var gateCard = document.getElementById('gateCard');
 
-<script>
-/* ============================================================
-   NOON CAMPAIGN HUB
-   مولد واحد لكل الشهور + مدير حملات محفوظ محلياً
-   ============================================================ */
+      var eyeOpenSvg = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>';
+      var eyeOffSvg = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/>';
 
-var STORE_KEY = 'noonCampaignHub_v11';
-
-/* القيم الثابتة المتكررة في كل الحملات */
-var STATIC = {
-  objectivesEn: ['Increase noon app downloads', 'Drive traffic to category pages via dedicated in-app banners', 'Generate sales across the selected promotional campaigns', 'Promote your discount code across all content formats'],
-  objectivesAr: ['زيادة تنزيلات تطبيق نون', 'توجيه الزيارات إلى صفحات الفئات عبر اللافتات المخصصة داخل التطبيق', 'توليد المبيعات عبر الحملات الترويجية المحددة', 'الترويج لرمز الخصم الخاص بك عبر جميع تنسيقات المحتوى'],
-  guidelinesEn: ['<strong>Key Messaging:</strong> Shop directly through the noon app, download the app for exclusive deals, and use the discount code.', '<strong>Style:</strong> Fast-paced, trend-driven, strong hook in first 3 seconds.', '<strong>Focus:</strong> Lifestyle integration over hard selling.', '<strong>Must clearly show/mention:</strong><br>&nbsp;&nbsp;1. The noon app screen/interface<br>&nbsp;&nbsp;2. The specific campaign banner<br>&nbsp;&nbsp;3. Clear product visibility<br>&nbsp;&nbsp;4. Clear CTA (Download app, click banner, use code)'],
-  guidelinesAr: ['<strong>الرسائل الأساسية:</strong> التسوق عبر التطبيق، تحميل التطبيق للعروض الحصرية، واستخدام كود الخصم.', '<strong>الأسلوب:</strong> سريع الإيقاع، مواكب للتريند، وخطّاف قوي (Hook) في أول 3 ثوانٍ.', '<strong>التركيز:</strong> دمج نمط الحياة بدلاً من البيع المباشر.', '<strong>يجب إظهار/ذكر التالي بوضوح:</strong><br>&nbsp;&nbsp;1. شاشة/واجهة تطبيق نون<br>&nbsp;&nbsp;2. لافتة (Banner) الحملة المخصصة<br>&nbsp;&nbsp;3. وضوح المنتج المعروض<br>&nbsp;&nbsp;4. دعوة واضحة للمشاهدين (تحميل التطبيق، الضغط على البانر، استخدام الكود)'],
-  goldenRuleEn: 'The discount code <strong>MUST</strong> appear in every content format:<br><ul style="margin:4px 0 0 0; padding-left:20px;"><li style="margin-bottom:2px;">Spoken and/or on-screen text in the video.</li><li style="margin-bottom:2px;">Clearly written at the top or middle of the caption.</li><li>In Stories with a link sticker/CTA.</li></ul><br><em>Examples: "Use code {CODE} for extra savings" | "Don\'t forget to use the discount code {CODE} on the noon app."</em>',
-  goldenRuleAr: 'يجب أن يظهر كود الخصم في كل تنسيق محتوى: منطوقاً أو مكتوباً على الشاشة في الفيديو، وفي بداية أو منتصف النص المكتوب (Caption)، وفي الستوري مع رابط مباشر/دعوة لاتخاذ إجراء.',
-  creativeEn: ['<strong>Key Messaging:</strong> Shop directly through the noon app | Exclusive deals available inside the app | Download the app to access offers | Use my discount code for extra savings.', '<strong>Tone:</strong> Fast-paced, trend-driven, strong hook in the first 3 seconds.', '<strong>Focus:</strong> Lifestyle integration over hard selling.', '<strong>Suggested Angles:</strong> {ANGLES}.', '<strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">Important:</strong> The word <strong>"noon"</strong> must ALWAYS be written in lowercase everywhere.'],
-  creativeAr: ['<strong>الرسائل الأساسية:</strong> التسوق عبر التطبيق | عروض حصرية داخل التطبيق | حمّل التطبيق للوصول للعروض | استخدم كود الخصم لتوفير إضافي.', '<strong>الأسلوب:</strong> سريع الإيقاع، مواكب للتريند، وخطّاف قوي في أول 3 ثوانٍ.', '<strong>التركيز:</strong> دمج نمط الحياة بدلاً من البيع المباشر.', '<strong>زوايا مقترحة:</strong> {ANGLES}.', '<strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">مهم:</strong> كلمة <strong>"noon"</strong> يجب أن تُكتب دائماً بأحرف صغيرة في كل مكان.'],
-  mandatoryEn: ['The noon app screen/interface.', 'The specific campaign banner.', 'Clear product visibility.', 'Clear CTA: Download the app / Click the banner / Explore the category / Use my discount code.'],
-  mandatoryAr: ['شاشة/واجهة تطبيق نون.', 'لافتة (Banner) الحملة المخصصة.', 'وضوح المنتج المعروض.', 'دعوة واضحة للمشاهدين: تحميل التطبيق / الضغط على البانر / استكشاف الفئة / استخدام كود الخصم.'],
-  typographyEn: 'A bold, layered text style for bilingual reels (English and Arabic) with warm tones and strong typographic contrast is required.<br><br><strong style="color:#000">Recommended Font Pairings:</strong><br>• <strong>English:</strong> Cairo, Elegant, or Rubik.<br>• <strong>Arabic:</strong> BLK القاهرة, BLK الإسكندرية, or BLK تجول.',
-  typographyAr: 'نص جريء متعدد الطبقات للريلز ثنائية اللغة (عربي/إنجليزي) بألوان دافئة وتباين قوي.<br><br><strong style="color:#000">الخطوط الموصى بها:</strong><br>• <strong>إنجليزي:</strong> Cairo, Elegant, Rubik.<br>• <strong>عربي:</strong> BLK القاهرة, BLK الإسكندرية, BLK تجول.',
-  approvalEn: ['<strong>Do NOT post</strong> until your draft is approved.', 'All content (video + caption) must be shared before posting.', 'Posting allowed ONLY after <strong>explicit written approval</strong> from your contact.'],
-  approvalAr: ['<strong>لا تنشر</strong> قبل الموافقة على مسودتك.', 'كل المحتوى (فيديو + كابشن) لازم يتشارك قبل النشر.', 'النشر مسموح فقط بعد <strong>موافقة خطية صريحة</strong> من مسؤول التواصل.'],
-  deliverablesEn: '• Reels / Short Videos (Primary Format)<br>• Stories supporting each Reel<br><br><strong style="color:#000; font-size:13px;">Submit 2 files for the video:</strong><br><ol style="margin-top:4px; padding-left:20px; color:#3f3f46; font-size:13px;"><li style="margin-bottom:4px;"><strong>Fully Edited Video</strong> (with music, text, effects)</li><li style="margin-bottom:4px;"><strong>RAW Footage</strong> (no filters, no text, unedited)</li></ol>',
-  deliverablesAr: '• ريلز / فيديوهات قصيرة (التنسيق الأساسي)<br>• ستوري داعمة لكل ريل<br><br><strong style="color:#000; font-size:13px;">يُسلم ملفان للفيديو:</strong><br><ol style="margin-top:4px; padding-left:20px; color:#3f3f46; font-size:13px;"><li style="margin-bottom:4px;"><strong>فيديو معدل بالكامل</strong> (موسيقى، نصوص، مؤثرات)</li><li style="margin-bottom:4px;"><strong>فيديو خام</strong> (بدون فلاتر، بدون نصوص)</li></ol>',
-  kpiEn: '• <strong>KPI:</strong> {KPI}<br>• If the target is not met, the video may need boosting or reposting.<br>• The content must remain live for at least one year.<br>• noon reserves the right to use the content across its marketing/ advertising platforms.',
-  kpiAr: '• <strong>الهدف (KPI):</strong> {KPI}<br>• في حال عدم تحقيق الهدف، قد يحتاج الفيديو إلى التمويل (Boost) أو إعادة النشر.<br>• يجب أن يظل المحتوى متاحاً لمدة عام واحد على الأقل.<br>• تحتفظ نون بالحق في استخدام المحتوى عبر منصاتها التسويقية / الإعلانية.'
-};
-
-var COUNTRIES = { QA: 'Qatar', KW: 'Kuwait', BH: 'Bahrain', OM: 'Oman' };
-var MONTHS_AR = { '01':'يناير','02':'فبراير','03':'مارس','04':'أبريل','05':'مايو','06':'يونيو','07':'يوليو','08':'أغسطس','09':'سبتمبر','10':'أكتوبر','11':'نوفمبر','12':'ديسمبر' };
-var MONTHS_EN = { '01':'January','02':'February','03':'March','04':'April','05':'May','06':'June','07':'July','08':'August','09':'September','10':'October','11':'November','12':'December' };
-
-/* بيانات الحملات المبدئية */
-function seedCampaigns() {
-  return [
-{
-  "id": "nov2026",
-  "nameEn": "Noon GCC November Campaign 2026 — 11.11 & Yellow Friday Sale (YFS)",
-  "nameAr": "حملة نون لدول الخليج - شهر نوفمبر: عروض 11.11 والجمعة الصفراء (YFS)",
-  "monthEn": "November",
-  "monthAr": "نوفمبر",
-  "promoCode": "PROMO15",
-  "sender": "Mahmoud",
-  "briefUrl": "https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link",
-  "briefUrlEn": "https://drive.google.com/file/d/1c122AdbFbHGW7uWPQ_QY7xR5VwRhXS3g/view?usp=drive_link",
-  "briefUrlAr": "https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link",
-  "guideUrl": "https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view",
-  "portalUrl": "https://noon-invoice.vercel.app/",
-  "logoUrl": "https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS",
-  "hashtags": "#noon #noonGCC #YellowFridaySale #noonYFS #YFS2026 #SingleDay1111 #الجمعة_الصفراء #عروض_نون #عروض_11_11 #تخفيضات_نون",
-  "countryDiscounts": {
-    "QA": {
-      "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 75 QAR / equivalent)! (Available across all categories for all users)",
-      "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
-      "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
-    },
-    "KW": {
-      "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 6 KWD / equivalent)! (Available across all categories for all users)",
-      "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
-      "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
-    },
-    "BH": {
-      "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 BHD / equivalent)! (Available across all categories for all users)",
-      "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني أو ما يعادله)! (متاح لكافة الأقسام ولجميع المستخدمين)",
-      "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
-    },
-    "OM": {
-      "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 OMR / equivalent)! (Special Oman code & celebration)",
-      "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني أو ما يعادله)! (كود خاص بسلطنة عمان والاحتفالات)",
-      "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
-    }
-  },
-  "phases": [
-    {
-      "en": {
-        "title": "Phase 1: Teaser Push ('Add to Cart' Wishlist)",
-        "date": "November 1 – 5",
-        "categories": "All Categories — Beauty, Fashion, Tech, Home, Baby, Health, Sports",
-        "action": "Start with a strong 3-sec hook (Show noon box or logo at sec 3+) • Urge followers to download the noon app and add wishlist deals to cart before sales drop: 'Fill your noon carts now before flash stock sells out!' • Screen recording of noon app navigation • Highlight Hero Deals • CTA: Download noon app and use promo code PROMO15",
-        "msg": "Build your cart early, November mega deals tease, Wishlist essential items"
-      },
-      "ar": {
-        "title": "المرحلة 1: انطلاقة التشويق وإضافة السلة",
-        "date": "1 - 5 نوفمبر",
-        "categories": "جميع الفئات — الجمال، الأزياء، التكنولوجيا، المنزل، الأطفال، الصحة، الرياضة",
-        "action": "البدء بخطّاف قوي في أول ثانيتين (ظهور كرتونة أو لوجو نون في الثانية 3 فما فوق) • حث المتابعين على تحميل تطبيق نون وإضافة العروض للسلة قبل نفاد المخزون: 'احفظ عروضك في السلة قبل نفاد الكميات!' • تسجيل شاشة واقعي للتطبيق • تسليط الضوء على عروض الهيرو • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15",
-        "msg": "جهّز سلتك من بدري، تشويق عروض نوفمبر الكبرى، احفظ اختياراتك الأساسية"
-      },
-      "promoCode": "PROMO15",
-      "secondaryCode": null,
-      "countryDiscounts": {
-        "QA": {
-          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 75 QAR)! (Wishlist Teaser & Early November Push)",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري)! (انطلاقة التشويق وحفظ السلات)",
-          "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "KW": {
-          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 6 KWD)! (Wishlist Teaser & Early November Push)",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي)! (انطلاقة التشويق وحفظ السلات)",
-          "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "BH": {
-          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 BHD)! (Wishlist Teaser & Early November Push)",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني)! (انطلاقة التشويق وحفظ السلات)",
-          "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "OM": {
-          "en": "<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 OMR)! (Wishlist Teaser & Early November Push)",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني)! (انطلاقة التشويق وحفظ السلات)",
-          "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
-        }
+      function showStatus(msg, ok) {
+        statusBox.className = 'status-box ' + (ok ? 'ok' : 'err');
+        statusBox.textContent = msg;
       }
-    },
-    {
-      "en": {
-        "title": "Phase 2: 11.11 Single's Day Mega Peak",
-        "date": "November 6 – 12 (Peak: Nov 10-11)",
-        "categories": "Electronics & Tech, Beauty, Fashion, Daily Deals",
-        "action": "Mega 11.11 Single's Day push! • Mandatory spoken callout in your video for BOTH codes: exclusive 25% off code (1111SALE) AND onsite (B1G1) Buy 1 Get 1 offer • In-app screen recording clicking 11.11 banner and applying both codes at checkout • Showcase viral electronics, beauty, and fashion deals • Strong CTA to shop 11.11 on noon now with code 1111SALE & B1G1",
-        "msg": "11.11 Single's Day mega markdowns, High discount coupon drops, Tech upgrades"
-      },
-      "ar": {
-        "title": "المرحلة 2: ذروة عروض 11.11 الكبرى",
-        "date": "6 - 12 نوفمبر (الذروة: 10 - 11 نوفمبر)",
-        "categories": "الإلكترونيات والتكنولوجيا، الجمال، الأزياء، العروض اليومية",
-        "action": "انطلاق الحدث الأضخم لعروض يوم العزاب 11.11! • التحدث الإلزامي بصوتك في الفيديو عن الكودين معاً: كود الخصم الحصري (1111SALE) بنسبة 25% وكود (B1G1) لعرض اشترِ 1 واحصل على 1 مجاناً • تسجيل شاشة واقعي للتطبيق يوضح بنر 11.11 وتطبيق كلا الكودين عند الدفع • استعراض صفقات التكنولوجيا والجمال والأزياء • دعوة فورية للتسوق والاستفادة من عروض 11.11 بكود 1111SALE وكود B1G1",
-        "msg": "تخفيضات 11.11 الخيالية، خصومات عالية بكود مخصص، ترقيات التكنولوجيا"
-      },
-      "promoCode": "1111SALE",
-      "secondaryCode": "B1G1",
-      "countryDiscounts": {
-        "QA": {
-          "en": "<strong>Use code (1111SALE)</strong> for 25% off your order on the noon app (up to 62.5 QAR on min order 250 QAR)! Plus onsite code <strong>(B1G1)</strong> for Buy 1 Get 1 on eligible items over 111 QAR! (Available across all categories for all users)",
-          "ar": "<strong>استخدم كود (1111SALE)</strong> للحصول على خصم 25% على طلبك من تطبيق نون (بحد أقصى 62.5 ريال قطري عند الطلب بـ 250 ريال أو أكثر)! بالإضافة لكود <strong>(B1G1)</strong> لعرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة أكثر من 111 ريال! (متاح لكافة الأقسام ولجميع المستخدمين)",
-          "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "KW": {
-          "en": "<strong>Use code (1111SALE)</strong> for 25% off your order on the noon app (up to 5 KWD on min order 20 KWD)! Plus onsite code <strong>(B1G1)</strong> for Buy 1 Get 1 on eligible items over 9 KWD! (Available across all categories for all users)",
-          "ar": "<strong>استخدم كود (1111SALE)</strong> للحصول على خصم 25% على طلبك من تطبيق نون (بحد أقصى 5 دينار كويتي عند الطلب بـ 20 دينار أو أكثر)! بالإضافة لكود <strong>(B1G1)</strong> لعرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة أكثر من 9 دينار! (متاح لكافة الأقسام ولجميع المستخدمين)",
-          "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "BH": {
-          "en": "<strong>Use code (1111SALE)</strong> for 25% off your order on the noon app (up to 6.25 BHD on min order 25 BHD)! Plus onsite code <strong>(B1G1)</strong> for Buy 1 Get 1 on eligible items over 11.1 BHD! (Available across all categories for all users)",
-          "ar": "<strong>استخدم كود (1111SALE)</strong> للحصول على خصم 25% على طلبك من تطبيق نون (بحد أقصى 6.25 دينار بحريني عند الطلب بـ 25 دينار أو أكثر)! بالإضافة لكود <strong>(B1G1)</strong> لعرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة أكثر من 11.1 دينار! (متاح لكافة الأقسام ولجميع المستخدمين)",
-          "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "OM": {
-          "en": "<strong>Use code (1111SALE)</strong> for 25% off your order on the noon app (up to 6.25 OMR on min order 25 OMR)! Plus onsite code <strong>(B1G1)</strong> for Buy 1 Get 1 on eligible items over 11.1 OMR! (Special 11.11 deals for Oman)",
-          "ar": "<strong>استخدم كود (1111SALE)</strong> للحصول على خصم 25% على طلبك من تطبيق نون (بحد أقصى 6.25 ريال عماني عند الطلب بـ 25 ريال أو أكثر)! بالإضافة لكود <strong>(B1G1)</strong> لعرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة أكثر من 11.1 ريال! (عروض 11.11 الحصرية لسلطنة عمان)",
-          "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
-        }
+
+      function clearStatus() {
+        statusBox.className = 'status-box';
+        statusBox.textContent = '';
       }
-    },
-    {
-      "en": {
-        "title": "Phase 3: Gap Fill & Feed Sustainment",
-        "date": "November 12 – 16",
-        "categories": "Health & Nutrition, Daily Essentials, Beauty Restocks, Winter Home Upgrades",
-        "action": "Sustainment push between major sales peaks • MANDATORY DUAL-CODE CALLOUT (Nov 13-18): 1) Mention active promo code PROMO15 for flat 15% off current daily purchases. 2) HYPE UP the upcoming Yellow Friday mega coupon YFS2026 launching November 19 with massive 25% off on noon Express items! Urge followers to bookmark code YFS2026 and pre-build their noon Express carts • Native app screen recording navigating daily essentials and showing noon Express badge • Spoken voiceover and bold on-screen subtitles for BOTH codes",
-        "msg": "Daily routine restocks, Wellness supplements, Continuous everyday savings"
-      },
-      "ar": {
-        "title": "المرحلة 3: المرحلة الانتقالية واستدامة التفاعل",
-        "date": "12 - 16 نوفمبر",
-        "categories": "الصحة والتغذية، المستلزمات اليومية، تجديد مستحضرات الجمال، ديكور وتجهيزات الشتاء",
-        "action": "الحفاظ على تفاعل الجمهور وتواجده بين فترات الذروة • تنبيه إلزامي لذكر الكودين معاً (13-18 نوفمبر)! 1) التحدث عن كود (PROMO15) ككود شغال ومفعّل حالياً لخصومات 15% على طلباتكم اليومية المعتادة. 2) عمل هايب وتشويق ضخم لكود الجمعة الصفراء القادم (YFS2026) اللي هينطلق رسمياً يوم 19 نوفمبر بخصم جبار 25% على منتجات نون إكسبريس (noon Express)! حث المتابعين على حفظ كود YFS2026 وتجهيز سلاتهم من الآن • تسجيل شاشة واقعي للتطبيق • نطق الكودين بصوتك بوضوح وإظهارهما بخط عريض على الشاشة",
-        "msg": "تجديد مستلزمات الروتين اليومي، مكملات الصحة والرياضة، توفير مستمر"
-      },
-      "promoCode": "PROMO15",
-      "secondaryCode": "YFS2026",
-      "countryDiscounts": {
-        "QA": {
-          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 75 QAR)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 62.5 QAR on min order 250 QAR)!",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 62.5 ريال عند الطلب بـ 250 ريال أو أكثر)!",
-          "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "KW": {
-          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 6 KWD)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 5 KWD on min order 20 KWD)!",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 5 دينار عند الطلب بـ 20 دينار أو أكثر)!",
-          "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "BH": {
-          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 7.5 BHD)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 6.25 BHD on min order 25 BHD)!",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 6.25 دينار عند الطلب بـ 25 دينار أو أكثر)!",
-          "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "OM": {
-          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 7.5 OMR)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 6.25 OMR on min order 25 OMR) & Oman National Day celebration!",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 6.25 ريال عند الطلب بـ 25 ريال أو أكثر) واحتفالات العيد الوطني العماني!",
-          "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
-        }
+
+      function triggerShake() {
+        gateCard.classList.remove('shake');
+        void gateCard.offsetWidth;
+        gateCard.classList.add('shake');
       }
-    },
-    {
-      "en": {
-        "title": "Phase 4: Omani National Day Celebration",
-        "date": "November 15 – 19 (National Day: Nov 18)",
-        "categories": "Oman Market Focus — Luxury Fragrances, Festive Fashion, Home Decor, Gifting (Oman only 🇴🇲)",
-        "action": "Commemorate the 56th Oman National Day with culturally resonant content • Showcase patriotic looks, luxury perfumes, and home hosting decor • App walkthrough with Oman National Day banner • Feature active promo code PROMO15 for current orders and HYPE UP code YFS2026 (25% off on noon Express starting Nov 19)",
-        "msg": "Celebrating Oman National Day, Patriotic looks & perfumes, Festive home vibes"
-      },
-      "ar": {
-        "title": "المرحلة 4: احتفالات اليوم الوطني العماني الـ 56",
-        "date": "15 - 19 نوفمبر (اليوم الوطني: 18 نوفمبر)",
-        "categories": "خاص بسلطنة عمان 🇴🇲 — الأزياء الاحتفالية، العطور الفاخرة، ديكورات الضيافة، الهدايا",
-        "action": "الاحتفاء بالعيد الوطني الـ 56 لسلطنة عُمان بمحتوى وطني أصيل • استعراض إطلالات العيد الوطني، العطور الراقية، وديكورات الضيافة • تسجيل شاشة لبنر اليوم الوطني بتطبيق نون • استخدام كود الخصم الفعّال PROMO15 لطلبات العيد الوطني الحالية + عمل هايب وتشويق لكود YFS2026 بخصم 25% على منتجات نون إكسبريس ينطلق 19 نوفمبر",
-        "msg": "احتفالات اليوم الوطني العماني، إطلالات وعطور فاخرة، أجواء ضيافة منزلية"
-      },
-      "promoCode": "PROMO15",
-      "secondaryCode": "YFS2026",
-      "countryDiscounts": {
-        "QA": {
-          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 75 QAR)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 62.5 QAR on min order 250 QAR)!",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 62.5 ريال عند الطلب بـ 250 ريال أو أكثر)!",
-          "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "KW": {
-          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 6 KWD)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 5 KWD on min order 20 KWD)!",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 5 دينار عند الطلب بـ 20 دينار أو أكثر)!",
-          "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "BH": {
-          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 7.5 BHD)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 6.25 BHD on min order 25 BHD)!",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 6.25 دينار عند الطلب بـ 25 دينار أو أكثر)!",
-          "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "OM": {
-          "en": "<strong>Use active code (PROMO15)</strong> for flat 15% off your order on noon app (up to 7.5 OMR)! <strong>PLUS HYPE UP CODE (YFS2026)</strong> launching Nov 19 with massive 25% off on <strong>noon Express items</strong> (up to 6.25 OMR on min order 25 OMR) & Oman National Day celebration!",
-          "ar": "<strong>استخدم كود (PROMO15)</strong> الحالي لخصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال)! <strong>مع تشويق وهايب كود (YFS2026)</strong> اللي هيبدأ من 19 نوفمبر بخصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> (بحد أقصى 6.25 ريال عند الطلب بـ 25 ريال أو أكثر) واحتفالات العيد الوطني العماني!",
-          "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
-        }
-      }
-    },
-    {
-      "en": {
-        "title": "Phase 5: Yellow Friday Sale (YFS) Mega Launch",
-        "date": "November 19 – 30",
-        "categories": "Site-wide Mega Deals — All 7 Focus Categories (Beauty, Fashion, Tech, Home, Baby, Health, Sports)",
-        "action": "The absolute biggest commercial shopping event in 2026! Launch the new unique YFS coupon code (YFS2026) offering flat 25% off exclusively on noon Express items (Do NOT mention PROMO15) • Showcase assigned hero SKUs across all categories • Native app screen recording clicking Yellow Friday banner and applying YFS2026 • Emphasize unmatched prices and unbeatable savings on noon Express items",
-        "msg": "Yellow Friday is LIVE, Biggest deals of 2026, Unbeatable discount % drops"
-      },
-      "ar": {
-        "title": "المرحلة 5: مهرجان الجمعة الصفراء السنوي (Yellow Friday Sale)",
-        "date": "19 - 30 نوفمبر",
-        "categories": "عروض شاملة لكل الأقسام — الفئات الـ 7 الرئيسية (الجمال، الأزياء، التقنية، المنزل، الأطفال، الصحة، الرياضة)",
-        "action": "الحدث التجاري الأضخم في عام 2026 على الإطلاق! إطلاق كود الجمعة الصفراء الحصري (YFS2026) بخصم 25% مفعّل حصرياً على منتجات نون إكسبريس (noon Express) في كافة الأقسام (يُمنع ذكر كود PROMO15 نهائياً) • استعراض منتجات الهيرو المحددة • تسجيل شاشة مباشر للنقر على بنر الجمعة الصفراء وتطبيق كود YFS2026 عند الدفع • التأكيد على أقوى توفير وعروض في السنة",
-        "msg": "الجمعة الصفراء انطلقت، أقوى عروض 2026، أعلى نسب خصم وتوفير"
-      },
-      "promoCode": "YFS2026",
-      "secondaryCode": null,
-      "countryDiscounts": {
-        "QA": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 62.5 QAR on min order 250 QAR)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 62.5 ريال قطري عند الطلب بـ 250 ريال أو أكثر)! (عروض الجمعة الصفراء)",
-          "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "KW": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 5 KWD on min order 20 KWD)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 5 دينار كويتي عند الطلب بـ 20 دينار أو أكثر)! (عروض الجمعة الصفراء)",
-          "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "BH": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 BHD on min order 25 BHD)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 دينار بحريني عند الطلب بـ 25 دينار أو أكثر)! (عروض الجمعة الصفراء)",
-          "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "OM": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 OMR on min order 25 OMR)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 ريال عماني عند الطلب بـ 25 ريال أو أكثر)! (عروض الجمعة الصفراء)",
-          "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
-        }
-      }
-    },
-    {
-      "en": {
-        "title": "Phase 6: YFS Climax Weekend (Final 48h Countdown)",
-        "date": "November 26 – 28",
-        "categories": "Flash Deals, Sell-Out Tech, High-Demand Bundles, Final Clearance",
-        "action": "Maximum urgency and conversion sprint • Countdown messaging: \"Final 48 hours of Yellow Friday! Deals are selling out!\" • Direct users to checkout carts immediately with promo code YFS2026 for 25% off on noon Express items before midnight cutoff",
-        "msg": "Final hours of Yellow Friday, Last chance deals, Checkout before stock ends"
-      },
-      "ar": {
-        "title": "المرحلة 6: الويكند الختامي للجمعة الصفراء (آخر 48 ساعة)",
-        "date": "26 - 28 نوفمبر",
-        "categories": "عروض الفلاش السريعة، تكنولوجيا قاربت على النفاد، حزم التوفير، التصفية النهائية",
-        "action": "سباق الشراء السريع وأعلى درجات الإلحاح • رسائل العد التنازلي ونفاد الكميات: \"آخر 48 ساعة في الجمعة الصفراء! العروض بتخلص!\" • حث المتابعين على إتمام طلبات السلة فوراً بكود YFS2026 لخصم 25% على منتجات نون إكسبريس قبل إغلاق العروض",
-        "msg": "الساعات الأخيرة من الجمعة الصفراء، فرصة أخيرة للعروض، اشترِ قبل نفاد الكميات"
-      },
-      "promoCode": "YFS2026",
-      "secondaryCode": null,
-      "countryDiscounts": {
-        "QA": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 62.5 QAR on min order 250 QAR)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 62.5 ريال قطري عند الطلب بـ 250 ريال أو أكثر)! (عروض الجمعة الصفراء)",
-          "tag": "@noon_qar (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "KW": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 5 KWD on min order 20 KWD)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 5 دينار كويتي عند الطلب بـ 20 دينار أو أكثر)! (عروض الجمعة الصفراء)",
-          "tag": "@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "BH": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 BHD on min order 25 BHD)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 دينار بحريني عند الطلب بـ 25 دينار أو أكثر)! (عروض الجمعة الصفراء)",
-          "tag": "@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)"
-        },
-        "OM": {
-          "en": "<strong>Use code (YFS2026)</strong> for 25% off on <strong>noon Express items</strong> on the noon app (up to 6.25 OMR on min order 25 OMR)! (Yellow Friday Sale — noon Express)",
-          "ar": "<strong>استخدم كود (YFS2026)</strong> للحصول على خصم 25% على <strong>منتجات نون إكسبريس (noon Express)</strong> عبر تطبيق نون (بحد أقصى 6.25 ريال عماني عند الطلب بـ 25 ريال أو أكثر)! (عروض الجمعة الصفراء)",
-          "tag": "@noon_omn (Mandatory Collab invite to @noon & @noon_uae)"
-        }
-      }
-    }
-  ]
-},
-  {
-    id: 'oct2026',
-    nameEn: 'Noon GCC October Campaign 2026',
-    nameAr: 'حملة نون لدول الخليج - شهر أكتوبر',
-    monthEn: 'October', monthAr: 'أكتوبر',
-    promoCode: 'PROMO15',
-    sender: 'Mahmoud',
-    briefUrl: 'https://drive.google.com/file/d/1gsl1X8Rp2QRt5Jh6KRnf2lVR_inbn_1A/view?usp=drive_link',
-    briefUrlEn: '',
-    briefUrlAr: '',
-    guideUrl: 'https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view',
-    portalUrl: 'https://noon-invoice.vercel.app/',
-    hashtags: '#noon #HealthAndFitness #noonHome #noonBeauty',
-    countryDiscounts: {
-      'QA': {
-        en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 75 QAR / equivalent)!',
-        ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 75 ريال قطري أو ما يعادله)!',
-        tag: '@noon_qar (Mandatory Collab invite to @noon & @noon_uae)'
-      },
-      'KW': {
-        en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 6 KWD / equivalent)!',
-        ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 6 دينار كويتي أو ما يعادله)!',
-        tag: '@noon_kuwt (Mandatory Collab invite to @noon & @noon_uae)'
-      },
-      'BH': {
-        en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 BHD / equivalent)!',
-        ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 دينار بحريني أو ما يعادله)!',
-        tag: '@noon.bahr (Mandatory Collab invite to @noon & @noon_uae)'
-      },
-      'OM': {
-        en: '<strong>Use code (PROMO15)</strong> for flat 15% off your order on the noon app (up to 7.5 OMR / equivalent)!',
-        ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على خصم ثابت 15% على طلبك من تطبيق نون (بحد أقصى 7.5 ريال عماني أو ما يعادله)!',
-        tag: '@noon_omn (Mandatory Collab invite to @noon & @noon_uae)'
-      }
-    },
-    phases: [
-      {
-        en: {
-          title: 'International Coffee Day',
-          date: 'October 1 – 3',
-          categories: 'Coffee Tools, Coffee Beans, Mugs, Barista Tools',
-          action: 'Start with a strong 3-sec hook (Health, Fitness, Beauty, or Home) • Morning wellness routine, coffee as a pre-workout energy drink, or organizing an aesthetic home coffee corner • Smooth transition to assigned SKUs • In-app walkthrough showing the International Coffee Day banner • CTA: Download noon app and use promo code PROMO15',
-          msg: 'Morning wellness routine, Pre-workout energy drink, Aesthetic home coffee corner'
-        },
-        ar: {
-          title: 'اليوم العالمي للقهوة',
-          date: '1 - 3 أكتوبر',
-          categories: 'أدوات القهوة، الحبوب، الأكواب، أدوات الباريستا',
-          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ (صحة أو لياقة أو جمال أو منزل) • روتين العافية الصباحي، القهوة كمشروب طاقة قبل التمارين، أو تنظيم ركن القهوة المنزلي الجمالي • الانتقال بسلاسة لاستعراض المنتجات المحددة (SKUs) • تسجيل شاشة يوضح النقر على بنر اليوم العالمي للقهوة بتطبيق نون • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
-          msg: 'روتين العافية الصباحي، القهوة كمشروب طاقة قبل التمارين، تنظيم ركن القهوة المنزلي الجمالي'
-        }
-      },
-      {
-        en: {
-          title: 'Grand Lifestyle Reset',
-          date: 'October 5 – 8',
-          categories: 'Home, Fashion, Lifestyle, Daily Essentials',
-          action: 'Start with a strong 3-sec hook (Home & Organization) • Full home reset and organization or creating a comfortable, aesthetic living space • Smooth transition to assigned SKUs • In-app walkthrough showing the Grand Lifestyle Reset banner • CTA: Download noon app and use promo code PROMO15',
-          msg: 'Full home reset & organization, Comfortable & aesthetic living space'
-        },
-        ar: {
-          title: 'إعادة ضبط أسلوب الحياة الكبير',
-          date: '5 - 8 أكتوبر',
-          categories: 'المنزل، الموضة، أسلوب الحياة، المستلزمات اليومية',
-          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ (تنظيم وديكور المنزل) • إعادة ترتيب وتنظيم المنزل بالكامل أو تنسيق مساحة معيشة مريحة وجمالية • الانتقال بسلاسة لاستعراض المنتجات المحددة (SKUs) • تسجيل شاشة يوضح النقر على بنر إعادة ضبط أسلوب الحياة الكبير • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
-          msg: 'إعادة ترتيب وتنظيم المنزل بالكامل، تنسيق مساحة معيشة مريحة وجمالية'
-        }
-      },
-      {
-        en: {
-          title: 'Mega Tech Sale',
-          date: 'October 16 – 19',
-          categories: 'Electronics, Laptops, TV & Appliances, Gaming, Telco & Smart Tech',
-          action: 'Start with a strong 3-sec hook • Smart home & aesthetic tech essentials, beauty tech devices, or fitness/sports tech • Smooth transition to assigned tech SKUs • In-app walkthrough showing the Mega Tech Sale banner • CTA: Download noon app and use promo code PROMO15',
-          msg: 'Smart home & aesthetic gadgets, Beauty devices, Fitness & sports tech'
-        },
-        ar: {
-          title: 'تخفيضات التكنولوجيا الكبرى',
-          date: '16 - 19 أكتوبر',
-          categories: 'الإلكترونيات، اللابتوبات، التلفزيون والأجهزة، الألعاب، الذكاء والاتصالات',
-          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ • مستلزمات المنزل والجماليات الذكية، أجهزة التجميل، أو التكنولوجيا الرياضية • الانتقال بسلاسة لاستعراض المنتجات المحددة (SKUs) • تسجيل شاشة يوضح النقر على بنر تخفيضات التكنولوجيا الكبرى • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
-          msg: 'مستلزمات المنزل والجماليات الذكية، أجهزة التجميل، التكنولوجيا الرياضية'
-        }
-      },
-      {
-        en: {
-          title: "Omani Woman's Day",
-          date: 'October 16 – 17',
-          categories: "Women's Fashion, Beauty, Luxury Fragrances, Gift Sets",
-          action: 'Start with a strong 3-sec hook • Celebrating active & elegant Omani women with luxury looks, luxury perfumes, elegant home decor, or pampering and wellness ideas • Showcase assigned SKUs • In-app banner walkthrough • CTA: Download noon app and use promo code PROMO15',
-          msg: 'Celebrating active & elegant women, Luxury looks & perfumes, Pampering & wellness ideas'
-        },
-        ar: {
-          title: 'يوم المرأة العمانية',
-          date: '16 - 17 أكتوبر',
-          categories: 'الأزياء النسائية، الجمال، العطور الفاخرة، مجموعات الهدايا',
-          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ • الاحتفاء بالمرأة العمانية النشطة والأنيقة بإطلالات فاخرة، عطور وديكورات المنزل الراقية، أو أفكار تدليل الصحة والعافية والرياضة • استعراض المنتجات المحددة (SKUs) • تسجيل شاشة يوضح بنر الفعالية بتطبيق نون • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
-          msg: 'الاحتفاء بالمرأة النشطة والأنيقة، إطلالات وعطور فاخرة، أفكار تدليل الصحة والعافية والرياضة'
-        }
-      },
-      {
-        en: {
-          title: 'Payweek Sale',
-          date: 'October 24 – 31',
-          categories: 'Site-wide Multi-category Deals (Fashion, Tech, Home, Beauty)',
-          action: 'Start with a strong 3-sec hook • Vanity table & beauty upgrades or wellness & fitness supplements • Showcase assigned SKUs across site-wide deals • In-app walkthrough showing the Payweek Sale banner • CTA: Download noon app and use promo code PROMO15',
-          msg: 'Vanity table & beauty upgrade, Wellness & fitness supplements, Payweek best deals'
-        },
-        ar: {
-          title: 'تخفيضات أسبوع الرواتب',
-          date: '24 - 31 أكتوبر',
-          categories: 'عروض شاملة لعدة فئات على مستوى الموقع (الموضة، التكنولوجيا، المنزل، الجمال)',
-          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ • ترقية طاولة الزينة والتجميل أو مكملات العافية واللياقة البدنية • استعراض المنتجات المحددة (SKUs) مع عروض نهاية الشهر • تسجيل شاشة يوضح النقر على بنر تخفيضات أسبوع الرواتب • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
-          msg: 'ترقية طاولة الزينة والتجميل، مكملات العافية واللياقة البدنية، أفضل عروض أسبوع الرواتب'
-        }
-      },
-      {
-        en: {
-          title: 'Breast Cancer Awareness Month',
-          date: 'October 1 – 31',
-          categories: "Wellness, Self-Care, Women's Care & Fitness",
-          action: "Start with a strong 3-sec hook • Highlighting holistic women's health, skincare routines, or active fitness and wellness habits • Showcase assigned wellness SKUs • In-app walkthrough to the campaign page • CTA: Download noon app and use promo code PROMO15",
-          msg: "Holistic women's health, Skincare routines, Active fitness & wellness habits"
-        },
-        ar: {
-          title: 'شهر التوعية بسرطان الثدي',
-          date: '1 - 31 أكتوبر',
-          categories: 'العافية، العناية الذاتية، العناية بالمرأة واللياقة',
-          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ • تسليط الضوء على الصحة الشاملة للمرأة، روتينات العناية بالبشرة، أو عادات اللياقة والعافية النشطة • استعراض منتجات العناية والعافية المحددة (SKUs) • تسجيل شاشة لبنر وصفحة الحملة بالتطبيق • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
-          msg: 'الصحة الشاملة للمرأة، روتينات العناية بالبشرة، عادات اللياقة والعافية النشطة'
-        }
-      },
-      {
-        en: {
-          title: 'Halloween Page',
-          date: 'October 1 – 31',
-          categories: 'Costumes, Party Supplies, Spooky Decor, Treats & Accessories',
-          action: 'Start with a strong 3-sec hook • Spooky makeup & beauty transformations, aesthetic Halloween home decor, or preparing healthy low-sugar fitness treats • Showcase assigned Halloween SKUs • In-app walkthrough to the Halloween banner/page • CTA: Download noon app and use promo code PROMO15',
-          msg: 'Spooky makeup & beauty transformations, Aesthetic Halloween home decor, Healthy low-sugar fitness treats'
-        },
-        ar: {
-          title: 'صفحة الهالوين',
-          date: '1 - 31 أكتوبر',
-          categories: 'الأزياء، مستلزمات الحفلات، الديكورات المرعبة، الحلويات والإكسسوارات',
-          action: 'البدء بخطّاف جذاب في أول 3 ثوانٍ • تحولات المكياج والجمال المخيف، تجديد ديكور المنزل الجمالي للهالوين، أو تحضير أطباق صحية وقليلة السكر تناسب أسلوب الحياة الرياضي • استعراض منتجات الهالوين المحددة (SKUs) • تسجيل شاشة لصفحة الهالوين بالتطبيق • دعوة لاتخاذ إجراء (CTA) لتحميل التطبيق واستخدام كود PROMO15',
-          msg: 'تحولات المكياج والجمال المخيف، تجديد ديكور المنزل الجمالي للهالوين، تحضير أطباق صحية وقليلة السكر'
-        }
-      }
-    ]
-  },
-  {
-    id: 'sep2026',
-    nameEn: 'Noon GCC September Campaign 2026',
-    nameAr: 'حملة نون لدول الخليج - شهر سبتمبر',
-    monthEn: 'September', monthAr: 'سبتمبر',
-    promoCode: 'PROMO15',
-    sender: 'Mahmoud',
-    briefUrl: 'https://drive.google.com/file/d/1FspsfIuJHSXwWNiFd5Mv3TxljCbmYE0q/view?usp=sharing',
-    briefUrlEn: 'https://drive.google.com/file/d/1FspsfIuJHSXwWNiFd5Mv3TxljCbmYE0q/view?usp=sharing',
-    briefUrlAr: 'https://drive.google.com/file/d/1sHKimVC97C_x0fFGBAqXkb905V2DzMDj/view?usp=sharing',
-    guideUrl: 'https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view',
-    portalUrl: 'https://noon-invoice.vercel.app/',
-    hashtags: '#noon #noonGCC #noonBeauty',
-    countryDiscounts: {
-      'QA': { en: '<strong>Use code (FIRST20)</strong> for flat 20% off your first order on the noon app! (new customers)', ar: '<strong>استخدم كود (FIRST20)</strong> واحصل على خصم 20% على طلبك الأول من تطبيق نون! (للعملاء الجدد)', tag: '@noon_qar' },
-      'KW': { en: '<strong>Use code (FIRST20)</strong> for flat 20% off your first order on the noon app! (new customers)', ar: '<strong>استخدم كود (FIRST20)</strong> واحصل على خصم 20% على طلبك الأول من تطبيق نون! (للعملاء الجدد)', tag: '@noon_kuwt' },
-      'BH': { en: '<strong>Use code (PROMO15)</strong> for extra savings on your order!', ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!', tag: '@noon.bahr' },
-      'OM': { en: '<strong>Use code (PROMO15)</strong> for extra savings on your order!', ar: '<strong>استخدم كود (PROMO15)</strong> للحصول على توفير إضافي على طلبك!', tag: '@noon_omn' }
-    },
-    phases: [
-      { en: { title: 'Grand Lifestyle Reset (Primary)', date: 'September 7', categories: 'Home, Fashion, Lifestyle, & Daily Essentials', action: 'Download the noon app • Show the Grand Lifestyle Reset campaign banner inside the app (screen recording) • Showcase provided SKUs alongside highlighted products from featured categories • Encourage users to explore the category through the banner • Promote the market-specific promo code', msg: 'September must-have picks featuring provided SKUs' },
-        ar: { title: 'تجديد أسلوب الحياة الكبير (رئيسية)', date: '7 سبتمبر', categories: 'المنزل، الموضة، أسلوب الحياة، المستلزمات اليومية', action: 'حث المتابعين على تحميل تطبيق نون • عرض البنر الإعلاني لحملة تجديد أسلوب الحياة الكبير داخل التطبيق (تسجيل شاشة) • استعراض المنتجات المحددة (SKUs) إلى جانب المنتجات المميزة من الأقسام المحددة • تشجيع المستخدمين على استكشاف القسم من خلال البنر • الترويج لكود الخصم المخصص لكل دولة', msg: 'اختيارات سبتمبر الأساسية باستخدام المنتجات المحددة' } },
-      { en: { title: 'International Makeup Day (Secondary)', date: 'September 7 – 11', categories: 'Makeup, Skincare, Beauty Tools, & Cosmetics', action: 'Show the International Makeup Day banner inside the app • Feature assigned SKUs, beauty routines, and trending cosmetics • Direct users to browse beauty deals through the app banner • Promote the market-specific promo code', msg: 'Makeup transformation, Beauty haul' },
-        ar: { title: 'اليوم العالمي للمكياج (فرعية)', date: '7 - 11 سبتمبر', categories: 'المكياج، العناية بالبشرة، أدوات التجميل، ومستحضرات التجميل', action: 'إظهار البنر الإعلاني لليوم العالمي للمكياج داخل التطبيق • عرض المنتجات المحددة (SKUs)، روتين التجميل، ومستحضرات التجميل الأكثر تريند • توجيه المستخدمين لتصفح عروض الجمال عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة', msg: 'تحوّل المكياج، جولة مشتريات الجمال' } },
-      { en: { title: 'Mega Tech Sale (Primary)', date: 'September 10 – 14', categories: 'Electronics, Laptops, TV & Appliances, Gaming, Telco & Gadgets', action: 'Show the Mega Tech Sale banner inside the app • Feature assigned tech SKUs and showcase top electronics/gadgets • Direct users to browse tech deals through the app banner • Promote the market-specific promo code', msg: 'Tech unboxing & reviews' },
-        ar: { title: 'تخفيضات التكنولوجيا الكبرى (رئيسية)', date: '10 - 14 سبتمبر', categories: 'الإلكترونيات، أجهزة اللابتوب، التلفزيونات والأجهزة المنزلية، ألعاب الفيديو، والاتصالات والإكسسوارات', action: 'إظهار البنر الإعلاني لتخفيضات التكنولوجيا الكبرى داخل التطبيق • استعراض منتجات التكنولوجيا المحددة (SKUs) وأبرز الأجهزة الإلكترونية • توجيه المستخدمين لتصفح عروض التكنولوجيا عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة', msg: 'فتح صندوق الأجهزة التكنولوجية ومراجعتها' } },
-      { en: { title: 'Health and Wellness Event (Secondary)', date: 'September 9 – 21', categories: 'Supplements, Fitness Accessories, Healthy Snacks, & Personal Wellness', action: 'Show the Health and Wellness Event banner inside the app • Showcase assigned SKUs, wellness products, and workout essentials • Direct users to discover health offers via the dedicated app banner • Promote the market-specific promo code', msg: 'Wellness routines & fitness gear' },
-        ar: { title: 'فعالية الصحة واللياقة (فرعية)', date: '9 - 21 سبتمبر', categories: 'المكملات الغذائية، مستلزمات اللياقة البدنية، الوجبات الخفيفة الصحية، والعناية الشخصية', action: 'إظهار البنر الإعلاني لفعالية الصحة واللياقة داخل التطبيق • استعراض المنتجات المحددة (SKUs)، منتجات العناية بالصحة، ومستلزمات التمارين الرياضية • توجيه المستخدمين لاكتشاف عروض الصحة عبر البنر المخصص في التطبيق • الترويج لكود الخصم المخصص لكل دولة', msg: 'روتين العناية بالصحة ومستلزمات الرياضة' } },
-      { en: { title: 'End of Month Sale (Primary)', date: 'September 24 – 30', categories: 'Multi-category site-wide deals (Fashion, Tech, Home, Beauty)', action: 'Show the End of Month Sale banner inside the app • Showcase provided SKUs and highlight best end-of-month shopping deals • Direct users to explore deals through the app banner • Promote the market-specific promo code', msg: 'Best end-of-month deals picks' },
-        ar: { title: 'تخفيضات نهاية الشهر (رئيسية)', date: '24 - 30 سبتمبر', categories: 'عروض شاملة لكافة الأقسام (الموضة، التكنولوجيا، المنزل، الجمال)', action: 'إظهار البنر الإعلاني لتخفيضات نهاية الشهر داخل التطبيق • استعراض المنتجات المحددة (SKUs) وتسليط الضوء على أفضل عروض نهاية الشهر • توجيه المستخدمين لاستكشاف العروض عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة', msg: 'أفضل عروض نهاية الشهر' } },
-      { en: { title: 'International Coffee Day (Secondary)', date: 'September 24 – 30', categories: 'Coffee Machines, Espresso Beans, Mugs, Barista Tools, & Coffee Accessories', action: 'Show the International Coffee Day banner inside the app • Showcase assigned SKUs, coffee setups, or daily morning routine integrations • Direct users to check out coffee deals via the in-app banner • Promote the market-specific promo code', msg: 'Morning coffee routine' },
-        ar: { title: 'اليوم العالمي للقهوة (فرعية)', date: '24 - 30 سبتمبر', categories: 'ماكينات القهوة، حبوب الإسبريسو، الأكواب، أدوات الباريستا، وإكسسوارات القهوة', action: 'إظهار البنر الإعلاني لليوم العالمي للقهوة داخل التطبيق • استعراض المنتجات المحددة (SKUs)، ركن القهوة، أو دمجها ضمن الروتين الصباحي اليومي • توجيه المستخدمين للاطلاع على عروض القهوة عبر بنر التطبيق • الترويج لكود الخصم المخصص لكل دولة', msg: 'روتين القهوة الصباحي' } }
-    ]
-  },
-  {
-    id: 'aug2026',
-    nameEn: 'Noon GCC August Campaign 2026',
-    nameAr: 'حملة نون لدول الخليج - شهر أغسطس',
-    monthEn: 'August', monthAr: 'أغسطس',
-    promoCode: 'PROMO15',
-    sender: 'Mahmoud',
-    briefUrl: 'https://drive.google.com/file/d/1c0lFfQJ7_Nt1tP0NqLebCh3uBK39OWCB/view?usp=drive_link',
-    guideUrl: 'https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view',
-    portalUrl: 'https://noon-invoice.vercel.app/',
-    hashtags: '#noon #noonGCC #GrandLifestyleReset #MegaTechFestival #BackToSchool #noonBeauty #noonFashion',
-    countryDiscounts: {
-      'QA': { en: '<strong>New Users:</strong> 15% off up to 75 QAR<br><strong>Returning Users:</strong> 5% off up to 25 QAR', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 75 ريال قطري<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 25 ريال قطري', tag: '@noon_qar' },
-      'KW': { en: '<strong>New Users:</strong> 15% off up to 7 KWD<br><strong>Returning Users:</strong> 5% off up to 2 KWD', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7 دينار كويتي<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2 دينار كويتي', tag: '@noon_kuwt' },
-      'BH': { en: '<strong>New Users:</strong> 15% off up to 7.5 BHD<br><strong>Returning Users:</strong> 5% off up to 2.5 BHD', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 دينار بحريني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 دينار بحريني', tag: '@noon.bahr' },
-      'OM': { en: '<strong>New Users:</strong> 15% off up to 7.5 OMR<br><strong>Returning Users:</strong> 5% off up to 2.5 OMR', ar: '<strong>العملاء الجدد:</strong> خصم 15% بحد أقصى 7.5 ريال عماني<br><strong>العملاء الحاليين:</strong> خصم 5% بحد أقصى 2.5 ريال عماني', tag: '@noon_omn' }
-    },
-    phases: [
-      { en: { title: 'Grand Lifestyle Reset', date: 'August 7 – 10', categories: 'Home, Fashion, Lifestyle, & Daily Essentials', action: 'Download the noon app • Show the campaign banner inside the app (screen recording) • Highlight products from the featured categories • Encourage users to explore the category through the banner', msg: 'Must-have picks from this category, Daily routine using these products' },
-        ar: { title: 'انطلاقة أسلوب الحياة', date: '7 - 10 أغسطس', categories: 'المنزل، الأزياء، أسلوب الحياة، والأساسيات اليومية', action: 'تحميل تطبيق نون • إظهار لافتة الحملة داخل التطبيق (تسجيل الشاشة) • إبراز منتجات الفئات المميزة • حث المستخدمين على استكشاف الفئة عبر اللافتة', msg: 'المنتجات اللازمة من هذه الفئة، الروتين اليومي باستخدام هذه المنتجات' } },
-      { en: { title: 'Beauty Campaign', date: 'August 6 – 9', categories: 'Skincare, Makeup, Haircare, Fragrances, & Personal Care', action: 'Show the Beauty campaign banner • Feature skincare or makeup products • Demonstrate a quick beauty routine', msg: 'GRWM looks, Honest product reviews' },
-        ar: { title: 'حملة الجمال', date: '6 - 9 أغسطس', categories: 'العناية بالبشرة، المكياج، العناية بالشعر، العطور، والعناية الشخصية', action: 'إظهار لافتة حملة الجمال • عرض منتجات للعناية بالمكياج • تقديم روتين جمال سريع', msg: 'إطلالات GRWM، مراجعات صادقة للمنتجات' } },
-      { en: { title: 'Mega Tech Festival', date: 'August 10 – 13', categories: 'Electronics, Laptops, TV & Appliances, Gaming, Telco & Gadgets', action: 'Show the Tech Festival banner • Feature a gadget or appliance from the categories • Show the product listing inside the noon app', msg: 'Tech unboxing, Best-value gadget picks' },
-        ar: { title: 'مهرجان التقنية الأكبر', date: '10 - 13 أغسطس', categories: 'الإلكترونيات، اللابتوبات، التلفزيونات والأجهزة المنزلية، الألعاب، الاتصالات', action: 'إظهار لافتة مهرجان التقنية • عرض جهاز أو منتج من الفئات • إظهار صفحة المنتج داخل تطبيق نون', msg: 'فتح علبة التقنية، أفضل الأجهزة بقيمة ممتازة' } },
-      { en: { title: 'Health & Nutrition Campaign', date: 'August 13 – 16', categories: 'Supplements, Fitness Accessories, Healthy Snacks, & Wellness', action: 'Show the Health campaign banner • Feature wellness or fitness products • Show a healthy routine moment', msg: 'Fitness routine picks, Healthy lifestyle swaps' },
-        ar: { title: 'حملة الصحة والتغذية', date: '13 - 16 أغسطس', categories: 'المكملات الغذائية، إكسسوارات اللياقة البدنية، الوجبات الخفيفة الصحية، والعناية بالصحة', action: 'إظهار لافتة حملة الصحة • عرض منتجات للعافية أو اللياقة • إظهار لحظة روتين صحي', msg: 'اختيارات روتين اللياقة، بدائل صحية لنمط الحياة' } },
-      { en: { title: 'Fashion Campaign', date: 'August 20 – 23', categories: 'Apparel, Footwear, Watches & Eyewear, Bags & Accessories', action: 'Show the Fashion banner • Style an outfit from noon items • Show the items inside the app', msg: 'Outfit transitions, Seasonal style haul' },
-        ar: { title: 'حملة الأزياء', date: '20 - 23 أغسطس', categories: 'الملابس، الأحذية، الساعات والنظارات، الحقائب والإكسسوارات', action: 'إظهار لافتة الأزياء • تنسيق إطلالة من منتجات نون • إظهار المنتجات داخل التطبيق', msg: 'انتقالات الإطلالات، تشكيلة إطلالات الموسم' } },
-      { en: { title: 'Back To School Sale', date: 'August 14 – 31', categories: 'Stationery, Backpacks, Laptops & Tablets, School Essentials, Kids Fashion', action: 'Show the Back To School banner • Feature school supplies • Show the noon app browsing experience', msg: 'School haul, Back-to-routine essentials' },
-        ar: { title: 'عروض العودة للمدارس', date: '14 - 31 أغسطس', categories: 'القرطاسية، حقائب الظهر، اللابتوبات والأجهزة اللوحية، المستلزمات المدرسية، أزياء الأطفال', action: 'إظهار لافتة العودة للمدارس • عرض مستلزمات مدرسية • إظهار تجربة التصفح في تطبيق نون', msg: 'تشكيلة المستلزمات المدرسية، أساسيات العودة للروتين' } },
-      { en: { title: 'Salalah Khareef Festival (Oman)', date: 'Oman Only', categories: 'Seasonal Offers — All Categories', action: 'Show the Khareef banner • Feature seasonal picks • Mention the Oman-exclusive offers', msg: 'Khareef season vibes, Family outings picks' },
-        ar: { title: 'مهرجان صلالة الخريف (عُمان)', date: 'عُمان فقط', categories: 'عروض موسمية — كل الفئات', action: 'إظهار لافتة الخريف • عرض اختيارات موسمية • ذكر العروض الحصرية لعُمان', msg: 'أجواء موسم الخريف، اختيارات للخروجات العائلية' } }
-    ]
-  },
-  {
-    id: 'apr2026',
-    nameEn: 'Noon GCC April Campaign 2026',
-    nameAr: 'حملة نون لدول الخليج - شهر أبريل',
-    monthEn: 'April', monthAr: 'أبريل',
-    promoCode: 'PROMO10',
-    sender: 'Mahmoud',
-    briefUrl: '',
-    guideUrl: '',
-    portalUrl: 'https://noon-invoice.vercel.app/',
-    hashtags: '#noon #noonGCC #PROMO10',
-    countryDiscounts: {
-      'QA': { en: '10% off with code PROMO10 on stories & caption', ar: 'خصم 10% بكود PROMO10 في الستوري والكابشن', tag: '@noon_qar' },
-      'KW': { en: '10% off with code PROMO10 on stories & caption', ar: 'خصم 10% بكود PROMO10 في الستوري والكابشن', tag: '@noon_kuwt' },
-      'BH': { en: '10% off with code PROMO10 on stories & caption', ar: 'خصم 10% بكود PROMO10 في الستوري والكابشن', tag: '@noon.bahr' },
-      'OM': { en: '10% off with code PROMO10 on stories & caption', ar: 'خصم 10% بكود PROMO10 في الستوري والكابشن', tag: '@noon_omn' }
-    },
-    phases: [
-      { en: { title: 'Grand Lifestyle Sale', date: 'April 12 – 13', categories: 'Home, Fashion, W&E, Footwear, Beauty, Fitness', action: 'Show the campaign banner • Feature products from the categories • Use code PROMO10 on stories & caption', msg: 'Grand sale picks, Everyday lifestyle essentials' },
-        ar: { title: 'Grand Lifestyle Sale', date: '12 - 13 أبريل', categories: 'المنزل، الأزياء، الإلكترونيات والأجهزة، الأحذية، الجمال، اللياقة', action: 'إظهار لافتة الحملة • عرض منتجات من الفئات • استخدام كود PROMO10 في الستوري والكابشن', msg: 'اختيارات التخفيضات الكبرى، أساسيات الحياة اليومية' } },
-      { en: { title: 'Gap – Light Phase', date: 'April 14 – 16', categories: 'Beauty, Fashion basics, Home essentials, Footwear, Fitness, Coupons/Bundles', action: 'Use code PROMO10 • Tease the Mega Tech Festival (April 17–20) — 10% mention on stories/caption', msg: 'Everyday basics, Smart savings picks' },
-        ar: { title: 'فترة انتقالية', date: '14 - 16 أبريل', categories: 'الجمال، أساسيات الأزياء، أساسيات المنزل، الأحذية، اللياقة، الكوبونات/الحزم', action: 'استخدام كود PROMO10 • التلميح لمهرجان التقنية (17 - 20 أبريل) — ذكر 10% في الستوري/الكابشن', msg: 'أساسيات يومية، اختيارات توفير ذكية' } },
-      { en: { title: 'Mega Tech Festival', date: 'April 17 – 20', categories: 'TVs, Appliances, Laptops, Gaming, Telco', action: 'Show the Tech Festival banner • Feature a gadget from the categories • Use code PROMO10 on stories & caption', msg: 'Tech unboxing, Best-value gadget picks' },
-        ar: { title: 'مهرجان التقنية الأكبر', date: '17 - 20 أبريل', categories: 'التلفزيونات، الأجهزة، اللابتوبات، الجيمنج، الاتصالات', action: 'إظهار لافتة المهرجان • عرض جهاز من الفئات • استخدام كود PROMO10 في الستوري والكابشن', msg: 'فتح علبة التقنية، أفضل الأجهزة بقيمة ممتازة' } },
-      { en: { title: 'Gap – Light Phase', date: 'April 21 – 23', categories: 'Tech accessories, Gaming accessories, Wearables, Fashion accessories, Baby/Kids, Budget tech', action: 'Use code PROMO10 • Tease the End of Month Sale — 10% mention', msg: 'Accessory picks, Budget tech finds' },
-        ar: { title: 'فترة انتقالية', date: '21 - 23 أبريل', categories: 'إكسسوارات تقنية، إكسسوارات جيمنج، أجهزة قابلة للارتداء، إكسسوارات أزياء، الأطفال، تقنية اقتصادية', action: 'استخدام كود PROMO10 • التلميح لتخفيضات نهاية الشهر — ذكر 10%', msg: 'اختيارات الإكسسوارات، تقنية اقتصادية' } },
-      { en: { title: 'End of Month Sale', date: 'April 24 – May 2', categories: 'Platform-wide — ALL categories', action: 'Use code PROMO10 • Tease 10% about May campaigns', msg: 'Best-of-sale picks, Don\'t-miss deals' },
-        ar: { title: 'تخفيضات نهاية الشهر', date: '24 أبريل - 2 مايو', categories: 'كل الأقسام', action: 'استخدام كود PROMO10 • تلميح 10% عن حملات مايو', msg: 'أفضل عروض التخفيضات، عروض مش ممكن تفوتك' } }
-    ]
-  }];
-}
 
-function loadCampaigns() {
-  try {
-    var raw = localStorage.getItem(STORE_KEY) || localStorage.getItem('noonCampaignHub_v1');
-    if (raw) {
-      var list = JSON.parse(raw);
-      /* ترحيل: أضف الحملات المثبتة الجديدة أو حدث بيانات النظام الأساسية */
-      var seeds = seedCampaigns();
-      var changed = false;
-      seeds.forEach(function (s) {
-        var existingIdx = -1;
-        for (var i = 0; i < list.length; i++) {
-          if (list[i].id === s.id) { existingIdx = i; break; }
-        }
-        if (existingIdx === -1) {
-          list.unshift(s);
-          changed = true;
-        } else if (s.id === 'nov2026' || s.id === 'oct2026' || s.id === 'sep2026') {
-          list[existingIdx].countryDiscounts = s.countryDiscounts;
-          list[existingIdx].briefUrl = s.briefUrl;
-          list[existingIdx].briefUrlEn = s.briefUrlEn;
-          list[existingIdx].briefUrlAr = s.briefUrlAr;
-          list[existingIdx].guideUrl = s.guideUrl;
-          list[existingIdx].portalUrl = s.portalUrl;
-          list[existingIdx].logoUrl = s.logoUrl;
-          list[existingIdx].hashtags = s.hashtags;
-          list[existingIdx].phases = s.phases;
-          list[existingIdx].nameEn = s.nameEn;
-          list[existingIdx].nameAr = s.nameAr;
-          list[existingIdx].promoCode = s.promoCode;
-          changed = true;
-        }
-      });
-      if (changed) { saveCampaigns(list); }
-      return list;
-    }
-  } catch (e) {}
-  var seed = seedCampaigns();
-  saveCampaigns(seed);
-  return seed;
-}
-function saveCampaigns(list) {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify(list)); } catch (e) {}
-}
-
-var CAMPAIGNS = loadCampaigns();
-var currentOut = 'email-en';
-
-/* ---------- صلاحيات المدير ولوحة الإدارة ---------- */
-var ADMIN_KEY = 'noonCampaignHub_admin';
-var ADMIN_PIN_KEY = 'noonCampaignHub_adminPin';
-var isAdmin = false;
-try { isAdmin = localStorage.getItem(ADMIN_KEY) === '1'; } catch (e) {}
-
-function triggerAdminEntry() {
-  if (isAdmin) {
-    openAdminModal();
-  } else {
-    adminAction();
-  }
-}
-
-function adminAction() {
-  if (isAdmin) {
-    openAdminModal();
-    return;
-  }
-  var saved = null;
-  try { saved = localStorage.getItem(ADMIN_PIN_KEY); } catch (e) {}
-  var pin = prompt(saved ? 'اكتب كلمة مرور أو كود المدير:' : 'حدد كلمة مرور أو كود المدير (أول مرة):');
-  if (pin === null || !pin.trim()) return;
-  pin = pin.trim();
-  if (!saved) {
-    if (pin === 'noon@admin#2026') {
-      try { localStorage.setItem(ADMIN_PIN_KEY, pin); } catch (e) {}
-      isAdmin = true;
-    } else {
-      var pin2 = prompt('أعد كتابة نفس الكود للتأكيد:');
-      if (pin2 === null || pin2.trim() !== pin) { alert('الكودين مش متطابقين!'); return; }
-      try { localStorage.setItem(ADMIN_PIN_KEY, pin); } catch (e) {}
-      isAdmin = true;
-    }
-  } else if (pin === saved || pin === 'noon@admin#2026') {
-    isAdmin = true;
-  } else {
-    alert('كلمة المرور / كود المدير غير صحيح ❌');
-    return;
-  }
-  try { localStorage.setItem(ADMIN_KEY, '1'); } catch (e) {}
-  applyAdminUI();
-  openAdminModal();
-  mgrStatus('أهلاً يا مدير 👑 — صلاحيات كاملة مفعلة', true);
-}
-
-function openAdminModal() {
-  if (!isAdmin) {
-    adminAction();
-    return;
-  }
-  $('adminModal').classList.add('show');
-  renderList();
-}
-
-function closeAdminModal() {
-  $('adminModal').classList.remove('show');
-}
-
-function logoutAdmin() {
-  isAdmin = false;
-  try { localStorage.removeItem(ADMIN_KEY); } catch (e) {}
-  closeAdminModal();
-  closeEditor();
-  applyAdminUI();
-}
-
-function applyAdminUI() {
-  var badge = $('adminHeaderBadge');
-  if (badge) badge.style.display = isAdmin ? 'inline-flex' : 'none';
-  if ($('adminState')) $('adminState').textContent = isAdmin ? '👑 وضع المدير — صلاحيات كاملة' : '👤 وضع مستخدم عادي';
-  if ($('mgrActions')) $('mgrActions').style.display = isAdmin ? 'flex' : 'none';
-  renderList();
-}
-
-var logoClicks = 0;
-var logoClickTimer = null;
-function handleLogoSecretClick() {
-  logoClicks++;
-  clearTimeout(logoClickTimer);
-  logoClickTimer = setTimeout(function() { logoClicks = 0; }, 1200);
-  if (logoClicks >= 3) {
-    logoClicks = 0;
-    triggerAdminEntry();
-  }
-}
-
-/* ---------- UI ---------- */
-function $(id) { return document.getElementById(id); }
-function esc(s) { return String(s == null ? '' : s); }
-
-function visibleCampaigns() { return CAMPAIGNS.filter(function (c) { return !c.hidden; }); }
-
-function fillCampaignSelect() {
-  var sel = $('campaignId');
-  var cur = sel.value;
-  var vis = visibleCampaigns();
-  sel.innerHTML = vis.map(function (c) {
-    return '<option value="' + c.id + '">' + esc(c.nameEn) + '</option>';
-  }).join('');
-  if (cur && vis.some(function (c) { return c.id === cur; })) {
-    sel.value = cur;
-  } else if (vis.some(function (c) { return c.id === 'nov2026'; })) {
-    sel.value = 'nov2026';
-  } else if (vis.some(function (c) { return c.id === 'nov2026'; })) {
-    sel.value = 'nov2026';
-  } else if (vis.some(function (c) { return c.id === 'oct2026'; })) {
-    sel.value = 'oct2026';
-  }
-  onCampaignChange(true);
-}
-
-function monthKeyFromCampaign(c) {
-  if (!c || !c.monthEn) return '11';
-  var mLower = c.monthEn.toLowerCase();
-  for (var k in MONTHS_EN) {
-    if (MONTHS_EN[k].toLowerCase().indexOf(mLower) !== -1 || mLower.indexOf(MONTHS_EN[k].toLowerCase()) !== -1) return k;
-  }
-  return '11';
-}
-
-function fillMonthSelects() {
-  var opts = Object.keys(MONTHS_EN).map(function (k) {
-    return '<option value="' + k + '">' + MONTHS_EN[k] + ' / ' + MONTHS_AR[k] + '</option>';
-  }).join('');
-  $('subMonth').innerHTML = opts;
-  $('liveMonth').innerHTML = opts;
-  var c = currentCampaign();
-  var mk = monthKeyFromCampaign(c);
-  $('subMonth').value = mk;
-  $('liveMonth').value = mk;
-}
-
-function onCampaignChange(keep) {
-  var c = currentCampaign();
-  if (!c) return;
-  var ps = $('selectedPhase');
-  ps.innerHTML = c.phases.map(function (p, ix) {
-    return '<option value="' + ix + '">' + (ix + 1) + '. ' + esc(p.en.title) + ' (' + esc(p.en.date) + ')</option>';
-  }).join('');
-  var mk = monthKeyFromCampaign(c);
-  if ($('subMonth')) $('subMonth').value = mk;
-  if ($('liveMonth')) $('liveMonth').value = mk;
-  var def = defaultCodeFor($('country').value, c, 0);
-  if ($('discountCode')) $('discountCode').value = def;
-  updateDiscountPlaceholder();
-  if (!keep) render();
-}
-
-function currentCampaign() {
-  var id = $('campaignId').value;
-  var vis = visibleCampaigns();
-  return vis.filter(function (c) { return c.id === id; })[0] || vis[0] || CAMPAIGNS[0];
-}
-
-function renderList() {
-  $('campaignList').innerHTML = CAMPAIGNS.map(function (c) {
-    var adminBtns = isAdmin
-      ? '<button class="btn btn-g btn-sm" title="' + (c.hidden ? 'إظهار في القائمة' : 'إخفاء من القائمة') + '" onclick="toggleHidden(\'' + c.id + '\')">' + (c.hidden ? '🙈' : '👁️') + '</button>' +
-        '<button class="btn btn-g btn-sm" onclick="duplicateCampaign(\'' + c.id + '\')">📄</button>' +
-        '<button class="btn btn-g btn-sm" onclick="openEditor(\'' + c.id + '\')">✏️</button>' +
-        '<button class="btn btn-r btn-sm" onclick="deleteCampaign(\'' + c.id + '\')">🗑️</button>'
-      : '';
-    return '<div class="camp-item"' + (c.hidden ? ' style="opacity:.55"' : '') + '>' +
-      '<div class="nm">' + esc(c.nameEn) + (c.hidden ? ' <span class="badge off">مخفية</span>' : '') + '<small>' + esc(c.nameAr) + '</small></div>' +
-      adminBtns +
-      '</div>';
-  }).join('') || '<div style="color:var(--muted); font-size:12.5px; text-align:center; padding:10px">مفيش حملات — ' + (isAdmin ? 'ضيف واحدة' : 'كلم المدير') + '</div>';
-}
-
-function toggleHidden(id) {
-  var c = CAMPAIGNS.filter(function (x) { return x.id === id; })[0];
-  if (!c) return;
-  c.hidden = !c.hidden;
-  saveCampaigns(CAMPAIGNS);
-  renderList();
-  fillCampaignSelect();
-  if (!c.hidden && currentCampaignHidden()) $('campaignId').value = c.id;
-  mgrStatus((c.hidden ? 'الحملة اتخفيت من قائمة التوليد 🙈' : 'الحملة ظهرت تاني 👁️'), true);
-}
-function currentCampaignHidden() {
-  var id = $('campaignId').value;
-  var c = CAMPAIGNS.filter(function (x) { return x.id === id; })[0];
-  return c ? !!c.hidden : false;
-}
-
-/* ---------- التوليد ---------- */
-function defaultCodeFor(country, c, phaseIx) {
-  var ix = parseInt(phaseIx != null ? phaseIx : ($('selectedPhase') ? $('selectedPhase').value || '0' : '0'), 10);
-  if (c && c.phases && c.phases[ix] && typeof c.phases[ix].promoCode === 'string') {
-    return c.phases[ix].promoCode;
-  }
-  var m = c.countryDiscounts && c.countryDiscounts[country];
-  if (m) { var x = (m.en || '').match(/code \(?([A-Z0-9]{3,20})\)?/); if (x && x[1] !== 'CODE') return x[1]; }
-  return c.promoCode || '';
-}
-
-function updateDiscountPlaceholder() {
-  var c = currentCampaign();
-  var pIx = parseInt($('selectedPhase') ? $('selectedPhase').value || '0' : '0', 10);
-  var inp = $('discountCode');
-  if (!inp) return;
-  if (c && (c.id === 'nov2026' || (c.monthEn && c.monthEn.toLowerCase().indexOf('nov') !== -1))) {
-    if (pIx === 0) {
-      inp.placeholder = 'PROMO15';
-    } else if (pIx === 1) {
-      inp.placeholder = '1111SALE';
-    } else if (pIx === 2 || pIx === 3) {
-      inp.placeholder = 'PROMO15 (Hype YFS2026)';
-    } else {
-      inp.placeholder = 'YFS2026 (noon Express)';
-    }
-  } else {
-    inp.placeholder = 'افتراضي من الحملة';
-  }
-}
-
-function onPhaseChange() {
-  var c = currentCampaign();
-  var cur = $('discountCode').value.trim();
-  var pIx = parseInt($('selectedPhase').value || '0', 10);
-  var def = defaultCodeFor($('country').value, c, pIx);
-  var defaultCodes = ['PROMO15', '1111SALE', 'YFS2026', 'PROMO10', 'FIRST20', 'YFS15'];
-  if (!cur || defaultCodes.indexOf(cur) !== -1 || cur.indexOf('ضع الكود') !== -1 || cur.indexOf('put the code') !== -1) {
-    $('discountCode').value = def;
-  }
-  updateDiscountPlaceholder();
-  render();
-}
-function getInputs() {
-  var c = currentCampaign();
-  var country = $('country').value;
-  var pIx = parseInt($('selectedPhase') ? $('selectedPhase').value || '0' : '0', 10);
-  var rawCode = $('discountCode') ? $('discountCode').value.trim() : '';
-  var def = defaultCodeFor(country, c, pIx);
-  var code = (rawCode && rawCode !== '{CODE}' && rawCode.indexOf('ضع الكود') === -1 && rawCode.indexOf('put the code') === -1)
-    ? rawCode
-    : def;
-  return {
-    name: $('infName').value.trim(),
-    country: country,
-    code: code,
-    phaseIx: pIx,
-    platform: $('platform').value.trim(),
-    subDay: $('subDay').value.trim(),
-    subMonth: $('subMonth').value,
-    liveDay: $('liveDay').value.trim(),
-    liveMonth: $('liveMonth').value,
-    fee: $('fee').value.trim(),
-    kpi: $('kpiTarget').value.trim(),
-    sender: $('senderName').value.trim() || currentCampaign().sender || 'Mahmoud'
-  };
-}
-
-function dateStr(day, monthKey, l) {
-  var m = l === 'ar' ? MONTHS_AR[monthKey] : MONTHS_EN[monthKey];
-  return day ? (day + ' ' + m) : (l === 'ar' ? '[التاريخ]' : '[Date]');
-}
-
-function onCountryChange() {
-  var c = currentCampaign();
-  var cur = $('discountCode').value.trim();
-  var pIx = parseInt($('selectedPhase') ? $('selectedPhase').value || '0' : '0', 10);
-  var def = defaultCodeFor($('country').value, c, pIx);
-  var defaultCodes = ['PROMO15', '1111SALE', 'YFS2026', 'PROMO10', 'FIRST20', 'YFS15'];
-  if (!cur || cur === def || defaultCodes.indexOf(cur) !== -1 || cur.indexOf('ضع الكود') !== -1 || cur.indexOf('put the code') !== -1) $('discountCode').value = def;
-  var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
-  var bNot = $('bahrainNotice');
-  if (bNot) bNot.style.display = ($('country').value === 'BH' && isSep) ? 'block' : 'none';
-  updateDiscountPlaceholder();
-  render();
-}
-
-function render(force) {
-  var c = currentCampaign();
-  if (!c) return;
-  var I = getInputs();
-  var phase = c.phases[I.phaseIx] || c.phases[0];
-  var dis = (phase && phase.countryDiscounts && phase.countryDiscounts[I.country]) || (c.countryDiscounts && c.countryDiscounts[I.country]) || {};
-
-  var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
-  var bNot = $('bahrainNotice');
-  if (bNot) bNot.style.display = (I.country === 'BH' && isSep) ? 'block' : 'none';
-
-  updateSubject(c, I);
-  // EMAIL EN
-  $('out-email-en').innerHTML = buildEmail(c, I, phase, dis, 'en');
-  // EMAIL AR
-  $('out-email-ar').innerHTML = buildEmail(c, I, phase, dis, 'ar');
-  // BRIEF EN / AR
-  $('out-brief-en').innerHTML = buildBrief(c, I, phase, dis, 'en');
-  $('out-brief-ar').innerHTML = buildBrief(c, I, phase, dis, 'ar');
-  // BRIEF TXT EN / AR
-  if ($('out-brief-txt-en')) $('out-brief-txt-en').innerHTML = buildBriefTextHtml(c, I, phase, dis, 'en');
-  if ($('out-brief-txt-ar')) $('out-brief-txt-ar').innerHTML = buildBriefTextHtml(c, I, phase, dis, 'ar');
-}
-
-function updateSubject(c, I) {
-  if (currentOut === 'email-en') {
-    $('subjectText').textContent = c.nameEn + ' | Collaboration Opportunity – ' + (COUNTRIES[I.country] || '');
-  } else if (currentOut === 'email-ar') {
-    $('subjectText').textContent = c.nameAr;
-  } else if (currentOut === 'brief-en' || currentOut === 'brief-txt-en') {
-    $('subjectText').textContent = c.nameEn + ' — Influencer Brief' + (currentOut === 'brief-txt-en' ? ' (Text)' : '');
-  } else {
-    $('subjectText').textContent = c.nameAr + ' — بريف المؤثر' + (currentOut === 'brief-txt-ar' ? ' (نصي)' : '');
-  }
-}
-
-function kpiText(kpi, l) {
-  if (kpi) return l === 'ar' ? 'تحقيق <strong>' + kpi + ' مشاهدة</strong>.' : 'Achieve <strong>' + kpi + ' Views</strong>.';
-  return l === 'ar' ? 'تحقيق مشاهدات تعادل 50% من إجمالي عدد متابعيك.' : 'Achieve views equivalent to 50% of your total followers.';
-}
-
-function phaseBox(phase, l, code) {
-  var p = phase[l];
-  if (l === 'ar') {
-    return '<div style="background-color: #f8fafc; padding: 14px; margin: 12px 0; border-right: 3px solid #eab308; border-radius: 6px;">' +
-      '<strong>' + p.title + '</strong><br>' + p.date + '<br><strong>الفئات:</strong> ' + p.categories + '</div>';
-  }
-  return '<div style="background-color: #f8fafc; padding: 14px; margin: 12px 0; border-left: 3px solid #eab308; border-radius: 6px;">' +
-    '<strong>' + p.title + '</strong><br>' + p.date + '<br><strong>Categories:</strong> ' + p.categories + '</div>';
-}
-
-function discountBox(dis, code, l, phase) {
-  var rtl = l === 'ar' ? 'border-right' : 'border-left';
-  var hasCode = !!(code && code.trim() && code.trim() !== '{CODE}');
-  var displayCode = hasCode ? code.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
-  var text = (dis[l] || '').replace(/\{CODE\}/g, displayCode);
-
-  var isYfsHype = phase && phase.secondaryCode === 'YFS2026';
-  var badge1Title = isYfsHype 
-    ? (l === 'ar' ? 'كود الخصم الفعّال حالياً (خصم 15%):' : 'ACTIVE PROMO CODE (15% OFF):')
-    : (l === 'ar' ? 'كود المؤثر الحصري (خصم 25%):' : 'INFLUENCER CODE (25% OFF):');
-  var badge2Title = isYfsHype 
-    ? (l === 'ar' ? 'كود الهايب القادم للجمعة الصفراء (خصم 25% من 19 نوفمبر):' : 'UPCOMING YFS HYPE CODE (25% OFF FROM NOV 19):')
-    : (l === 'ar' ? 'كود عروض التطبيق (اشترِ 1 واحصل على 1):' : 'ONSITE CODE (BUY 1 GET 1):');
-
-  var codeBadge;
-  if (phase && phase.secondaryCode) {
-    codeBadge = '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">' +
-      '<div>' +
-      '<div style="font-size:11px; color:#c2410c; font-weight:bold; margin-bottom:2px;">' + badge1Title + '</div>' +
-      (hasCode
-        ? '<div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>'
-        : '<div style="font-size: 15px; font-weight: bold; color: #dc2626; letter-spacing: 1px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>') +
-      '</div>' +
-      '<div>' +
-      '<div style="font-size:11px; color:#15803d; font-weight:bold; margin-bottom:2px;">' + badge2Title + '</div>' +
-      '<div style="font-size: 18px; font-weight: bold; color: #166534; letter-spacing: 1px; background-color: #dcfce7; border:1px solid #86efac; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + phase.secondaryCode + '</div>' +
-      '</div>' +
-      '</div>';
-  } else {
-    codeBadge = hasCode
-      ? '<div style="font-size: 18px; font-weight: bold; color: #ea580c; letter-spacing: 1px; margin-bottom: 6px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>'
-      : '<div style="font-size: 15px; font-weight: bold; color: #dc2626; letter-spacing: 1px; margin-bottom: 6px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 4px 12px; border-radius: 4px;">' + displayCode + '</div>';
-  }
-
-  var titleText = (phase && phase.secondaryCode)
-    ? (isYfsHype 
-        ? (l === 'ar' ? 'أكواد الحملة الإلزامية — (كود التخفيض الحالي + تشويق وهايب كود الجمعة الصفراء)' : 'Mandatory Campaign Codes — (Active Code + Upcoming YFS Hype Code)')
-        : (l === 'ar' ? 'أكواد الخصم الإلزامية — (يجب التحدث عن الكودين معاً في الفيديو وشرحهما)' : 'Mandatory Discount Codes — (Both Codes Must Be Spoken & Explained in Video)'))
-    : (l === 'ar' ? 'كود الخصم الإلزامي' : 'Mandatory Discount Code');
-
-  var dualCodeAlert;
-  if (phase && phase.secondaryCode) {
-    if (isYfsHype) {
-      dualCodeAlert = (l === 'ar'
-        ? '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً وعمل هايب لكود YFS2026):</strong><br>في هذه الفترة (13 - 18 نوفمبر)، يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong>:<br>1. كود <strong>(' + displayCode + ')</strong>: كود الخصم الفعلي الشغال حالياً (خصم 15% على طلباتكم اليومية).<br>2. كود <strong>(' + phase.secondaryCode + ')</strong>: عمل هايب وتشويق قوي للجمهور للإعلان أنه سينطلق رسمياً يوم 19 نوفمبر بخصم جبار 25% وأقوى عروض الجمعة الصفراء السنوية! حثهم على حفظ الكود وتجهيز سلاتهم.<br><em>* إلزامي نطق الكودين بصوتك وإظهارهما كنص بارز على الشاشة لـ 3 ثوانٍ على الأقل وفي أول سطرين من الكابشن.</em></div>'
-        : '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 Mandatory Creator Mandate (Dual Code Callout & YFS Hype):</strong><br>In this phase (Nov 13 – 18), you MUST <strong>speak about BOTH codes out loud in your video</strong>:<br>1. Active Code <strong>(' + displayCode + ')</strong>: Currently active for flat 15% off daily orders.<br>2. Hype Code <strong>(' + phase.secondaryCode + ')</strong>: Build massive hype for the upcoming Yellow Friday Sale launching Nov 19 with 25% off! Urge followers to bookmark the code and build wishlists.<br><em>* Speaking both codes aloud and displaying both on screen for 3+ seconds is mandatory.</em></div>');
-    } else {
-      dualCodeAlert = (l === 'ar'
-        ? '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً بصوتك):</strong><br>في هذه المرحلة من الحملة، يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong> وشرح ميزة كل كود لجمهورك:<br>• كود المؤثر الحصري <strong>(' + displayCode + ')</strong>: خصم 25% على الطلب.<br>• كود عروض التطبيق <strong>(' + phase.secondaryCode + ')</strong>: عرض (اشترِ 1 واحصل على 1 مجاناً).<br><em>* يُمنع التحدث عن كود واحد وإهمال الآخر، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.</em></div>'
-        : '<div style="margin-top: 10px; font-size: 12.5px; color: #991b1b; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; line-height: 1.6;"><strong>🚨 Mandatory Creator Mandate (Speak About Both Codes):</strong><br>In this phase, you MUST <strong>speak about BOTH codes out loud in your video</strong> and explain both offers to your audience:<br>• Creator Code <strong>(' + displayCode + ')</strong>: 25% OFF discount.<br>• Onsite Code <strong>(' + phase.secondaryCode + ')</strong>: Buy 1 Get 1 Free offer.<br><em>* Mentioning only one code is strictly forbidden. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the caption preview, and in Stories.</em></div>');
-    }
-  } else {
-    dualCodeAlert = ('<div style="margin-top: 10px; font-size: 12px; color: #b45309; border-top: 1px solid #fdba74; padding-top: 8px;"><em>' + (l === 'ar' ? STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) : STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode)) + '</em></div>');
-  }
-
-  return '<div style="background-color: #fff7ed; ' + rtl + ': 3px solid #fb923c; padding: 14px; border-radius: 6px; margin: 16px 0;">' +
-    '<div style="font-size: 13.5px; color: #c2410c; margin-bottom: 6px; font-weight: bold;">' + titleText + '</div>' +
-    codeBadge +
-    '<div style="margin-top: 4px; color: #9a3412; font-size: 14px;"><strong>' + (l === 'ar' ? 'تفاصيل العرض:' : 'Offer Details:') + '</strong><br>' + text + '</div>' +
-    dualCodeAlert +
-    '</div>';
-}
-
-function spotTheBagBox(c, I, l) {
-  var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || 
-              (c && c.id === 'sep2026') || 
-              (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
-  if (I.country !== 'BH' || !isSep) return '';
-  var rtl = l === 'ar' ? 'border-right' : 'border-left';
-
-  if (l === 'ar') {
-    return '<div style="background-color: #fefce8; ' + rtl + ': 4px solid #eab308; padding: 16px; border-radius: 8px; margin: 18px 0;">' +
-      '<div style="color: #854d0e; font-size: 14.5px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
-      '<span>🚨</span> تحديث هام وإلزامي (خاص بمملكة البحرين) — فعالية SPOT THE BAG (#SpotTheNoonBag)' +
-      '</div>' +
-      '<div style="font-size: 13.5px; color: #713f12; line-height: 1.6; margin-bottom: 12px;">' +
-      '<strong>فعالية ميدانية كبرى في البحرين:</strong> كجزء استثنائي وهام من الحملة في البحرين، ستقوم نون باجتياح أشهر وأكبر المولات بـ <strong>20 مروّجاً (Ushers) يحملون أكياس نون صفراء عملاقة</strong> عليها كود QR ضخم في الخلف. المطلوب منك تحفيز وتحدي جمهورك للبحث عنهم وتتبعهم في المولات للدخول في سحب رسمي للفوز بجهاز <strong>iPhone 18 Pro</strong> جديد!' +
-      '</div>' +
-      '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
-      '<strong style="color: #b45309;">🎯 فكرة الفعالية — لعبة مطاردة وبحث واقعية في المولات (Scavenger Hunt):</strong><br>' +
-      'مروّجون يحملون أكياس تسوق نون ضخمة مزودة بكود QR عملاق في الظهر، سيتجولون في المولات الأكثر ازدحاماً. أي شخص يلمح الكيس ويمسح الكود بكاميرا الموبايل يدخل السحب على جهاز iPhone 18 Pro جديد.<br>' +
-      '<strong>الشعار الأساسي للحملة:</strong> <span style="background: #fef08a; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">"دوّر على الكيس.. امسح الكود.. واكسب آيفون!"</span>' +
-      '</div>' +
-      '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
-      '<strong style="color: #b45309;">📦 المخرجات المطلوبة من المؤثر (إلزامية):</strong><br>' +
-      '• <strong>1x فيديو ريلز / تيك توك (Reel / TikTok):</strong> نداء حماسي وتشويقي عالي الطاقة للإعلان عن اجتياح نون للمولات، مع ذكر أسماء المولات وتشجيع المتابعين وتحديهم للنزول والبحث عن الأكياس.<br>' +
-      '• <strong>1x ستوري يوم الفعالية (Story Post):</strong> نشر تغطية مباشرة وإعادة نشر (Repost) لفيديوهات وتفاعل المتابعين أثناء رصدهم للأكياس في المولات لزيادة التفاعل والحماس.' +
-      '</div>' +
-      '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
-      '<strong style="color: #b45309;">🗣️ نقاط الحديث الأساسية (Key Talking Points):</strong><br>' +
-      '• لاحظوا ودوّروا على أكياس نون الصفراء العملاقة المتجولة في <strong>[مول 1، مول 2، مول 3]</strong>.<br>' +
-      '• امسحوا كود الـ QR على الكيس للدخول في سحب هدية <strong>iPhone 18 Pro</strong>.<br>' +
-      '• استخدموا الهاشتاق الرسمي <strong>#SpotTheNoonBag</strong> واعملوا منشن لحساب نون البحرين <strong>@noon.bahr</strong> في كل تغطياتكم.' +
-      '</div>' +
-      '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; font-size: 12.5px; color: #1f2937; line-height: 1.6;">' +
-      '<strong style="color: #b45309;">📍 تفاصيل الفعالية:</strong><br>' +
-      '• <strong>الدولة:</strong> البحرين 🇧🇭<br>' +
-      '• <strong>التاريخ:</strong> 25 و 26 سبتمبر 2026<br>' +
-      '• <strong>الأماكن:</strong> [مول 1، مول 2، مول 3] — <em>(في انتظار التأكيد النهائي للتراخيص الحكومية وسيتم مشاركة الأسماء فوراً)</em>.<br>' +
-      '• <strong>التوقيت:</strong> سيتم تأكيده ومشاركته قبل موعد الانطلاق.' +
-      '</div>' +
-      '</div>';
-  }
-
-  return '<div style="background-color: #fefce8; ' + rtl + ': 4px solid #eab308; padding: 16px; border-radius: 8px; margin: 18px 0;">' +
-    '<div style="color: #854d0e; font-size: 14.5px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
-    '<span>🚨</span> IMPORTANT UPDATE (BAHRAIN ONLY) — SPOT THE BAG CAMPAIGN (#SpotTheNoonBag)' +
-    '</div>' +
-    '<div style="font-size: 13.5px; color: #713f12; line-height: 1.6; margin-bottom: 12px;">' +
-    '<strong>Special On-Ground Activation in Bahrain:</strong> noon is taking over Bahrain\'s top malls with <strong>20 ushers carrying giant yellow noon bags</strong>, and we need you to challenge your audience to track them down for a chance to win a brand-new <strong>iPhone 18 Pro</strong>!' +
-    '</div>' +
-    '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
-    '<strong style="color: #b45309; text-transform: uppercase;">🎯 The Concept — Real-World Scavenger Hunt:</strong><br>' +
-    'Promoters carrying oversized noon shopping bags with a giant QR code on the back will be roaming high-traffic malls. Anyone who finds a bag and scans the code enters the official draw for a brand-new iPhone 18 Pro.<br>' +
-    '<strong>Primary Slogan:</strong> <span style="background: #fef08a; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">"Find the bag. Scan the code. Win an iPhone!"</span>' +
-    '</div>' +
-    '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
-    '<strong style="color: #b45309; text-transform: uppercase;">📦 Mandatory Influencer Deliverables:</strong><br>' +
-    '• <strong>1x Reel / TikTok Video:</strong> Post a high-energy call-out teasing the takeover. Tell your followers which malls the ushers are in and urge them to go hunting.<br>' +
-    '• <strong>1x Story Post (Day of Event):</strong> Share real-time updates or repost follower sightings to keep the buzz alive.' +
-    '</div>' +
-    '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; margin-bottom: 10px; font-size: 13px; color: #1f2937; line-height: 1.6;">' +
-    '<strong style="color: #b45309; text-transform: uppercase;">🗣️ Key Talking Points:</strong><br>' +
-    '• Spot the giant yellow noon bags roaming <strong>[Mall 1, Mall 2, Mall 3]</strong>.<br>' +
-    '• Scan the QR code on the bag and enter the draw to win an <strong>iPhone 18 Pro</strong> giveaway.<br>' +
-    '• Use the official hashtag <strong>#SpotTheNoonBag</strong> in your sightings and tag <strong>@noon.bahr</strong>.' +
-    '</div>' +
-    '<div style="background: #ffffff; padding: 12px; border-radius: 6px; border: 1px solid #fef08a; font-size: 12.5px; color: #1f2937; line-height: 1.6;">' +
-    '<strong style="color: #b45309; text-transform: uppercase;">📍 Event Details:</strong><br>' +
-    '• <strong>Country:</strong> Bahrain 🇧🇭<br>' +
-    '• <strong>Date:</strong> 25th & 26th September, 2026<br>' +
-    '• <strong>Locations:</strong> [Mall 1, Mall 2, Mall 3] — <em>Awaiting final confirmation from government bodies regarding permissions (exact mall names will be shared ASAP)</em>.<br>' +
-    '• <strong>Timing:</strong> Awaited (will be confirmed prior to activation).' +
-    '</div>' +
-    '</div>';
-}
-
-
-function brandGuidelinesBox(c, I, l) {
-  var isNov = (c && c.id === 'nov2026') || (c && c.monthEn && c.monthEn.toLowerCase().indexOf('nov') !== -1);
-  if (!isNov) return '';
-  var rtl = l === 'ar' ? 'border-right' : 'border-left';
-
-  if (l === 'ar') {
-    return '<div style="background-color: #fffdf0; ' + rtl + ': 4px solid #d97706; padding: 16px; border-radius: 8px; margin: 18px 0;">' +
-      '<div style="color: #b45309; font-size: 14.5px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
-      '<span>🎬</span> القواعد الإرشادية للعلامة التجارية في تصوير الفيديو' +
-      '</div>' +
-      '<div style="font-size: 13.5px; color: #78350f; line-height: 1.7; margin-bottom: 12px;">' +
-      '<strong>🚨 شروط إلزامية لاعتماد الفيديو:</strong><br>' +
-      '1. <strong>توقيت ومدة ظهور اللوجو (5 ثوانٍ فقط):</strong> يجب أن يظهر لوجو نون في الثانية 3 أو 4 (00:03 - 00:05) ولمدة <strong>5 ثوانٍ فقط ثم يختفي</strong>. ممنوع تماماً ظهور اللوجو في أول ثانيتين (00:00 - 00:02) للحفاظ على الخطّاف العفوي الطبيعي (Hook)، وممنوع إبقاؤه ظاهراً طوال مدة الفيديو.<br>' +
-      '2. <strong>كرتونة / بوكس نون:</strong> مرحب بظهور كرتونة نون والتحدث عنها أو تصوير فتح الصندوق (Unboxing) بسلاسة وعفوية في أي وقت من الفيديو ضمن سياق القصة والاسكريبت. وإذا ظهر البوكس، <strong>ليس ممنوعاً وضع اللوجو معه</strong>؛ يمكن دمجهما معاً باحترافية حسب سياق الفيديو.<br>' +
-      '3. <strong>كتابة اسم البراند:</strong> تُكتب كلمة noon دائماً بحروف صغيرة بالإنجليزية (noon وليس NOON أو Noon في النصوص والكابشن).<br>' +
-      '4. <strong>تسجيل شاشة التطبيق:</strong> إظهار تسجيل شاشة واقعي وعالي الدقة لتطبيق نون يوضح النقر على بنر الحملة وتطبيق كود الخصم في صفحة الدفع.' +
-      '</div>' +
-      '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">' +
-      '<div style="background: #f0fdf4; padding: 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #166534; line-height: 1.6;">' +
-      '<strong style="color: #15803d; font-size: 13.5px;">✓ إرشادات إلزامية (افعل):</strong><br>' +
-      '• ابدأ بخطّاف مشوق وعفوي في أول ثانيتين.<br>' +
-      '• أظهر لوجو نون في الثانية 3 أو 4 (يظهر لمدة 5 ثوانٍ فقط ثم يختفي).<br>' +
-      '• تحدث عن كرتونة نون أو استعرض فتح الصندوق (Unboxing) بأسلوب احترافي وعفوي.<br>' +
-      '• لا مانع من ظهور اللوجو مع الكرتونة في نفس المشهد إذا خدم سياق الاسكريبت.<br>' +
-      '• استخدم تسجيل شاشة مباشر وعالي النقاء لتطبيق نون.<br>' +
-      '• انطق كود الخصم بصوتك واعرضه بحجم كبير لـ 3 ثوانٍ على الأقل.' +
-      '</div>' +
-      '<div style="background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6;">' +
-      '<strong style="color: #b91c1c; font-size: 13.5px;">✗ محظورات تؤدي للرفض (لا تفعل):</strong><br>' +
-      '• لا تظهر لوجو نون في أول ثانيتين إطلاقاً.<br>' +
-      '• لا تترك لوجو نون ظاهراً طوال مدة الفيديو (اللوجو يظهر لمدة 5 ثوانٍ فقط ثم يختفي).<br>' +
-      '• لا تصور شاشة جوال آخر بكاميرا خارجية (تسجيل الشاشة إلزامي).<br>' +
-      '• لا تكتفِ بوضع الكود في الكابشن فقط (النطق والعرض الشاشي إلزاميان).' +
-      '</div>' +
-      '</div>' +
-      '</div>';
-  }
-
-  return '<div style="background-color: #fffdf0; ' + rtl + ': 4px solid #d97706; padding: 16px; border-radius: 8px; margin: 18px 0;">' +
-    '<div style="color: #b45309; font-size: 14.5px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
-    '<span>🎬</span> Brand Video Production Guidelines — Logo & Box Rules' +
-    '</div>' +
-    '<div style="font-size: 13.5px; color: #78350f; line-height: 1.7; margin-bottom: 12px;">' +
-    '<strong>🚨 Mandatory Video Approval Guidelines:</strong><br>' +
-    '1. <strong>Logo Timing & Duration (5 Seconds Only):</strong> The official noon logo must appear specifically at second 3 or 4 (00:03 - 00:05) and remain on-screen for <strong>ONLY 5 seconds then disappear</strong>. Absolutely NO logo in seconds 00:00 - 00:02 to maintain an organic, relatable hook, and strictly do NOT keep the logo visible throughout the entire video.<br>' +
-    '2. <strong>noon Delivery Box:</strong> You are welcome to feature the yellow noon delivery box, talk about it, or film an unboxing at any suitable point in the video as fits your script. If the box appears, <strong>it is NOT forbidden to show the logo with it</strong> — both can appear together naturally according to the video context.<br>' +
-    '3. <strong>Brand Name Typography:</strong> Always type \"noon\" entirely in lowercase letters (strictly \"noon\", never \"NOON\" or \"Noon\" in captions or overlays).<br>' +
-    '4. <strong>Direct App Screen Recording:</strong> Include a crisp, authentic screen recording of the noon app demonstrating the campaign banner click, product selection, and entering the promo code at checkout.' +
-    '</div>' +
-    '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">' +
-    '<div style="background: #f0fdf4; padding: 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #166534; line-height: 1.6;">' +
-    '<strong style="color: #15803d; font-size: 13.5px; text-transform: uppercase;">✓ Mandatory Best Practices (DO):</strong><br>' +
-    '• Hook viewers in 00:00 - 00:02 with relatable real-life problem or discount news.<br>' +
-    '• Introduce noon logo at second 3 or 4 (for 5 seconds only then hide it).<br>' +
-    '• Feature the yellow noon box or unboxing smoothly within your video story.<br>' +
-    '• You MAY show the box and logo together whenever natural to your script.<br>' +
-    '• Include clean native in-app screen recording showing banner and promo code.<br>' +
-    '• Pronounce promo code aloud with your voice and display text for 3+ seconds.' +
-    '</div>' +
-    '<div style="background: #fef2f2; padding: 12px; border-radius: 6px; border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6;">' +
-    '<strong style="color: #b91c1c; font-size: 13.5px; text-transform: uppercase;">✗ Rejection Triggers (DON\'T):</strong><br>' +
-    '• Do NOT flash noon logo in the first 2 seconds.<br>' +
-    '• Do NOT keep the noon logo visible throughout the entire video (5 seconds only).<br>' +
-    '• Do NOT film an external phone screen with an outside camera.<br>' +
-    '• Do NOT hide the code only in caption; spoken audio and text are mandatory.' +
-    '</div>' +
-    '</div>' +
-    '</div>';
-}
-
-function collabAndHashtagsBox(c, I, l) {
-  var rtl = l === 'ar' ? 'border-right' : 'border-left';
-  var countryTagMap = {
-    QA: '@noon_qar',
-    KW: '@noon_kuwt',
-    BH: '@noon.bahr',
-    OM: '@noon_omn'
-  };
-  var countryUrlMap = {
-    QA: 'https://www.instagram.com/noon_qar/',
-    KW: 'https://www.instagram.com/noon_kuwt/',
-    BH: 'https://www.instagram.com/noon.bahr/',
-    OM: 'https://www.instagram.com/noon_omn/'
-  };
-  var countryNameMap = {
-    QA: { ar: 'قطر 🇶🇦', en: 'Qatar 🇶🇦' },
-    KW: { ar: 'الكويت 🇰🇼', en: 'Kuwait 🇰🇼' },
-    BH: { ar: 'البحرين 🇧🇭', en: 'Bahrain 🇧🇭' },
-    OM: { ar: 'عُمان 🇴🇲', en: 'Oman 🇴🇲' }
-  };
-  var cTag = countryTagMap[I.country] || '@noon';
-  var cUrl = countryUrlMap[I.country] || 'https://www.instagram.com/noon/';
-  var cName = countryNameMap[I.country] ? countryNameMap[I.country][l] : I.country;
-  var hashtags = c.hashtags || '#noon #HealthAndFitness #noonHome #noonBeauty';
-
-  if (l === 'ar') {
-    return '<div style="background-color: #f0fdf4; ' + rtl + ': 4px solid #16a34a; padding: 14px; border-radius: 8px; margin: 16px 0;">' +
-      '<div style="color: #15803d; font-size: 14px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
-      '<span>👥</span> الحسابات الإلزامية للمشاركة ودعوة التعاون (Mandatory Collab Accounts)' +
-      '</div>' +
-      '<div style="font-size: 13.5px; color: #166534; line-height: 1.7; margin-bottom: 10px;">' +
-      '<strong>يُرجى العلم أنه بالنسبة لأي حساب سيتم التعاون معه، يتوجب عليكم إرسال دعوة تعاون (Collab) إلى:</strong><br>' +
-      '• حساب الدولة الخاص بك (' + cName + '): <a href="' + cUrl + '" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">' + cTag + '</strong></a><br>' +
-      '• <strong>بالإضافة إلى إرسال دعوة تعاون (Collab) أيضاً وبشكل إلزامي إلى:</strong><br>' +
-      '&nbsp;&nbsp;&nbsp;1. حساب نون الأساسي: <a href="https://www.instagram.com/noon/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon</strong></a><br>' +
-      '&nbsp;&nbsp;&nbsp;2. حساب نون الإمارات: <a href="https://www.instagram.com/noon_uae/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon_uae</strong></a>' +
-      '</div>' +
-      '<div style="background: #ffffff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #14532d; line-height: 1.6;">' +
-      '<strong>📌 الهاشتاغات الإلزامية في الوصف (Mandatory Hashtags):</strong><br>' +
-      '<div style="margin: 4px 0; font-weight: 800; font-size: 13.5px; color: #047857; direction: ltr; text-align: right;">' + hashtags + '</div>' +
-      '<div style="font-size: 12px; color: #15803d; margin-top: 4px;">• يجب دمج الهاشتاغات الأساسية مع أي هاشتاغ خاص بالحملة الفرعية.</div>' +
-      '<div style="font-size: 12px; color: #15803d;">• <strong>متطلبات الوصف (Caption):</strong> يجب أن يظهر كود الخصم <strong>(' + I.code + ')</strong> بوضوح بالقرب من أعلى أو منتصف الوصف، وكذلك على الشاشة داخل الفيديو.</div>' +
-      '</div>' +
-      '</div>';
-  }
-
-  return '<div style="background-color: #f0fdf4; ' + rtl + ': 4px solid #16a34a; padding: 14px; border-radius: 8px; margin: 16px 0;">' +
-    '<div style="color: #15803d; font-size: 14px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">' +
-    '<span>👥</span> Mandatory Collab Accounts' +
-    '</div>' +
-    '<div style="font-size: 13.5px; color: #166534; line-height: 1.7; margin-bottom: 10px;">' +
-    '<strong>Please note that for any collaboration post, you must send a Collab invite to:</strong><br>' +
-    '• Your country account (' + cName + '): <a href="' + cUrl + '" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">' + cTag + '</strong></a><br>' +
-    '• <strong>Plus, it is MANDATORY to also invite:</strong><br>' +
-    '&nbsp;&nbsp;&nbsp;1. Main noon account: <a href="https://www.instagram.com/noon/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon</strong></a><br>' +
-    '&nbsp;&nbsp;&nbsp;2. noon UAE account: <a href="https://www.instagram.com/noon_uae/" target="_blank" style="text-decoration:none;"><strong style="background: #dcfce7; color: #14532d; padding: 2px 8px; border-radius: 4px; font-size: 14px; border: 1px solid #86efac;">@noon_uae</strong></a>' +
-    '</div>' +
-    '<div style="background: #ffffff; padding: 10px 12px; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 13px; color: #14532d; line-height: 1.6;">' +
-    '<strong>📌 Mandatory Caption Hashtags:</strong><br>' +
-    '<div style="margin: 4px 0; font-weight: 800; font-size: 13.5px; color: #047857; direction: ltr; text-align: left;">' + hashtags + '</div>' +
-    '<div style="font-size: 12px; color: #15803d; margin-top: 4px;">• Combine the 4 core hashtags with your assigned sub-campaign hashtag.</div>' +
-    '<div style="font-size: 12px; color: #15803d;">• <strong>Caption Requirement:</strong> The discount code <strong>(' + I.code + ')</strong> must clearly appear near the top/middle of your caption and on-screen in the video.</div>' +
-    '</div>' +
-    '</div>';
-}
-
-function buildEmail(c, I, phase, dis, l) {
-  var inf = I.name || (l === 'ar' ? '[الاسم]' : '[Name]');
-  var sub = dateStr(I.subDay, I.subMonth, l);
-  var live = dateStr(I.liveDay, I.liveMonth, l);
-  var fee = I.fee ? I.fee + ' AED' : (l === 'ar' ? '[المبلغ] AED' : '[Fee] AED');
-  var briefTxt = l === 'ar' ? 'الدليل الإرشادي الشامل (Brief)' : 'Full Campaign Brief';
-  var clickTxt = l === 'ar' ? 'اضغط هنا لفتح بريف حملة ' + c.monthAr : 'Click Here for the ' + c.monthEn + ' Campaign Brief';
-  var rtl = l === 'ar' ? 'border-right' : 'border-left';
-
-  var hasDualBrief = !!(c.briefUrlEn && c.briefUrlAr && c.briefUrlEn !== c.briefUrlAr);
-  var briefBlock;
-  if (hasDualBrief) {
-    var lblEn = l === 'ar' ? 'البريف بالإنجليزية (Brief EN)' : 'English Brief (EN)';
-    var lblAr = l === 'ar' ? 'البريف بالعربية (Brief AR)' : 'Arabic Brief (AR)';
-    var clickEn = l === 'ar' ? 'اضغط هنا لفتح البريف الإنجليزي' : 'Click Here for the English Brief';
-    var clickAr = l === 'ar' ? 'اضغط هنا لفتح البريف العربي' : 'Click Here for the Arabic Brief';
-    briefBlock = '<div style="background-color: #f8fafc; padding: 12px; ' + rtl + ': 3px solid #64748b; border-radius: 6px; margin: 16px 0;"><strong>🔗 ' + briefTxt + ':</strong><br>' +
-      (l === 'ar' ? 'يُرجى قراءة البريف المناسب للغتك بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:' : 'Please read the brief in your preferred language carefully before filming to understand all guidelines and messaging:') + '<br><br>' +
-      '👉 <a href="' + c.briefUrlEn + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickEn + ' — ' + lblEn + '</a><br><br>' +
-      '👉 <a href="' + c.briefUrlAr + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickAr + ' — ' + lblAr + '</a></div>';
-  } else {
-    var singleBriefUrl = c.briefUrl || c.briefUrlAr || c.briefUrlEn;
-    briefBlock = '<div style="background-color: #f8fafc; padding: 12px; ' + rtl + ': 3px solid #64748b; border-radius: 6px; margin: 16px 0;"><strong>🔗 ' + briefTxt + ':</strong><br>' +
-      (l === 'ar' ? 'يُرجى قراءة ملف البريف الإرشادي التالي بدقة قبل البدء بالتصوير لمعرفة كافة التفاصيل والرسائل المطلوبة:' : 'Please read the full detailed brief carefully before filming to understand all guidelines and messaging:') + '<br>👉 <a href="' + singleBriefUrl + '" style="color: #0284c7; text-decoration: none; font-weight: 500; border-bottom: 1px solid #7dd3fc;">' + clickTxt + '</a></div>';
-  }
-
-  var portalLink = (c.portalUrl || 'https://noon-invoice.vercel.app/') + (c.monthEn ? ((c.portalUrl || '').indexOf('?') === -1 ? '?' : '&') + 'month=' + encodeURIComponent(c.monthEn) : '');
-
-  var o;
-  if (l === 'ar') {
-    o = '<strong>أهداف الحملة</strong><br>' + STATIC.objectivesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
-      '<strong>مرحلة الحملة المخصصة لك</strong><br>' + phaseBox(phase, l) + '<br>' +
-      discountBox(dis, I.code, l, phase) + '<br>' +
-      collabAndHashtagsBox(c, I, l) +
-      spotTheBagBox(c, I, l) +
-      brandGuidelinesBox(c, I, l) +
-      '<strong>إرشادات المحتوى والعناصر الإلزامية</strong><br>' + STATIC.guidelinesAr.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
-      '<strong>المخرجات المطلوبة (Deliverables)</strong><br>• ريلز / فيديوهات قصيرة (التنسيق الأساسي)<br>• ستوري داعمة لكل فيديو<br><br>' +
-      '<strong>التسليم والجدول الزمني</strong><br>نحتاج إلى استلام الفيديو بحلول <strong>' + sub + '</strong> كحد أقصى، حيث سيتم النشر في <strong>' + live + '</strong>.<br>الموافقة النهائية مطلوبة قبل النشر.<br><br>' +
-      briefBlock + '<br>' +
-      '<strong>تفاصيل الدفع</strong><br>قيمة الحملة: <strong>' + fee + '</strong><br><br>سيتم تحويل المبلغ إلى حسابك البنكي خلال 30 يومًا من انتهاء الحملة.<br><br>' +
-      '<div style="background-color: #f0fdf4; padding: 12px; ' + rtl + ': 3px solid #22c55e; border-radius: 6px; margin: 16px 0;"><strong>🧾 الفاتورة المطلوبة:</strong><br>يُرجى إصدار فاتورتك عبر البورتال أدناه — سيتم توليد ملف الـ PDF وتسليمه لفريقنا تلقائياً، ويمكنك الاحتفاظ بنسخة من الفاتورة:<br>🔗 <a href="' + portalLink + '" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">بورتال فواتير نون</a></div><br>' +
-      '<strong>ملاحظات هامة ومؤشرات الأداء (KPIs)</strong><br>' + STATIC.kpiAr.replace('{KPI}', kpiText(I.kpi, l)) + '<br><br>' +
-      '<strong>الخطوات التالية</strong><br>يُرجى تأكيد مدى توفرك واهتمامك بالمشاركة في هذه الحملة.<br><br>إذا كان لديك أي أسئلة، لا تتردد في التواصل معنا، نحن متحمسون لرؤية إبداعك في هذه الحملة.<br><br>مع خالص التحيات،<br><strong>' + I.sender + '</strong><br>فريق تسويق نون';
-  } else {
-    o = '<strong>Campaign Objectives</strong><br>' + STATIC.objectivesEn.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
-      '<strong>Assigned Campaign Phase</strong><br>' + phaseBox(phase, l) + '<br>' +
-      discountBox(dis, I.code, l, phase) + '<br>' +
-      collabAndHashtagsBox(c, I, l) +
-      spotTheBagBox(c, I, l) +
-      brandGuidelinesBox(c, I, l) +
-      '<strong>Content Guidelines & Mandatory Elements</strong><br>' + STATIC.guidelinesEn.map(function (b) { return '• ' + b; }).join('<br>') + '<br><br>' +
-      '<strong>Deliverables</strong><br>• Reels / Short Videos (Primary Format)<br>• Stories supporting each video<br><br>' +
-      '<strong>Submission & Timeline</strong><br>We need the video by <strong>' + sub + '</strong> at the latest, as the post will go live on <strong>' + live + '</strong>.<br>Final approval is required before posting.<br><br>' +
-      briefBlock + '<br>' +
-      '<strong>Payment Details</strong><br>Campaign fee: <strong>' + fee + '</strong><br><br>The payment will be transferred to your bank account within 30 days after the campaign ends.<br><br>' +
-      '<div style="background-color: #f0fdf4; padding: 12px; ' + rtl + ': 3px solid #22c55e; border-radius: 6px; margin: 16px 0;"><strong>🧾 Invoice Submission:</strong><br>Please generate your invoice through our portal below — your PDF is created and delivered to our team automatically, and you keep a copy:<br>🔗 <a href="' + portalLink + '" style="color: #166534; text-decoration: none; font-weight: bold; border-bottom: 1px solid #86efac;">noon Invoice Portal</a></div><br>' +
-      '<strong>Notes & KPIs</strong><br>' + STATIC.kpiEn.replace('{KPI}', kpiText(I.kpi, l)) + '<br><br>' +
-      '<strong>Next Steps</strong><br>Please confirm your availability and interest in participating in this campaign.<br><br>If you have any questions, feel free to reach out, we\'d love to see your creative take on this campaign.<br><br>Best regards,<br><strong>' + I.sender + '</strong><br>noon Marketing Team';
-  }
-
-  var intro;
-  if (l === 'ar') {
-    intro = 'مرحباً <strong>' + inf + '</strong>،<br><br>نأمل أن تكون بخير ✨<br><br>يسعدنا التعاون معك في ' + c.nameAr + ' في دول الخليج (قطر، البحرين، عُمان، والكويت).<br><br>تهدف هذه الحملة إلى زيادة عمليات تثبيت تطبيق نون، واستكشاف الفئات، والمشتريات من خلال صانعي المحتوى. ستقوم بالترويج لفئات منتجات محددة بناءً على فترة الحملة المجدولة لك، وتوجيه الزيارات عبر لافتات (Banners) مخصصة داخل التطبيق.<br><br>';
-  } else {
-    intro = 'Hi <strong>' + inf + '</strong>,<br><br>We hope you’re doing well ✨<br><br>We’re excited to collaborate with you on the ' + c.nameEn + ' across Qatar, Bahrain, Oman, and Kuwait.<br><br>This campaign aims to drive noon app installs, category exploration, and purchases across GCC markets through influencer-generated content. You will promote specific product categories based on scheduled campaign periods, driving traffic via dedicated in-app banners.<br><br>';
-  }
-  return intro + o;
-}
-
-function buildBrief(c, I, phase, dis, l) {
-  var p = phase[l];
-  var phaseDefCode = (phase && phase.promoCode) ? phase.promoCode : defaultCodeFor(I.country, c, I.phaseIx);
-  var effectiveCode = (I.code && I.code.trim() && I.code.trim() !== '{CODE}' && I.code.indexOf('ضع الكود') === -1 && I.code.indexOf('put the code') === -1)
-    ? I.code.trim()
-    : phaseDefCode;
-  var hasCode = !!(effectiveCode && effectiveCode.trim());
-  var displayCode = hasCode ? effectiveCode.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
-  var actionText = (p.action || '').replace(/\{CODE\}/g, displayCode);
-  var offerText = (dis[l] || '').replace(/\{CODE\}/g, displayCode);
-  var angles = p.msg || '';
-  var bullets = function (s) { return String(s || '').replace(/\s+•\s+/g, '<br>• '); };
-  var list = function (arr) { return arr.map(function (b) { return '<li style="margin-bottom:4px;">' + b + '</li>'; }).join(''); };
-  var ol = function (arr) { return arr.map(function (b) { return '<li style="margin-bottom:4px;">' + b + '</li>'; }).join(''); };
-  var rule = l === 'ar' ? 'border-right' : 'border-left';
-
-  var isYfsHype = phase && phase.secondaryCode === 'YFS2026';
-  var badge1Title = isYfsHype
-    ? (l === 'ar' ? 'كود الخصم الفعّال حالياً (خصم 15%):' : 'ACTIVE PROMO CODE (15% OFF):')
-    : (l === 'ar' ? 'كود المؤثر الحصري (خصم 25%):' : 'INFLUENCER CODE (25% OFF):');
-  var badge2Title = isYfsHype
-    ? (l === 'ar' ? 'كود الهايب للجمعة الصفراء (خصم 25% على نون إكسبريس من 19 نوفمبر):' : 'UPCOMING YFS HYPE CODE (25% OFF ON NOON EXPRESS FROM NOV 19):')
-    : (l === 'ar' ? 'كود عروض التطبيق (اشترِ 1 واحصل على 1):' : 'ONSITE CODE (BUY 1 GET 1):');
-
-  var codeBadge;
-  if (phase && phase.secondaryCode) {
-    codeBadge = '<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px;">' +
-      '<div>' +
-      '<div style="font-size:11px; color:#c2410c; font-weight:bold; margin-bottom:2px;">' + badge1Title + '</div>' +
-      (hasCode
-        ? '<div style="font-size: 20px; font-weight: bold; color: #ea580c; letter-spacing: 2px; background-color: #ffedd5; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>'
-        : '<div style="font-size: 16px; font-weight: bold; color: #dc2626; letter-spacing: 1px; background-color: #fee2e2; border: 1.5px dashed #ef4444; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + displayCode + '</div>') +
-      '</div>' +
-      '<div>' +
-      '<div style="font-size:11px; color:#15803d; font-weight:bold; margin-bottom:2px;">' + badge2Title + '</div>' +
-      '<div style="font-size: 20px; font-weight: bold; color: #166534; letter-spacing: 2px; background-color: #dcfce7; border:1px solid #86efac; display: inline-block; padding: 2px 10px; border-radius: 4px;">' + phase.secondaryCode + '</div>' +
-      '</div>' +
-      '</div>';
-  } else {
-    codeBadge = hasCode
-      ? '<div style="font-size:20px; font-weight:bold; color:#ea580c; letter-spacing:2px; margin-bottom:8px; display:inline-block; background-color:#ffedd5; padding:3px 12px; border-radius:4px; border:1px solid #fdba74;">' + displayCode + '</div>'
-      : '<div style="font-size:16px; font-weight:bold; color:#dc2626; letter-spacing:1px; margin-bottom:8px; display:inline-block; background-color:#fee2e2; border:1.5px dashed #ef4444; padding:4px 12px; border-radius:4px;">' + displayCode + '</div>';
-  }
-  var hashtags = c.hashtags || '';
-
-  if (l === 'ar') {
-    return '<div style="font-size:15px; font-weight:800; color:#000; margin-bottom:2px;">' + c.nameAr + '</div>' +
-      '<div style="font-size:12px; font-weight:600; color:#71717a; margin-bottom:16px;">بريف المؤثر</div>' +
-      '<strong style="color:#0284c7; font-size:13px;">🎯 نافذة الحملة والفئات</strong><br><br>' +
-      '<div style="background-color:#f0f9ff; padding:12px; ' + rule + ':3px solid #38bdf8; border-radius:6px; margin-bottom:12px;"><strong style="color:#0c4a6e; font-size:14px;">المرحلة: ' + p.title + ' (' + p.date + ')</strong><br><br><strong style="color:#0369a1;">الفئات:</strong> <span style="color:#000">' + p.categories + '</span><br><br><strong style="color:#0369a1;">متطلبات المحتوى:</strong><div style="color:#000; margin-top:4px;">• ' + bullets(actionText) + '</div></div>' +
-      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-      '<strong style="color:#0284c7; font-size:13px;">' + (phase && phase.secondaryCode ? '🏆 القاعدة الذهبية — التحدث عن كلا الكودين إلزامي في الفيديو' : '🏆 القاعدة الذهبية — كود الخصم إلزامي') + '</strong><br><br>' +
-      '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold;">' + (phase && phase.secondaryCode ? 'أكواد الخصم والعروض' : 'كود الخصم') + '</div>' + codeBadge + '<div style="color:#9a3412; font-size:14px;"><strong>تفاصيل العرض:</strong><br>' + offerText + '</div></div>' +
-      (phase && phase.secondaryCode
-        ? (isYfsHype
-            ? '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً وعمل هايب لكود YFS2026 على نون إكسبريس):</strong><br>في هذه الفترة (13 - 18 نوفمبر)، يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong>:<br>1. كود الخصم الفعّال <strong>(' + displayCode + ')</strong>: كود شغال ومفعّل حالياً لخصم ثابت 15% على طلباتكم اليومية.<br>2. كود الهايب والتشويق <strong>(' + phase.secondaryCode + ')</strong>: عمل هايب وتشويق قوي للإعلان أنه سينطلق رسمياً يوم 19 نوفمبر بخصم جبار 25% على <strong>منتجات نون إكسبريس (noon Express)</strong>! حث المتابعين على حفظ الكود وتجهيز سلاتهم من الآن.<br><em style="font-size:12px; color:#b91c1c;">* إلزامي نطق الكودين بصوتك وإظهارهما كنص بارز على الشاشة لـ 3 ثوانٍ على الأقل وفي أول سطرين من الكابشن والستوري.</em></div>'
-            : '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 شرط إلزامي لقبول الفيديو في مرحلة 11.11 (التحدث عن الكودين معاً):</strong><br>يجب عليك <strong>التحدث عن الكودين معاً بصوتك في الفيديو</strong> وشرحهما للمتابعين:<br>1. كود المؤثر الحصري <strong>' + displayCode + '</strong>: لخصم 25% على الطلب.<br>2. كود عروض التطبيق <strong>' + phase.secondaryCode + '</strong>: لعرض اشترِ 1 واحصل على 1 مجاناً.<br><em style="font-size:12px; color:#b91c1c;">* يُمنع الاكتفاء بذكر كود واحد فقط، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.</em></div>')
-        : '<div style="color:#3f3f46; margin-top:8px; font-size:13px;"><em>' + STATIC.goldenRuleAr.replace(/\{CODE\}/g, displayCode) + '</em></div>') +
-      spotTheBagBox(c, I, l) +
-      brandGuidelinesBox(c, I, l) +
-      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-      '<strong style="color:#0284c7; font-size:13px;">🎨 التوجيه الإبداعي وإرشادات المحتوى</strong><br><br>' +
-      '<ul style="margin:0; padding-right:20px; color:#3f3f46; font-size:13px;">' + list(STATIC.creativeAr.map(function (b) { return b.replace('{ANGLES}', angles); })) + '</ul>' +
-      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-      '<strong style="color:#0284c7; font-size:13px;">✅ عناصر إلزامية في المحتوى</strong><br><br>' +
-      '<div style="color:#3f3f46; font-size:13px; margin-bottom:8px;">يجب إظهار أو ذكر ما يلي بوضوح:</div>' +
-      '<ol style="margin:0; padding-right:20px; color:#3f3f46; font-size:13px;">' + ol(STATIC.mandatoryAr) + '</ol>' +
-      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-      '<strong style="color:#0284c7; font-size:13px;">🔤 الخطوط والترجمة</strong><br><br>' +
-      '<div style="color:#3f3f46; font-size:13px;">' + STATIC.typographyAr + '</div>' +
-      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-      '<strong style="color:#0284c7; font-size:13px;">🎬 شاهد قبل التصوير</strong><br><br>' +
-      '<div style="color:#3f3f46; font-size:13px;">لضمان قبول الفيديو من أول مسودة، لازم تشوف دليل "افعل ولا تفعل":<br>👉 <a href="' + c.guideUrl + '" target="_blank">اضغط هنا لمشاهدة الدليل الإبداعي</a></div>' +
-      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-      '<strong style="color:#0284c7; font-size:13px;">📄 ملف البريف الشامل (PDF)</strong><br><br>' +
-      '<div style="color:#3f3f46; font-size:13px;">للاطلاع على البريف وموجز الحملة الرسمي بالكامل:<br>👉 <a href="' + (c.briefUrl || c.briefUrlAr || c.briefUrlEn) + '" target="_blank" style="color:#0284c7; text-decoration:none; font-weight:bold; border-bottom:1px solid #7dd3fc;">اضغط هنا لفتح ملف البريف (Google Drive)</a></div>' +
-      collabAndHashtagsBox(c, I, l) +
-      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-      '<strong style="color:#0284c7; font-size:13px;">⏳ عملية المراجعة والموافقة</strong><br><br>' +
-      '<ul style="margin:0; padding-right:20px; color:#3f3f46; font-size:13px;">' + list(STATIC.approvalAr) + '</ul>' +
-      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-      '<strong style="color:#0284c7; font-size:13px;">📦 المخرجات الإلزامية</strong><br><br>' +
-      '<div style="color:#3f3f46; font-size:13px;">' + STATIC.deliverablesAr + '</div>' +
-      '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-      '<strong style="color:#0284c7; font-size:13px;">📱 المنصة وتفاصيل النشر</strong><br><br>' +
-      '<ul style="margin:0; padding-right:20px; color:#3f3f46; font-size:13px;"><li style="margin-bottom:4px;"><strong>المنصة المتفق عليها:</strong> ' + (I.platform || '[المنصة]') + '</li><li style="margin-bottom:4px;"><strong>TikTok:</strong> إن كانت من منصاتك، أرسل الـ Spark Code فوراً بعد النشر.</li><li style="margin-bottom:4px;"><strong>اللوجو:</strong> استخدم الشعار الرسمي فقط. <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">يجب أن يظهر اللوجو لمدة 5 ثوانٍ فقط ثم يختفي</strong>. التحميل: <a href="' + (c.logoUrl || 'https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS') + '" style="color:#0284c7; text-decoration:none; border-bottom:1px solid #7dd3fc;">لينك Google Drive</a></li><li><strong>الكابشن والهاشتاق:</strong> يُرسلان لك بعد الموافقة — لا تكتبهما بنفسك.</li></ul>';
-  }
-
-  return '<div style="font-size:15px; font-weight:800; color:#000; margin-bottom:2px;">' + c.nameEn + '</div>' +
-    '<div style="font-size:12px; font-weight:600; color:#71717a; margin-bottom:16px; text-transform:uppercase; letter-spacing:1px;">Influencer Brief</div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🎯 CAMPAIGN WINDOW & CATEGORIES</strong><br><br>' +
-    '<div style="background-color:#f0f9ff; padding:12px; ' + rule + ':3px solid #38bdf8; border-radius:6px; margin-bottom:12px;"><strong style="color:#0c4a6e; font-size:14px;">Phase: ' + p.title + ' (' + p.date + ')</strong><br><br><strong style="color:#0369a1;">Categories:</strong> <span style="color:#000">' + p.categories + '</span><br><br><strong style="color:#0369a1;">Content Requirements:</strong><div style="color:#000; margin-top:4px;">• ' + bullets(actionText) + '</div></div>' +
-    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">' + (phase && phase.secondaryCode ? '🏆 THE GOLDEN RULE — SPEAKING ABOUT BOTH CODES IN VIDEO IS MANDATORY' : '🏆 THE GOLDEN RULE — DISCOUNT CODE MANDATE') + '</strong><br><br>' +
-    '<div style="background-color:#fff7ed; padding:12px; ' + rule + ':3px solid #fb923c; border-radius:6px; margin-bottom:12px;"><div style="font-size:14px; color:#c2410c; margin-bottom:4px; font-weight:bold; text-transform:uppercase;">' + (phase && phase.secondaryCode ? 'Discount & Offer Codes' : 'Discount Code') + '</div>' + codeBadge + '<div style="color:#9a3412; font-size:14px;"><strong>Offer Details:</strong><br>' + offerText + '</div></div>' +
-    (phase && phase.secondaryCode
-      ? (isYfsHype
-          ? '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 Mandatory Creator Mandate (Dual Code Callout & YFS Hype on noon Express):</strong><br>In this phase (Nov 13 – 18), you MUST <strong>speak about BOTH codes out loud in your video</strong>:<br>1. Active Code <strong>(' + displayCode + ')</strong>: Currently active for flat 15% off daily orders.<br>2. Hype Code <strong>(' + phase.secondaryCode + ')</strong>: Build massive hype for the upcoming Yellow Friday Sale launching Nov 19 with 25% off on <strong>noon Express items</strong>! Urge followers to bookmark the code and build their noon Express wishlists.<br><em style="font-size:12px; color:#b91c1c;">* Speaking both codes aloud and displaying both on screen for 3+ seconds is mandatory.</em></div>'
-          : '<div style="background-color: #fef2f2; border: 1.5px solid #f87171; border-radius: 6px; padding: 12px; margin: 10px 0; color: #991b1b; font-size: 13px; line-height: 1.6;"><strong style="font-size:13.5px; color:#b91c1c;">🚨 Mandatory Approval Requirement for 11.11 Phase (Both Codes Spoken in Video):</strong><br>You MUST <strong>speak about BOTH codes out loud in your video</strong> and explain both offers to your audience:<br>1. Creator Code <strong>' + displayCode + '</strong>: Exclusive 25% OFF discount.<br>2. Onsite Code <strong>' + phase.secondaryCode + '</strong>: Buy 1 Get 1 Free offer.<br><em>* Mentioning only one code is strictly forbidden. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the caption preview, and in Stories.</em></div>')
-      : '<div style="color:#3f3f46; margin-top:8px; font-size:13px;">' + STATIC.goldenRuleEn.replace(/\{CODE\}/g, displayCode) + '</div>') +
-    spotTheBagBox(c, I, l) +
-      brandGuidelinesBox(c, I, l) +
-    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🎨 CREATIVE DIRECTION & CONTENT GUIDELINES</strong><br><br>' +
-    '<ul style="margin:0; padding-left:20px; color:#3f3f46; font-size:13px;">' + list(STATIC.creativeEn.map(function (b) { return b.replace('{ANGLES}', angles); })) + '</ul>' +
-    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">✅ MANDATORY ELEMENTS IN CONTENT</strong><br><br>' +
-    '<div style="color:#3f3f46; font-size:13px; margin-bottom:8px;">Influencers must clearly show or mention:</div>' +
-    '<ol style="margin:0; padding-left:20px; color:#3f3f46; font-size:13px;">' + ol(STATIC.mandatoryEn) + '</ol>' +
-    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🔤 TYPOGRAPHY & SUBTITLES</strong><br><br>' +
-    '<div style="color:#3f3f46; font-size:13px;">' + STATIC.typographyEn + '</div>' +
-    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">🎬 WATCH BEFORE FILMING</strong><br><br>' +
-    '<div style="color:#3f3f46; font-size:13px;">To ensure the video gets approved from the first draft, you must watch this "Do\'s & Don\'ts" guide:<br>👉 <a href="' + c.guideUrl + '" target="_blank">Click Here to Watch the Creative Guide</a></div>' +
-    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">📄 FULL CAMPAIGN BRIEF (PDF)</strong><br><br>' +
-    '<div style="color:#3f3f46; font-size:13px;">To view and review the complete official campaign brief:<br>👉 <a href="' + (c.briefUrl || c.briefUrlEn || c.briefUrlAr) + '" target="_blank" style="color:#0284c7; text-decoration:none; font-weight:bold; border-bottom:1px solid #7dd3fc;">Click Here to Open Campaign Brief (Google Drive)</a></div>' +
-    collabAndHashtagsBox(c, I, l) +
-    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">⏳ REVIEW & APPROVAL PROCESS</strong><br><br>' +
-    '<ul style="margin:0; padding-left:20px; color:#3f3f46; font-size:13px;">' + list(STATIC.approvalEn) + '</ul>' +
-    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">📦 MANDATORY DELIVERABLES</strong><br><br>' +
-    '<div style="color:#3f3f46; font-size:13px;">' + STATIC.deliverablesEn + '</div>' +
-    '<div style="border-top:1px solid #e4e4e7; margin:14px 0"></div>' +
-    '<strong style="color:#0284c7; font-size:13px; text-transform:uppercase;">📱 PLATFORM & POSTING DETAILS</strong><br><br>' +
-    '<ul style="margin:0; padding-left:20px; color:#3f3f46; font-size:13px;"><li style="margin-bottom:4px;"><strong>Agreed Platform(s):</strong> ' + (I.platform || '[Platform]') + '</li><li style="margin-bottom:4px;"><strong>TikTok:</strong> If applicable, provide the Spark Code immediately after posting.</li><li style="margin-bottom:4px;"><strong>Logo:</strong> Use ONLY the official logo. <strong style="background-color: #fef08a; padding: 2px 4px; border-radius: 4px; color: #854d0e;">The logo must appear for ONLY 5 seconds and then disappear</strong>. Download: <a href="' + (c.logoUrl || 'https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS') + '" style="color:#0284c7; text-decoration:none; border-bottom:1px solid #7dd3fc;">Google Drive Link</a></li><li><strong>Captions & Tags:</strong> Will be provided AFTER approval. Do NOT write your own.</li></ul>';
-}
-
-
-function stripHtml(s) {
-  return String(s || '')
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<\/p>/gi, '\n\n')
-    .replace(/<\/li>/gi, '\n')
-    .replace(/<li>/gi, '• ')
-    .replace(/<\/?[^>]+(>|$)/g, '')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .trim();
-}
-
-function buildBriefText(c, I, phase, dis, l, STATIC) {
-  var p = phase[l];
-  var isYfsHype = phase && phase.secondaryCode === 'YFS2026';
-  var phaseDefCode = (phase && phase.promoCode) ? phase.promoCode : defaultCodeFor(I.country, c, I.phaseIx);
-  var effectiveCode = (I.code && I.code.trim() && I.code.trim() !== '{CODE}' && I.code.indexOf('ضع الكود') === -1 && I.code.indexOf('put the code') === -1)
-    ? I.code.trim()
-    : phaseDefCode;
-  var hasCode = !!(effectiveCode && effectiveCode.trim());
-  var displayCode = hasCode ? effectiveCode.trim() : (l === 'ar' ? '[ضع الكود هنا]' : '[put the code here]');
-  var actionText = stripHtml((p.action || '').replace(/\{CODE\}/g, displayCode));
-  var offerText = stripHtml((dis[l] || '').replace(/\{CODE\}/g, displayCode));
-  var angles = p.msg || '';
-
-  var countryTagMap = { QA: '@noon_qar', KW: '@noon_kuwt', BH: '@noon.bahr', OM: '@noon_omn' };
-  var countryUrlMap = {
-    QA: 'https://www.instagram.com/noon_qar/',
-    KW: 'https://www.instagram.com/noon_kuwt/',
-    BH: 'https://www.instagram.com/noon.bahr/',
-    OM: 'https://www.instagram.com/noon_omn/'
-  };
-  var countryNameMap = {
-    QA: { ar: 'قطر 🇶🇦', en: 'Qatar 🇶🇦' },
-    KW: { ar: 'الكويت 🇰🇼', en: 'Kuwait 🇰🇼' },
-    BH: { ar: 'البحرين 🇧🇭', en: 'Bahrain 🇧🇭' },
-    OM: { ar: 'عُمان 🇴🇲', en: 'Oman 🇴🇲' }
-  };
-  var cTag = countryTagMap[I.country] || '@noon';
-  var cUrl = countryUrlMap[I.country] || 'https://www.instagram.com/noon/';
-  var cName = countryNameMap[I.country] ? countryNameMap[I.country][l] : I.country;
-  var hashtags = c.hashtags || '#noon #noonGCC #YellowFridaySale #noonYFS #YFS2026 #SingleDay1111 #الجمعة_الصفراء #عروض_نون #عروض_11_11';
-
-  var guideUrl = c.guideUrl || 'https://drive.google.com/file/d/1P90keB5KUI1Why8l2_FqvuzxPBJ5mAK9/view';
-  var briefUrl = (l === 'ar' ? (c.briefUrlAr || c.briefUrl) : (c.briefUrlEn || c.briefUrl)) || 'https://drive.google.com/file/d/1NPPoABim03gPoQCldtpanwKG--TRtTOV/view?usp=drive_link';
-  var logoUrl = c.logoUrl || 'https://drive.google.com/drive/folders/17Mp6al1btsHeSDRo19z6J0DLT4177JAS';
-  var portalLink = (c.portalUrl || 'https://noon-invoice.vercel.app/') + (c.monthEn ? ((c.portalUrl || '').indexOf('?') === -1 ? '?' : '&') + 'month=' + encodeURIComponent(c.monthEn) : '');
-
-  var sub = dateStr(I.subDay, I.subMonth, l);
-  var live = dateStr(I.liveDay, I.liveMonth, l);
-  var fee = I.fee ? (I.fee + (l === 'ar' ? ' دولار / ما يعادلها بالعملة المحلية' : ' USD / Local Equivalent')) : (l === 'ar' ? '[المقابل المالي]' : '[Campaign Fee]');
-
-  if (l === 'ar') {
-    var codeSection = '';
-    if (phase && phase.secondaryCode) {
-      if (isYfsHype) {
-        codeSection = '🏆 2. القاعدة الذهبية — أكواد الحملة الإلزامية (كود التخفيض الحالي + تشويق وهايب كود الجمعة الصفراء على نون إكسبريس):\n' +
-          '• كود الخصم الفعّال حالياً (خصم 15%): ' + displayCode + '\n' +
-          '• كود الهايب للجمعة الصفراء (خصم 25% على نون إكسبريس من 19 نوفمبر): ' + phase.secondaryCode + '\n\n' +
-          'تفاصيل العرض ونسب الخصم:\n' + offerText + '\n\n' +
-          '🚨 شرط إلزامي لصانع المحتوى (التحدث عن الكودين معاً وعمل هايب لكود YFS2026 على نون إكسبريس):\n' +
-          'في هذه الفترة (13 - 18 نوفمبر)، يجب عليك التحدث عن الكودين معاً بصوتك في الفيديو:\n' +
-          '1. كود الخصم الفعّال (' + displayCode + '): كود شغال ومفعّل حالياً لخصم ثابت 15% على طلباتكم اليومية المعتادة.\n' +
-          '2. كود الهايب والتشويق (' + phase.secondaryCode + '): عمل هايب وتشويق ضخم للإعلان أنه سينطلق رسمياً يوم 19 نوفمبر بخصم جبار 25% على منتجات نون إكسبريس (noon Express)! حث المتابعين على حفظ الكود وتجهيز سلاتهم من الآن.\n' +
-          '* إلزامي التحدث عن الكودين معاً بصوتك في الفيديو وإظهارهما كنص بارز على الشاشة لـ 3 ثوانٍ على الأقل وفي أول سطرين من الكابشن والستوري.';
-      } else {
-        codeSection = '🏆 2. القاعدة الذهبية — أكواد الخصم والعروض الإلزامية:\n' +
-          '• كود المؤثر الحصري (خصم 25%): ' + displayCode + '\n' +
-          '• كود عروض التطبيق (اشترِ 1 واحصل على 1 مجاناً): ' + phase.secondaryCode + '\n\n' +
-          'تفاصيل العرض ونسب الخصم:\n' + offerText + '\n\n' +
-          '🚨 تنبيه إلزامي لصانع المحتوى (التحدث عن الكودين معاً بصوتك):\n' +
-          'في هذه المرحلة (عروض 11.11)، يجب عليك التحدث عن الكودين معاً بصوتك في الفيديو وشرحهما للمتابعين:\n' +
-          '1. كود المؤثر الحصري (' + displayCode + '): خصم 25% على إجمالي الطلب.\n' +
-          '2. كود عروض التطبيق (' + phase.secondaryCode + '): عرض اشترِ 1 واحصل على 1 مجاناً على المنتجات المؤهلة.\n' +
-          '* يُمنع الاكتفاء بكود واحد فقط، ويجب إظهار كلا الكودين في ترجمة الشاشة وأول سطرين من الكابشن والستوري.';
-      }
-    } else {
-      codeSection = '🏆 2. القاعدة الذهبية — كود الخصم الإلزامي:\n' +
-        '• كود الخصم: ' + displayCode + '\n\n' +
-        'تفاصيل العرض:\n' + offerText + '\n\n' +
-        'القاعدة الذهبية لاستخدام الكود:\n' +
-        'يجب أن يظهر كود الخصم المخصص لك (' + displayCode + ') ويتم الترويج له في 4 مواضع بالتزامن:\n' +
-        '1. منطوقاً بصوتك في الفيديو بوضوح.\n' +
-        '2. مكتوباً على الشاشة في نص بارز لمدة 3 ثوانٍ على الأقل.\n' +
-        '3. في أول سطرين من النص المكتوب (Caption) قبل زر "المزيد".\n' +
-        '4. في قصص إنستغرام (Stories) مع ستيكر رابط مباشر للشراء.';
-    }
-
-    var spotTheBagText = '';
-    var isSep = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
-    if (I.country === 'BH' && isSep) {
-      spotTheBagText = '\n--------------------------------------------------------------------------------\n' +
-        '🚨 تحديث هام وإلزامي (خاص بمملكة البحرين) — فعالية SPOT THE BAG (#SpotTheNoonBag):\n' +
-        '• الفكرة: 20 مروّجاً يحملون أكياس نون صفراء عملاقة عليها كود QR في أكبر المولات بالبحرين.\n' +
-        '• الجائزة: الدخول في سحب رسمي للفوز بجهاز iPhone 18 Pro جديد لمن يمسح الكود.\n' +
-        '• المطلوب: 1x فيديو ريلز/تيك توك حماسي للإعلان عن الفعالية وتحدي الجمهور + 1x ستوري تغطية حية يوم الفعالية.\n' +
-        '• الهاشتاق المعتمد: #SpotTheNoonBag ومنشن لحساب @noon.bahr\n';
-    }
-
-    return '================================================================================\n' +
-      'بريف المؤثرين الرسمي — شركة نون (noon GCC)\n' +
-      c.nameAr + '\n' +
-      'الدولة المستهدفة: ' + cName + (I.name ? ' | صانع المحتوى: ' + I.name : '') + '\n' +
-      '================================================================================\n\n' +
-      '🎯 1. نافذة الحملة والمرحلة المخصصة لك:\n' +
-      '• المرحلة: ' + p.title + ' (' + p.date + ')\n' +
-      '• الفئات المستهدفة: ' + p.categories + '\n' +
-      '• متطلبات المحتوى والمهام:\n' +
-      actionText + '\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      codeSection + '\n' +
-      spotTheBagText + '\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '🎬 3. إرشادات تصوير الفيديو وقواعد العلامة التجارية الصارمة:\n' +
-      '🚨 شروط إلزامية لاعتماد الفيديو:\n' +
-      '1. توقيت ومدة ظهور اللوجو (5 ثوانٍ فقط):\n' +
-      '   يجب أن يظهر لوجو نون في الثانية 3 أو 4 (00:03 - 00:05) ولمدة 5 ثوانٍ فقط ثم يختفي تماماً.\n' +
-      '   (ممنوع تماماً ظهور اللوجو في أول ثانيتين للحفاظ على خطّاف عفوي طبيعي، وممنوع إبقاؤه ظاهراً طوال مدة الفيديو).\n\n' +
-      '2. كرتونة / بوكس نون الأصفر:\n' +
-      '   مرحب بظهور كرتونة نون والتحدث عنها أو تصوير فتح الصندوق (Unboxing) بسلاسة وعفوية في أي وقت من الاسكريبت.\n' +
-      '   (إذا ظهر البوكس، ليس ممنوعاً وضع اللوجو معه؛ يمكن ظهورهما معاً باحترافية حسب سياق الفيديو).\n\n' +
-      '3. كتابة اسم البراند بالإنجليزية:\n' +
-      '   تُكتب كلمة noon دائماً بحروف صغيرة بالإنجليزية (noon وليس NOON أو Noon في النصوص والكابشن).\n\n' +
-      '4. تسجيل شاشة التطبيق:\n' +
-      '   إظهار تسجيل شاشة واقعي وعالي الدقة لتطبيق نون يوضح النقر على بنر الحملة وتطبيق كود الخصم في صفحة الدفع (ممنوع تصوير شاشة جوال بكاميرا أخرى).\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '✅ 4. قائمة افعل ولا تفعل لضمان قبول الفيديو (Do\'s & Don\'ts):\n' +
-      'إرشادات وممارسات إلزامية (افعل ✓):\n' +
-      '✓ ابدأ بخطّاف مشوق وعفوي في أول ثانيتين (مشكلة يومية، مظهر جمالي، أو صدمة السعر والتوفير).\n' +
-      '✓ أظهر لوجو نون في الثانية 3 أو 4 (يظهر لمدة 5 ثوانٍ فقط ثم يختفي)، ومرحب بظهور الكرتونة أو فتح الصندوق.\n' +
-      '✓ لا مانع من ظهور اللوجو مع الكرتونة في نفس المشهد إذا خدم سياق الاسكريبت.\n' +
-      '✓ استخدم تسجيل شاشة مباشر وعالي النقاء لتطبيق نون يوضح بنر العروض وإدخال الكود.\n' +
-      '✓ انطق كود الخصم بصوتك بوضوح وضعه في ترجمة الشاشة بحجم كبير لـ 3 ثوانٍ على الأقل (وفي 11.11 انطق واشرح الكودين معاً).\n\n' +
-      'محظورات تؤدي لرفض الفيديو فوراً (لا تفعل ✗):\n' +
-      '✗ لا تظهر لوجو نون في أول ثانيتين إطلاقاً، اترك البداية طبيعية وعفوية.\n' +
-      '✗ لا تترك لوجو نون ظاهراً طوال مدة الفيديو (اللوجو يظهر لمدة 5 ثوانٍ فقط ثم يختفي).\n' +
-      '✗ لا تصور شاشة جوال آخر بكاميرا خارجية (تسجيل الشاشة المباشر إلزامي).\n' +
-      '✗ لا تكتفِ بوضع الكود في الكابشن فقط أو التحدث عن كود واحد في 11.11؛ النطق والعرض الشاشي إلزاميان.\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '🎨 5. التوجيه الإبداعي والعناصر الإلزامية في المحتوى:\n' +
-      '• الرسائل الأساسية: التسوق عبر تطبيق نون | عروض حصرية داخل التطبيق | حمّل التطبيق للوصول للعروض | استخدم كود الخصم لتوفير إضافي.\n' +
-      '• الأسلوب: سريع الإيقاع، مواكب للتريند، وخطّاف قوي (Hook) في أول ثانيتين إلى 3 ثوانٍ.\n' +
-      '• التركيز: دمج نمط الحياة والقصة العفوية بدلاً من أسلوب الإعلانات التلفزيونية المباشرة.\n' +
-      '• زوايا مقترحة للمحتوى: ' + angles + '\n' +
-      '• الخطوط والترجمة: استخدم خطوط عربية واضحة ومقروءة بدون تعقيد مع تباين ألوان قوي وسهل القراءة.\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '👥 6. دعوات التعاون الإلزامية على إنستغرام (Instagram Collab Invites):\n' +
-      'عند تجهيز المنشور وقبل النشر النهائي، أرسل دعوة تعاون رسمي (Collab Invite) للحسابات التالية:\n' +
-      '1. حساب نون للدولة الخاصة بك (إلزامي):\n' +
-      '   • ' + cTag + ': ' + cUrl + '\n' +
-      '2. حسابات نون الرسمية الرئيسية (إلزامية لجميع المؤثرين):\n' +
-      '   • حساب نون الأساسي (@noon): https://www.instagram.com/noon/\n' +
-      '   • حساب نون الإمارات (@noon_uae): https://www.instagram.com/noon_uae/\n\n' +
-      'الهاشتاقات المعتمدة للحملة:\n' +
-      hashtags + '\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '🔗 7. روابط هامة ومستندات رسمية (روابط مباشرة قابلة للنسخ والاستخدام):\n' +
-      '• رابط الدليل الإبداعي ومقطع "افعل ولا تفعل":\n' +
-      '  ' + guideUrl + '\n\n' +
-      '• رابط ملف البريف الشامل الرسمي (PDF على Google Drive):\n' +
-      '  ' + briefUrl + '\n\n' +
-      '• رابط تحميل شعارات ولوجو نون الرسمي عالي الدقة (Google Drive Folder):\n' +
-      '  ' + logoUrl + '\n\n' +
-      '• رابط بورتال إصدار وتسليم الفواتير (noon Invoice Portal):\n' +
-      '  ' + portalLink + '\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '📦 8. المخرجات والجدول الزمني وتفاصيل الدفع:\n' +
-      '• المنصة المتفق عليها: ' + (I.platform || '[المنصة]') + '\n' +
-      '• المخرجات المطلوبة: ريلز / فيديو قصير (التنسيق الأساسي) + ستوري مرافقة لكل فيديو برابط شراء مباشر.\n' +
-      '• موعد تسليم مسودة الفيديو للمراجعة: ' + sub + ' (الموافقة المسبقة مطلوبة قبل النشر).\n' +
-      '• موعد النشر بعد الموافقة: ' + live + '\n' +
-      '• المقابل المالي المتفق عليه: ' + fee + '\n' +
-      '• شروط الدفع: يتم التحويل إلى حسابك البنكي خلال 30 يوماً من انتهاء الحملة بعد تسليم الفاتورة عبر البورتال.\n' +
-      '• مؤشر الأداء المستهدف (KPI): ' + kpiText(I.kpi, l).replace(/<[^>]+>/g, '') + '\n\n' +
-      'مرسل البريف: ' + I.sender + ' — فريق تسويق نون\n' +
-      '================================================================================';
-  } else {
-    // English Plain Text
-    var codeSectionEn = '';
-    if (phase && phase.secondaryCode) {
-      if (isYfsHype) {
-        codeSectionEn = '🏆 2. THE GOLDEN RULE — MANDATORY CAMPAIGN CODES (ACTIVE PROMO CODE + UPCOMING YFS HYPE CODE):\n' +
-          '• Active Promo Code (15% OFF): ' + displayCode + '\n' +
-          '• Upcoming YFS Hype Code (25% OFF on noon Express from Nov 19): ' + phase.secondaryCode + '\n\n' +
-          'Offer Details & Discount Limits:\n' + offerText + '\n\n' +
-          '🚨 MANDATORY CREATOR MANDATE (NOV 13 – 18) — SPEAK ABOUT BOTH CODES & HYPE UP YFS2026:\n' +
-          'In this phase (Nov 13 – 18), you MUST speak about BOTH codes out loud in your video:\n' +
-          '1. Active Code (' + displayCode + '): Currently active for flat 15% off regular daily orders.\n' +
-          '2. Upcoming Hype Code (' + phase.secondaryCode + '): Build massive hype for the upcoming Yellow Friday Sale launching Nov 19 with 25% off exclusively on noon Express items! Urge followers to bookmark the code and build their noon Express wishlists.\n' +
-          '* Speaking both codes aloud and displaying both on screen for 3+ seconds is mandatory.';
-      } else {
-        codeSectionEn = '🏆 2. THE GOLDEN RULE — DUAL PROMO CODES MANDATE:\n' +
-          '• Creator Exclusive Code (25% OFF): ' + displayCode + '\n' +
-          '• Onsite App Code (Buy 1 Get 1 Free): ' + phase.secondaryCode + '\n\n' +
-          'Offer Details & Discount Limits:\n' + offerText + '\n\n' +
-          '🚨 MANDATORY CREATOR REQUIREMENT (SPEAK ABOUT BOTH CODES IN VIDEO):\n' +
-          'In this phase (11.11 Single\'s Day), you MUST speak about BOTH codes aloud in your video and explain both offers:\n' +
-          '1. Creator Code (' + displayCode + '): 25% OFF your order.\n' +
-          '2. Onsite Code (' + phase.secondaryCode + '): Buy 1 Get 1 Free on eligible items.\n' +
-          '* Mentioning only one code is strictly prohibited. Both codes must be spoken aloud in the video, shown on screen for 3+ seconds, in the first two caption lines, and in Stories.';
-      }
-    } else {
-      codeSectionEn = '🏆 2. THE GOLDEN RULE — PROMO CODE MANDATE:\n' +
-        '• Mandatory Promo Code: ' + displayCode + '\n\n' +
-        'Offer Details:\n' + offerText + '\n\n' +
-        'The Golden Rule for Promo Code Execution:\n' +
-        'Your discount code (' + displayCode + ') MUST appear across all 4 touchpoints simultaneously:\n' +
-        '1. Spoken Audio in Video: Clearly pronounced aloud with your voice.\n' +
-        '2. On-Screen Text: High-contrast overlay text displayed for at least 3 seconds.\n' +
-        '3. First Two Lines of Caption: Placed clearly in caption preview before "more".\n' +
-        '4. Instagram Story Link Sticker: Companion story with direct link sticker to noon.';
-    }
-
-    var spotTheBagTextEn = '';
-    var isSepEn = (c && c.monthEn && c.monthEn.toLowerCase().indexOf('sep') !== -1) || (c && c.id === 'sep2026') || (c && c.nameEn && c.nameEn.toLowerCase().indexOf('september') !== -1);
-    if (I.country === 'BH' && isSepEn) {
-      spotTheBagTextEn = '\n--------------------------------------------------------------------------------\n' +
-        '🚨 CRITICAL MANDATORY EVENT (BAHRAIN ONLY) — SPOT THE BAG (#SpotTheNoonBag):\n' +
-        '• Concept: 20 roaming ushers carrying giant yellow noon bags with a massive QR code across top Bahrain malls.\n' +
-        '• Reward: Shoppers scan the QR code to enter the draw for a new iPhone 18 Pro.\n' +
-        '• Deliverables: 1x energetic announcement Reel/TikTok challenging audience to spot ushers + 1x live story on event day.\n' +
-        '• Official Hashtag: #SpotTheNoonBag with tag @noon.bahr\n';
-    }
-
-    return '================================================================================\n' +
-      'OFFICIAL INFLUENCER BRIEF — NOON GCC\n' +
-      c.nameEn + '\n' +
-      'Target Territory: ' + cName + (I.name ? ' | Creator: ' + I.name : '') + '\n' +
-      '================================================================================\n\n' +
-      '🎯 1. CAMPAIGN WINDOW & ASSIGNED PHASE:\n' +
-      '• Phase: ' + p.title + ' (' + p.date + ')\n' +
-      '• Featured Categories: ' + p.categories + '\n' +
-      '• Content Requirements & Deliverables:\n' +
-      actionText + '\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      codeSectionEn + '\n' +
-      spotTheBagTextEn + '\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '🎬 3. STRICT BRAND VIDEO PRODUCTION GUIDELINES:\n' +
-      '🚨 Mandatory Video Approval Guidelines:\n' +
-      '1. Logo Timing & Duration (5 Seconds Only):\n' +
-      '   The official noon logo must appear specifically at second 3 or 4 (00:03 - 00:05) for ONLY 5 seconds then disappear.\n' +
-      '   (Strictly NO logo in the first 2 seconds 00:00 - 00:02 to maintain organic hook; strictly do NOT keep logo visible throughout the entire video).\n\n' +
-      '2. noon Delivery Box:\n' +
-      '   You are welcome to feature the yellow noon delivery box, talk about it, or film an unboxing naturally at any suitable point in your script.\n' +
-      '   (If the box appears, it is NOT forbidden to show the logo with it; both can appear together naturally according to video context).\n\n' +
-      '3. Brand Name Typography:\n' +
-      '   Always type "noon" entirely in lowercase letters (strictly "noon", never "NOON" or "Noon" in captions or on-screen text).\n\n' +
-      '4. Direct App Screen Recording:\n' +
-      '   Include a crisp, authentic screen recording of the noon app demonstrating banner navigation, product selection, and checkout promo code entry (never film another phone with an external camera).\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '✅ 4. CREATIVE DO\'S & DON\'TS CHECKLIST:\n' +
-      'Mandatory Best Practices (DO ✓):\n' +
-      '✓ Hook viewers in 00:00 - 00:02 with relatable real-life problem or shocking discount news.\n' +
-      '✓ Introduce noon logo at second 3 or 4 (for 5 seconds only then hide it); unboxings and featuring the noon box are welcome.\n' +
-      '✓ You MAY show the box and logo together whenever natural to your script.\n' +
-      '✓ Include clean native in-app screen recording showing banner and promo code.\n' +
-      '✓ Pronounce promo code aloud with your voice and display text for 3+ seconds (during 11.11, speak & explain BOTH codes).\n\n' +
-      'Immediate Rejection Triggers (DON\'T ✗):\n' +
-      '✗ Do NOT flash noon logo in the first 2 seconds; keep the opening 100% organic.\n' +
-      '✗ Do NOT keep the noon logo visible throughout the entire video (allowed for 5 seconds only).\n' +
-      '✗ Do NOT film an external phone screen with an outside camera.\n' +
-      '✗ Do NOT hide code in caption only or mention only one code during 11.11; spoken audio and on-screen text for BOTH codes are mandatory.\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '🎨 5. CREATIVE DIRECTION & MANDATORY ELEMENTS:\n' +
-      '• Key Messaging: Shop directly through noon app | Exclusive in-app deals | Download app to access offers | Use code for extra savings.\n' +
-      '• Tone: Fast-paced, trend-driven, strong hook in first 2-3 seconds.\n' +
-      '• Focus: Relatable lifestyle integration over hard selling.\n' +
-      '• Suggested Creative Angles: ' + angles + '\n' +
-      '• Typography & Subtitles: Use clean, bold, highly legible fonts with strong contrast and subtle drop-shadow.\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '👥 6. MANDATORY INSTAGRAM COLLAB INVITES:\n' +
-      'Prior to posting, send official Instagram Collab Invites to the following accounts:\n' +
-      '1. Territory Account (Mandatory for your country):\n' +
-      '   • ' + cTag + ': ' + cUrl + '\n' +
-      '2. Official Main noon Accounts (Mandatory for all creators across all markets):\n' +
-      '   • Main noon (@noon): https://www.instagram.com/noon/\n' +
-      '   • noon UAE (@noon_uae): https://www.instagram.com/noon_uae/\n\n' +
-      'Official Campaign Hashtags:\n' +
-      hashtags + '\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '🔗 7. ESSENTIAL OFFICIAL LINKS (COPYABLE DIRECT URLS):\n' +
-      '• Creative Direction & "Do\'s & Don\'ts" Video Guide:\n' +
-      '  ' + guideUrl + '\n\n' +
-      '• Full Campaign PDF Brief (Google Drive Link):\n' +
-      '  ' + briefUrl + '\n\n' +
-      '• Official High-Res noon Logos (Google Drive Folder):\n' +
-      '  ' + logoUrl + '\n\n' +
-      '• Official Creator Invoice Submission Portal:\n' +
-      '  ' + portalLink + '\n\n' +
-      '--------------------------------------------------------------------------------\n' +
-      '📦 8. DELIVERABLES, TIMELINE & PAYMENT:\n' +
-      '• Agreed Platform(s): ' + (I.platform || '[Platform]') + '\n' +
-      '• Required Deliverables: Reel / Short Video (Primary) + Companion Story with direct purchase link sticker.\n' +
-      '• Submission Deadline: ' + sub + ' (Final approval required before going live).\n' +
-      '• Scheduled Live Date: ' + live + '\n' +
-      '• Campaign Fee: ' + fee + '\n' +
-      '• Payment Terms: Transferred to bank account within 30 days after campaign ends and invoice submission.\n' +
-      '• Target KPI: ' + kpiText(I.kpi, l).replace(/<[^>]+>/g, '') + '\n\n' +
-      'Sender: ' + I.sender + ' — noon Marketing Team\n' +
-      '================================================================================';
-  }
-}
-
-
-function buildBriefTextHtml(c, I, phase, dis, l) {
-  var txt = buildBriefText(c, I, phase, dis, l, STATIC);
-  var rtl = l === 'ar';
-  var copyLabel = l === 'ar' ? '📋 نسخ النص بالكامل' : '📋 Copy Plain Text';
-  var bannerText = l === 'ar'
-    ? '📄 <strong>نسخة نصية خام (Plain Text):</strong> تتضمن جميع الروابط الحقيقية والتعليمات كاملة، جاهزة للنسخ والمشاركة المباشرة عبر الواتساب أو الإيميل.'
-    : '📄 <strong>Plain Text Version:</strong> Contains full actual URLs and guidelines ready for instant copying and sharing.';
-
-  return '<div style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; background:#f1f5f9; padding:8px 12px; border-radius:6px; font-size:12px; color:#475569; gap:8px; flex-wrap:wrap;">' +
-    '<span>' + bannerText + '</span>' +
-    '<button class="btn btn-sm btn-y" style="font-size:11.5px; padding:4px 12px;" onclick="copyRawText(this, \'txt-area-' + l + '\')">' + copyLabel + '</button>' +
-    '</div>' +
-    '<textarea id="txt-area-' + l + '" readonly ' + (rtl ? 'dir="rtl"' : 'dir="ltr"') + ' style="width:100%; height:620px; font-family:Consolas, Monaco, monospace, Tahoma, Arial; font-size:12.5px; line-height:1.65; padding:14px; border:1px solid #cbd5e1; border-radius:8px; background:#f8fafc; color:#0f172a; white-space:pre-wrap; word-break:break-word; resize:vertical; outline:none; box-sizing:border-box;">' + esc(txt) + '</textarea>';
-}
-
-function copyRawText(btn, areaId) {
-  var ta = $(areaId);
-  if (!ta) return;
-  ta.select();
-  ta.setSelectionRange(0, 99999);
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(ta.value).then(function () {
-      flash(btn, '✅ تم النسخ');
-    }).catch(function () {
-      document.execCommand('copy');
-      flash(btn, '✅ تم النسخ');
-    });
-  } else {
-    document.execCommand('copy');
-    flash(btn, '✅ تم النسخ');
-  }
-}
-
-/* ---------- التبويب والنسخ ---------- */
-function switchOut(id, btn) {
-  currentOut = id;
-  ['email-en', 'email-ar', 'brief-en', 'brief-ar', 'brief-txt-en', 'brief-txt-ar'].forEach(function (k) {
-    $('out-' + k).style.display = k === id ? 'block' : 'none';
-  });
-  document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
-  btn.classList.add('active');
-  render();
-}
-
-function copyCurrent(btn) {
-  var el = $('out-' + currentOut);
-  if (currentOut === 'brief-txt-en' || currentOut === 'brief-txt-ar') {
-    var ta = el.querySelector('textarea');
-    if (ta) {
-      ta.select();
-      ta.setSelectionRange(0, 99999);
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(ta.value).then(function () {
-          flash(btn, '✅ تم النسخ');
-        }).catch(function () {
-          document.execCommand('copy');
-          flash(btn, '✅ تم النسخ');
+      if (toggleBtn && input) {
+        toggleBtn.addEventListener('click', function () {
+          var isPass = input.type === 'password';
+          input.type = isPass ? 'text' : 'password';
+          toggleBtn.setAttribute('aria-pressed', isPass ? 'true' : 'false');
+          toggleBtn.setAttribute('aria-label', isPass ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور');
+          eyeIcon.innerHTML = isPass ? eyeOffSvg : eyeOpenSvg;
         });
-      } else {
-        document.execCommand('copy');
-        flash(btn, '✅ تم النسخ');
       }
-      return;
-    }
-  }
-  copyRich(el, btn);
-}
-function copySubject(btn) {
-  var tmp = document.createElement('textarea');
-  tmp.value = $('subjectText').textContent;
-  document.body.appendChild(tmp); tmp.select();
-  try { document.execCommand('copy'); } catch (e) {}
-  document.body.removeChild(tmp);
-  flash(btn, '📋 ✅');
-}
-function copyRich(el, btn) {
-  var range = document.createRange();
-  range.selectNodeContents(el);
-  var sel = window.getSelection();
-  sel.removeAllRanges();
-  sel.addRange(range);
-  try { document.execCommand('copy'); } catch (e) {}
-  sel.removeAllRanges();
-  flash(btn, '✅ تم النسخ');
-}
-function flash(btn, txt) {
-  var old = btn.textContent;
-  btn.textContent = txt;
-  if (btn.classList.contains('copy-fab') || btn.classList.contains('copy-btn')) {
-    btn.classList.add('copied');
-    setTimeout(function () { btn.classList.remove('copied'); btn.textContent = old; }, 1800);
-  } else {
-    setTimeout(function () { btn.textContent = old; }, 1500);
-  }
-}
 
-/* ---------- مدير الحملات ---------- */
-var editingId = null;
+      if (input) {
+        input.addEventListener('input', clearStatus);
+      }
 
-function openEditor(id) {
-  if (!isAdmin) { mgrStatus('محتاج دخول المدير الأول 🔑', false); return; }
-  editingId = id || null;
-  var c = id ? CAMPAIGNS.filter(function (x) { return x.id === id; })[0] : null;
-  $('editorTitle').textContent = c ? 'تعديل حملة: ' + c.nameEn : 'حملة جديدة';
-  $('ed_nameEn').value = c ? c.nameEn : '';
-  $('ed_nameAr').value = c ? c.nameAr : '';
-  $('ed_monthEn').value = c ? c.monthEn : '';
-  $('ed_monthAr').value = c ? c.monthAr : '';
-  $('ed_promoCode').value = c ? c.promoCode : 'PROMO15';
-  $('ed_sender').value = c ? (c.sender || 'Mahmoud') : 'Mahmoud';
-  $('ed_briefUrl').value = c ? c.briefUrl : '';
-  $('ed_briefUrlEn').value = c ? (c.briefUrlEn || '') : '';
-  $('ed_briefUrlAr').value = c ? (c.briefUrlAr || '') : '';
-  $('ed_guideUrl').value = c ? c.guideUrl : '';
-  $('ed_portalUrl').value = c ? c.portalUrl : 'https://noon-invoice.vercel.app/';
-  $('ed_hashtags').value = c ? c.hashtags : '#noon #noonGCC';
-  $('ed_discounts').value = JSON.stringify(c ? c.countryDiscounts : seedCampaigns()[0].countryDiscounts, null, 2);
-  $('ed_phases').value = JSON.stringify(c ? c.phases : [], null, 2);
-  $('edStatus').className = 'status-msg';
-  $('editorModal').classList.add('show');
-}
-function closeEditor() { $('editorModal').classList.remove('show'); }
+      if (form) {
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          var password = String(input.value || '').trim();
+          if (!password) {
+            showStatus('يرجى إدخال كلمة مرور الدخول.', false);
+            triggerShake();
+            input.focus();
+            return;
+          }
 
-function newCampaignId() { return 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+          clearStatus();
+          submitBtn.disabled = true;
+          submitBtnText.textContent = 'جارٍ التحقق...';
 
-function saveCampaign() {
-  if (!isAdmin) { edStatus('محتاج دخول المدير الأول 🔑'); return; }
-  try {
-    var discounts = JSON.parse($('ed_discounts').value || '{}');
-    var phases = JSON.parse($('ed_phases').value || '[]');
-    if (!$('ed_nameEn').value.trim()) throw new Error('اسم الحملة بالإنجليزية مطلوب');
-    if (!phases.length) throw new Error('لازم مرحلة واحدة على الأقل');
-    var prev = editingId ? CAMPAIGNS.filter(function (x) { return x.id === editingId; })[0] : null;
-    var obj = {
-      id: editingId || newCampaignId(),
-      nameEn: $('ed_nameEn').value.trim(),
-      nameAr: $('ed_nameAr').value.trim() || $('ed_nameEn').value.trim(),
-      monthEn: $('ed_monthEn').value.trim() || 'Month',
-      monthAr: $('ed_monthAr').value.trim() || 'شهر',
-      promoCode: $('ed_promoCode').value.trim() || 'PROMO15',
-      sender: $('ed_sender').value.trim() || 'Mahmoud',
-      briefUrl: $('ed_briefUrl').value.trim(),
-      briefUrlEn: $('ed_briefUrlEn').value.trim(),
-      briefUrlAr: $('ed_briefUrlAr').value.trim(),
-      guideUrl: $('ed_guideUrl').value.trim(),
-      portalUrl: $('ed_portalUrl').value.trim(),
-      hashtags: $('ed_hashtags').value.trim(),
-      hidden: prev ? !!prev.hidden : false,
-      countryDiscounts: discounts,
-      phases: phases
-    };
-    if (editingId) {
-      CAMPAIGNS = CAMPAIGNS.map(function (c) { return c.id === editingId ? obj : c; });
-    } else {
-      CAMPAIGNS.push(obj);
-    }
-    saveCampaigns(CAMPAIGNS);
-    renderList();
-    fillCampaignSelect();
-    $('campaignId').value = obj.id;
-    onCampaignChange();
-    closeEditor();
-    mgrStatus('تم الحفظ ✅', true);
-  } catch (e) {
-    edStatus(e.message);
-  }
-}
+          try {
+            var res = await fetch('/api/auth', {
+              method: 'POST',
+              credentials: 'same-origin',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ action: 'site_login', password: password })
+            });
 
-function duplicateCampaign(id) {
-  if (!isAdmin) { mgrStatus('محتاج دخول المدير الأول 🔑', false); return; }
-  var c = CAMPAIGNS.filter(function (x) { return x.id === id; })[0];
-  if (!c) return;
-  var copy = JSON.parse(JSON.stringify(c));
-  copy.id = newCampaignId();
-  copy.nameEn = copy.nameEn + ' (COPY)';
-  CAMPAIGNS.push(copy);
-  saveCampaigns(CAMPAIGNS);
-  renderList();
-  mgrStatus('تم التكرار — افتح التعديل وغيّر بيانات الشهر الجديد ✅', true);
-}
+            var payload = {};
+            try { payload = await res.json(); } catch (err) {}
 
-function deleteCampaign(id) {
-  if (!isAdmin) { mgrStatus('محتاج دخول المدير الأول 🔑', false); return; }
-  if (!confirm('متأكد من حذف الحملة؟')) return;
-  CAMPAIGNS = CAMPAIGNS.filter(function (c) { return c.id !== id; });
-  saveCampaigns(CAMPAIGNS);
-  renderList();
-  fillCampaignSelect();
-}
+            if (res.ok && payload && payload.success) {
+              showStatus('تم التحقق بنجاح، جارٍ فتح مساحة العمل...', true);
+              var targetPath = (window.location.pathname === '/admin') ? '/admin' : '/';
+              window.location.replace(targetPath);
+              return;
+            }
 
-function exportCampaigns() {
-  if (!isAdmin) { mgrStatus('محتاج دخول المدير الأول 🔑', false); return; }
-  var blob = new Blob([JSON.stringify(CAMPAIGNS, null, 2)], { type: 'application/json' });
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'noon-campaigns-' + new Date().toISOString().slice(0, 10) + '.json';
-  a.click();
-}
-
-function importCampaigns(files) {
-  if (!isAdmin) { mgrStatus('محتاج دخول المدير الأول 🔑', false); return; }
-  if (!files || !files[0]) return;
-  var r = new FileReader();
-  r.onload = function (e) {
-    try {
-      var data = JSON.parse(e.target.result);
-      if (!Array.isArray(data)) throw new Error('الملف لازم يكون مصفوفة حملات');
-      var existingIds = CAMPAIGNS.map(function (c) { return c.id; });
-      var added = 0, skipped = 0;
-      data.forEach(function (c) {
-        if (!c.phases || !c.phases.length) return;
-        if (c.id && existingIds.indexOf(c.id) > -1) { skipped++; return; }
-        if (!c.id) c.id = 'c' + Date.now() + Math.floor(Math.random() * 999);
-        CAMPAIGNS.push(c); added++;
-      });
-      saveCampaigns(CAMPAIGNS);
-      renderList();
-      fillCampaignSelect();
-      if (!added && skipped) mgrStatus('كل الحملات موجودة بالفعل — مفيش حاجة جديدة', false);
-      else mgrStatus('تم استيراد ' + added + ' حملة' + (skipped ? ' (تجاهل ' + skipped + ' موجودة)' : '') + ' ✅', true);
-    } catch (err) {
-      mgrStatus('فشل الاستيراد: ' + err.message, false);
-    }
-  };
-  r.readAsText(files[0]);
-}
-
-function mgrStatus(msg, ok) {
-  var el = $('mgrStatus');
-  el.className = 'status-msg ' + (ok ? 'ok' : 'err');
-  el.textContent = msg;
-}
-function edStatus(msg) {
-  var el = $('edStatus');
-  el.className = 'status-msg err';
-  el.textContent = msg;
-}
-
-/* init */
-// اختصار لوحة المفاتيح: Ctrl + Alt + A
-document.addEventListener('keydown', function(e) {
-  if ((e.ctrlKey || e.metaKey) && e.altKey && (e.key === 'a' || e.key === 'A' || e.key === 'ش')) {
-    e.preventDefault();
-    triggerAdminEntry();
-    return false;
-  }
-});
-
-fillMonthSelects();
-applyAdminUI();
-fillCampaignSelect();
-$('senderName').value = currentCampaign().sender || 'Mahmoud';
-render();
-
-if (window.location.pathname.endsWith('/admin') || window.location.search.indexOf('admin') !== -1) {
-  setTimeout(function() { triggerAdminEntry(); }, 300);
-}
-</script>
+            showStatus((payload && payload.error) ? payload.error : 'تعذر تسجيل الدخول، يرجى المحاولة مرة أخرى.', false);
+            triggerShake();
+            if (res.status === 401) {
+              input.value = '';
+              input.focus();
+            }
+          } catch (err) {
+            showStatus('تعذر الاتصال بالخادم، يرجى التحقق من التشغيل والمحاولة مرة أخرى.', false);
+            triggerShake();
+          } finally {
+            submitBtn.disabled = false;
+            submitBtnText.textContent = 'دخول إلى المنصة';
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

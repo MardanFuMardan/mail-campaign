@@ -1,17 +1,30 @@
 {
   "version": 2,
+  "functions": {
+    "api/*.js": {
+      "includeFiles": "api/_private/**"
+    }
+  },
   "routes": [
     {
-      "src": "/api/(.*)",
+      "src": "^/api/_.*$",
+      "dest": "/api/page?p=notfound"
+    },
+    {
+      "src": "^/api/([^/]+)$",
       "dest": "/api/$1"
     },
     {
-      "src": "/admin",
-      "dest": "/index.html"
+      "src": "^/(?:index\\.html)?$",
+      "dest": "/api/page?p=home"
+    },
+    {
+      "src": "^/admin/?$",
+      "dest": "/api/page?p=admin"
     },
     {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/api/page?p=notfound"
     }
   ]
 }

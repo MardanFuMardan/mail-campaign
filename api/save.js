@@ -1,83 +1,134 @@
 const fs = require('fs');
 const path = require('path');
-const { verifyToken } = require('./auth');
+const {
+  getAuthConfig,
+  verifyToken,
+  parseCookies,
+  verifySameOrigin,
+  applySecurityHeaders,
+  parseJsonBody
+} = require('./_lib/auth-core');
 
 const REPO_OWNER = 'MardanFuMardan';
 const REPO_NAME = 'mail-campaign';
-const FILE_PATH = 'data/campaign-data.json';
+const FILE_PATH = 'api/_private/campaign-data.json';
+const DATA_PATH = path.join(__dirname, '_private', 'campaign-data.json');
 const BRANCH = 'main';
+const MAX_PAYLOAD_BYTES = 2 * 1024 * 1024;
+
+function validateCampaignPayload(data) {
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    return 'بيانات غير صالحة';
+  }
+  if (!data.static || typeof data.static !== 'object' || Array.isArray(data.static)) {
+    return 'قسم الثوابت (static) غير صالح';
+  }
+  if (!Array.isArray(data.campaigns)) {
+    return 'قائمة الحملات (campaigns) غير صالحة';
+  }
+  if (data.campaigns.length > 500) {
+    return 'عدد الحملات يتجاوز الحد المسموح';
+  }
+  for (let i = 0; i < data.campaigns.length; i++) {
+    const c = data.campaigns[i];
+    if (!c || typeof c !== 'object' || typeof c.id !== 'string' || !c.id.trim()) {
+      return `الحملة رقم ${i + 1} تفتقد المعرّف (id)`;
+    }
+    if (typeof c.nameEn !== 'string' || !c.nameEn.trim()) {
+      return `الحملة رقم ${i + 1} تفتقد الاسم الإنجليزي`;
+    }
+    if (!Array.isArray(c.phases) || c.phases.length === 0) {
+      return `الحملة (${c.nameEn}) يجب أن تحتوي على مرحلة واحدة على الأقل`;
+    }
+  }
+  return null;
+}
 
 module.exports = async function handler(req, res) {
-  // CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
+  applySecurityHeaders(res);
 
   if (req.method !== 'POST') {
     res.status(405).json({ success: false, error: 'Method Not Allowed' });
     return;
   }
 
+  if (!verifySameOrigin(req)) {
+    res.status(403).json({ success: false, error: 'طلب غير مصرح به من مصدر خارجي' });
+    return;
+  }
+
+  const cfg = getAuthConfig();
+  if (!cfg.configured) {
+    res.status(503).json({
+      success: false,
+      error: 'لم يتم تهيئة كلمات مرور المنصة على الخادم (SITE_PASSWORD / ADMIN_PASSWORD).'
+    });
+    return;
+  }
+
+  const cookies = parseCookies(req);
+  const isSite = verifyToken(cookies.noon_site, 'site', cfg.signingKey);
+  if (!isSite) {
+    res.status(401).json({ success: false, error: 'غير مصرح — يرجى تسجيل الدخول للمنصة أولاً.' });
+    return;
+  }
+
+  const isAdmin = verifyToken(cookies.noon_admin, 'admin', cfg.signingKey);
+  if (!isAdmin) {
+    res.status(403).json({ success: false, error: 'هذه العملية تتطلب تسجيل الدخول كمدير أولاً' });
+    return;
+  }
+
+  let body;
   try {
-    let body = req.body;
-    if (typeof body === 'string') {
-      try { body = JSON.parse(body); } catch (e) {}
-    }
-    body = body || {};
+    body = parseJsonBody(req);
+  } catch (err) {
+    res.status(err.statusCode || 400).json({ success: false, error: err.message || 'طلب غير صالح' });
+    return;
+  }
 
-    // 1. Verify Authentication
-    const authHeader = req.headers.authorization || '';
-    const token = body.token || (authHeader.startsWith('Bearer ') ? authHeader.substring(7) : authHeader);
-    if (!verifyToken(token)) {
-      res.status(401).json({ success: false, error: 'غير مصرح: يرجى تسجيل الدخول كمدير أولاً 🔒' });
-      return;
-    }
+  const payloadData = body.data;
+  const validationErr = validateCampaignPayload(payloadData);
+  if (validationErr) {
+    res.status(400).json({ success: false, error: validationErr });
+    return;
+  }
 
-    const payloadData = body.data;
-    if (!payloadData || typeof payloadData !== 'object') {
-      res.status(400).json({ success: false, error: 'بيانات غير صالحة' });
-      return;
-    }
+  const jsonString = JSON.stringify(payloadData, null, 2);
+  if (Buffer.byteLength(jsonString, 'utf8') > MAX_PAYLOAD_BYTES) {
+    res.status(413).json({ success: false, error: 'حجم البيانات يتجاوز الحد الأقصى (2MB)' });
+    return;
+  }
 
-    const jsonString = JSON.stringify(payloadData, null, 2);
+  let savedLocally = false;
+  try {
+    fs.writeFileSync(DATA_PATH, jsonString, 'utf8');
+    savedLocally = true;
+  } catch (e) {
+    // Expected on read-only serverless filesystems such as Vercel
+  }
 
-    // 2. Try updating local disk if available
-    let savedLocally = false;
-    try {
-      const dataPath = path.join(process.cwd(), 'data', 'campaign-data.json');
-      fs.writeFileSync(dataPath, jsonString, 'utf8');
-      savedLocally = true;
-    } catch (e) {
-      // Disk might be read-only in Serverless environment, which is expected
-    }
+  const ghToken = String((body.githubToken || process.env.GITHUB_TOKEN || '')).trim();
+  const commitMsg = String(body.commitMessage || 'تحديث قوالب وبيانات الحملات من لوحة الإدارة').trim();
 
-    // 3. GitHub API Commit for automatic Vercel Deployment
-    const ghToken = (body.githubToken || process.env.GITHUB_TOKEN || '').trim();
-    const commitMsg = (body.commitMessage || 'تحديث قوالب وبيانات الحملات من لوحة الإدارة').trim();
-
-    if (!ghToken) {
-      if (savedLocally) {
-        res.status(200).json({
-          success: true,
-          savedLocally: true,
-          githubCommitted: false,
-          message: 'تم الحفظ محلياً بنجاح! لم يتم النشر على GitHub لعدم وجود GitHub Token. أدخل التوكن في تبويب الإعدادات لتفعيل النشر التلقائي على Vercel.'
-        });
-        return;
-      }
-      res.status(400).json({
-        success: false,
-        error: 'مطلوب GitHub Personal Access Token لنشر التعديلات على GitHub و Vercel. يرجى إدخاله في تبويب الإعدادات.'
+  if (!ghToken) {
+    if (savedLocally) {
+      res.status(200).json({
+        success: true,
+        savedLocally: true,
+        githubCommitted: false,
+        message: 'تم الحفظ محلياً بنجاح!'
       });
       return;
     }
+    res.status(400).json({
+      success: false,
+      error: 'مطلوب GitHub Personal Access Token (أو GITHUB_TOKEN في Vercel) لنشر التعديلات من الخادم السحابي.'
+    });
+    return;
+  }
 
-    // Get current file SHA from GitHub
+  try {
     const getUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}`;
     const getResp = await fetch(getUrl, {
       headers: {
@@ -93,19 +144,14 @@ module.exports = async function handler(req, res) {
       fileSha = fileData.sha;
     }
 
-    // Prepare Base64 payload (preserving UTF-8 for Arabic)
     const base64Content = Buffer.from(jsonString, 'utf8').toString('base64');
-
-    // PUT commit to GitHub
     const putUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
     const putPayload = {
       message: commitMsg,
       content: base64Content,
       branch: BRANCH
     };
-    if (fileSha) {
-      putPayload.sha = fileSha;
-    }
+    if (fileSha) putPayload.sha = fileSha;
 
     const putResp = await fetch(putUrl, {
       method: 'PUT',
@@ -119,7 +165,6 @@ module.exports = async function handler(req, res) {
     });
 
     const putResult = await putResp.json();
-
     if (!putResp.ok) {
       res.status(putResp.status).json({
         success: false,
@@ -130,12 +175,12 @@ module.exports = async function handler(req, res) {
 
     res.status(200).json({
       success: true,
+      savedLocally: savedLocally,
       githubCommitted: true,
       commitSha: putResult.commit ? putResult.commit.sha : null,
-      message: 'تم الحفظ وعمل Commit على GitHub بنجاح! 🚀 Vercel يقوم الآن بإعادة النشر التلقائي خلال لحظات.'
+      message: 'تم الحفظ وعمل Commit على GitHub بنجاح! 🚀 يتم تحديث النشر تلقائياً.'
     });
-
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ success: false, error: 'تعذر الاتصال بخدمة GitHub لحفظ التغييرات' });
   }
 };

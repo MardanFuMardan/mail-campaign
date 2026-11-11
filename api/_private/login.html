@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23feee00'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='21' font-weight='900' text-anchor='middle' fill='%23111111'%3En%3C/text%3E%3C/svg%3E">
+  <title>noon · Campaign Hub — بوابة الدخول الآمنة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090B10;
+      --panel: #111722;
+      --line: rgba(255, 255, 255, 0.085);
+      --line-strong: rgba(255, 255, 255, 0.16);
+      --text: #F5F7FA;
+      --muted: #A2ADBC;
+      --muted-2: #748093;
+      --yellow: #feee00;
+      --yellow-2: #e9d000;
+      --err: #f87171;
+      --ok: #34d399;
+      --ease: cubic-bezier(0.2, 0.75, 0.25, 1);
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { background: var(--bg); }
+
+    body {
+      font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px 16px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(ellipse at 18% 12%, rgba(254, 238, 0, 0.075), transparent 36%),
+        radial-gradient(ellipse at 85% 82%, rgba(96, 165, 250, 0.085), transparent 40%),
+        linear-gradient(155deg, #080A0F 0%, #0B1018 52%, #090B10 100%) fixed;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
+    }
+
+    .ambient-orb {
+      position: fixed;
+      width: 440px;
+      height: 440px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .ambient-orb.one { top: -120px; right: -160px; background: var(--yellow); }
+    .ambient-orb.two { bottom: -140px; left: -160px; background: #4f64a5; }
+
+    .gate-shell {
+      width: 100%;
+      max-width: 420px;
+      animation: gateRise 0.45s var(--ease) both;
+    }
+
+    @keyframes gateRise {
+      from { opacity: 0; transform: translateY(16px) scale(0.985); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .gate-card.shake { animation: shake 0.36s ease; }
+
+    .brand-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 22px;
+      gap: 10px;
+    }
+
+    .brand-symbol {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: var(--yellow);
+      color: #111111;
+      font-size: 26px;
+      font-weight: 950;
+      letter-spacing: -2px;
+      box-shadow: 0 0 32px rgba(254, 238, 0, 0.28);
+      user-select: none;
+    }
+
+    .brand-heading {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      flex-wrap: wrap;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+    .brand-yellow {
+      color: var(--yellow);
+      font-weight: 950;
+      text-transform: lowercase;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+    }
+    .hub-divider {
+      color: var(--muted-2);
+      opacity: 0.55;
+      font-weight: 400;
+      font-size: 22px;
+    }
+    .brand-white {
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 23px;
+    }
+    .brand-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .gate-card {
+      background: linear-gradient(155deg, rgba(21, 29, 42, 0.90) 0%, rgba(15, 21, 31, 0.97) 100%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 26px 24px 24px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 26px 70px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .gate-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .gate-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: rgba(254, 238, 0, 0.09);
+      border: 1px solid rgba(254, 238, 0, 0.25);
+      color: var(--yellow);
+      flex-shrink: 0;
+    }
+
+    .gate-title {
+      margin: 0;
+      font-size: 15.5px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+    .gate-desc {
+      margin: 2px 0 0;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .field-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #DCE3EE;
+      margin-bottom: 8px;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .pass-input {
+      width: 100%;
+      height: 46px;
+      border-radius: 11px;
+      border: 1px solid var(--line-strong);
+      background: rgba(9, 11, 16, 0.85);
+      color: #FFFFFF;
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 700;
+      padding: 0 14px 0 46px;
+      outline: none;
+      direction: ltr;
+      text-align: left;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .pass-input::placeholder {
+      color: var(--muted-2);
+      font-weight: 600;
+    }
+    .pass-input:focus {
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(254, 238, 0, 0.14);
+      background: rgba(9, 11, 16, 0.98);
+    }
+
+    .toggle-vis-btn {
+      position: absolute;
+      left: 8px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: color 0.18s ease, background 0.18s ease;
+    }
+    .toggle-vis-btn:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .submit-btn {
+      width: 100%;
+      height: 46px;
+      margin-top: 16px;
+      border: none;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--yellow), var(--yellow-2));
+      color: #090B10;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(254, 238, 0, 0.22);
+      transition: transform 0.18s var(--ease), box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(254, 238, 0, 0.34);
+    }
+    .submit-btn:active:not(:disabled) { transform: scale(0.985); }
+    .submit-btn:disabled { opacity: 0.65; cursor: not-allowed; }
+
+    .status-box {
+      display: none;
+      margin-top: 14px;
+      padding: 11px 13px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      line-height: 1.55;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .status-box.err {
+      display: flex;
+      background: rgba(248, 113, 113, 0.10);
+      border: 1px solid rgba(248, 113, 113, 0.32);
+      color: #fca5a5;
+    }
+    .status-box.ok {
+      display: flex;
+      background: rgba(52, 211, 153, 0.10);
+      border: 1px solid rgba(52, 211, 153, 0.34);
+      color: #6ee7b7;
+    }
+
+    .gate-footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--muted-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    @media (max-width: 440px) {
+      .gate-card { padding: 22px 18px 20px; }
+      .brand-yellow { font-size: 25px; }
+      .brand-white { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-orb one" aria-hidden="true"></div>
+  <div class="ambient-orb two" aria-hidden="true"></div>
+
+  <main class="gate-shell">
+    <div class="brand-lockup">
+      <div class="brand-symbol" aria-hidden="true">n</div>
+      <h1 class="brand-heading">
+        <span class="brand-yellow">noon</span>
+        <span class="hub-divider">·</span>
+        <span class="brand-white">Campaign Hub</span>
+      </h1>
+      <p class="brand-subtitle">منصة عمليات التسويق الخاصة — وصول مصرح به فقط</p>
+    </div>
+
+    <section class="gate-card" id="gateCard" aria-labelledby="gateHeading">
+      <div class="gate-header">
+        <div class="gate-icon-box" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="gate-title" id="gateHeading">بوابة الدخول المحمية</h2>
+          <p class="gate-desc">أدخل كلمة مرور الوصول للمتابعة إلى مساحة العمل</p>
+        </div>
+      </div>
+
+      <form id="siteGateForm" novalidate>
+        <label class="field-label" for="sitePasswordInput">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m21 2-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+          </svg>
+          <span>كلمة مرور الدخول</span>
+        </label>
+
+        <div class="input-wrap">
+          <input
+            type="password"
+            id="sitePasswordInput"
+            class="pass-input"
+            placeholder="••••••••••••"
+            autocomplete="current-password"
+            required
+            autofocus
+          >
+          <button type="button" class="toggle-vis-btn" id="toggleVisBtn" aria-label="إظهار كلمة المرور" aria-pressed="false">
+            <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/>
+            <line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+          <span id="submitBtnText">دخول إلى المنصة</span>
+        </button>
+
+        <div class="status-box" id="gateStatus" role="alert" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <div class="gate-footer">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span>تحقق آمن من جانب الخادم — لا يتم تحميل أي بيانات قبل المصادقة</span>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var form = document.getElementById('siteGateForm');
+      var input = document.getElementById('sitePasswordInput');
+      var toggleBtn = document.getElementById('toggleVisBtn');
+      var eyeIcon = document.getElementById('eyeIcon');
+      var submitBtn = document.getElementById('submitBtn');
+      var submitBtnText = document.getElementById('submitBtnText');
+      var statusBox = document.getElementById('gateStatus');
+      var gateCard = document.getElementById('gateCard');
+
+      var eyeOpenSvg = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>';
+      var eyeOffSvg = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/>';
+
+      function showStatus(msg, ok) {
+        statusBox.className = 'status-box ' + (ok ? 'ok' : 'err');
+        statusBox.textContent = msg;
+      }
+
+      function clearStatus() {
+        statusBox.className = 'status-box';
+        statusBox.textContent = '';
+      }
+
+      function triggerShake() {
+        gateCard.classList.remove('shake');
+        void gateCard.offsetWidth;
+        gateCard.classList.add('shake');
+      }
+
+      if (toggleBtn && input) {
+        toggleBtn.addEventListener('click', function () {
+          var isPass = input.type === 'password';
+          input.type = isPass ? 'text' : 'password';
+          toggleBtn.setAttribute('aria-pressed', isPass ? 'true' : 'false');
+          toggleBtn.setAttribute('aria-label', isPass ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور');
+          eyeIcon.innerHTML = isPass ? eyeOffSvg : eyeOpenSvg;
+        });
+      }
+
+      if (input) {
+        input.addEventListener('input', clearStatus);
+      }
+
+      if (form) {
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          var password = String(input.value || '').trim();
+          if (!password) {
+            showStatus('يرجى إدخال كلمة مرور الدخول.', false);
+            triggerShake();
+            input.focus();
+            return;
+          }
+
+          clearStatus();
+          submitBtn.disabled = true;
+          submitBtnText.textContent = 'جارٍ التحقق...';
+
+          try {
+            var res = await fetch('/api/auth', {
+              method: 'POST',
+              credentials: 'same-origin',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ action: 'site_login', password: password })
+            });
+
+            var payload = {};
+            try { payload = await res.json(); } catch (err) {}
+
+            if (res.ok && payload && payload.success) {
+              showStatus('تم التحقق بنجاح، جارٍ فتح مساحة العمل...', true);
+              var targetPath = (window.location.pathname === '/admin') ? '/admin' : '/';
+              window.location.replace(targetPath);
+              return;
+            }
+
+            showStatus((payload && payload.error) ? payload.error : 'تعذر تسجيل الدخول، يرجى المحاولة مرة أخرى.', false);
+            triggerShake();
+            if (res.status === 401) {
+              input.value = '';
+              input.focus();
+            }
+          } catch (err) {
+            showStatus('تعذر الاتصال بالخادم، يرجى التحقق من التشغيل والمحاولة مرة أخرى.', false);
+            triggerShake();
+          } finally {
+            submitBtn.disabled = false;
+            submitBtnText.textContent = 'دخول إلى المنصة';
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
